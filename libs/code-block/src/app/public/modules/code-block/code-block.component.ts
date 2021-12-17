@@ -4,7 +4,8 @@ import {
   ViewChild,
   AfterViewInit,
   ChangeDetectorRef,
-  OnInit
+  OnInit,
+  ElementRef
 } from '@angular/core';
 
 import {
@@ -26,8 +27,18 @@ import {
   styleUrls: ['./code-block.component.scss']
 })
 export class SkyCodeBlockComponent implements AfterViewInit, OnInit {
+
   @Input()
-  public code: string;
+  public set code(value: string) {
+    if (value !== this._code) {
+      this._code = value;
+      this.initCodeBlockDisplay();
+    }
+  }
+
+  public get code(): string {
+    return this._code;
+  }
 
   @Input()
   public fileName: string;
@@ -52,13 +63,15 @@ export class SkyCodeBlockComponent implements AfterViewInit, OnInit {
     return this._languageType;
   }
 
-  @ViewChild('codeFromContent')
-  public codeTemplateRef: any;
+  @ViewChild('codeFromContent', { read: ElementRef })
+  public codeTemplateRef: ElementRef;
 
   public output: SafeHtml;
   public displayName: string;
+
   private readonly defaultLanguage = 'markup';
   private validLanguages: string[];
+  private _code: string;
   private _languageType: string = this.defaultLanguage;
 
   public constructor(
@@ -74,18 +87,7 @@ export class SkyCodeBlockComponent implements AfterViewInit, OnInit {
   }
 
   public ngAfterViewInit(): void {
-    let code = '';
-
-    if (this.code) {
-      code = this.code;
-    } else {
-      code = this.codeTemplateRef.nativeElement.textContent;
-    }
-
-    code = this.formatCode(code);
-    code = this.highlightCode(code);
-    this.output = this.sanitizer.bypassSecurityTrustHtml(code);
-    this.cdRef.detectChanges();
+    this.initCodeBlockDisplay();
   }
 
   public getClassName(): string {
@@ -110,5 +112,16 @@ export class SkyCodeBlockComponent implements AfterViewInit, OnInit {
 
   private highlightCode(code: string): string {
     return Prism.highlight(code, Prism.languages[this.languageType], this.languageType);
+  }
+
+  private initCodeBlockDisplay(): void {
+    if (this.codeTemplateRef) {
+      const textContent = this.codeTemplateRef.nativeElement.textContent;
+      let code = this.code || textContent;
+      code = this.formatCode(code);
+      code = this.highlightCode(code);
+      this.output = this.sanitizer.bypassSecurityTrustHtml(code);
+      this.cdRef.detectChanges();
+    }
   }
 }

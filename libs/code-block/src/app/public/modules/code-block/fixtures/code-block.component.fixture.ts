@@ -4,4 +4,8 @@ import { Component } from '@angular/core';
   selector: 'sky-test-component',
   templateUrl: './code-block.component.fixture.html'
 })
-export class SkyCodeBlockTestComponent {}
+export class SkyCodeBlockTestComponent {
+
+  public code: any;
+
+}
