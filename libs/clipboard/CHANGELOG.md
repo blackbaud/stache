@@ -1,3 +1,13 @@
+# 5.0.0-beta.1 (2021-03-23)
+
+- Added the ability to specify `aria-label` and `aria-labelledby` attributes on the copy to clipboard button. [#39](https://github.com/blackbaud/skyux-lib-clipboard/pull/39)
+
+# 5.0.0-beta.0 (2020-10-08)
+
+### New features
+
+- Added support for Angular 12. [#38](https://github.com/blackbaud/skyux-lib-clipboard/pull/38)
+
 # 4.0.0 (2020-05-22)
 
 ### New features
