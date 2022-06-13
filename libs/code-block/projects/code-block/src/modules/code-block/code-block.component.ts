@@ -30,6 +30,7 @@ export class SkyCodeBlockComponent implements AfterViewInit, OnInit {
 
   @Input()
   public set code(value: string) {
+    /*istanbul ignore else*/
     if (value !== this._code) {
       this._code = value;
       this.initCodeBlockDisplay();
