@@ -1,3 +1,7 @@
+# 6.0.0-beta.0 (2022-06-13)
+
+- Added support for Angular 13. [#28](https://github.com/blackbaud/skyux-lib-media/pull/28)
+
 # 5.0.0-beta.0 (2021-10-08)
 
 - Initial `5.0.0-beta` release. [#26](https://github.com/blackbaud/skyux-lib-media/pull/26)
