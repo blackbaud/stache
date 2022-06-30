@@ -5,11 +5,11 @@
     "@angular/common": "^13.3.11",
     "@angular/core": "^13.3.11",
     "@blackbaud/skyux-lib-clipboard": "^6.0.0-beta.0",
-    "@skyux/core": "^6.3.0",
-    "@skyux/i18n": "^6.3.0"
+    "@skyux/core": "^6.3.3",
+    "@skyux/i18n": "^6.3.3"
   },
   "dependencies": {
-    "prismjs": "1.24.1",
+    "prismjs": "1.28.0",
     "tslib": "^2.4.0"
   }
 }
