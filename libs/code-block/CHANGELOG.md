@@ -1,3 +1,7 @@
+# 6.0.0-beta.1 (2022-06-30)
+
+- Added support for `prismjs@1.28.0` to address a security vulnerability warning. [#59](https://github.com/blackbaud/skyux-lib-code-block/pull/59)
+
 # 6.0.0-beta.0 (2022-06-13)
 
 - Added support for Angular 13. [#58](https://github.com/blackbaud/skyux-lib-code-block/pull/58)
