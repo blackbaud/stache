@@ -1,3 +1,13 @@
+# 7.0.0-beta.0 (2022-09-27)
+
+### ⚠ BREAKING CHANGES
+
+- Dropped support for Angular 13. [#62](https://github.com/blackbaud/skyux-lib-code-block/pull/62)
+
+### Features
+
+- Added support for Angular 14. [#62](https://github.com/blackbaud/skyux-lib-code-block/pull/62)
+
 # 6.0.0 (2022-09-26)
 
 - Added support for Angular 13. [#58](https://github.com/blackbaud/skyux-lib-code-block/pull/58)
