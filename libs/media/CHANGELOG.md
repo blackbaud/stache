@@ -1,3 +1,13 @@
+# 7.0.0-beta.0 (2022-09-26)
+
+### ⚠ BREAKING CHANGES
+
+- Dropped support for Angular 13. [#30](https://github.com/blackbaud/skyux-lib-media/pull/30)
+
+### Features
+
+- Added support for Angular 14. [#30](https://github.com/blackbaud/skyux-lib-media/pull/30)
+
 # 6.0.0 (2022-09-26)
 
 - Added support for Angular 13. [#28](https://github.com/blackbaud/skyux-lib-media/pull/28)
