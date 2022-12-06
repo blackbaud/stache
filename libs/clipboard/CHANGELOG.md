@@ -1,3 +1,13 @@
+# 7.0.0 (2022-12-06)
+
+### ⚠ BREAKING CHANGES
+
+- Dropped support for Angular 13. [#47](https://github.com/blackbaud/skyux-lib-clipboard/pull/47)
+
+### Features
+
+- Added support for Angular 14. [#47](https://github.com/blackbaud/skyux-lib-clipboard/pull/47)
+
 # 7.0.0-beta.0 (2022-09-26)
 
 ### ⚠ BREAKING CHANGES
