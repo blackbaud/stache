@@ -1,0 +1,32 @@
+@import 'node_modules/@skyux/theme/scss/mixins';
+@import 'node_modules/@skyux/theme/scss/variables';
+
+.sky-video {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  margin: $sky-margin-stacked-default 0;
+
+  &:before {
+    content: "";
+    display: block;
+    padding-top: 56.25%;
+  }
+
+  &:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  .sky-video-object {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+}
