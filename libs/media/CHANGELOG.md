@@ -1,3 +1,6 @@
+**Note:** Change logs for individual libraries are no longer maintained. For the most recent changes, reference the `CHANGELOG.md` file located at the workspace root.
+
+___
 # 7.0.0 (2022-12-06)
 
 ### ⚠ BREAKING CHANGES
