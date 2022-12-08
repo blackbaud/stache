@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { StacheAuthService } from '../auth/auth.service';
 import { StacheRouterModule } from '../router/router.module';
-import { StacheResourcesModule } from '../shared/stache-resources.module';
+import { SkyStacheResourcesModule } from '../shared/sky-stache-resources.module';
 import { StacheWindowRef } from '../shared/window-ref';
 
 import { StacheRouterLinkDirective } from './link.directive';
@@ -16,7 +16,7 @@ import { StacheNavService } from './nav.service';
   imports: [
     CommonModule,
     RouterModule,
-    StacheResourcesModule,
+    SkyStacheResourcesModule,
     StacheRouterModule,
   ],
   exports: [StacheNavComponent, StacheRouterLinkDirective],

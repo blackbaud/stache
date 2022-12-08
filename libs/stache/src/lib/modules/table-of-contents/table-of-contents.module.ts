@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { StacheAffixModule } from '../affix/affix.module';
 import { StacheNavModule } from '../nav/nav.module';
-import { StacheResourcesModule } from '../shared/stache-resources.module';
+import { SkyStacheResourcesModule } from '../shared/sky-stache-resources.module';
 import { StacheWindowRef } from '../shared/window-ref';
 
 import { StacheTableOfContentsWrapperComponent } from './table-of-contents-wrapper.component';
@@ -18,7 +18,7 @@ import { StacheTableOfContentsComponent } from './table-of-contents.component';
     CommonModule,
     StacheNavModule,
     StacheAffixModule,
-    StacheResourcesModule,
+    SkyStacheResourcesModule,
   ],
   exports: [
     StacheTableOfContentsWrapperComponent,
