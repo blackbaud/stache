@@ -5,9 +5,79 @@
   "scripts": {
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js",
-    "start": "nx serve",
-    "build": "nx build",
-    "test": "nx test"
+    "build": "nx run-many --target=build --all --parallel",
+    "postbuild": "nx run-many --target=postbuild --all --parallel",
+    "build:affected": "nx affected:build --parallel",
+    "test": "nx run-many --target=test --all --browsers=ChromeHeadless --parallel",
+    "posttest": "nx run-many --target=posttest --all --parallel --maxParallel=5",
+    "test:affected": "nx affected:test --browsers=ChromeHeadless --parallel",
+    "dev:check-library-dependencies": "skyux-dev check-lib-dependencies",
+    "dev:check-library-missing-peers": "skyux-dev check-lib-missing-peers",
+    "dev:cherry-pick": "skyux-dev cherry-pick",
+    "dev:commit": "npx cz",
+    "dev:create-packages-dist": "skyux-dev create-packages-dist",
+    "dev:create-library-resources": "skyux-dev create-lib-resources",
+    "dev:format": "npx prettier --write .",
+    "dev:pristine": "skyux-dev pristine-commit"
+  },
+  "engines": {
+    "node": "^16.18.1",
+    "npm": "^8.19.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/@ryansonshine/cz-conventional-changelog",
+      "types": {
+        "feat": {
+          "description": "A new feature",
+          "title": "Features"
+        },
+        "fix": {
+          "description": "A bug fix",
+          "title": "Bug Fixes"
+        },
+        "docs": {
+          "description": "Documentation only changes",
+          "title": "Documentation"
+        },
+        "style": {
+          "description": "Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)",
+          "title": "Styles"
+        },
+        "refactor": {
+          "description": "A code change that neither fixes a bug nor adds a feature",
+          "title": "Code Refactoring"
+        },
+        "perf": {
+          "description": "A code change that improves performance",
+          "title": "Performance Improvements"
+        },
+        "test": {
+          "description": "Adding missing tests or correcting existing tests",
+          "title": "Tests"
+        },
+        "build": {
+          "description": "Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)",
+          "title": "Builds"
+        },
+        "ci": {
+          "description": "Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)",
+          "title": "Continuous Integrations"
+        },
+        "chore": {
+          "description": "Other changes that don't modify src or test files",
+          "title": "Chores"
+        },
+        "revert": {
+          "description": "Reverts a previous commit",
+          "title": "Reverts"
+        },
+        "deprecation": {
+          "description": "A type, property, or solution is marked deprecated",
+          "title": "Deprecations"
+        }
+      }
+    }
   },
   "private": true,
   "devDependencies": {
