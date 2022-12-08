@@ -125,7 +125,6 @@ jobs:
     name: Build packages distribution
     needs: install-deps
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' }}
     steps:
       - uses: actions/checkout@v3
         with:
