@@ -38,7 +38,7 @@ jobs:
             migrations
             packaging
             release
-            apps/playground
+            playground
             clipboard
             code-block
             media

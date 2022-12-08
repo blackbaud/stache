@@ -86,8 +86,8 @@ jobs:
         run: npx skyux-dev check-lib-dependencies
       - name: Check library missing peers
         run: npx skyux-dev check-lib-missing-peers
-      # - name: Check library resources
-      #   run: npx skyux-dev check-lib-resources
+      - name: Check library resources
+        run: npx skyux-dev check-lib-resources
       - name: Check code formatting
         run: npx prettier --check .
       - name: Run lint
