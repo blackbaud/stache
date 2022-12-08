@@ -1,9 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { expect } from '@skyux-sdk/testing';
 
 import { StacheHideFromSearchComponent } from './hide-from-search.component';
-
 import { StacheHideFromSearchModule } from './hide-from-search.module';
 
 describe('StacheHideFromSearchComponent', () => {

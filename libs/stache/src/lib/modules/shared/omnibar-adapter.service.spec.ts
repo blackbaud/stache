@@ -1,12 +1,11 @@
 import { RendererFactory2 } from '@angular/core';
 
+import { StacheOmnibarAdapterService } from './omnibar-adapter.service';
 import { StacheWindowRef } from './window-ref';
 
-import { StacheOmnibarAdapterService } from './omnibar-adapter.service';
+let mockEnabled = false;
 
-let mockEnabled: boolean = false;
-
-let mockElement: any = {};
+const mockElement: any = {};
 
 class MockRenderer {
   public data: any;

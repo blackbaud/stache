@@ -1,6 +1,7 @@
 **Note:** Change logs for individual libraries are no longer maintained. For the most recent changes, reference the `CHANGELOG.md` file located at the workspace root.
 
-___
+---
+
 # 7.0.0 (2022-12-06)
 
 ### ⚠ BREAKING CHANGES
@@ -65,7 +66,6 @@ ___
 
 - Fixed the `prismjs` imports to reference the ES6 modules. [#33](https://github.com/blackbaud/skyux-lib-code-block/pull/33)
 - Removed the deep imports to `prismjs` to satisfy the warnings from the Angular Ivy Compiler. [#26](https://github.com/blackbaud/skyux-lib-code-block/pull/26)
-
 
 # 2.0.0-rc.4 (2020-05-07)
 

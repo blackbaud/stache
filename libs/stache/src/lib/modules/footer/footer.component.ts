@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-
 import { SkyAppConfig } from '@skyux/config';
-
 import { SkyLibResourcesService } from '@skyux/i18n';
 
+import lodashGet from 'lodash.get';
 import { first } from 'rxjs/operators';
 
 import { StacheNavLink } from '../nav/nav-link';
-
-import lodashGet from 'lodash.get';
 
 @Component({
   selector: 'stache-footer',

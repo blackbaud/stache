@@ -1,18 +1,17 @@
 import {
   Component,
+  ElementRef,
+  Input,
   OnChanges,
   OnInit,
-  Input,
-  ViewChild,
-  ElementRef,
   Renderer2,
+  ViewChild,
 } from '@angular/core';
 
-import { StacheLayout } from './layout';
-
 import { StacheNavLink } from '../nav/nav-link';
-
 import { StacheWindowRef } from '../shared/window-ref';
+
+import { StacheLayout } from './layout';
 
 @Component({
   selector: 'stache-layout',
@@ -92,10 +91,10 @@ export class StacheLayoutComponent implements OnInit, OnChanges, StacheLayout {
   }
 
   private setMinHeight() {
-    let wrapper = this.elementRef.nativeElement.querySelector(
+    const wrapper = this.elementRef.nativeElement.querySelector(
       '.stache-layout-wrapper'
     );
-    let minHeight =
+    const minHeight =
       this.windowRef.nativeWindow.innerHeight -
       wrapper.getBoundingClientRect().top;
     this.renderer.setStyle(wrapper, 'min-height', `${minHeight}px`);

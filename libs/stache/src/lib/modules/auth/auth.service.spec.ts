@@ -1,4 +1,5 @@
 import { waitForAsync } from '@angular/core/testing';
+
 import { StacheAuthService } from './auth.service';
 
 describe('Auth service', () => {

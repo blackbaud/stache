@@ -1,33 +1,32 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-
 import { Renderer2 } from '@angular/core';
-
-import { expect } from '@skyux-sdk/testing';
-
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { expect } from '@skyux-sdk/testing';
 
 import { of as observableOf } from 'rxjs';
 
-import { StacheTableOfContentsModule } from './table-of-contents.module';
+import { StacheNavModule } from '../nav/nav.module';
+import { StacheRouteService } from '../router/route.service';
+import { StacheOmnibarAdapterService } from '../shared/omnibar-adapter.service';
+import { StacheWindowRef } from '../shared/window-ref';
 
 import { StacheTableOfContentsWrapperComponent } from './table-of-contents-wrapper.component';
-
-import { StacheNavModule } from '../nav/nav.module';
-
-import { StacheOmnibarAdapterService } from '../shared/omnibar-adapter.service';
-
-import { StacheRouteService } from '../router/route.service';
-
-import { StacheWindowRef } from '../shared/window-ref';
+import { StacheTableOfContentsModule } from './table-of-contents.module';
 
 class MockWindowService {
   public nativeWindow = {
     document: {
-      querySelector: () => {},
+      querySelector: () => {
+        /* */
+      },
       body: {
         classList: {
-          add: () => {},
-          remove: () => {},
+          add: () => {
+            /* */
+          },
+          remove: () => {
+            /* */
+          },
         },
       },
     },
@@ -42,8 +41,12 @@ class MockStacheRouteService {
 
 class MockRenderer {
   public classList: any[] = [];
-  public addClass = (el: any, classname: any) => {};
-  public removeClass = (el: any, classname: any) => {};
+  public addClass = (el: any, classname: any) => {
+    /* */
+  };
+  public removeClass = (el: any, classname: any) => {
+    /* */
+  };
 }
 
 const route = {

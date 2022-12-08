@@ -2,32 +2,23 @@ import {
   ComponentFixture,
   TestBed,
   async,
-  fakeAsync
+  fakeAsync,
 } from '@angular/core/testing';
-
-import {
-  expect
-} from '@skyux-sdk/testing';
-
 import {
   SkyClipboardModule,
-  SkyCopyToClipboardService
+  SkyCopyToClipboardService,
 } from '@blackbaud/skyux-lib-clipboard';
+import { expect } from '@skyux-sdk/testing';
 
-import {
-  SkyCodeBlockTestComponent
-} from './fixtures/code-block.component.fixture';
+import { SkyCodeBlockResourcesModule } from '../shared/sky-code-block-resources.module';
 
-import {
-  SkyCodeBlockComponent
-} from './code-block.component';
-
-import {
-  SkyCodeBlockResourcesModule
-} from '../shared/sky-code-block-resources.module';
+import { SkyCodeBlockComponent } from './code-block.component';
+import { SkyCodeBlockTestComponent } from './fixtures/code-block.component.fixture';
 
 class MockClipboardService {
-  public copyContent() { }
+  public copyContent() {
+    /* */
+  }
 }
 
 describe('SkyCodeBlockComponent', () => {
@@ -40,17 +31,11 @@ describe('SkyCodeBlockComponent', () => {
     mockClipboardService = new MockClipboardService();
 
     TestBed.configureTestingModule({
-      declarations: [
-        SkyCodeBlockTestComponent,
-        SkyCodeBlockComponent
-      ],
+      declarations: [SkyCodeBlockTestComponent, SkyCodeBlockComponent],
       providers: [
-        { provide: SkyCopyToClipboardService, useValue: mockClipboardService }
+        { provide: SkyCopyToClipboardService, useValue: mockClipboardService },
       ],
-      imports: [
-        SkyClipboardModule,
-        SkyCodeBlockResourcesModule
-      ]
+      imports: [SkyClipboardModule, SkyCodeBlockResourcesModule],
     });
 
     fixture = TestBed.createComponent(SkyCodeBlockComponent);
@@ -58,7 +43,7 @@ describe('SkyCodeBlockComponent', () => {
     element = fixture.nativeElement;
   });
 
-  it('should accept a string of code in the [code] attribute', () => {
+  fit('should accept a string of code in the [code] attribute', () => {
     const code = '<p>asdf</p>';
     component.code = code;
     fixture.detectChanges();
@@ -76,12 +61,16 @@ describe('SkyCodeBlockComponent', () => {
     const code = '{ "foo": "bar" }';
     component.code = code;
     fixture.detectChanges();
-    expect(element.querySelector('.sky-code-output').textContent).toContain(code);
+    expect(element.querySelector('.sky-code-output').textContent).toContain(
+      code
+    );
 
     const newCode = '{ "foo": "baz" }';
     component.code = newCode;
     fixture.detectChanges();
-    expect(element.querySelector('.sky-code-output').textContent).toContain(newCode);
+    expect(element.querySelector('.sky-code-output').textContent).toContain(
+      newCode
+    );
   }));
 
   it('should convert inner HTML to a string', () => {
@@ -89,7 +78,9 @@ describe('SkyCodeBlockComponent', () => {
     const testFixture = TestBed.createComponent(SkyCodeBlockTestComponent);
     const testElement = testFixture.nativeElement;
     testFixture.detectChanges();
-    expect(testElement.querySelector('.sky-code-output').textContent).toContain(code);
+    expect(testElement.querySelector('.sky-code-output').textContent).toContain(
+      code
+    );
   });
 
   it('should not honor angular bindings in the inner HTML', () => {
@@ -97,7 +88,9 @@ describe('SkyCodeBlockComponent', () => {
     const testFixture = TestBed.createComponent(SkyCodeBlockTestComponent);
     const testElement = testFixture.nativeElement;
     testFixture.detectChanges();
-    expect(testElement.querySelector('.sky-code-output').textContent).toContain(code);
+    expect(testElement.querySelector('.sky-code-output').textContent).toContain(
+      code
+    );
   });
 
   it('should handle invalid language types', () => {

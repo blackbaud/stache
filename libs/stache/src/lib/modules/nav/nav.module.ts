@@ -1,21 +1,14 @@
-import { NgModule } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
-
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { StacheRouterLinkDirective } from './link.directive';
-
-import { StacheNavComponent } from './nav.component';
-
 import { StacheAuthService } from '../auth/auth.service';
-
 import { StacheRouterModule } from '../router/router.module';
-
 import { StacheResourcesModule } from '../shared/stache-resources.module';
-
 import { StacheWindowRef } from '../shared/window-ref';
 
+import { StacheRouterLinkDirective } from './link.directive';
+import { StacheNavComponent } from './nav.component';
 import { StacheNavService } from './nav.service';
 
 @NgModule({

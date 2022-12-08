@@ -1,18 +1,17 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
-  ChangeDetectorRef
 } from '@angular/core';
 
 @Component({
   selector: 'sky-hero',
   templateUrl: './hero.component.html',
   styleUrls: ['./hero.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SkyHeroComponent {
-
   @Input()
   public backgroundImageUrl: string;
 
@@ -32,12 +31,10 @@ export class SkyHeroComponent {
 
   private _overlayOpacity: string;
 
-  constructor(
-    private changeDetector: ChangeDetectorRef
-  ) { }
+  constructor(private changeDetector: ChangeDetectorRef) {}
 
   private parseInterval(value: string): number {
-    let interval = parseFloat(value);
+    const interval = parseFloat(value);
 
     if (isNaN(interval)) {
       return 0.4;

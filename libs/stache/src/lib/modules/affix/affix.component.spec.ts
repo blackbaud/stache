@@ -4,11 +4,9 @@ import {
   fakeAsync,
   tick,
 } from '@angular/core/testing';
-
-import { expect, SkyAppTestUtility } from '@skyux-sdk/testing';
+import { SkyAppTestUtility, expect } from '@skyux-sdk/testing';
 
 import { AffixFixtureComponent } from './fixtures/affix.component.fixture';
-
 import { AffixFixtureModule } from './fixtures/affix.module.fixture';
 
 describe('StacheAffixComponent', () => {

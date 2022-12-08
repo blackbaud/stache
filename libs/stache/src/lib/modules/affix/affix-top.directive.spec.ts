@@ -1,24 +1,19 @@
 import {
   ComponentFixture,
+  TestBed,
   fakeAsync,
   inject,
   tick,
-  TestBed,
 } from '@angular/core/testing';
-
 import { By } from '@angular/platform-browser';
-
 import { expect } from '@skyux-sdk/testing';
-
 import { SkyAppTestUtility } from '@skyux-sdk/testing';
 
 import { StacheOmnibarAdapterService } from '../shared/omnibar-adapter.service';
 
-import { AffixTopFixtureComponent } from './fixtures/affix-top.component.fixture';
-
-import { AffixFixtureModule } from './fixtures/affix.module.fixture';
-
 import { StacheAffixTopDirective } from './affix-top.directive';
+import { AffixTopFixtureComponent } from './fixtures/affix-top.component.fixture';
+import { AffixFixtureModule } from './fixtures/affix.module.fixture';
 
 describe('StacheAffixTopDirective', () => {
   const className: string = StacheAffixTopDirective.AFFIX_CLASS_NAME;

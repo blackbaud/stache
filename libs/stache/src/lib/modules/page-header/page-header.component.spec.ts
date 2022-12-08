@@ -1,9 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { expect } from '@skyux-sdk/testing';
 
 import { StachePageHeaderTestComponent } from './fixtures/page-header.component.fixture';
-
 import { StachePageHeaderModule } from './page-header.module';
 
 describe('StachePageHeaderComponent', () => {
@@ -24,9 +22,9 @@ describe('StachePageHeaderComponent', () => {
 
   it('should transclude the content', () => {
     const text = 'Header';
-    let testFixture = TestBed.createComponent(StachePageHeaderTestComponent);
+    const testFixture = TestBed.createComponent(StachePageHeaderTestComponent);
     testFixture.componentInstance.headerText = text;
-    let testElement = testFixture.nativeElement;
+    const testElement = testFixture.nativeElement;
     testFixture.detectChanges();
     expect(testElement.querySelector('.stache-page-header')).toHaveText(text);
   });

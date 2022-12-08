@@ -1,18 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { CommonModule } from '@angular/common';
-
 import { StacheAffixModule } from '../affix/affix.module';
-
 import { StacheNavModule } from '../nav/nav.module';
-
-import { StacheTableOfContentsComponent } from './table-of-contents.component';
+import { StacheResourcesModule } from '../shared/stache-resources.module';
+import { StacheWindowRef } from '../shared/window-ref';
 
 import { StacheTableOfContentsWrapperComponent } from './table-of-contents-wrapper.component';
-
-import { StacheResourcesModule } from '../shared/stache-resources.module';
-
-import { StacheWindowRef } from '../shared/window-ref';
+import { StacheTableOfContentsComponent } from './table-of-contents.component';
 
 @NgModule({
   declarations: [

@@ -1,22 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { expect } from '@skyux-sdk/testing';
-
 import { SkyAppConfig } from '@skyux/config';
 
-import { StacheLayoutSidebarComponent } from './layout-sidebar.component';
-
-import { RouterTestingModule } from '@angular/router/testing';
-
-import { StacheLayoutModule } from './layout.module';
-
+import { StacheRouteMetadataService } from '../router/route-metadata.service';
 import { StacheRouteService } from '../router/route.service';
 
-import { StacheRouteMetadataService } from '../router/route-metadata.service';
+import { StacheLayoutSidebarComponent } from './layout-sidebar.component';
+import { StacheLayoutModule } from './layout.module';
 
-let mockRoutes = [
+const mockRoutes = [
   {
     path: '',
     children: [
@@ -55,7 +49,7 @@ class MockRouteService {
 describe('StacheLayoutSidebarComponent', () => {
   let component: StacheLayoutSidebarComponent;
   let fixture: ComponentFixture<StacheLayoutSidebarComponent>;
-  let sampleRoutes = [{ name: 'test', path: '/test' }];
+  const sampleRoutes = [{ name: 'test', path: '/test' }];
 
   beforeEach(() => {
     TestBed.configureTestingModule({

@@ -3,10 +3,8 @@ import { Component, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { StacheNavLink } from '../nav/nav-link';
-
-import { StacheWindowRef } from '../shared/window-ref';
-
 import { StacheOmnibarAdapterService } from '../shared/omnibar-adapter.service';
+import { StacheWindowRef } from '../shared/window-ref';
 
 @Component({
   selector: 'stache-table-of-contents',

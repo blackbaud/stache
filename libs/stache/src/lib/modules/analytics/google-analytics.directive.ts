@@ -1,7 +1,5 @@
 import { Directive, OnInit } from '@angular/core';
-
-import { Router, NavigationEnd } from '@angular/router';
-
+import { NavigationEnd, Router } from '@angular/router';
 import { SkyAppConfig } from '@skyux/config';
 
 import { StacheWindowRef } from '../shared/window-ref';
@@ -10,9 +8,9 @@ import { StacheWindowRef } from '../shared/window-ref';
   selector: '[stacheGoogleAnalytics]',
 })
 export class StacheGoogleAnalyticsDirective implements OnInit {
-  private tagManagerContainerId: string = 'GTM-W56QP9';
-  private analyticsClientId: string = 'UA-2418840-1';
-  private isEnabled: boolean = true;
+  private tagManagerContainerId = 'GTM-W56QP9';
+  private analyticsClientId = 'UA-2418840-1';
+  private isEnabled = true;
   private appName: string;
 
   public constructor(

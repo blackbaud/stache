@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-
-import { Router, NavigationStart } from '@angular/router';
-
+import { NavigationStart, Router } from '@angular/router';
 import { SkyAppConfig } from '@skyux/config';
 
-import { StacheRouteMetadataService } from './route-metadata.service';
-
 import { StacheNavLink } from '../nav/nav-link';
+
+import { StacheRouteMetadataService } from './route-metadata.service';
 
 @Injectable()
 export class StacheRouteService {
@@ -33,7 +31,7 @@ export class StacheRouteService {
 
     const appRoutes = this.clone(this.configService.runtime?.routes || []);
 
-    let activeChildRoutes = appRoutes
+    const activeChildRoutes = appRoutes
       .filter((route: any) => {
         return route.routePath.indexOf(rootPath) === 0;
       })
@@ -44,7 +42,7 @@ export class StacheRouteService {
         };
       });
 
-    let activeRoutes = [
+    const activeRoutes = [
       {
         path: rootPath,
         segments: [rootPath],
@@ -91,11 +89,11 @@ export class StacheRouteService {
   }
 
   private formatRoutes(routes: any[]): StacheNavLink[] {
-    let formatted = routes
+    const formatted = routes
       .map((route) => {
-        let pathMetadata = this.getMetadata(route);
+        const pathMetadata = this.getMetadata(route);
 
-        let formattedRoute = Object.assign(
+        const formattedRoute = Object.assign(
           {},
           {
             path: route.path,
@@ -118,7 +116,7 @@ export class StacheRouteService {
     const allMetadata = this.routeMetadataService.metadata;
 
     if (allMetadata) {
-      let foundRoute = allMetadata.filter((metaRoute: any) => {
+      const foundRoute = allMetadata.filter((metaRoute: any) => {
         return metaRoute.path === route.path;
       })[0];
 
@@ -144,11 +142,11 @@ export class StacheRouteService {
 
   private sortRoutes(routes: StacheNavLink[]): StacheNavLink[] {
     const sortedRoutes = routes
-      .filter((route: any) => !route.hasOwnProperty('order'))
+      .filter((route: any) => !('order' in route))
       .sort(this.sortByName);
 
     const routesWithNavOrder = routes
-      .filter((route: any) => route.hasOwnProperty('order'))
+      .filter((route: any) => 'order' in route)
       .sort(this.sortByName)
       .sort(this.sortByOrder);
 

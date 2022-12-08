@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-
 import { Title } from '@angular/platform-browser';
-
 import { SkyAppConfig } from '@skyux/config';
 
 @Injectable()
@@ -13,7 +11,7 @@ export class StacheTitleService {
 
     if (parts && parts.length > 0) {
       parts.push(windowTitle);
-      let validParts = parts.filter((part: string) => !!part && part.trim());
+      const validParts = parts.filter((part: string) => !!part && part.trim());
       windowTitle = validParts.join(' - ');
     }
 

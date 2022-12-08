@@ -14,7 +14,7 @@ export class StacheRouteMetadataService {
   }
 
   private validateNavOrder(route: any): void {
-    if (route.hasOwnProperty('order')) {
+    if ('order' in route) {
       route.order = numberConverter(route.order);
       const isInteger = route.order === parseInt(route.order, 10);
       if (route.order <= 0 || !isInteger) {

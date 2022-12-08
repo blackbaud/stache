@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 import { Router } from '@angular/router';
 
 import { StacheWindowRef } from '../shared/window-ref';
@@ -12,7 +11,7 @@ export class StacheNavService {
   ) {}
 
   public navigate(route: any): void {
-    let extras: any = { queryParamsHandling: 'merge' };
+    const extras: any = { queryParamsHandling: 'merge' };
     const currentPath = this.router.url.split('?')[0].split('#')[0];
 
     if (this.isExternal(route)) {

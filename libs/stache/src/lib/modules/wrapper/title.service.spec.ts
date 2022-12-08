@@ -1,5 +1,4 @@
 import { Title } from '@angular/platform-browser';
-
 import { SkyAppConfig } from '@skyux/config';
 
 import { StacheTitleService } from './title.service';

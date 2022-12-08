@@ -1,10 +1,9 @@
 import { Component, Input } from '@angular/core';
 
-import { StacheLayout } from './layout';
-
-import { booleanConverter, InputConverter } from '../shared/input-converter';
-
 import { StacheNavLink } from '../nav/nav-link';
+import { InputConverter, booleanConverter } from '../shared/input-converter';
+
+import { StacheLayout } from './layout';
 
 @Component({
   selector: 'stache-layout-sidebar',

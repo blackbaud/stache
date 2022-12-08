@@ -1,22 +1,20 @@
 import {
+  AfterContentInit,
+  AfterViewChecked,
+  AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   Input,
   OnDestroy,
-  AfterViewInit,
-  ChangeDetectorRef,
   OnInit,
-  AfterViewChecked,
-  AfterContentInit,
 } from '@angular/core';
 
 import { BehaviorSubject, Subject } from 'rxjs';
-
 import { takeUntil } from 'rxjs/operators';
 
-import { StacheRouteService } from '../router/route.service';
-
 import { StacheNavLink } from '../nav/nav-link';
+import { StacheRouteService } from '../router/route.service';
 
 import { StachePageAnchorService } from './page-anchor.service';
 
@@ -34,7 +32,7 @@ export class StachePageAnchorComponent
     AfterViewChecked,
     AfterContentInit
 {
-  public name: string = '';
+  public name = '';
   public fragment: string;
   public path: string[];
   public offsetTop: number;

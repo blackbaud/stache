@@ -1,44 +1,27 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-
 import { RouterTestingModule } from '@angular/router/testing';
-
 import { expect } from '@skyux-sdk/testing';
-
 import { SkyAppConfig } from '@skyux/config';
-
 import { SkyMediaQueryModule } from '@skyux/core';
 
-import { Observable, of as observableOf, Subject } from 'rxjs';
-
-import { StacheWrapperTestComponent } from './fixtures/wrapper.component.fixture';
-
-import { StacheWrapperComponent } from './wrapper.component';
-
-import { StacheWrapperModule } from './wrapper.module';
+import { Observable, Subject, of as observableOf } from 'rxjs';
 
 import { StacheFooterModule } from '../footer/footer.module';
-
-import { StacheTitleService } from './title.service';
-
+import { StacheJsonDataService } from '../json-data/json-data.service';
+import { StacheLayoutModule } from '../layout/layout.module';
 import { StacheNavLink } from '../nav/nav-link';
-
 import { StacheNavService } from '../nav/nav.service';
-
+import { StachePageAnchorModule } from '../page-anchor/page-anchor.module';
+import { StachePageAnchorService } from '../page-anchor/page-anchor.service';
+import { StacheRouteService } from '../router/route.service';
+import { StacheOmnibarAdapterService } from '../shared/omnibar-adapter.service';
 import { StacheWindowRef } from '../shared/window-ref';
 
-import { StacheRouteService } from '../router/route.service';
-
-import { StacheOmnibarAdapterService } from '../shared/omnibar-adapter.service';
-
-import { StacheJsonDataService } from '../json-data/json-data.service';
-
-import { StacheLayoutModule } from '../layout/layout.module';
-
-import { StachePageAnchorModule } from '../page-anchor/page-anchor.module';
-
-import { StachePageAnchorService } from '../page-anchor/page-anchor.service';
+import { StacheWrapperTestComponent } from './fixtures/wrapper.component.fixture';
+import { StacheTitleService } from './title.service';
+import { StacheWrapperComponent } from './wrapper.component';
+import { StacheWrapperModule } from './wrapper.module';
 
 describe('StacheWrapperComponent', () => {
   let component: StacheWrapperComponent;
@@ -50,7 +33,7 @@ describe('StacheWrapperComponent', () => {
   let mockTitleService: any;
   let mockWindowService: any;
   let mockOmnibarService: any;
-  let mockTextContent: string = '';
+  let mockTextContent = '';
 
   class MockActivatedRoute {
     public fragment: Observable<string> = observableOf('test-route');
@@ -64,7 +47,9 @@ describe('StacheWrapperComponent', () => {
   }
 
   class MockNavService {
-    public navigate(route: any) {}
+    public navigate(route: any) {
+      /* */
+    }
 
     public isExternal() {
       return false;
@@ -72,8 +57,12 @@ describe('StacheWrapperComponent', () => {
   }
 
   class MockOmbibarService {
-    public checkForOmnibar() {}
-    public getHeight() {}
+    public checkForOmnibar() {
+      /* */
+    }
+    public getHeight() {
+      /* */
+    }
   }
 
   class MockConfigService {
@@ -130,8 +119,12 @@ describe('StacheWrapperComponent', () => {
       } as StacheNavLink,
     ]);
     public refreshRequestedStream = new Subject();
-    public scrollToAnchor(elementId: string) {}
-    public addAnchor = function () {};
+    public scrollToAnchor(elementId: string) {
+      /* */
+    }
+    public addAnchor = function () {
+      /* */
+    };
   }
 
   class MockWindowService {
@@ -143,7 +136,9 @@ describe('StacheWrapperComponent', () => {
           .and.callFake(function (id: any) {
             if (id !== undefined) {
               return {
-                scrollIntoView() {},
+                scrollIntoView() {
+                  /* */
+                },
               };
             }
             return id;
@@ -154,9 +149,13 @@ describe('StacheWrapperComponent', () => {
             return {
               textContent: mockTextContent,
               classList: {
-                add(cssClass: string) {},
+                add(cssClass: string) {
+                  /* */
+                },
               },
-              scrollIntoView() {},
+              scrollIntoView() {
+                /* */
+              },
               offsetHeight: 50,
               getBoundingClientRect() {
                 return {
@@ -169,7 +168,7 @@ describe('StacheWrapperComponent', () => {
           .createSpy('querySelectorAll')
           .and.callFake((selector: string): any[] => {
             if (selector === '.stache-container') {
-              let mockDiv = document.createElement('div');
+              const mockDiv = document.createElement('div');
               return [mockDiv];
             }
             return [];
@@ -181,9 +180,13 @@ describe('StacheWrapperComponent', () => {
               return {
                 textContent: mockTextContent,
                 classList: {
-                  add(cssClass: string) {},
+                  add(cssClass: string) {
+                    /* */
+                  },
                 },
-                scrollIntoView() {},
+                scrollIntoView() {
+                  /* */
+                },
                 offsetHeight: 50,
                 getBoundingClientRect() {
                   return {
@@ -217,7 +220,9 @@ describe('StacheWrapperComponent', () => {
 
     constructor(eventManager: any) {
       eventManager = {
-        addGlobalEventListener: () => {},
+        addGlobalEventListener: () => {
+          /* */
+        },
       };
     }
   }
@@ -449,11 +454,11 @@ describe('StacheWrapperComponent', () => {
 
   it('should not navigate to a fragment if none exist', () => {
     mockActivatedRoute.setFragment(undefined);
-    let subscribeSpy = spyOn(
+    const subscribeSpy = spyOn(
       mockActivatedRoute.fragment,
       'subscribe'
     ).and.callThrough();
-    let navSpy = spyOn(mockNavService, 'navigate').and.callThrough();
+    const navSpy = spyOn(mockNavService, 'navigate').and.callThrough();
     const testFixture = TestBed.createComponent(StacheWrapperTestComponent);
 
     testFixture.detectChanges();

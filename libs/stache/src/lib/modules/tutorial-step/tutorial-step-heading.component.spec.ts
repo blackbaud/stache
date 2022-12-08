@@ -1,15 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { RouterTestingModule } from '@angular/router/testing';
-
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { expect } from '@skyux-sdk/testing';
 import { SkyAppConfig } from '@skyux/config';
 
-import { expect } from '@skyux-sdk/testing';
-
 import { StacheTutorialStepHeadingComponent } from './tutorial-step-heading.component';
-
 import { StacheTutorialStepModule } from './tutorial-step.module';
 
 describe('StacheTutorialStepHeadingComponent', () => {

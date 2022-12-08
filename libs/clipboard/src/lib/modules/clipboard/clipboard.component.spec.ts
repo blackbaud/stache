@@ -1,40 +1,29 @@
 import {
   ComponentFixture,
   TestBed,
-  async,
+  fakeAsync,
   tick,
-  fakeAsync
 } from '@angular/core/testing';
+import { expect, expectAsync } from '@skyux-sdk/testing';
+import { SkyAppWindowRef } from '@skyux/core';
 
-import {
-  expect, expectAsync
-} from '@skyux-sdk/testing';
-
-import {
-  SkyAppWindowRef
-} from '@skyux/core';
-
-import {
-  SkyCopyToClipboardComponent
-} from './clipboard.component';
-
-import {
-  SkyCopyToClipboardService
-} from './clipboard.service';
-
-import {
-  SkyClipboardModule
-} from './clipboard.module';
+import { SkyClipboardModule } from './clipboard.module';
+import { SkyCopyToClipboardService } from './clipboard.service';
 import { SkyClipboardTestComponent } from './fixtures/clipboard.component.fixture';
 
 class MockClipboardService {
-  public copyContent(element: HTMLElement) { }
-  public verifyCopyCommandBrowserSupport() {}
+  public copyContent(element: HTMLElement) {
+    /* */
+  }
+  public verifyCopyCommandBrowserSupport() {
+    /* */
+  }
 }
 
 describe('SkyCopyToClipboardComponent', () => {
-
-  function getCopyToClipboardButton(fixture: ComponentFixture<SkyClipboardTestComponent>): HTMLElement {
+  function getCopyToClipboardButton(
+    fixture: ComponentFixture<SkyClipboardTestComponent>
+  ): HTMLElement {
     return fixture.nativeElement.querySelector('button');
   }
   let component: SkyClipboardTestComponent;
@@ -47,16 +36,12 @@ describe('SkyCopyToClipboardComponent', () => {
     mockClipboardService = new MockClipboardService();
 
     TestBed.configureTestingModule({
-      declarations: [
-        SkyClipboardTestComponent
-      ],
-      imports: [
-        SkyClipboardModule
-      ],
+      declarations: [SkyClipboardTestComponent],
+      imports: [SkyClipboardModule],
       providers: [
         SkyAppWindowRef,
-        { provide: SkyCopyToClipboardService, useValue: mockClipboardService }
-      ]
+        { provide: SkyCopyToClipboardService, useValue: mockClipboardService },
+      ],
     });
 
     fixture = TestBed.createComponent(SkyClipboardTestComponent);
@@ -143,7 +128,9 @@ describe('SkyCopyToClipboardComponent', () => {
     fixture.detectChanges();
     const button = getCopyToClipboardButton(fixture);
     expect(button.getAttribute('aria-label')).toBeNull();
-    expect(button.getAttribute('aria-labelledby')).toEqual('test-aria-labelledby');
+    expect(button.getAttribute('aria-labelledby')).toEqual(
+      'test-aria-labelledby'
+    );
   });
 
   it('should specify an aria-labelledby attribute when one is given and an aria-label is given', () => {
@@ -152,7 +139,9 @@ describe('SkyCopyToClipboardComponent', () => {
     fixture.detectChanges();
     const button = getCopyToClipboardButton(fixture);
     expect(button.getAttribute('aria-label')).toBeNull();
-    expect(button.getAttribute('aria-labelledby')).toEqual('test-aria-labelledby');
+    expect(button.getAttribute('aria-labelledby')).toEqual(
+      'test-aria-labelledby'
+    );
   });
 
   it('should specify a default title when none is given', () => {

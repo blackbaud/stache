@@ -1,0 +1,41 @@
+{
+  "name": "stache",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/stache/src",
+  "prefix": "stache",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/stache/ng-package.json",
+        "updateBuildableProjectDepsInPackageJson": false
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/stache/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/stache/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "main": "libs/stache/src/test.ts",
+        "tsConfig": "libs/stache/tsconfig.spec.json",
+        "karmaConfig": "libs/stache/karma.conf.js"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/stache/**/*.ts", "libs/stache/**/*.html"]
+      }
+    }
+  },
+  "tags": ["component", "npm"]
+}

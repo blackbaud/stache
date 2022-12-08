@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { StacheSidebarModule } from '../sidebar.module';

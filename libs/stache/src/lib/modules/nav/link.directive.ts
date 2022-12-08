@@ -1,26 +1,25 @@
+import { LocationStrategy } from '@angular/common';
 import {
+  AfterViewInit,
   Directive,
   ElementRef,
-  HostListener,
   HostBinding,
+  HostListener,
   Input,
-  Renderer2,
   OnChanges,
-  AfterViewInit,
+  Renderer2,
 } from '@angular/core';
 
-import { LocationStrategy } from '@angular/common';
+import { StacheRouteService } from '../router/route.service';
 
 import { StacheNavService } from './nav.service';
-
-import { StacheRouteService } from '../router/route.service';
 
 // eslint-disable-next-line @angular-eslint/no-input-rename
 @Directive({
   selector: '[stacheRouterLink]',
 })
 export class StacheRouterLinkDirective implements OnChanges, AfterViewInit {
-  private _stacheRouterLink: string = '';
+  private _stacheRouterLink = '';
 
   // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('stacheRouterLink')

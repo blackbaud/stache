@@ -1,9 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { StacheNav } from '../nav/nav';
-
 import { StacheNavLink } from '../nav/nav-link';
-
 import { StacheRouteService } from '../router/route.service';
 
 @Component({
@@ -26,7 +24,7 @@ export class StacheBreadcrumbsComponent implements StacheNav, OnInit {
 
   private filterRoutes(activeRoutes: StacheNavLink[]): StacheNavLink[] {
     const root = activeRoutes[0];
-    let breadcrumbRoutes: StacheNavLink[] = [];
+    const breadcrumbRoutes: StacheNavLink[] = [];
 
     breadcrumbRoutes.push({
       name: 'Home',

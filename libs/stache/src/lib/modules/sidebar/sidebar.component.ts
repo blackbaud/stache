@@ -1,12 +1,9 @@
 import { Component, Input } from '@angular/core';
 
-import { StacheNavLink } from '../nav/nav-link';
-
 import { StacheNav } from '../nav/nav';
-
-import { StacheRouteService } from '../router/route.service';
-
+import { StacheNavLink } from '../nav/nav-link';
 import { StacheNavService } from '../nav/nav.service';
+import { StacheRouteService } from '../router/route.service';
 
 let uniqueId = 0;
 

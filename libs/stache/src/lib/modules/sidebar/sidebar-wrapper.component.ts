@@ -1,17 +1,15 @@
 import {
+  AfterViewInit,
   Component,
   Input,
-  Renderer2,
   OnDestroy,
-  AfterViewInit,
+  Renderer2,
 } from '@angular/core';
+import { SkyMediaBreakpoints, SkyMediaQueryService } from '@skyux/core';
 
 import { Subscription } from 'rxjs';
 
-import { SkyMediaBreakpoints, SkyMediaQueryService } from '@skyux/core';
-
 import { StacheNavLink } from '../nav/nav-link';
-
 import { StacheWindowRef } from '../shared/window-ref';
 
 const SIDEBAR_CSS_CLASS_NAME = 'stache-sidebar-enabled';

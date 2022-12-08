@@ -1,11 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { expect } from '@skyux-sdk/testing';
 
 import { StacheLayoutBlankComponent } from './layout-blank.component';
-
 import { StacheLayoutModule } from './layout.module';
 
 describe('StacheLayoutBlankComponent', () => {
@@ -38,14 +35,14 @@ describe('StacheLayoutBlankComponent', () => {
   });
 
   it('should return the classname when getClassName is called', () => {
-    let className = component.getClassName();
+    const className = component.getClassName();
     fixture.detectChanges();
     expect(className).toBe('stache-layout-blank');
   });
 
   it('should return the classname based on the identifier', () => {
     component.identifier = 'test';
-    let className = component.getClassName();
+    const className = component.getClassName();
     fixture.detectChanges();
     expect(className).toBe('stache-layout-test');
   });

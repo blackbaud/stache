@@ -1,0 +1,44 @@
+{
+  "name": "clipboard",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/clipboard/src",
+  "prefix": "sky",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/clipboard/ng-package.json",
+        "updateBuildableProjectDepsInPackageJson": false
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/clipboard/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/clipboard/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "main": "libs/clipboard/src/test.ts",
+        "tsConfig": "libs/clipboard/tsconfig.spec.json",
+        "karmaConfig": "libs/clipboard/karma.conf.js"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/clipboard/**/*.ts",
+          "libs/clipboard/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["component", "npm"]
+}

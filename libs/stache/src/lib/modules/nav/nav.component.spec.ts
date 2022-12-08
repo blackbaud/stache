@@ -1,21 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { RouterTestingModule } from '@angular/router/testing';
-
 import { expect } from '@skyux-sdk/testing';
 
 import { BehaviorSubject } from 'rxjs';
 
-import { StacheNavComponent } from './nav.component';
-
-import { StacheNavTestComponent } from './fixtures/nav.component.fixture';
-
 import { StacheAuthService } from '../auth/auth.service';
-
+import { StacheRouteService } from '../router/route.service';
 import { StacheWindowRef } from '../shared/window-ref';
 
-import { StacheRouteService } from '../router/route.service';
-
+import { StacheNavTestComponent } from './fixtures/nav.component.fixture';
+import { StacheNavComponent } from './nav.component';
 import { StacheNavModule } from './nav.module';
 
 describe('StacheNavComponent', () => {

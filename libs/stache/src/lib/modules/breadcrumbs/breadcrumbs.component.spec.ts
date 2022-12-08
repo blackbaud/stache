@@ -1,18 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { By } from '@angular/platform-browser';
-
 import { RouterTestingModule } from '@angular/router/testing';
-
 import { expect } from '@skyux-sdk/testing';
 
-import { StacheBreadcrumbsComponent } from './breadcrumbs.component';
-
-import { StacheBreadcrumbsModule } from './breadcrumbs.module';
-
+import { StacheRouteMetadataService } from '../router/route-metadata.service';
 import { StacheRouteService } from '../router/route.service';
 
-import { StacheRouteMetadataService } from '../router/route-metadata.service';
+import { StacheBreadcrumbsComponent } from './breadcrumbs.component';
+import { StacheBreadcrumbsModule } from './breadcrumbs.module';
 
 describe('StacheBreadcrumbsComponent', () => {
   let component: StacheBreadcrumbsComponent;

@@ -6,15 +6,21 @@
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
-    "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "target": "es2020",
+    "module": "es2020",
+    "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@blackbaud/skyux-lib-clipboard": ["libs/clipboard/src/index.ts"],
+      "@blackbaud/skyux-lib-code-block": ["libs/code-block/src/index.ts"],
+      "@blackbaud/skyux-lib-media": ["libs/media/src/index.ts"],
+      "@blackbaud/skyux-lib-stache": ["libs/stache/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

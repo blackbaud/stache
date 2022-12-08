@@ -1,27 +1,10 @@
-import {
-  ComponentFixture,
-  TestBed
-} from '@angular/core/testing';
+import { DebugElement } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { expect } from '@skyux-sdk/testing';
 
-import {
-  DebugElement
-} from '@angular/core';
-
-import {
-  By
-} from '@angular/platform-browser';
-
-import {
-  expect
-} from '@skyux-sdk/testing';
-
-import {
-  SkyHeroModule
-} from './hero.module';
-
-import {
-  SkyHeroComponent
-} from './hero.component';
+import { SkyHeroComponent } from './hero.component';
+import { SkyHeroModule } from './hero.module';
 
 describe('SkyHeroComponent', () => {
   let component: SkyHeroComponent;
@@ -30,9 +13,7 @@ describe('SkyHeroComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        SkyHeroModule
-      ]
+      imports: [SkyHeroModule],
     });
 
     fixture = TestBed.createComponent(SkyHeroComponent);
@@ -62,14 +43,14 @@ describe('SkyHeroComponent', () => {
 
     component.overlayOpacity = 'Invalid input.';
     expect(component.overlayOpacity).toEqual('0.4');
-});
+  });
 
   it('should remove any character other than numbers and . from an opacity input.', () => {
     component.overlayOpacity = 'Inva 0 id . inp 5 ut';
     expect(component.overlayOpacity).toEqual('0.5');
 
     fixture.detectChanges();
-    let hero = debugElement.query(By.css('.sky-hero-overlay')).nativeElement;
+    const hero = debugElement.query(By.css('.sky-hero-overlay')).nativeElement;
     expect(hero.style.opacity).toBe('0.5');
 
     component.overlayOpacity = '20%';
@@ -80,7 +61,7 @@ describe('SkyHeroComponent', () => {
   });
 
   it('should set the background overlayOpacity to a valid interval', () => {
-    let hero = debugElement.query(By.css('.sky-hero-overlay')).nativeElement;
+    const hero = debugElement.query(By.css('.sky-hero-overlay')).nativeElement;
     component.overlayOpacity = '0.804211';
     expect(component.overlayOpacity).toEqual('0.804211');
 
@@ -89,7 +70,7 @@ describe('SkyHeroComponent', () => {
   });
 
   it('should, given a backgroundImageUrl, set the background url to the input string.', () => {
-    let hero = debugElement.query(By.css('.sky-hero')).nativeElement;
+    const hero = debugElement.query(By.css('.sky-hero')).nativeElement;
     expect(hero.style.backgroundImage).toBe('');
 
     component.backgroundImageUrl = '~/foo-image.jpg';

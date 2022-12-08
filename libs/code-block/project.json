@@ -1,0 +1,44 @@
+{
+  "name": "code-block",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/code-block/src",
+  "prefix": "sky",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/code-block/ng-package.json",
+        "updateBuildableProjectDepsInPackageJson": false
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/code-block/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/code-block/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "main": "libs/code-block/src/test.ts",
+        "tsConfig": "libs/code-block/tsconfig.spec.json",
+        "karmaConfig": "libs/code-block/karma.conf.js"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/code-block/**/*.ts",
+          "libs/code-block/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["component", "npm"]
+}

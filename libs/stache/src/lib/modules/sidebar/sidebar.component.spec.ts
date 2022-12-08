@@ -2,21 +2,17 @@ import {
   ComponentFixture,
   TestBed,
   async,
-  tick,
   fakeAsync,
+  tick,
 } from '@angular/core/testing';
-
 import { expect } from '@skyux-sdk/testing';
-
 import { SkyAppConfig } from '@skyux/config';
+import { SkyMediaBreakpoints, SkyMediaQueryService } from '@skyux/core';
 
 import { BehaviorSubject, Subscription } from 'rxjs';
 
 import { SidebarFixtureComponent } from './fixtures/sidebar.component.fixture';
-
 import { SidebarFixtureModule } from './fixtures/sidebar.module.fixture';
-
-import { SkyMediaBreakpoints, SkyMediaQueryService } from '@skyux/core';
 
 describe('Sidebar', () => {
   let component: SidebarFixtureComponent;

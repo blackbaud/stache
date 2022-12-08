@@ -1,17 +1,12 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'sky-image',
   templateUrl: './image.component.html',
   styleUrls: ['./image.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SkyImageComponent {
-
   @Input()
   public caption: string;
 
@@ -40,6 +35,5 @@ export class SkyImageComponent {
     return this._showCaptionPrefix;
   }
 
-  private _showCaptionPrefix: boolean = true;
-
+  private _showCaptionPrefix = true;
 }

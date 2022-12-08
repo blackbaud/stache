@@ -1,11 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { By } from '@angular/platform-browser';
-
 import { expect } from '@skyux-sdk/testing';
 
 import { StacheBlockquoteComponent } from './blockquote.component';
-
 import { StacheBlockquoteModule } from './blockquote.module';
 
 describe('StacheBlockquoteComponent', () => {

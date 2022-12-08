@@ -1,0 +1,4 @@
+{
+  "baseBranch": "main",
+  "documentationExcludeProjects": ["clipboard", "code-block", "media", "stache"]
+}

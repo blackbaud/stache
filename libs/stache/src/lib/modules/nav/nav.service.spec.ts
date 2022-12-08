@@ -5,7 +5,7 @@ class MockRouter {
   public navigate = (path: any, extras: any) => true;
 }
 
-let elementScrollCalled: boolean = false;
+let elementScrollCalled = false;
 
 class MockWindowService {
   public testElement = {
@@ -61,37 +61,37 @@ describe('StacheNavService', () => {
   });
 
   it('should return true if a given route is external www', () => {
-    let www = navService.isExternal({ path: 'www.external.com' });
+    const www = navService.isExternal({ path: 'www.external.com' });
     expect(www).toBe(true);
   });
 
   it('should return true if a given route is external http', () => {
-    let isHttp = navService.isExternal({ path: 'http://www.external.com' });
+    const isHttp = navService.isExternal({ path: 'http://www.external.com' });
     expect(isHttp).toBe(true);
   });
 
   it('should return true if a given route is external mailto', () => {
-    let mailto = navService.isExternal({ path: 'mailto:test@email.com' });
+    const mailto = navService.isExternal({ path: 'mailto:test@email.com' });
     expect(mailto).toBe(true);
   });
 
   it('should return true if a given route is external ftp', () => {
-    let ftp = navService.isExternal({ path: 'ftp://address' });
+    const ftp = navService.isExternal({ path: 'ftp://address' });
     expect(ftp).toBe(true);
   });
 
   it('should return true if a given route is external and passed as a string', () => {
-    let isHttp = navService.isExternal('http://www.external.com');
+    const isHttp = navService.isExternal('http://www.external.com');
     expect(isHttp).toBe(true);
   });
 
   it('should return false if a given route is not external', () => {
-    let isExternal = navService.isExternal('/internal-route');
+    const isExternal = navService.isExternal('/internal-route');
     expect(isExternal).toBe(false);
   });
 
   it('should return false if no path is present', () => {
-    let noPath = navService.isExternal({});
+    const noPath = navService.isExternal({});
     expect(noPath).toBe(false);
   });
 

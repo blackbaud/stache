@@ -2,10 +2,10 @@ import { TestBed } from '@angular/core/testing';
 
 import { BehaviorSubject, Subject } from 'rxjs';
 
-import { StachePageAnchorService } from './page-anchor.service';
-
 import { StacheNavLink } from '../nav/nav-link';
 import { StacheWindowRef } from '../shared/window-ref';
+
+import { StachePageAnchorService } from './page-anchor.service';
 
 class MockWindowRef {
   private mockPageAnchors: StacheNavLink[] = [
@@ -21,7 +21,9 @@ class MockWindowRef {
         .createSpy('querySelector')
         .and.callFake((id: any) => {
           return {
-            scrollIntoView() {},
+            scrollIntoView() {
+              /* */
+            },
           };
         }),
       querySelectorAll: jasmine

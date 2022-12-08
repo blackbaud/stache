@@ -1,18 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { By } from '@angular/platform-browser';
-
 import { RouterTestingModule } from '@angular/router/testing';
-
 import { expect } from '@skyux-sdk/testing';
-
 import { SkyAppConfig } from '@skyux/config';
 
-import { StacheEditButtonComponent } from './edit-button.component';
-
-import { StacheEditButtonModule } from './edit-button.module';
-
 import { StacheRouteService } from '../router/route.service';
+
+import { StacheEditButtonComponent } from './edit-button.component';
+import { StacheEditButtonModule } from './edit-button.module';
 
 describe('StacheEditButtonComponent', () => {
   let component: StacheEditButtonComponent;

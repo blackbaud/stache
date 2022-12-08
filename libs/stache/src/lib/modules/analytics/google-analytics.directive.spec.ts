@@ -1,22 +1,16 @@
-import { of as observableOf } from 'rxjs';
-
-import { By } from '@angular/platform-browser';
-
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { Router, NavigationEnd } from '@angular/router';
-
+import { By } from '@angular/platform-browser';
+import { NavigationEnd, Router } from '@angular/router';
 import { expect } from '@skyux-sdk/testing';
-
 import { SkyAppConfig } from '@skyux/config';
+
+import { of as observableOf } from 'rxjs';
 
 import { StacheWindowRef } from '../shared/window-ref';
 
-import { StacheGoogleAnalyticsDirective } from './google-analytics.directive';
-
-import { StacheGoogleAnalyticsTestComponent } from './fixtures/google-analytics.component.fixture';
-
 import { StacheAnalyticsModule } from './analytics.module';
+import { StacheGoogleAnalyticsTestComponent } from './fixtures/google-analytics.component.fixture';
+import { StacheGoogleAnalyticsDirective } from './google-analytics.directive';
 
 describe('StacheGoogleAnalyticsDirective', () => {
   let fixture: ComponentFixture<StacheGoogleAnalyticsTestComponent>;
@@ -85,7 +79,7 @@ describe('StacheGoogleAnalyticsDirective', () => {
   });
 
   it('should use config settings over defaults', () => {
-    let directiveInstance = directiveElement.injector.get(
+    const directiveInstance = directiveElement.injector.get(
       StacheGoogleAnalyticsDirective
     );
 
@@ -111,7 +105,7 @@ describe('StacheGoogleAnalyticsDirective', () => {
   });
 
   it('should format and store the appName from the runtime.base', () => {
-    let directiveInstance = directiveElement.injector.get(
+    const directiveInstance = directiveElement.injector.get(
       StacheGoogleAnalyticsDirective
     );
     directiveInstance.updateDefaultConfigs();
@@ -122,7 +116,7 @@ describe('StacheGoogleAnalyticsDirective', () => {
   });
 
   it('should add the Google Tag Manager script if it does not exist, from ngOnInit', () => {
-    let directiveInstance = directiveElement.injector.get(
+    const directiveInstance = directiveElement.injector.get(
       StacheGoogleAnalyticsDirective
     );
     spyOn(directiveInstance, 'addGoogleTagManagerScript').and.callThrough();
@@ -131,7 +125,7 @@ describe('StacheGoogleAnalyticsDirective', () => {
   });
 
   it('should run none of the other methods if the GTM script exists already', () => {
-    let directiveInstance = directiveElement.injector.get(
+    const directiveInstance = directiveElement.injector.get(
       StacheGoogleAnalyticsDirective
     );
     spyOn(directiveInstance, 'addGoogleTagManagerScript').and.callThrough();
@@ -141,7 +135,7 @@ describe('StacheGoogleAnalyticsDirective', () => {
   });
 
   it('should handle empty stache config in skyuxconfig.json', () => {
-    let directiveInstance = directiveElement.injector.get(
+    const directiveInstance = directiveElement.injector.get(
       StacheGoogleAnalyticsDirective
     );
     mockConfigService.skyux.appSettings = undefined;
@@ -151,7 +145,7 @@ describe('StacheGoogleAnalyticsDirective', () => {
   });
 
   it('should not run if enabled is set to `false`', () => {
-    let directiveInstance = directiveElement.injector.get(
+    const directiveInstance = directiveElement.injector.get(
       StacheGoogleAnalyticsDirective
     );
     mockConfigService.skyux.appSettings.stache.googleAnalytics.enabled =
@@ -162,7 +156,7 @@ describe('StacheGoogleAnalyticsDirective', () => {
   });
 
   it("should not run if enabled is set to `'false'`", () => {
-    let directiveInstance = directiveElement.injector.get(
+    const directiveInstance = directiveElement.injector.get(
       StacheGoogleAnalyticsDirective
     );
     mockConfigService.skyux.appSettings.stache.googleAnalytics.enabled = false;
@@ -172,7 +166,7 @@ describe('StacheGoogleAnalyticsDirective', () => {
   });
 
   it('should not run if in development mode', () => {
-    let directiveInstance = directiveElement.injector.get(
+    const directiveInstance = directiveElement.injector.get(
       StacheGoogleAnalyticsDirective
     );
     mockConfigService.runtime.command = 'none';

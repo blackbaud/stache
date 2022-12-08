@@ -1,9 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { expect } from '@skyux-sdk/testing';
 
 import { StacheIncludeComponent } from './include.component';
-
 import { StacheIncludeModule } from './include.module';
 
 describe('StacheIncludeComponent', () => {

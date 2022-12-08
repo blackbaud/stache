@@ -1,17 +1,17 @@
 import {
+  AfterViewInit,
   ChangeDetectorRef,
   Component,
-  AfterViewInit,
-  ViewChild,
   ElementRef,
   OnDestroy,
+  ViewChild,
 } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
-import { StacheAffixTopDirective } from './affix-top.directive';
-
 import { StacheWindowRef } from '../shared/window-ref';
+
+import { StacheAffixTopDirective } from './affix-top.directive';
 
 @Component({
   selector: 'stache-affix',

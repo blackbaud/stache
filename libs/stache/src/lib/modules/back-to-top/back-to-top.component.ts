@@ -1,7 +1,6 @@
 import { Component, HostListener, Input } from '@angular/core';
 
 import { InputConverter, numberConverter } from '../shared/input-converter';
-
 import { StacheWindowRef } from '../shared/window-ref';
 
 @Component({
@@ -12,9 +11,9 @@ import { StacheWindowRef } from '../shared/window-ref';
 export class StacheBackToTopComponent {
   @Input()
   @InputConverter(numberConverter)
-  public offset: number = 200;
+  public offset = 200;
 
-  public isHidden: boolean = true;
+  public isHidden = true;
 
   public constructor(private windowRef: StacheWindowRef) {}
 

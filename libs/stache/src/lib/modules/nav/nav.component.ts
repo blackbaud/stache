@@ -1,16 +1,13 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { Subject } from 'rxjs';
-
 import { takeUntil } from 'rxjs/operators';
 
-import { StacheNavLink } from './nav-link';
-
-import { StacheNav } from './nav';
-
+import { StacheAuthService } from '../auth/auth.service';
 import { StacheRouteService } from '../router/route.service';
 
-import { StacheAuthService } from '../auth/auth.service';
+import { StacheNav } from './nav';
+import { StacheNavLink } from './nav-link';
 
 @Component({
   selector: 'stache-nav',
@@ -46,7 +43,7 @@ export class StacheNavComponent implements OnDestroy, OnInit, StacheNav {
     return this._isAuthenticated || false;
   }
 
-  public classname: string = '';
+  public classname = '';
 
   public filteredRoutes: StacheNavLink[];
 

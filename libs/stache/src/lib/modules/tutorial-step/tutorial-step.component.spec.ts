@@ -1,9 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { expect } from '@skyux-sdk/testing';
 
 import { StacheTutorialStepComponent } from './tutorial-step.component';
-
 import { StacheTutorialStepModule } from './tutorial-step.module';
 
 describe('StacheTutorialStepComponent', () => {

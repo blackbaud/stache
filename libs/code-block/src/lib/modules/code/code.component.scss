@@ -2,7 +2,7 @@
 @import 'node_modules/@skyux/theme/scss/variables';
 
 .sky-code {
-  @include sky-border("dark", "top", "right", "bottom", "left");
+  @include sky-border('dark', 'top', 'right', 'bottom', 'left');
   overflow-wrap: break-word;
   font-family: 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace;
   font-size: 90%;

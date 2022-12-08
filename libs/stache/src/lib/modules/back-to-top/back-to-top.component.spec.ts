@@ -1,22 +1,18 @@
+import { DebugElement } from '@angular/core';
 import {
-  async,
   ComponentFixture,
+  TestBed,
+  async,
   fakeAsync,
   inject,
   tick,
-  TestBed,
 } from '@angular/core/testing';
-
-import { DebugElement } from '@angular/core';
-
 import { expect } from '@skyux-sdk/testing';
-
 import { SkyAppTestUtility } from '@skyux-sdk/testing';
 
 import { StacheWindowRef } from '../shared/window-ref';
 
 import { StacheBackToTopComponent } from './back-to-top.component';
-
 import { StacheBackToTopModule } from './back-to-top.module';
 
 describe('StacheBackToTopComponent', () => {
@@ -73,7 +69,7 @@ describe('StacheBackToTopComponent', () => {
 
   it('should trigger a click event on button click', async(() => {
     spyOn(component, 'scrollToTop');
-    let button = debugElement.nativeElement.querySelector(
+    const button = debugElement.nativeElement.querySelector(
       '.stache-back-to-top'
     );
     button.click();
@@ -84,7 +80,7 @@ describe('StacheBackToTopComponent', () => {
 
   it('should call the scroll method on the window when clicked', async(() => {
     spyOn(windowRef, 'scroll');
-    let button = debugElement.nativeElement.querySelector(
+    const button = debugElement.nativeElement.querySelector(
       '.stache-back-to-top'
     );
     button.click();

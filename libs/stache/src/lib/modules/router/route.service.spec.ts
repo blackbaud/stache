@@ -1,12 +1,10 @@
-import { of as observableOf } from 'rxjs';
-
-import { Router, NavigationStart, NavigationEnd } from '@angular/router';
-
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { SkyAppConfig } from '@skyux/config';
 
-import { StacheRouteService } from './route.service';
+import { of as observableOf } from 'rxjs';
 
 import { StacheRouteMetadataService } from './route-metadata.service';
+import { StacheRouteService } from './route.service';
 
 class MockStacheConfigService {
   public runtime: any = {
@@ -212,7 +210,7 @@ describe('StacheRouteService', () => {
 
   it('should not include child routes from similar parents (a, a1, a2)', () => {
     router.url = '/testing-children';
-    let activeRoutes = routeService.getActiveRoutes();
+    const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].children.length).toBe(1);
   });
 
@@ -228,7 +226,7 @@ describe('StacheRouteService', () => {
   it('should handle missing config.runtime', () => {
     delete configService.runtime;
 
-    let activeRoutes = routeService.getActiveRoutes();
+    const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].children.length).toBe(0);
   });
 
@@ -246,12 +244,12 @@ describe('StacheRouteService', () => {
   });
 
   it('should return the active URL', () => {
-    let url = routeService.getActiveUrl();
+    const url = routeService.getActiveUrl();
     expect(url).toBe(router.url);
   });
 
   it('should order routes in hierarchies', () => {
-    let activeRoutes = routeService.getActiveRoutes();
+    const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].path).toBe('parent');
     expect(activeRoutes[0].children[0].path).toBe('parent/child');
     expect(activeRoutes[0].children[0].children[0].path).toBe(
@@ -260,7 +258,7 @@ describe('StacheRouteService', () => {
   });
 
   it("should create the route's name from the path by default", () => {
-    let activeRoutes = routeService.getActiveRoutes();
+    const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].name).toBe('Parent');
     expect(activeRoutes[0].children[0].name).toBe('Child');
     expect(activeRoutes[0].children[0].children[0].name).toBe('Grandchild');
@@ -268,26 +266,26 @@ describe('StacheRouteService', () => {
 
   it("should use the route's name provided in route metadata service", () => {
     router.url = '/other-parent';
-    let activeRoutes = routeService.getActiveRoutes();
+    const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].name).toBe('Custom Route Name');
   });
 
   it('should handle an undefined routes property in route metadata service', () => {
     delete routeMetadataService.metadata;
-    let activeRoutes = routeService.getActiveRoutes();
+    const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].name).toBe('Parent');
   });
 
   it('should order routes alphabetically by name', () => {
     router.url = '/order-routes';
-    let activeRoutes = routeService.getActiveRoutes();
+    const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].children[0].name).toBe('A First');
     expect(activeRoutes[0].children[2].name).toBe('C Third');
   });
 
   it('should filter out routes with showInNav: false', () => {
     router.url = '/order-routes';
-    let activeRoutes = routeService.getActiveRoutes();
+    const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].children[0].name).toBe('A First');
     expect(activeRoutes[0].children[2].name).toBe('C Third');
     expect(activeRoutes[0].children).not.toContain({
@@ -307,14 +305,14 @@ describe('StacheRouteService', () => {
 
   it('should arrange routes in their nav Order locations', () => {
     router.url = '/order-routes';
-    let activeRoutes = routeService.getActiveRoutes();
+    const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].children[0].children[0].name).toBe('Order One');
     expect(activeRoutes[0].children[0].children[6].name).toBe('A Three');
   });
 
   it('should filter out all decendant routes containing showInNav: true', () => {
     router.url = '/order-routes';
-    let activeRoutes = routeService.getActiveRoutes();
+    const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].children[0].children[0].name).toBe('Order One');
     expect(activeRoutes[0].children[0].children[6].name).toBe('A Three');
     expect(activeRoutes[0].children[0].children).not.toContain({
@@ -336,7 +334,7 @@ describe('StacheRouteService', () => {
 
   it('should order routes with the same navOrder alphabetically', () => {
     router.url = '/order-routes';
-    let activeRoutes = routeService.getActiveRoutes();
+    const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].children[0].children[2].name).toBe('A Three');
     expect(activeRoutes[0].children[0].children[2].order).toBe(3);
     expect(activeRoutes[0].children[0].children[3].name).toBe('B Three');
@@ -345,7 +343,7 @@ describe('StacheRouteService', () => {
 
   it('should place routes in their assigned order, skipping non ordered routes', () => {
     router.url = '/order-routes';
-    let activeRoutes = routeService.getActiveRoutes();
+    const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].children[0].children[5].name).toBe('A');
     expect(activeRoutes[0].children[0].children[5].order).toBe(undefined);
     expect(activeRoutes[0].children[0].children[6].name).toBe('A Three');

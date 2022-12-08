@@ -1,18 +1,13 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-
 import { RouterTestingModule } from '@angular/router/testing';
-
 import { expect } from '@skyux-sdk/testing';
-
 import { SkyAppConfig } from '@skyux/config';
-
-import { StacheFooterComponent } from './footer.component';
-
-import { StacheFooterModule } from './footer.module';
+import { SkyMediaQueryModule } from '@skyux/core';
 
 import { StacheRouteService } from '../router/route.service';
 
-import { SkyMediaQueryModule } from '@skyux/core';
+import { StacheFooterComponent } from './footer.component';
+import { StacheFooterModule } from './footer.module';
 
 describe('StacheFooterComponent', () => {
   let component: StacheFooterComponent;
@@ -20,7 +15,7 @@ describe('StacheFooterComponent', () => {
   let mockConfigService: any;
   let mockRouterService: any;
 
-  let footerConfig = {
+  const footerConfig = {
     nav: {
       items: [
         {
@@ -50,7 +45,9 @@ describe('StacheFooterComponent', () => {
   }
 
   class MockRouterService {
-    public getActiveUrl() {}
+    public getActiveUrl() {
+      /* */
+    }
   }
 
   beforeEach(() => {
@@ -84,7 +81,7 @@ describe('StacheFooterComponent', () => {
     component.ngOnInit();
     fixture.detectChanges();
 
-    let mappedFooterLinks = footerConfig.nav.items.map((navItem: any) => {
+    const mappedFooterLinks = footerConfig.nav.items.map((navItem: any) => {
       return {
         name: navItem.title,
         path: navItem.route,

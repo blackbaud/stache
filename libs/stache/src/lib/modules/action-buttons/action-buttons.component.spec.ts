@@ -1,22 +1,17 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-
 import { expect } from '@skyux-sdk/testing';
 
 import { StacheRouteService } from '../router/route.service';
 
 import { StacheActionButtonsComponent } from './action-buttons.component';
-
 import { StacheActionButtonsModule } from './action-buttons.module';
 
 describe('StacheActionButtonsComponent', () => {
-  let mockActiveUrl = '';
-  let mockRoutes = [
+  const mockActiveUrl = '';
+  const mockRoutes = [
     {
       path: '',
       children: [

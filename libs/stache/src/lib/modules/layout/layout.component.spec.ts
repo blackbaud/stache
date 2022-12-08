@@ -1,29 +1,22 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
-  fakeAsync,
   TestBed,
+  fakeAsync,
   tick,
 } from '@angular/core/testing';
-
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-
 import { By } from '@angular/platform-browser';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { expect } from '@skyux-sdk/testing';
-
 import { SkyAppConfig } from '@skyux/config';
 
-import { StacheLayoutComponent } from './layout.component';
-
-import { StacheLayoutModule } from './layout.module';
-
-import { RouterTestingModule } from '@angular/router/testing';
-
+import { StacheRouteMetadataService } from '../router/route-metadata.service';
 import { StacheRouteService } from '../router/route.service';
 
-import { StacheRouteMetadataService } from '../router/route-metadata.service';
+import { StacheLayoutComponent } from './layout.component';
+import { StacheLayoutModule } from './layout.module';
 
-let mockRoutes = [
+const mockRoutes = [
   {
     path: '',
     children: [
@@ -62,7 +55,7 @@ class MockRouteService {
 describe('StacheLayoutComponent', () => {
   let component: StacheLayoutComponent;
   let fixture: ComponentFixture<StacheLayoutComponent>;
-  let sampleRoutes = [{ name: 'test', path: '/test' }];
+  const sampleRoutes = [{ name: 'test', path: '/test' }];
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -145,21 +138,21 @@ describe('StacheLayoutComponent', () => {
   it('should set the template ref to blank given the layoutType', () => {
     component.layoutType = 'blank';
     fixture.detectChanges();
-    let layout = component['blankTemplateRef'];
+    const layout = component['blankTemplateRef'];
     expect(component.templateRef).toBe(layout);
   });
 
   it('should set the template ref to container given the layoutType', () => {
     component.layoutType = 'container';
     fixture.detectChanges();
-    let layout = component['containerTemplateRef'];
+    const layout = component['containerTemplateRef'];
     expect(component.templateRef).toBe(layout);
   });
 
   it('should set the template ref to sidebar given the layoutType', () => {
     component.layoutType = 'sidebar';
     fixture.detectChanges();
-    let layout = component['sidebarTemplateRef'];
+    const layout = component['sidebarTemplateRef'];
     expect(component.templateRef).toBe(layout);
   });
 

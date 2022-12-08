@@ -1,7 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 
 import { StacheNavLink } from '../../nav/nav-link';
-
 import { StacheSidebarWrapperComponent } from '../sidebar-wrapper.component';
 
 @Component({

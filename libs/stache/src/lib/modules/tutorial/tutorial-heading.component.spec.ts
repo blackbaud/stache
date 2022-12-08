@@ -1,9 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { expect } from '@skyux-sdk/testing';
 
 import { StacheTutorialHeadingComponent } from './tutorial-heading.component';
-
 import { StacheTutorialModule } from './tutorial.module';
 
 describe('StacheTutorialHeadingComponent', () => {

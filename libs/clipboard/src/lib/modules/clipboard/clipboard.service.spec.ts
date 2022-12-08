@@ -1,13 +1,11 @@
-import {
-  SkyCopyToClipboardService
-} from './clipboard.service';
-
 import clipboard from 'clipboard-polyfill';
+
+import { SkyCopyToClipboardService } from './clipboard.service';
 
 describe('SkyCopyToClipboardService', () => {
   let clipboardService: SkyCopyToClipboardService;
-  let testContent: string = 'Test demo content';
-  let testElement = document.createElement('div');
+  const testContent = 'Test demo content';
+  const testElement = document.createElement('div');
   let mockText: string;
   testElement.innerText = testContent;
 
@@ -24,35 +22,35 @@ describe('SkyCopyToClipboardService', () => {
   });
 
   it('should copy text from a textarea element', () => {
-    let textareaElement = document.createElement('textarea');
+    const textareaElement = document.createElement('textarea');
     textareaElement.value = 'test string value';
     clipboardService.copyContent(textareaElement);
     expect(mockText).toEqual('test string value');
   });
 
   it('should copy text from an input element', () => {
-    let inputElement = document.createElement('input');
+    const inputElement = document.createElement('input');
     inputElement.value = 'test string value';
     clipboardService.copyContent(inputElement);
     expect(mockText).toEqual('test string value');
   });
 
   it('should copy text from html elements', () => {
-    let htmlElement = document.createElement('div');
+    const htmlElement = document.createElement('div');
     htmlElement.innerText = 'test string value';
     clipboardService.copyContent(htmlElement);
     expect(mockText).toEqual('test string value');
   });
 
   it('should copy text from nested html elements', () => {
-    let htmlElement = document.createElement('div');
+    const htmlElement = document.createElement('div');
     htmlElement.innerHTML = '<p>test string value</p>';
     clipboardService.copyContent(htmlElement);
     expect(mockText).toEqual('test string value');
   });
 
   it('should copy text from nested html elements in multiple teirs', () => {
-    let htmlElement = document.createElement('div');
+    const htmlElement = document.createElement('div');
     htmlElement.innerHTML = `
     <div>
       upper test string

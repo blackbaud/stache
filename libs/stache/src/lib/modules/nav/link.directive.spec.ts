@@ -1,28 +1,20 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { DebugElement } from '@angular/core';
-
 import {
+  APP_BASE_HREF,
   LocationStrategy,
   PathLocationStrategy,
-  APP_BASE_HREF,
 } from '@angular/common';
-
+import { DebugElement } from '@angular/core';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { expect, SkyAppTestUtility } from '@skyux-sdk/testing';
-
-import { StacheRouterLinkTestComponent } from './fixtures/link.component.fixture';
-
-import { StacheNavService } from './nav.service';
+import { SkyAppTestUtility, expect } from '@skyux-sdk/testing';
 
 import { StacheRouteService } from '../router/route.service';
 
+import { StacheRouterLinkTestComponent } from './fixtures/link.component.fixture';
 import { StacheRouterLinkTestLocalRouteComponent } from './fixtures/link.component_localroute.fixture';
-
-import { StacheNavModule } from './nav.module';
-
 import { StacheRouterLinkDirective } from './link.directive';
+import { StacheNavModule } from './nav.module';
+import { StacheNavService } from './nav.service';
 
 describe('StacheLinkDirective', () => {
   let debugElement: DebugElement;
@@ -34,10 +26,12 @@ describe('StacheLinkDirective', () => {
   class MockNavService {
     public navigate = jasmine
       .createSpy('navigate')
-      .and.callFake((routeObj: any) => {});
+      .and.callFake((routeObj: any) => {
+        /* */
+      });
 
     public isExternal(route: any): boolean {
-      let testPath = route;
+      const testPath = route;
 
       if (typeof testPath !== 'string') {
         return false;
@@ -46,7 +40,7 @@ describe('StacheLinkDirective', () => {
     }
   }
 
-  let mockRoutes = [
+  const mockRoutes = [
     {
       path: '',
       children: [

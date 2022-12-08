@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-
 import { SkyAppConfig } from '@skyux/config';
 
-import { StacheRouteService } from '../router/route.service';
-
 import lodashGet from 'lodash.get';
+
+import { StacheRouteService } from '../router/route.service';
 
 @Component({
   selector: 'stache-edit-button',
