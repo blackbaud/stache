@@ -17,6 +17,8 @@ const routes: Routes = [
     path: 'hero',
     component: HeroPlaygroundComponent,
   },
+  { path: 'image', component: ImagePlaygroundComponent },
+  { path: 'video', component: VideoPlaygroundComponent },
 ];
 
 @NgModule({
