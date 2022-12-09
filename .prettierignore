@@ -11,3 +11,6 @@ test.ts
 
 # The 'release-please' GitHub action is responsible for the changelog's content.
 CHANGELOG.md
+
+# Prismjs language imports need to be in a specific, non-alphabetical order.
+prism-languages.ts

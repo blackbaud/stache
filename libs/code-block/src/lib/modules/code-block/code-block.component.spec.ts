@@ -1,18 +1,9 @@
-import {
-  ComponentFixture,
-  TestBed,
-  async,
-  fakeAsync,
-} from '@angular/core/testing';
-import {
-  SkyClipboardModule,
-  SkyCopyToClipboardService,
-} from '@blackbaud/skyux-lib-clipboard';
-import { expect } from '@skyux-sdk/testing';
-
-import { SkyCodeBlockResourcesModule } from '../shared/sky-code-block-resources.module';
+import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import { SkyCopyToClipboardService } from '@blackbaud/skyux-lib-clipboard';
+import { expect, expectAsync } from '@skyux-sdk/testing';
 
 import { SkyCodeBlockComponent } from './code-block.component';
+import { SkyCodeBlockModule } from './code-block.module';
 import { SkyCodeBlockTestComponent } from './fixtures/code-block.component.fixture';
 
 class MockClipboardService {
@@ -31,11 +22,11 @@ describe('SkyCodeBlockComponent', () => {
     mockClipboardService = new MockClipboardService();
 
     TestBed.configureTestingModule({
-      declarations: [SkyCodeBlockTestComponent, SkyCodeBlockComponent],
+      declarations: [SkyCodeBlockTestComponent],
       providers: [
         { provide: SkyCopyToClipboardService, useValue: mockClipboardService },
       ],
-      imports: [SkyClipboardModule, SkyCodeBlockResourcesModule],
+      imports: [SkyCodeBlockModule],
     });
 
     fixture = TestBed.createComponent(SkyCodeBlockComponent);
@@ -43,7 +34,7 @@ describe('SkyCodeBlockComponent', () => {
     element = fixture.nativeElement;
   });
 
-  fit('should accept a string of code in the [code] attribute', () => {
+  it('should accept a string of code in the [code] attribute', () => {
     const code = '<p>asdf</p>';
     component.code = code;
     fixture.detectChanges();
@@ -161,8 +152,8 @@ describe('SkyCodeBlockComponent', () => {
     expect(element.querySelector('.sky-code-block-header')).not.toExist();
   });
 
-  it('should pass accessibility', async(() => {
+  it('should pass accessibility', async () => {
     fixture.detectChanges();
-    expect(element).toBeAccessible();
-  }));
+    await expectAsync(element).toBeAccessible();
+  });
 });
