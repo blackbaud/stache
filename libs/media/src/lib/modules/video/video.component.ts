@@ -14,15 +14,21 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 })
 export class SkyVideoComponent {
   @Input()
-  public set videoSource(value: string) {
-    this.src = this.sanitizer.bypassSecurityTrustResourceUrl(value);
-    this.changeDetector.markForCheck();
+  public set videoSource(value: string | undefined) {
+    this.src = value
+      ? this.#sanitizer.bypassSecurityTrustResourceUrl(value)
+      : undefined;
+    this.#changeDetector.markForCheck();
   }
 
-  public src: SafeResourceUrl;
+  public src: SafeResourceUrl | undefined;
 
-  constructor(
-    private changeDetector: ChangeDetectorRef,
-    private sanitizer: DomSanitizer
-  ) {}
+  #changeDetector: ChangeDetectorRef;
+
+  #sanitizer: DomSanitizer;
+
+  constructor(changeDetector: ChangeDetectorRef, sanitizer: DomSanitizer) {
+    this.#changeDetector = changeDetector;
+    this.#sanitizer = sanitizer;
+  }
 }
