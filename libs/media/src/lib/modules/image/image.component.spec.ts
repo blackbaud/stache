@@ -38,8 +38,8 @@ describe('Image component', () => {
 
     fixture.detectChanges();
 
-    const captionElement = getCaptionElement(fixture);
-    const caption = captionElement.textContent.trim();
+    const captionElement = getCaptionElement(fixture) as HTMLElement;
+    const caption = captionElement.textContent?.trim();
     expect(caption).toBe('test caption');
     expect(cmp.captionType).toBe('default');
     expect(captionElement.classList.contains('sky-image-caption-default')).toBe(
