@@ -10,7 +10,7 @@ describe('SkyHeroHeadingComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [SkyHeroHeadingComponent],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(SkyHeroHeadingComponent);
     component = fixture.componentInstance;
