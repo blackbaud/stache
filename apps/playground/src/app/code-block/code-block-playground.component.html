@@ -1,0 +1,28 @@
+<div class="sky-container">
+  <h1>Component Library</h1>
+
+  <h3>Demo:</h3>
+
+  <p>
+    Lorem ipsum dolor sit amet,
+    <a href="#"><sky-code>consectetur adipisicing elit</sky-code></a
+    >. Ratione odio excepturi illo magni nam nostrum similique dicta ipsam,
+    ipsum error laudantium provident harum,
+    <sky-code
+      >maxime accusamus <a href="">dolorum repudiandae</a> reiciendis</sky-code
+    >
+    inventore esse!
+  </p>
+
+  <sky-code-block languageType="csharp" [hideHeader]="true">
+    This block has a language type for highlighting, but has the header hidden.
+  </sky-code-block>
+
+  <!-- prettier-ignore -->
+  <sky-code-block fileName="my-file.js" languageType="js">
+    // Has filename and languageType
+    $(document).ready(() => {{ '{' }}
+      // do something
+    });
+  </sky-code-block>
+</div>

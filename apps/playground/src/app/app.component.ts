@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Renderer2 } from '@angular/core';
+import {
+  SkyTheme,
+  SkyThemeMode,
+  SkyThemeService,
+  SkyThemeSettings,
+} from '@skyux/theme';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +13,14 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  title = 'playground';
+  constructor(themeSvc: SkyThemeService, renderer: Renderer2) {
+    themeSvc.init(
+      document.body,
+      renderer,
+      new SkyThemeSettings(
+        SkyTheme.presets['default'],
+        SkyThemeMode.presets.light
+      )
+    );
+  }
 }
