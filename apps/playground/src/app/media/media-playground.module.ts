@@ -9,7 +9,6 @@ import {
 
 import { HeroPlaygroundComponent } from './hero-playground.component';
 import { ImagePlaygroundComponent } from './image-playground.component';
-import { MediaPlaygroundComponent } from './index.component';
 import { VideoPlaygroundComponent } from './video-playground.component';
 
 const routes: Routes = [
@@ -31,7 +30,6 @@ class MediaPlaygroundRoutingModule {}
   declarations: [
     HeroPlaygroundComponent,
     ImagePlaygroundComponent,
-    MediaPlaygroundComponent,
     VideoPlaygroundComponent,
   ],
   imports: [
