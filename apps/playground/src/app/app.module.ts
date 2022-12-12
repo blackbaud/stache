@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { SkyAppConfig } from '@skyux/config';
 import { SkyThemeService } from '@skyux/theme';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -9,7 +10,16 @@ import { HomeComponent } from './home.component';
 @NgModule({
   declarations: [AppComponent, HomeComponent],
   imports: [AppRoutingModule, BrowserModule],
-  providers: [SkyThemeService],
+  providers: [
+    SkyThemeService,
+    {
+      provide: SkyAppConfig,
+      useValue: {
+        skyux: { app: { title: 'Stache Playground' } },
+        runtime: { app: { base: '/' } },
+      },
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
