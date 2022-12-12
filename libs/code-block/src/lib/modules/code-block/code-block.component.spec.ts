@@ -43,7 +43,7 @@ describe('SkyCodeBlockComponent', () => {
     element = fixture.nativeElement;
   });
 
-  fit('should accept a string of code in the [code] attribute', () => {
+  it('should accept a string of code in the [code] attribute', () => {
     const code = '<p>asdf</p>';
     component.code = code;
     fixture.detectChanges();

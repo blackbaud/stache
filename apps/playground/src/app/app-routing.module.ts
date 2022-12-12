@@ -9,10 +9,24 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
+    path: 'code-block',
+    loadChildren: () =>
+      import('./code-block/code-block-playground.module').then(
+        (m) => m.CodeBlockPlaygroundModule
+      ),
+  },
+  {
     path: 'media',
     loadChildren: () =>
       import('./media/media-playground.module').then(
         (m) => m.MediaPlaygroundModule
+      ),
+  },
+  {
+    path: 'stache',
+    loadChildren: () =>
+      import('./stache/stache-playground.module').then(
+        (m) => m.StachePlaygroundModule
       ),
   },
 ];
