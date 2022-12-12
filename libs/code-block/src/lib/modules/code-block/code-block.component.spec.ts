@@ -1,9 +1,18 @@
-import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
-import { SkyCopyToClipboardService } from '@blackbaud/skyux-lib-clipboard';
-import { expect, expectAsync } from '@skyux-sdk/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  async,
+  fakeAsync,
+} from '@angular/core/testing';
+import {
+  SkyClipboardModule,
+  SkyCopyToClipboardService,
+} from '@blackbaud/skyux-lib-clipboard';
+import { expect } from '@skyux-sdk/testing';
+
+import { SkyCodeBlockResourcesModule } from '../shared/sky-code-block-resources.module';
 
 import { SkyCodeBlockComponent } from './code-block.component';
-import { SkyCodeBlockModule } from './code-block.module';
 import { SkyCodeBlockTestComponent } from './fixtures/code-block.component.fixture';
 
 class MockClipboardService {
@@ -22,11 +31,11 @@ describe('SkyCodeBlockComponent', () => {
     mockClipboardService = new MockClipboardService();
 
     TestBed.configureTestingModule({
-      declarations: [SkyCodeBlockTestComponent],
+      declarations: [SkyCodeBlockTestComponent, SkyCodeBlockComponent],
       providers: [
         { provide: SkyCopyToClipboardService, useValue: mockClipboardService },
       ],
-      imports: [SkyCodeBlockModule],
+      imports: [SkyClipboardModule, SkyCodeBlockResourcesModule],
     });
 
     fixture = TestBed.createComponent(SkyCodeBlockComponent);
@@ -152,8 +161,8 @@ describe('SkyCodeBlockComponent', () => {
     expect(element.querySelector('.sky-code-block-header')).not.toExist();
   });
 
-  it('should pass accessibility', async () => {
+  it('should pass accessibility', async(() => {
     fixture.detectChanges();
-    await expectAsync(element).toBeAccessible();
-  });
+    expect(element).toBeAccessible();
+  }));
 });

@@ -13,7 +13,7 @@ describe('SkyCodeComponent', () => {
     TestBed.configureTestingModule({
       declarations: [SkyCodeTestComponent],
       imports: [SkyCodeModule],
-    });
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SkyCodeComponent);
   });

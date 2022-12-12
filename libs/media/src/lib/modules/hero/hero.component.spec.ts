@@ -47,16 +47,17 @@ describe('SkyHeroComponent', () => {
 
   it('should remove any character other than numbers and . from an opacity input.', () => {
     component.overlayOpacity = 'Inva 0 id . inp 5 ut';
-    expect(component.overlayOpacity).toEqual('0.5');
-
     fixture.detectChanges();
+
     const hero = debugElement.query(By.css('.sky-hero-overlay')).nativeElement;
+
+    expect(component.overlayOpacity).toEqual('0.5');
     expect(hero.style.opacity).toBe('0.5');
 
     component.overlayOpacity = '20%';
-    expect(component.overlayOpacity).toEqual('0.2');
-
     fixture.detectChanges();
+
+    expect(component.overlayOpacity).toEqual('0.2');
     expect(hero.style.opacity).toBe('0.2');
   });
 
@@ -76,5 +77,15 @@ describe('SkyHeroComponent', () => {
     component.backgroundImageUrl = '~/foo-image.jpg';
     fixture.detectChanges();
     expect(hero.style.backgroundImage).toContain('~/foo-image.jpg');
+  });
+
+  it('should reset the overlay opacity', () => {
+    expect(component.overlayOpacity).toEqual('0.4');
+
+    component.overlayOpacity = '0.6.';
+    expect(component.overlayOpacity).toEqual('0.6');
+
+    component.overlayOpacity = undefined;
+    expect(component.overlayOpacity).toEqual('0.4');
   });
 });

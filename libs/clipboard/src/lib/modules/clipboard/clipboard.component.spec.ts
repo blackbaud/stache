@@ -26,10 +26,10 @@ describe('SkyCopyToClipboardComponent', () => {
   ): HTMLElement {
     return fixture.nativeElement.querySelector('button');
   }
-
   let component: SkyClipboardTestComponent;
   let fixture: ComponentFixture<SkyClipboardTestComponent>;
   let element: HTMLElement;
+  let mockTestElement: any;
   let mockClipboardService: any;
 
   beforeEach(() => {
