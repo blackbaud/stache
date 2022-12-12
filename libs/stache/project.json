@@ -27,7 +27,13 @@
       "options": {
         "main": "libs/stache/src/test.ts",
         "tsConfig": "libs/stache/tsconfig.spec.json",
-        "karmaConfig": "libs/stache/karma.conf.js"
+        "karmaConfig": "libs/stache/karma.conf.js",
+        "codeCoverage": true,
+        "codeCoverageExclude": ["**/fixtures/**"],
+        "styles": [
+          "node_modules/@skyux/theme/css/sky.css",
+          "node_modules/@skyux/theme/css/themes/modern/styles.css"
+        ]
       }
     },
     "lint": {

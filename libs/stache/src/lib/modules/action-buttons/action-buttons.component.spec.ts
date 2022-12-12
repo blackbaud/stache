@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { expect } from '@skyux-sdk/testing';
+import { expect, expectAsync } from '@skyux-sdk/testing';
 
 import { StacheRouteService } from '../router/route.service';
 
@@ -53,7 +53,7 @@ describe('StacheActionButtonsComponent', () => {
         RouterTestingModule,
       ],
       providers: [{ provide: StacheRouteService, useValue: mockRouteService }],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheActionButtonsComponent);
     component = fixture.componentInstance;
@@ -146,7 +146,7 @@ describe('StacheActionButtonsComponent', () => {
     expect(component.filteredRoutes.length).toBe(3);
   });
 
-  it('should pass accessibility', async(() => {
+  it('should pass accessibility', async () => {
     component.routes = [
       {
         name: 'Test',
@@ -164,8 +164,8 @@ describe('StacheActionButtonsComponent', () => {
     ];
 
     fixture.detectChanges();
-    expect(fixture.debugElement.nativeElement).toBeAccessible();
-  }));
+    await expectAsync(fixture.debugElement.nativeElement).toBeAccessible();
+  });
 
   it('should allow async routes', () => {
     component.routes = undefined;

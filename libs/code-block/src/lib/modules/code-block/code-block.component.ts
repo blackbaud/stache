@@ -93,7 +93,7 @@ export class SkyCodeBlockComponent implements AfterViewInit, OnInit {
   }
 
   private formatCode(code: string): string {
-    return Prism.plugins.NormalizeWhitespace.normalize(code, {
+    return Prism.plugins['NormalizeWhitespace'].normalize(code, {
       'remove-trailing': true,
       'remove-indent': true,
       'left-trim': true,

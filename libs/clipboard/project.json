@@ -27,7 +27,13 @@
       "options": {
         "main": "libs/clipboard/src/test.ts",
         "tsConfig": "libs/clipboard/tsconfig.spec.json",
-        "karmaConfig": "libs/clipboard/karma.conf.js"
+        "karmaConfig": "libs/clipboard/karma.conf.js",
+        "codeCoverage": true,
+        "codeCoverageExclude": ["**/fixtures/**"],
+        "styles": [
+          "node_modules/@skyux/theme/css/sky.css",
+          "node_modules/@skyux/theme/css/themes/modern/styles.css"
+        ]
       }
     },
     "lint": {
