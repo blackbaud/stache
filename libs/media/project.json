@@ -28,7 +28,12 @@
         "main": "libs/media/src/test.ts",
         "tsConfig": "libs/media/tsconfig.spec.json",
         "karmaConfig": "libs/media/karma.conf.js",
-        "styles": ["node_modules/@skyux/theme/css/sky.css"]
+        "codeCoverage": true,
+        "codeCoverageExclude": ["**/fixtures/**"],
+        "styles": [
+          "node_modules/@skyux/theme/css/sky.css",
+          "node_modules/@skyux/theme/css/themes/modern/styles.css"
+        ]
       }
     },
     "lint": {
