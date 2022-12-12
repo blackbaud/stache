@@ -22,6 +22,13 @@ const routes: Routes = [
         (m) => m.MediaPlaygroundModule
       ),
   },
+  {
+    path: 'stache',
+    loadChildren: () =>
+      import('./stache/stache-playground.module').then(
+        (m) => m.StachePlaygroundModule
+      ),
+  },
 ];
 
 @NgModule({
