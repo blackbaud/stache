@@ -27,7 +27,8 @@
       "options": {
         "main": "libs/stache/src/test.ts",
         "tsConfig": "libs/stache/tsconfig.spec.json",
-        "karmaConfig": "libs/stache/karma.conf.js"
+        "karmaConfig": "libs/stache/karma.conf.js",
+        "styles": ["node_modules/@skyux/theme/css/sky.css"]
       }
     },
     "lint": {
