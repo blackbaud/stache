@@ -1,5 +1,4 @@
-@import 'node_modules/@skyux/theme/scss/mixins';
-@import 'node_modules/@skyux/theme/scss/variables';
+@use 'node_modules/@skyux/theme/scss/variables' as vars;
 
 .sky-hero {
   background-color: #000;
@@ -19,13 +18,13 @@
   margin: 100px 0 80px;
   text-align: center;
   z-index: 1;
-  padding: 0 $sky-space-lg;
+  padding: 0 vars.$sky-space-lg;
 
-  @media (min-width: $sky-screen-md-min) {
-    padding: 0 $sky-space-md;
+  @media (min-width: vars.$sky-screen-md-min) {
+    padding: 0 vars.$sky-space-md;
   }
 
-  @media (min-width: $sky-screen-lg-min) {
+  @media (min-width: vars.$sky-screen-lg-min) {
     padding: 0;
   }
 }
