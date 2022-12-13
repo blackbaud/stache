@@ -10,9 +10,10 @@ describe('SkyVideoComponent', () => {
   let debugElement: DebugElement;
 
   function getIframeSourceUrl(): string {
-    return debugElement.nativeElement
-      .querySelector('iframe')
-      .getAttribute('src');
+    return (
+      debugElement.nativeElement.querySelector('iframe')?.getAttribute('src') ||
+      ''
+    );
   }
 
   beforeEach(() => {
@@ -55,5 +56,17 @@ describe('SkyVideoComponent', () => {
     src = getIframeSourceUrl();
 
     expect(src).toEqual(expectedSource);
+  });
+
+  it('should allow resetting the video source', () => {
+    component.videoSource = 'https://foo';
+    fixture.detectChanges();
+
+    expect(getIframeSourceUrl()).toEqual('https://foo');
+
+    component.videoSource = undefined;
+    fixture.detectChanges();
+
+    expect(getIframeSourceUrl()).toEqual('');
   });
 });

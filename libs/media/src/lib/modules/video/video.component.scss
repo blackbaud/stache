@@ -1,12 +1,11 @@
-@import 'node_modules/@skyux/theme/scss/mixins';
-@import 'node_modules/@skyux/theme/scss/variables';
+@use 'node_modules/@skyux/theme/scss/variables' as vars;
 
 .sky-video {
   position: relative;
   display: block;
   width: 100%;
   overflow: hidden;
-  margin: $sky-margin-stacked-default 0;
+  margin: vars.$sky-margin-stacked-default 0;
 
   &:before {
     content: '';

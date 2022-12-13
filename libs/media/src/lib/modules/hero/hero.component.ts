@@ -5,6 +5,8 @@ import {
   Input,
 } from '@angular/core';
 
+const DEFAULT_OPACITY = '0.4';
+
 @Component({
   selector: 'sky-hero',
   templateUrl: './hero.component.html',
@@ -13,27 +15,30 @@ import {
 })
 export class SkyHeroComponent {
   @Input()
-  public backgroundImageUrl: string;
+  public backgroundImageUrl: string | undefined;
 
   @Input()
-  public set overlayOpacity(value: string) {
-    const sanitized = value.replace(/[^\d.-]/g, '');
-    const newValue = this.parseInterval(sanitized).toString();
-    this._overlayOpacity = newValue;
-    this.changeDetector.markForCheck();
+  public set overlayOpacity(value: string | undefined) {
+    const overlayOpacity = value || DEFAULT_OPACITY;
+    const sanitized = overlayOpacity.replace(/[^\d.-]/g, '');
+    const newValue = this.#parseInterval(sanitized).toString();
+    this.#_overlayOpacity = newValue;
+    this.#changeDetector.markForCheck();
   }
 
   public get overlayOpacity(): string {
-    return this._overlayOpacity || this.defaultOpacity;
+    return this.#_overlayOpacity;
   }
 
-  private readonly defaultOpacity = '0.4';
+  #changeDetector: ChangeDetectorRef;
 
-  private _overlayOpacity: string;
+  #_overlayOpacity = DEFAULT_OPACITY;
 
-  constructor(private changeDetector: ChangeDetectorRef) {}
+  constructor(changeDetector: ChangeDetectorRef) {
+    this.#changeDetector = changeDetector;
+  }
 
-  private parseInterval(value: string): number {
+  #parseInterval(value: string): number {
     const interval = parseFloat(value);
 
     if (isNaN(interval)) {

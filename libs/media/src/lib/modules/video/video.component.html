@@ -1,4 +1,10 @@
 <div class="sky-video">
-  <iframe allowfullscreen class="sky-video-object" frameborder="0" [src]="src">
+  <iframe
+    *ngIf="src"
+    allowfullscreen
+    class="sky-video-object"
+    frameborder="0"
+    [src]="src"
+  >
   </iframe>
 </div>

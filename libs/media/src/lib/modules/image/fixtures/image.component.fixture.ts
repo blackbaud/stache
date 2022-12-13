@@ -5,15 +5,15 @@ import { Component } from '@angular/core';
   templateUrl: './image.component.fixture.html',
 })
 export class SkyImageTestComponent {
-  public caption: string;
+  public caption: string | undefined;
 
   public captionType = 'default';
 
   public imageAlt = '';
 
-  public imageSource: string;
+  public imageSource: string | undefined;
 
-  public showBorder: boolean;
+  public showBorder: boolean | undefined;
 
-  public showCaptionPrefix: boolean;
+  public showCaptionPrefix: boolean | undefined;
 }

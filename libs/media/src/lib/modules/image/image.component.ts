@@ -8,32 +8,28 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 })
 export class SkyImageComponent {
   @Input()
-  public caption: string;
+  public caption: string | undefined;
 
   @Input()
-  public captionType = 'default';
+  public captionType: string | undefined = 'default';
 
   @Input()
-  public imageAlt = 'image';
+  public imageAlt: string | undefined = 'image';
 
   @Input()
-  public imageSource: string;
+  public imageSource: string | undefined;
 
   @Input()
-  public showBorder = false;
+  public showBorder: boolean | undefined = false;
 
   @Input()
-  public set showCaptionPrefix(value: boolean) {
-    this._showCaptionPrefix = value;
+  public set showCaptionPrefix(value: boolean | undefined) {
+    this.#_showCaptionPrefix = value !== false;
   }
 
   public get showCaptionPrefix(): boolean {
-    if (this._showCaptionPrefix === undefined) {
-      return true;
-    }
-
-    return this._showCaptionPrefix;
+    return this.#_showCaptionPrefix;
   }
 
-  private _showCaptionPrefix = true;
+  #_showCaptionPrefix = true;
 }

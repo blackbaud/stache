@@ -8,5 +8,5 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 })
 export class SkyHeroSubheadingComponent {
   @Input()
-  public heroTextColor = '#fff';
+  public heroTextColor: string | undefined = '#fff';
 }
