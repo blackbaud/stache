@@ -12,7 +12,8 @@ describe('SkyCopyToClipboardService', () => {
       nativeWindow: {
         navigator: {
           clipboard: {
-            writeText(_: string) {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            writeText(_: string): void {
               /* */
             },
           },
