@@ -12,7 +12,8 @@
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     },
     "lint": {
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
@@ -40,5 +41,17 @@
       "style": "scss"
     }
   },
-  "defaultProject": "playground"
+  "defaultProject": "playground",
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "sharedGlobals": [
+      "{workspaceRoot}/.github/workflows/**",
+      "{workspaceRoot}/config/**",
+      "{workspaceRoot}/scripts/**",
+      "{workspaceRoot}/nx.json",
+      "{workspaceRoot}/tsconfig.base.json",
+      "{workspaceRoot}/tsconfig.no-strict.json"
+    ],
+    "production": ["default"]
+  }
 }
