@@ -12,7 +12,7 @@ export class SkyClipboardTestComponent {
   public ariaLabelledBy: string | undefined;
 
   @ViewChild(SkyCopyToClipboardComponent)
-  public copyToClipboardComponent: SkyCopyToClipboardComponent;
+  public copyToClipboardComponent!: SkyCopyToClipboardComponent;
 
   public title: string | undefined;
 }

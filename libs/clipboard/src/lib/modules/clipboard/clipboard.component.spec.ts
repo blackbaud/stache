@@ -12,10 +12,10 @@ import { SkyCopyToClipboardService } from './clipboard.service';
 import { SkyClipboardTestComponent } from './fixtures/clipboard.component.fixture';
 
 class MockClipboardService {
-  public copyContent(element: HTMLElement) {
+  public copyContent(): void {
     /* */
   }
-  public verifyCopyCommandBrowserSupport() {
+  public verifyCopyCommandBrowserSupport(): void {
     /* */
   }
 }
@@ -26,11 +26,11 @@ describe('SkyCopyToClipboardComponent', () => {
   ): HTMLElement {
     return fixture.nativeElement.querySelector('button');
   }
+
   let component: SkyClipboardTestComponent;
   let fixture: ComponentFixture<SkyClipboardTestComponent>;
   let element: HTMLElement;
-  let mockTestElement: any;
-  let mockClipboardService: any;
+  let mockClipboardService: MockClipboardService;
 
   beforeEach(() => {
     mockClipboardService = new MockClipboardService();

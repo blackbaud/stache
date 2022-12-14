@@ -14,7 +14,7 @@ export class SkyCopyToClipboardComponent {
    * If the button includes a visible label outside of the button itself, use `ariaLabelledBy` instead.
    */
   @Input()
-  public ariaLabel: string;
+  public ariaLabel: string | undefined;
 
   /**
    * Specifies the HTML element ID (without the leading #) of the element that labels the copy to clipboard button. This sets the input's aria-labelledby attribute
@@ -22,55 +22,63 @@ export class SkyCopyToClipboardComponent {
    * If the button does not include a visible label outside of the button itself, use `ariaLabel` instead.
    */
   @Input()
-  public ariaLabelledBy: string;
+  public ariaLabelledBy: string | undefined;
 
   /**
    * Specifies the HTMLElement which contains the content being copied.
    */
   @Input()
-  public copyTarget: HTMLElement;
+  public copyTarget: HTMLElement | undefined;
 
   /**
    * Specifies the label for the copy to clipboard button when the button has not been clicked.
    */
   @Input()
-  public buttonText: string;
+  public buttonText: string | undefined;
 
   /**
    * Specifies the label for the copy to clipboard button after the button has been clicked.
    */
   @Input()
-  public buttonClickedText: string;
+  public buttonClickedText: string | undefined;
 
   /**
    * Specifies a title attribute for the copy to clipboard button.
    */
   @Input()
-  public title: string;
+  public title: string | undefined;
 
   public buttonActive = false;
-  private timeout: any;
-  private window: Window;
+
+  #changeDetector: ChangeDetectorRef;
+  #clipboardSvc: SkyCopyToClipboardService;
+  #timeout: number | undefined;
+  #window: Window;
 
   constructor(
-    private clipboardService: SkyCopyToClipboardService,
-    private windowRef: SkyAppWindowRef,
-    private cdr: ChangeDetectorRef
+    changeDetector: ChangeDetectorRef,
+    clipboardSvc: SkyCopyToClipboardService,
+    windowRef: SkyAppWindowRef
   ) {
-    this.window = this.windowRef.nativeWindow;
+    this.#changeDetector = changeDetector;
+    this.#clipboardSvc = clipboardSvc;
+    this.#window = windowRef.nativeWindow;
   }
 
-  public copyToClipboard() {
-    this.buttonActive = true;
-    this.clipboardService.copyContent(this.copyTarget);
+  public copyToClipboard(): void {
+    if (this.copyTarget) {
+      this.buttonActive = true;
 
-    if (this.timeout) {
-      this.window.clearTimeout(this.timeout);
+      this.#clipboardSvc.copyContent(this.copyTarget);
+
+      if (this.#timeout !== undefined) {
+        this.#window.clearTimeout(this.#timeout);
+      }
+
+      this.#timeout = this.#window.setTimeout(() => {
+        this.buttonActive = false;
+        this.#changeDetector.markForCheck();
+      }, 1000);
     }
-
-    this.timeout = this.window.setTimeout(() => {
-      this.buttonActive = false;
-      this.cdr.markForCheck();
-    }, 1000);
   }
 }

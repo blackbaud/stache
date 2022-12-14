@@ -1,25 +1,30 @@
 // adapted from ngx-clipboard
 import { Injectable } from '@angular/core';
-
-import clipboard from 'clipboard-polyfill';
+import { SkyAppWindowRef } from '@skyux/core';
 
 @Injectable()
 export class SkyCopyToClipboardService {
-  public copyContent(element: HTMLElement) {
-    const copyText = this.getTextFromElement(element);
-    clipboard.writeText(copyText);
+  #windowRef: SkyAppWindowRef;
+
+  constructor(windowRef: SkyAppWindowRef) {
+    this.#windowRef = windowRef;
   }
 
-  private getTextFromElement(element: HTMLElement): string {
-    if (this.isValidInputElement(element)) {
+  public copyContent(element: HTMLElement): void {
+    const copyText = this.#getTextFromElement(element);
+    this.#windowRef.nativeWindow.navigator.clipboard.writeText(copyText);
+  }
+
+  #getTextFromElement(element: HTMLElement): string | undefined {
+    if (this.#isValidInputElement(element)) {
       const targetEl = element as HTMLInputElement | HTMLTextAreaElement;
       return targetEl.value;
     }
 
-    return element.textContent.trim();
+    return element.textContent?.trim();
   }
 
-  private isValidInputElement(element: HTMLElement): boolean {
+  #isValidInputElement(element: HTMLElement): boolean {
     return (
       element instanceof HTMLTextAreaElement ||
       element instanceof HTMLInputElement

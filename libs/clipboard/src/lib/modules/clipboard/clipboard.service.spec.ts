@@ -1,5 +1,3 @@
-import clipboard from 'clipboard-polyfill';
-
 import { SkyCopyToClipboardService } from './clipboard.service';
 
 describe('SkyCopyToClipboardService', () => {
@@ -10,8 +8,25 @@ describe('SkyCopyToClipboardService', () => {
   testElement.innerText = testContent;
 
   beforeEach(() => {
-    clipboardService = new SkyCopyToClipboardService();
-    spyOn(clipboard, 'writeText').and.callFake((text: string) => {
+    const mockWindowRef = {
+      nativeWindow: {
+        navigator: {
+          clipboard: {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            writeText(_: string): void {
+              /* */
+            },
+          },
+        },
+      },
+    };
+
+    clipboardService = new SkyCopyToClipboardService(mockWindowRef);
+
+    spyOn(
+      mockWindowRef.nativeWindow.navigator.clipboard,
+      'writeText'
+    ).and.callFake((text: string) => {
       mockText = text;
       return Promise.resolve();
     });
