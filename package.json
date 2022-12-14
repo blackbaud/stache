@@ -138,6 +138,7 @@
     "@skyux/layout": "7.0.0",
     "@skyux/lookup": "7.0.0",
     "@skyux/theme": "7.0.0",
+    "clipboard-polyfill": "2.8.6",
     "lodash.get": "4.4.2",
     "prismjs": "1.29.0",
     "rxjs": "7.5.7",
