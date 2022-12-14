@@ -1,14 +1,9 @@
-import {
-  ComponentFixture,
-  TestBed,
-  async,
-  fakeAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import {
   SkyClipboardModule,
   SkyCopyToClipboardService,
 } from '@blackbaud/skyux-lib-clipboard';
-import { expect } from '@skyux-sdk/testing';
+import { expect, expectAsync } from '@skyux-sdk/testing';
 
 import { SkyCodeBlockResourcesModule } from '../shared/sky-code-block-resources.module';
 
@@ -16,16 +11,16 @@ import { SkyCodeBlockComponent } from './code-block.component';
 import { SkyCodeBlockTestComponent } from './fixtures/code-block.component.fixture';
 
 class MockClipboardService {
-  public copyContent() {
+  public copyContent(): void {
     /* */
   }
 }
 
 describe('SkyCodeBlockComponent', () => {
-  let component: SkyCodeBlockComponent;
-  let fixture: ComponentFixture<SkyCodeBlockComponent>;
+  let component: SkyCodeBlockTestComponent;
+  let fixture: ComponentFixture<SkyCodeBlockTestComponent>;
   let element: HTMLElement;
-  let mockClipboardService: any;
+  let mockClipboardService: MockClipboardService;
 
   beforeEach(() => {
     mockClipboardService = new MockClipboardService();
@@ -38,7 +33,7 @@ describe('SkyCodeBlockComponent', () => {
       imports: [SkyClipboardModule, SkyCodeBlockResourcesModule],
     });
 
-    fixture = TestBed.createComponent(SkyCodeBlockComponent);
+    fixture = TestBed.createComponent(SkyCodeBlockTestComponent);
     component = fixture.componentInstance;
     element = fixture.nativeElement;
   });
@@ -61,34 +56,32 @@ describe('SkyCodeBlockComponent', () => {
     const code = '{ "foo": "bar" }';
     component.code = code;
     fixture.detectChanges();
-    expect(element.querySelector('.sky-code-output').textContent).toContain(
+    expect(element.querySelector('.sky-code-output')?.textContent).toContain(
       code
     );
 
     const newCode = '{ "foo": "baz" }';
     component.code = newCode;
     fixture.detectChanges();
-    expect(element.querySelector('.sky-code-output').textContent).toContain(
+    expect(element.querySelector('.sky-code-output')?.textContent).toContain(
       newCode
     );
   }));
 
   it('should convert inner HTML to a string', () => {
     const code = '<p>Hello, {{name}}!</p>';
-    const testFixture = TestBed.createComponent(SkyCodeBlockTestComponent);
-    const testElement = testFixture.nativeElement;
-    testFixture.detectChanges();
-    expect(testElement.querySelector('.sky-code-output').textContent).toContain(
+    component.codeAsInnerContent = code;
+    fixture.detectChanges();
+    expect(element.querySelector('.sky-code-output')?.textContent).toContain(
       code
     );
   });
 
   it('should not honor angular bindings in the inner HTML', () => {
     const code = '<p>Hello, {{name}}!</p>';
-    const testFixture = TestBed.createComponent(SkyCodeBlockTestComponent);
-    const testElement = testFixture.nativeElement;
-    testFixture.detectChanges();
-    expect(testElement.querySelector('.sky-code-output').textContent).toContain(
+    component.codeAsInnerContent = code;
+    fixture.detectChanges();
+    expect(element.querySelector('.sky-code-output')?.textContent).toContain(
       code
     );
   });
@@ -161,8 +154,28 @@ describe('SkyCodeBlockComponent', () => {
     expect(element.querySelector('.sky-code-block-header')).not.toExist();
   });
 
-  it('should pass accessibility', async(() => {
+  it('should update header visibility when inputs change', () => {
+    component.code = '<p></p>';
+    component.hideHeader = true;
     fixture.detectChanges();
-    expect(element).toBeAccessible();
-  }));
+    expect(element.querySelector('.sky-code-block-header')).not.toExist();
+    component.hideHeader = false;
+    component.fileName = 'foo.txt';
+    fixture.detectChanges();
+    expect(element.querySelector('.sky-code-block-header')).toExist();
+  });
+
+  it('should handle undefined code', () => {
+    component.code = undefined;
+    component.codeAsInnerContent = undefined;
+    fixture.detectChanges();
+    expect(element.querySelector('.sky-code-output')?.textContent).toEqual('');
+  });
+
+  it('should pass accessibility', async () => {
+    const code = '<p></p>';
+    component.code = code;
+    fixture.detectChanges();
+    await expectAsync(element).toBeAccessible();
+  });
 });

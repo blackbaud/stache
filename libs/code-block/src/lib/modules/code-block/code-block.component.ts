@@ -4,95 +4,116 @@ import {
   Component,
   ElementRef,
   Input,
-  OnInit,
+  OnChanges,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
-import * as Prism from 'prismjs';
+import Prism from 'prismjs';
 import 'prismjs/plugins/normalize-whitespace/prism-normalize-whitespace';
 
 import { prismLanguages } from './prism-languages';
+
+const DEFAULT_LANGUAGE = 'markup';
 
 @Component({
   selector: 'sky-code-block',
   templateUrl: './code-block.component.html',
   styleUrls: ['./code-block.component.scss'],
 })
-export class SkyCodeBlockComponent implements AfterViewInit, OnInit {
+export class SkyCodeBlockComponent implements AfterViewInit, OnChanges {
   @Input()
-  public set code(value: string) {
-    /*istanbul ignore else*/
-    if (value !== this._code) {
-      this._code = value;
-      this.initCodeBlockDisplay();
+  public set code(value: string | undefined) {
+    if (value !== this.#_code) {
+      this.#_code = value;
+      this.#updateCodeBlockDisplay();
     }
   }
 
-  public get code(): string {
-    return this._code;
+  public get code(): string | undefined {
+    return this.#_code;
   }
 
   @Input()
-  public fileName: string;
+  public fileName: string | undefined;
 
   @Input()
-  public set languageType(value: string) {
-    this.setDisplayName(value);
-    if (this.validLanguages.indexOf(value) > -1) {
-      this._languageType = value;
+  public set languageType(value: string | undefined) {
+    if (value && this.#validLanguages.indexOf(value) > -1) {
+      this.#_languageType = value;
     } else {
-      this._languageType = this.defaultLanguage;
+      this.#_languageType = DEFAULT_LANGUAGE;
     }
+
+    this.#setDisplayName(value);
+    this.#updateCodeBlockClassName();
   }
 
   public get languageType(): string {
-    return this._languageType;
+    return this.#_languageType;
   }
 
   @Input()
-  public hideCopyToClipboard = false;
+  public hideCopyToClipboard: boolean | undefined = false;
 
   @Input()
-  public hideHeader: boolean;
+  public hideHeader: boolean | undefined;
 
-  @ViewChild('codeFromContent', { read: ElementRef })
-  public codeTemplateRef: ElementRef;
+  @ViewChild('codeFromContent', { read: ElementRef, static: true })
+  public codeTemplateRef: ElementRef | undefined;
 
+  public codeBlockClassName: string | undefined;
+  public displayName: string | undefined;
   public output: SafeHtml;
-  public displayName: string;
 
-  private readonly defaultLanguage = 'markup';
-  private validLanguages: string[];
-  private _code: string;
-  private _languageType: string = this.defaultLanguage;
+  #_code: string | undefined;
+  #_languageType: string = DEFAULT_LANGUAGE;
+  #changeDetector: ChangeDetectorRef;
+  #sanitizer: DomSanitizer;
+  #validLanguages: string[];
 
-  public constructor(
-    private cdRef: ChangeDetectorRef,
-    private sanitizer: DomSanitizer
-  ) {
-    this.validLanguages = Object.keys(Prism.languages);
+  constructor(changeDetector: ChangeDetectorRef, sanitizer: DomSanitizer) {
+    this.#changeDetector = changeDetector;
+    this.#sanitizer = sanitizer;
+    this.#validLanguages = Object.keys(Prism.languages);
+
+    // Create an empty SafeHtml value on init since output cannot be undefined.
+    this.output = sanitizer.bypassSecurityTrustHtml('');
   }
 
-  public ngOnInit(): void {
+  public ngAfterViewInit(): void {
+    this.#updateCodeBlockClassName();
+    this.#updateCodeBlockDisplay();
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (
+      changes['fileName'] ||
+      changes['hideCopyToClipboard'] ||
+      changes['hideHeader']
+    ) {
+      this.#updateHeaderVisibility();
+    }
+  }
+
+  #updateHeaderVisibility(): void {
     this.hideHeader =
       this.hideHeader ||
       (!this.displayName && !this.fileName && this.hideCopyToClipboard);
   }
 
-  public ngAfterViewInit(): void {
-    this.initCodeBlockDisplay();
+  #updateCodeBlockClassName(): void {
+    this.codeBlockClassName = `language-${this.languageType}`;
+    this.#changeDetector.markForCheck();
   }
 
-  public getClassName(): string {
-    return `language-${this.languageType}`;
+  #setDisplayName(value = ''): void {
+    this.displayName = value ? prismLanguages[value] : undefined;
+    this.#changeDetector.markForCheck();
   }
 
-  private setDisplayName(value: string = '') {
-    this.displayName = prismLanguages[value];
-  }
-
-  private formatCode(code: string): string {
+  #formatCode(code: string): string {
     return Prism.plugins['NormalizeWhitespace'].normalize(code, {
       'remove-trailing': true,
       'remove-indent': true,
@@ -104,7 +125,7 @@ export class SkyCodeBlockComponent implements AfterViewInit, OnInit {
     });
   }
 
-  private highlightCode(code: string): string {
+  #highlightCode(code: string): string {
     return Prism.highlight(
       code,
       Prism.languages[this.languageType],
@@ -112,14 +133,18 @@ export class SkyCodeBlockComponent implements AfterViewInit, OnInit {
     );
   }
 
-  private initCodeBlockDisplay(): void {
+  #updateCodeBlockDisplay(): void {
     if (this.codeTemplateRef) {
       const textContent = this.codeTemplateRef.nativeElement.textContent;
       let code = this.code || textContent;
-      code = this.formatCode(code);
-      code = this.highlightCode(code);
-      this.output = this.sanitizer.bypassSecurityTrustHtml(code);
-      this.cdRef.detectChanges();
+
+      if (code) {
+        code = this.#formatCode(code);
+        code = this.#highlightCode(code);
+      }
+
+      this.output = this.#sanitizer.bypassSecurityTrustHtml(code);
+      this.#changeDetector.detectChanges();
     }
   }
 }
