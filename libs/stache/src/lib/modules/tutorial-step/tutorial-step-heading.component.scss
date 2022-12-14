@@ -1,9 +1,9 @@
-@import '../../styles/_variables';
+@use '../../styles/_variables' as vars;
 
 .stache-tutorial-step-heading {
   margin: 15px;
 
-  @media (min-width: $stache-screen-sm-min) {
+  @media (min-width: vars.$stache-screen-sm-min) {
     margin: 40px 60px 45px;
   }
 }
@@ -14,15 +14,15 @@
     padding: 0;
     margin: 0;
 
-    @media (min-width: $stache-screen-sm-min) {
+    @media (min-width: vars.$stache-screen-sm-min) {
       text-align: center;
     }
 
     h2 {
       font-size: 1.4em;
-      line-height: $stache-line-height-base;
+      line-height: vars.$stache-line-height-base;
 
-      @media (min-width: $stache-screen-sm-min) {
+      @media (min-width: vars.$stache-screen-sm-min) {
         font-size: 28px;
       }
     }

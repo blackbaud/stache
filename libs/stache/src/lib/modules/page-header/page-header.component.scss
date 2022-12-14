@@ -1,6 +1,6 @@
-@import '../../styles/_variables';
+@use '../../styles/_variables' as vars;
 
 .stache-page-header {
-  margin-bottom: $stache-margin;
-  margin-top: $stache-margin * 2;
+  margin-bottom: vars.$stache-margin;
+  margin-top: vars.$stache-margin * 2;
 }

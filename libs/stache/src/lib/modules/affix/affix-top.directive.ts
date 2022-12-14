@@ -9,13 +9,13 @@ import {
 import { StacheOmnibarAdapterService } from '../shared/omnibar-adapter.service';
 import { StacheWindowRef } from '../shared/window-ref';
 
+const AFFIX_CLASS_NAME = 'stache-affix-top';
+
 @Directive({
   selector: '[stacheAffixTop]',
 })
 export class StacheAffixTopDirective implements AfterViewInit {
-  public static readonly AFFIX_CLASS_NAME: string = 'stache-affix-top';
-
-  public isAffixed = false;
+  isAffixed = false;
 
   #footerWrapper: HTMLElement | undefined;
   #omnibarHeight = 0;
@@ -103,10 +103,7 @@ export class StacheAffixTopDirective implements AfterViewInit {
       this.#renderer.setStyle(this.#element, 'position', 'fixed');
       this.#renderer.setStyle(this.#element, 'top', '0px');
       this.#renderer.setStyle(this.#element, 'width', 'inherit');
-      this.#renderer.addClass(
-        this.#element,
-        StacheAffixTopDirective.AFFIX_CLASS_NAME
-      );
+      this.#renderer.addClass(this.#element, AFFIX_CLASS_NAME);
     }
   }
 
@@ -114,10 +111,7 @@ export class StacheAffixTopDirective implements AfterViewInit {
     if (this.isAffixed) {
       this.isAffixed = false;
       this.#renderer.setStyle(this.#element, 'position', 'static');
-      this.#renderer.removeClass(
-        this.#element,
-        StacheAffixTopDirective.AFFIX_CLASS_NAME
-      );
+      this.#renderer.removeClass(this.#element, AFFIX_CLASS_NAME);
     }
   }
 

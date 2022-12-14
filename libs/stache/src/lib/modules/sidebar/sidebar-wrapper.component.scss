@@ -1,13 +1,13 @@
-@import '../../styles/_variables';
+@use '../../styles/_variables' as vars;
 
 .stache-sidebar-wrapper {
   background-color: #fff;
   position: absolute !important;
-  z-index: $stache-sidebar-z-index;
+  z-index: vars.$stache-sidebar-z-index;
   left: 0;
   top: 0;
   bottom: 0;
-  border-right: 1px solid $stache-border-color-neutral-medium;
+  border-right: 1px solid vars.$stache-border-color-neutral-medium;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
 
   .stache-sidebar-buttons {
@@ -16,7 +16,7 @@
     top: 20px;
   }
 
-  @media (min-width: $stache-screen-md-min) {
+  @media (min-width: vars.$stache-screen-md-min) {
     box-shadow: none;
     .stache-sidebar-buttons {
       display: none;
@@ -24,18 +24,18 @@
   }
 
   .stache-sidebar-content {
-    width: $stache-sidebar-column-width;
-    padding-top: $stache-padding-half;
+    width: vars.$stache-sidebar-column-width;
+    padding-top: vars.$stache-padding-half;
     padding-right: 55px;
-    padding-bottom: $stache-padding-plus-half;
-    padding-left: $stache-padding-half;
+    padding-bottom: vars.$stache-padding-plus-half;
+    padding-left: vars.$stache-padding-half;
     max-height: 100%;
     overflow-y: auto;
   }
 
   &.stache-sidebar-closed {
     border-right: none;
-    margin-left: -$stache-sidebar-column-width;
+    margin-left: vars.$stache-sidebar-column-width * -1;
 
     .stache-sidebar-buttons {
       right: -36px;

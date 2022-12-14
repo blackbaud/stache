@@ -11,14 +11,13 @@ import { expect } from '@skyux-sdk/testing';
 import { SkyAppTestUtility } from '@skyux-sdk/testing';
 
 import { StacheOmnibarAdapterService } from '../shared/omnibar-adapter.service';
-import { StacheWindowRef } from '../shared/window-ref';
 
 import { StacheAffixTopDirective } from './affix-top.directive';
 import { AffixTopFixtureComponent } from './fixtures/affix-top.component.fixture';
 import { AffixFixtureModule } from './fixtures/affix.module.fixture';
 
 describe('StacheAffixTopDirective', () => {
-  const className: string = StacheAffixTopDirective.AFFIX_CLASS_NAME;
+  const className = 'stache-affix-top';
 
   let omnibarAdapterService: StacheOmnibarAdapterService;
   let fixture: ComponentFixture<AffixTopFixtureComponent>;

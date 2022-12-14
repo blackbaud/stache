@@ -1,10 +1,10 @@
-@import '../../styles/_variables';
+@use '../../styles/_variables' as vars;
 
 .stache-page-anchor {
   padding-top: 2em;
   margin: 0 0 1em;
   padding-bottom: 0.6em;
-  border-bottom: 1px solid $stache-border-color-neutral-light;
+  border-bottom: 1px solid vars.$stache-border-color-neutral-light;
 
   &:hover {
     .stache-page-anchor-icon {
@@ -21,7 +21,7 @@
 .stache-page-anchor-heading {
   margin: 0;
   display: inline-block;
-  color: $stache-text-color-default;
+  color: vars.$stache-text-color-default;
 }
 
 .stache-page-anchor-icon {

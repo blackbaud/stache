@@ -11,18 +11,22 @@ import { StacheRouteService } from '../router/route.service';
 })
 export class StacheBreadcrumbsComponent implements StacheNav, OnInit {
   @Input()
-  public routes: StacheNavLink[];
+  public routes: StacheNavLink[] | undefined;
 
-  public constructor(private routeService: StacheRouteService) {}
+  #routeSvc: StacheRouteService;
+
+  constructor(routeSvc: StacheRouteService) {
+    this.#routeSvc = routeSvc;
+  }
 
   public ngOnInit(): void {
     if (!this.routes) {
-      const activeRoutes = this.routeService.getActiveRoutes();
-      this.routes = this.filterRoutes(activeRoutes);
+      const activeRoutes = this.#routeSvc.getActiveRoutes();
+      this.routes = this.#filterRoutes(activeRoutes);
     }
   }
 
-  private filterRoutes(activeRoutes: StacheNavLink[]): StacheNavLink[] {
+  #filterRoutes(activeRoutes: StacheNavLink[]): StacheNavLink[] {
     const root = activeRoutes[0];
     const breadcrumbRoutes: StacheNavLink[] = [];
 
@@ -40,27 +44,29 @@ export class StacheBreadcrumbsComponent implements StacheNav, OnInit {
       path: root.path,
     });
 
-    const addRoute = (route: StacheNavLink) => {
+    const addRoute = (route: StacheNavLink): void => {
       breadcrumbRoutes.push({
         name: route.name,
         path: route.path,
       });
 
       if (route.children && route.children.length) {
-        this.findActiveBranch(route.children, addRoute);
+        this.#findActiveBranch(route.children, addRoute);
       }
     };
 
-    this.findActiveBranch(root.children, addRoute);
+    if (root.children) {
+      this.#findActiveBranch(root.children, addRoute);
+    }
 
     return breadcrumbRoutes;
   }
 
-  private findActiveBranch(
+  #findActiveBranch(
     routes: StacheNavLink[],
     callback: (navLink: StacheNavLink) => void
-  ) {
-    const activeUrl = `${this.routeService.getActiveUrl()}/`;
+  ): void {
+    const activeUrl = `${this.#routeSvc.getActiveUrl()}/`;
     routes.forEach((route: StacheNavLink) => {
       if (activeUrl.indexOf(`/${route.path}/`) === 0) {
         callback(route);

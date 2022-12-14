@@ -1,3 +1,4 @@
+import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
@@ -14,23 +15,23 @@ import { StacheGoogleAnalyticsDirective } from './google-analytics.directive';
 
 describe('StacheGoogleAnalyticsDirective', () => {
   let fixture: ComponentFixture<StacheGoogleAnalyticsTestComponent>;
-  let mockWindowService: any;
-  let mockConfigService: any;
-  let mockRouter: any;
-  let directiveElement: any;
+  let mockWindowService: MockWindowService;
+  let mockConfigService: MockConfigService;
+  let mockRouter: MockRouter;
+  let directiveElement: DebugElement;
 
   class MockWindowService {
     public nativeWindow = {
-      eval: function () {
-        this.ga = () => true;
+      eval: function (): void {
+        // this.ga = () => void;
       },
-      ga: false,
+      ga: (): void => {
+        /* */
+      },
       document: {
         getElementById: jasmine
           .createSpy('getElementById')
-          .and.callFake(function (id: any) {
-            return false;
-          }),
+          .and.callFake(() => false),
       },
     };
   }
@@ -70,7 +71,7 @@ describe('StacheGoogleAnalyticsDirective', () => {
         { provide: StacheWindowRef, useValue: mockWindowService },
         { provide: Router, useValue: mockRouter },
       ],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheGoogleAnalyticsTestComponent);
     directiveElement = fixture.debugElement.query(

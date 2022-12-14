@@ -1,13 +1,13 @@
-@import '../../styles/_variables';
+@use '../../styles/_variables' as vars;
 
 .stache-table-of-contents-wrapper {
   background-color: white;
 
-  @media (max-width: $stache-screen-lg-min) {
-    padding: $stache-padding-double 0px;
+  @media (max-width: vars.$stache-screen-lg-min) {
+    padding: vars.$stache-padding-double 0px;
   }
 
-  @media (min-width: $stache-screen-lg-min) {
+  @media (min-width: vars.$stache-screen-lg-min) {
     position: absolute !important;
     right: 0;
     top: 0;
@@ -15,16 +15,16 @@
   }
 
   .stache-table-of-contents-content {
-    @media (max-width: $stache-screen-lg-min) {
-      border-left: 4px solid $stache-background-color-primary-dark;
+    @media (max-width: vars.$stache-screen-lg-min) {
+      border-left: 4px solid vars.$stache-background-color-primary-dark;
     }
 
-    width: $stache-sidebar-column-width;
-    padding-right: $stache-padding-half;
+    width: vars.$stache-sidebar-column-width;
+    padding-right: vars.$stache-padding-half;
     max-height: 100%;
 
     .stache-affix-top {
-      @media (max-width: $stache-screen-lg-min) {
+      @media (max-width: vars.$stache-screen-lg-min) {
         position: relative !important;
       }
       overflow-y: auto;

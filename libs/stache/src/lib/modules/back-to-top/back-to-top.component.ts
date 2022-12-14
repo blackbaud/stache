@@ -3,6 +3,8 @@ import { Component, HostListener, Input } from '@angular/core';
 import { InputConverter, numberConverter } from '../shared/input-converter';
 import { StacheWindowRef } from '../shared/window-ref';
 
+const DEFAULT_OFFSET = 200;
+
 @Component({
   selector: 'stache-back-to-top',
   templateUrl: './back-to-top.component.html',
@@ -11,19 +13,30 @@ import { StacheWindowRef } from '../shared/window-ref';
 export class StacheBackToTopComponent {
   @Input()
   @InputConverter(numberConverter)
-  public offset = 200;
+  public set offset(value: number | undefined) {
+    this.#_offset = value ?? DEFAULT_OFFSET;
+  }
+
+  public get offset(): number {
+    return this.#_offset;
+  }
 
   public isHidden = true;
 
-  public constructor(private windowRef: StacheWindowRef) {}
+  #_offset = DEFAULT_OFFSET;
+  #windowRef: StacheWindowRef;
 
-  @HostListener('window:scroll')
-  public onWindowScroll() {
-    this.isHidden = this.windowRef.nativeWindow.pageYOffset < this.offset;
+  constructor(windowRef: StacheWindowRef) {
+    this.#windowRef = windowRef;
   }
 
-  public scrollToTop() {
-    this.windowRef.nativeWindow.scroll({
+  @HostListener('window:scroll')
+  public onWindowScroll(): void {
+    this.isHidden = this.#windowRef.nativeWindow.pageYOffset < this.offset;
+  }
+
+  public scrollToTop(): void {
+    this.#windowRef.nativeWindow.scroll({
       top: 0,
       left: 0,
       behavior: 'smooth',

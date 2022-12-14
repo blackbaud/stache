@@ -7,22 +7,14 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class StacheBlockquoteComponent implements OnInit {
   @Input()
-  public author: string;
+  public author: string | undefined;
 
   @Input()
-  public quoteSource: string;
+  public quoteSource: string | undefined;
 
   public ngOnInit(): void {
-    if (this.hasQuoteSource() && !this.hasAuthor()) {
+    if (this.quoteSource && !this.author) {
       this.author = 'Source';
     }
-  }
-
-  public hasAuthor(): boolean {
-    return this.author !== undefined;
-  }
-
-  public hasQuoteSource(): boolean {
-    return this.quoteSource !== undefined;
   }
 }

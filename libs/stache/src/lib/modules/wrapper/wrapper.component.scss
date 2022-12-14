@@ -1,8 +1,8 @@
-@import '../../styles/_variables';
+@use '../../styles/_variables' as vars;
 
 ::ng-deep .stache-wrapper {
   background-color: #fff;
-  line-height: $stache-line-height-base;
+  line-height: vars.$stache-line-height-base;
 
   p:not([class]),
   ul:not([class]),
@@ -10,8 +10,8 @@
   li:not([class]),
   td:not([class]),
   th:not([class]) {
-    line-height: $stache-line-height-base;
-    color: $stache-text-color-default;
+    line-height: vars.$stache-line-height-base;
+    color: vars.$stache-text-color-default;
     font-size: inherit;
   }
 
@@ -21,23 +21,23 @@
   h4:not([class]),
   h5:not([class]),
   h6:not([class]) {
-    line-height: $stache-line-height-headings;
-    color: $stache-text-color-default;
-    margin: ($stache-margin * 2) 0;
+    line-height: vars.$stache-line-height-headings;
+    color: vars.$stache-text-color-default;
+    margin: (vars.$stache-margin * 2) 0;
   }
 
   p,
   blockquote,
   table {
-    margin: ($stache-margin * 2) 0;
+    margin: (vars.$stache-margin * 2) 0;
   }
 
   ul:not([class]),
   ol:not([class]) {
-    margin: ($stache-margin * 2) 0;
+    margin: (vars.$stache-margin * 2) 0;
 
     > li {
-      margin-bottom: $stache-margin;
+      margin-bottom: vars.$stache-margin;
 
       &:last-child {
         margin-bottom: 0;
@@ -60,11 +60,11 @@
 
 ::ng-deep .stache-omnibar-enabled {
   .stache-affix-top {
-    margin-top: $stache-omnibar-height;
+    margin-top: vars.$stache-omnibar-height;
   }
 }
 
 ::ng-deep .stache-max-width-container {
-  max-width: $stache-container-max-width;
+  max-width: vars.$stache-container-max-width;
   margin: 0 auto;
 }
