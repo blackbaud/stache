@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { expect, expectAsync } from '@skyux-sdk/testing';
 
@@ -33,10 +34,10 @@ describe('StacheActionButtonsComponent', () => {
   ];
 
   class MockRouteService {
-    public getActiveRoutes() {
+    public getActiveRoutes(): Routes {
       return mockRoutes;
     }
-    public getActiveUrl() {
+    public getActiveUrl(): string {
       return mockActiveUrl;
     }
   }

@@ -1,59 +1,66 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { StacheNavLink } from '../nav/nav-link';
 import { InputConverter, booleanConverter } from '../shared/input-converter';
+
+const SEARCH_KEYS: (keyof StacheNavLink)[] = ['name', 'summary'];
 
 @Component({
   selector: 'stache-action-buttons',
   templateUrl: './action-buttons.component.html',
   styleUrls: ['./action-buttons.component.scss'],
 })
-export class StacheActionButtonsComponent implements OnInit {
+export class StacheActionButtonsComponent {
   @Input()
-  public set routes(value: StacheNavLink[]) {
-    this._routes = value;
-    this.filteredRoutes = this.routes;
+  public set routes(value: StacheNavLink[] | undefined) {
+    this.#_routes = value;
+    this.filteredRoutes = value || [];
   }
 
-  public get routes(): StacheNavLink[] {
-    return this._routes || [];
+  public get routes(): StacheNavLink[] | undefined {
+    return this.#_routes;
   }
 
   @Input()
   @InputConverter(booleanConverter)
-  public showSearch = true;
-
-  public filteredRoutes: StacheNavLink[];
-
-  public searchText: string;
-
-  private _routes: StacheNavLink[];
-
-  private searchKeys: string[] = ['name', 'summary'];
-
-  public ngOnInit() {
-    this.filteredRoutes = this.routes;
+  public set showSearch(value: boolean | undefined) {
+    this.#_showSearch = value !== false;
   }
 
-  public onKeyUp(event: KeyboardEvent) {
+  public get showSearch(): boolean {
+    return this.#_showSearch;
+  }
+
+  public filteredRoutes: StacheNavLink[] = [];
+
+  public searchText = '';
+
+  #_routes: StacheNavLink[] | undefined;
+
+  #_showSearch = true;
+
+  public onKeyUp(event: KeyboardEvent): void {
     const searchText = (event.target as HTMLInputElement).value;
     this.searchApplied(searchText);
   }
 
-  public searchApplied(searchText: string) {
+  public searchApplied(searchText: string): void {
     this.searchText = searchText;
-    this.filteredRoutes = this.routes;
-    const query = searchText.toLowerCase();
 
     if (!searchText) {
       return;
     }
-    this.filteredRoutes = this.routes.filter((route: any) => {
-      const matchingFields = this.searchKeys.filter((key) => {
-        const isMatch = route[key] && route[key].toLowerCase().includes(query);
-        return isMatch;
+
+    if (this.routes) {
+      const query = searchText.toLowerCase();
+      this.filteredRoutes = this.routes.filter((route) => {
+        const matchingFields = SEARCH_KEYS.filter((key) => {
+          const value = route[key] as string | undefined;
+          return value && value.toLowerCase().includes(query);
+        });
+
+        return matchingFields.length > 0;
       });
-      return matchingFields.length > 0;
-    });
+    }
   }
 }
