@@ -1,27 +1,27 @@
-@import './node_modules/@skyux/theme/scss/mixins.scss';
-@import './node_modules/@skyux/theme/scss/variables.scss';
-@import './prism-a11y.scss';
+@use './node_modules/@skyux/theme/scss/mixins' as mixins;
+@use './node_modules/@skyux/theme/scss/variables' as vars;
+@use './prism-a11y.scss';
 
 .sky-code-input {
   display: none;
 }
 
 .sky-code-output {
-  @include sky-border('dark', 'top', 'right', 'bottom', 'left');
+  @include mixins.sky-border('dark', 'top', 'right', 'bottom', 'left');
   margin-top: 0;
-  padding: $sky-space-xl;
+  padding: vars.$sky-space-xl;
   background-color: #fff;
   overflow-x: auto;
-  margin-bottom: $sky-space-md * 2;
+  margin-bottom: vars.$sky-space-md * 2;
 }
 
 .sky-code-block-header {
   height: 45px;
-  @include sky-border('dark', 'top', 'right', 'left');
+  @include mixins.sky-border('dark', 'top', 'right', 'left');
   background-color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: $sky-space-xs;
-  padding-left: $sky-space-xl;
+  padding: vars.$sky-space-xs;
+  padding-left: vars.$sky-space-xl;
 }

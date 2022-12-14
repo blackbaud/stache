@@ -5,15 +5,15 @@ import { Component } from '@angular/core';
   templateUrl: './code-block.component.fixture.html',
 })
 export class SkyCodeBlockTestComponent {
-  public code = `
-  $(document).ready(() => {
-    console.log('jQuery is ready!');
-  });
-  <p>Hello, {{name}}!</p>
-  <script>
-    import { Component } from '@angular/core';
-    @Component({ selector: 'my-component' })
-    export class MyComponent {}
-  </script>
-`;
+  public code: string | undefined;
+
+  public codeAsInnerContent: string | undefined;
+
+  public fileName: string | undefined;
+
+  public hideCopyToClipboard: boolean | undefined;
+
+  public hideHeader: boolean | undefined;
+
+  public languageType: string | undefined;
 }
