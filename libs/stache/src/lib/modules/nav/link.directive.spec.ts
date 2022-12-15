@@ -89,7 +89,7 @@ describe('StacheLinkDirective', () => {
         { provide: StacheNavService, useValue: mockNavService },
         { provide: StacheRouteService, useValue: mockRouteService },
       ],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheRouterLinkTestComponent);
     directiveElement = fixture.debugElement.query(
