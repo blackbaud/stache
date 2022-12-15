@@ -43,7 +43,7 @@ describe('StacheEditButtonComponent', () => {
         { provide: SkyAppConfig, useValue: mockConfigService },
         { provide: StacheRouteService, useValue: mockRouteService },
       ],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheEditButtonComponent);
     component = fixture.componentInstance;

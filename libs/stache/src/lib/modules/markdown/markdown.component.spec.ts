@@ -10,7 +10,7 @@ describe('StacheMarkdownComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [StacheMarkdownModule],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheMarkdownComponent);
   });

@@ -82,7 +82,7 @@ describe('StacheTableOfContentsComponent', () => {
         { provide: StacheOmnibarAdapterService, useValue: mockOmnibarService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheTableOfContentsComponent);
     component = fixture.componentInstance;

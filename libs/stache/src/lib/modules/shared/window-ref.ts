@@ -1,34 +1,34 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 
-import { Observable, ReplaySubject, fromEvent } from 'rxjs';
+import { Observable, ReplaySubject, Subject, fromEvent, takeUntil } from 'rxjs';
 
 function getWindow(): any {
   return window;
 }
 
 @Injectable()
-export class StacheWindowRef {
+export class StacheWindowRef implements OnDestroy {
   public get nativeWindow(): any {
     return getWindow();
   }
 
-  get onResizeStream(): Observable<Window> {
-    return this.resizeSubject.asObservable();
+  public get onResizeStream(): Observable<Window> {
+    return this.#resizeSubject.asObservable();
   }
 
-  public scrollEventStream = fromEvent(this.nativeWindow, 'scroll');
+  public scrollEventStream = fromEvent<Event>(this.nativeWindow, 'scroll');
 
-  private resizeSubject: ReplaySubject<Window>;
+  #ngUnsubscribe = new Subject<void>();
+  #resizeSubject = new ReplaySubject<Window>();
 
   constructor() {
-    this.resizeSubject = new ReplaySubject();
-
-    this.nativeWindow.addEventListener('resize', (event: UIEvent) => {
-      this.onResize(event);
-    });
+    fromEvent<UIEvent>(this.nativeWindow, 'resize')
+      .pipe(takeUntil(this.#ngUnsubscribe))
+      .subscribe((evt) => this.#resizeSubject.next(evt.target as Window));
   }
 
-  private onResize(event: UIEvent): void {
-    this.resizeSubject.next(event.target as Window);
+  public ngOnDestroy(): void {
+    this.#ngUnsubscribe.next();
+    this.#ngUnsubscribe.complete();
   }
 }

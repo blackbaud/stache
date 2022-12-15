@@ -34,7 +34,7 @@ describe('StacheJsonDataService', () => {
         { provide: STACHE_JSON_DATA_SERVICE_CONFIG, useValue: config },
         { provide: StacheJsonDataService, useClass: StacheJsonDataService },
       ],
-    }).compileComponents();
+    });
 
     dataService = new StacheJsonDataService(config);
   });

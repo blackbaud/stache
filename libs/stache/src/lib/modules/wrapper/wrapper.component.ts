@@ -16,13 +16,13 @@ import { take, takeUntil } from 'rxjs/operators';
 
 import { StacheJsonDataService } from '../json-data/json-data.service';
 import { StacheNavLink } from '../nav/nav-link';
-import { StacheNavService } from '../nav/nav.service';
 import { StachePageAnchorService } from '../page-anchor/page-anchor.service';
-import { InputConverter, booleanConverter } from '../shared/input-converter';
 import { StacheOmnibarAdapterService } from '../shared/omnibar-adapter.service';
 import { StacheWindowRef } from '../shared/window-ref';
 
 import { StacheTitleService } from './title.service';
+
+const DEFAULT_LAYOUT = 'sidebar';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -34,123 +34,177 @@ export class StacheWrapperComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   @Input()
-  public pageTitle: string;
+  public pageTitle: string | undefined;
 
   @Input()
-  public windowTitle: string;
+  public windowTitle: string | undefined;
 
   @Input()
-  public navTitle: string;
+  public navTitle: string | undefined;
 
   @Input()
-  public layout = 'sidebar';
+  public set layout(value: string | undefined) {
+    this.#_layout = value || DEFAULT_LAYOUT;
+  }
+  public get layout(): string {
+    return this.#_layout;
+  }
 
   @Input()
-  public sidebarRoutes: StacheNavLink[];
+  public sidebarRoutes: StacheNavLink[] | undefined;
 
   @Input()
-  public breadcrumbsRoutes: StacheNavLink[];
+  public breadcrumbsRoutes: StacheNavLink[] | undefined;
 
   @Input()
-  public showBreadcrumbs = true;
+  public set showBreadcrumbs(value: boolean | undefined) {
+    this.#_showBreadcrumbs = value !== false;
+  }
+  public get showBreadcrumbs(): boolean {
+    return this.#_showBreadcrumbs;
+  }
 
   @Input()
-  public showEditButton: boolean = this.checkEditButtonUrl();
+  public set showEditButton(value: boolean | undefined) {
+    this.#_showEditButton = value ?? this.#checkEditButtonUrl();
+  }
+  public get showEditButton(): boolean {
+    return this.#_showEditButton;
+  }
 
   @Input()
-  @InputConverter(booleanConverter)
-  public showFooter: boolean = this.checkFooterData();
+  public set showFooter(value: boolean | undefined) {
+    this.#_showFooter = value ?? this.#checkFooterData();
+  }
+  public get showFooter(): boolean {
+    return this.#_showFooter;
+  }
 
   @Input()
-  public showTableOfContents = false;
+  public showTableOfContents: boolean | undefined = false;
 
   @Input()
-  public showBackToTop = true;
+  public set showBackToTop(value: boolean | undefined) {
+    this.#_showBackToTop = value !== false;
+  }
+  public get showBackToTop(): boolean {
+    return this.#_showBackToTop;
+  }
 
   @Input()
-  public showInNav = true;
+  public set showInNav(value: boolean | undefined) {
+    this.#_showInNav = value !== false;
+  }
+  public get showInNav(): boolean {
+    return this.#_showInNav;
+  }
 
   @Input()
   public inPageRoutes: StacheNavLink[] | undefined;
 
-  public jsonData: any;
-  private ngUnsubscribe = new Subject<void>();
+  #jsonData: unknown;
+  #_layout = DEFAULT_LAYOUT;
+  #_showBackToTop = true;
+  #_showInNav = true;
+  #_showBreadcrumbs = true;
+  #_showEditButton = false;
+  #_showFooter = false;
+  #ngUnsubscribe = new Subject<void>();
+  #config: SkyAppConfig;
+  #dataSvc: StacheJsonDataService;
+  #pageAnchorSvc: StachePageAnchorService;
+  #titleSvc: StacheTitleService;
+  #route: ActivatedRoute;
+  #windowRef: StacheWindowRef;
+  #changeDetectorRef: ChangeDetectorRef;
+  #omnibarSvc: StacheOmnibarAdapterService;
 
   public constructor(
-    private config: SkyAppConfig,
-    private dataService: StacheJsonDataService,
-    private pageAnchorService: StachePageAnchorService,
-    private titleService: StacheTitleService,
-    private route: ActivatedRoute,
-    private navService: StacheNavService,
-    private windowRef: StacheWindowRef,
-    private changeDetectorRef: ChangeDetectorRef,
-    private omnibarService: StacheOmnibarAdapterService
-  ) {}
+    config: SkyAppConfig,
+    dataSvc: StacheJsonDataService,
+    pageAnchorSvc: StachePageAnchorService,
+    titleSvc: StacheTitleService,
+    route: ActivatedRoute,
+    windowRef: StacheWindowRef,
+    changeDetectorRef: ChangeDetectorRef,
+    omnibarSvc: StacheOmnibarAdapterService
+  ) {
+    this.#config = config;
+    this.#dataSvc = dataSvc;
+    this.#pageAnchorSvc = pageAnchorSvc;
+    this.#titleSvc = titleSvc;
+    this.#route = route;
+    this.#windowRef = windowRef;
+    this.#changeDetectorRef = changeDetectorRef;
+    this.#omnibarSvc = omnibarSvc;
+  }
 
   public ngOnInit(): void {
-    this.omnibarService.checkForOmnibar();
-    this.jsonData = this.dataService.getAll();
+    this.#omnibarSvc.checkForOmnibar();
+    this.#jsonData = this.#dataSvc.getAll();
     if (!this.inPageRoutes) {
-      this.pageAnchorService.pageAnchorsStream
-        .pipe(takeUntil(this.ngUnsubscribe))
+      this.#pageAnchorSvc.pageAnchorsStream
+        .pipe(takeUntil(this.#ngUnsubscribe))
         .subscribe((anchors: StacheNavLink[]) => {
           this.inPageRoutes = anchors;
-          this.checkRouteHash();
-          this.changeDetectorRef.detectChanges();
+          this.#checkRouteHash();
+          this.#changeDetectorRef.detectChanges();
         });
     }
   }
 
-  public ngAfterViewInit() {
-    const preferredDocumentTitle = this.getPreferredDocumentTitle();
-    this.titleService.setTitle(preferredDocumentTitle);
+  public ngAfterViewInit(): void {
+    const preferredDocumentTitle = this.#getPreferredDocumentTitle();
+    if (preferredDocumentTitle) {
+      this.#titleSvc.setTitle(preferredDocumentTitle);
+    }
   }
 
-  public ngOnDestroy() {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
+  public ngOnDestroy(): void {
+    this.#ngUnsubscribe.next();
+    this.#ngUnsubscribe.complete();
   }
 
-  private getPreferredDocumentTitle(): string {
+  #getPreferredDocumentTitle(): string | undefined {
     return (
       this.windowTitle ||
       this.pageTitle ||
       this.navTitle ||
-      this.getTutorialHeader()
+      this.#getTutorialHeader()
     );
   }
 
-  private getTutorialHeader(): string {
+  #getTutorialHeader(): string | undefined {
     const currentTutorialHeader =
-      this.windowRef.nativeWindow.document.querySelector(
+      this.#windowRef.nativeWindow.document.querySelector(
         `.stache-tutorial-heading`
       );
     if (currentTutorialHeader && currentTutorialHeader.textContent) {
       return currentTutorialHeader.textContent.trim();
     }
+    return;
   }
 
-  private checkEditButtonUrl(): boolean {
+  #checkEditButtonUrl(): boolean {
     const url = lodashGet(
-      this.config,
+      this.#config,
       'skyux.appSettings.stache.editButton.url'
     );
     return url !== undefined;
   }
 
-  private checkFooterData(): boolean {
+  #checkFooterData(): boolean {
     const footerData = lodashGet(
-      this.config,
+      this.#config,
       'skyux.appSettings.stache.footer'
     );
     return footerData !== undefined;
   }
 
-  private checkRouteHash(): void {
-    this.route.fragment.pipe(take(1)).subscribe((fragment) => {
+  #checkRouteHash(): void {
+    this.#route.fragment.pipe(take(1)).subscribe((fragment) => {
       if (fragment) {
-        this.pageAnchorService.scrollToAnchor(fragment);
+        this.#pageAnchorSvc.scrollToAnchor(fragment);
       }
     });
   }

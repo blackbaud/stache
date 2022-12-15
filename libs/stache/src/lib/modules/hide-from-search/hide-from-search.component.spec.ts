@@ -10,7 +10,7 @@ describe('StacheHideFromSearchComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [StacheHideFromSearchModule],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheHideFromSearchComponent);
   });

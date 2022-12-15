@@ -89,7 +89,7 @@ describe('Table of Contents Wrapper Component', () => {
           useValue: mockOmnibarAdapterService,
         },
       ],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheTableOfContentsWrapperComponent);
     component = fixture.componentInstance;

@@ -59,7 +59,7 @@ describe('StacheFooterComponent', () => {
         { provide: StacheRouteService, useValue: mockRouterService },
         { provide: SkyAppConfig, useValue: mockConfigService },
       ],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheFooterComponent);
     component = fixture.componentInstance;

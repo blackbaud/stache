@@ -53,7 +53,7 @@ describe('StacheBreadcrumbsComponent', () => {
         { provide: StacheRouteService, useClass: MockRouteService },
         { provide: StacheRouteMetadataService, useValue: { routes: [] } },
       ],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheBreadcrumbsComponent);
     component = fixture.componentInstance;

@@ -10,7 +10,7 @@ describe('StacheIncludeComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [StacheIncludeModule],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheIncludeComponent);
   });

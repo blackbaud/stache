@@ -66,7 +66,7 @@ describe('StacheLayoutComponent', () => {
         { provide: StacheRouteMetadataService, useValue: { routes: [] } },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheLayoutComponent);
     component = fixture.componentInstance;

@@ -257,7 +257,7 @@ describe('StacheWrapperComponent', () => {
         { provide: StacheWindowRef, useValue: mockWindowService },
         { provide: SkyAppConfig, useValue: mockConfigService },
       ],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheWrapperComponent);
     component = fixture.componentInstance;

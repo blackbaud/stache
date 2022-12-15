@@ -4,17 +4,23 @@ import { SkyAppConfig } from '@skyux/config';
 
 @Injectable()
 export class StacheTitleService {
-  constructor(private title: Title, private configService: SkyAppConfig) {}
+  #title: Title;
+  #configSvc: SkyAppConfig;
 
-  public setTitle(...parts: string[]) {
-    let windowTitle = this.configService.skyux.app.title;
+  constructor(title: Title, configSvc: SkyAppConfig) {
+    this.#title = title;
+    this.#configSvc = configSvc;
+  }
 
-    if (parts && parts.length > 0) {
-      parts.push(windowTitle);
-      const validParts = parts.filter((part: string) => !!part && part.trim());
-      windowTitle = validParts.join(' - ');
+  public setTitle(...parts: string[]): void {
+    const configuredTitle = this.#configSvc.skyux.app?.title;
+    if (configuredTitle) {
+      parts.push(configuredTitle);
     }
 
-    this.title.setTitle(windowTitle);
+    const validParts = parts.filter((part) => !!part && part.trim());
+    const title = validParts.join(' - ');
+
+    this.#title.setTitle(title);
   }
 }

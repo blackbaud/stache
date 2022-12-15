@@ -13,7 +13,7 @@ describe('StacheLayoutBlankComponent', () => {
     TestBed.configureTestingModule({
       imports: [StacheLayoutModule],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheLayoutBlankComponent);
     component = fixture.componentInstance;

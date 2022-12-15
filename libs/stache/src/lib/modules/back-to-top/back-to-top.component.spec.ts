@@ -23,7 +23,7 @@ describe('StacheBackToTopComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [StacheBackToTopModule],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheBackToTopComponent);
     component = fixture.componentInstance;

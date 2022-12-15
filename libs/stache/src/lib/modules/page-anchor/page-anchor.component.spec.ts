@@ -71,7 +71,7 @@ describe('StachePageAnchorComponent', () => {
         { provide: StacheRouteService, useValue: mockRouteService },
         ChangeDetectorRef,
       ],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StachePageAnchorTestComponent);
     fixtureComponent = fixture.componentInstance;

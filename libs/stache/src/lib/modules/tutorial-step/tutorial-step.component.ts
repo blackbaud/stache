@@ -10,5 +10,13 @@ import { InputConverter, booleanConverter } from '../shared/input-converter';
 export class StacheTutorialStepComponent {
   @Input()
   @InputConverter(booleanConverter)
-  public showNumber = true;
+  public get showNumber(): boolean {
+    return this.#_showNumber;
+  }
+
+  public set showNumber(value: boolean | undefined) {
+    this.#_showNumber = value !== false;
+  }
+
+  #_showNumber = true;
 }
