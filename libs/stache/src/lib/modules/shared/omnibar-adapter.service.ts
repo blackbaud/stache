@@ -2,45 +2,45 @@ import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 
 import { StacheWindowRef } from './window-ref';
 
+const HAS_OMNIBAR_CLASS_NAME = 'stache-omnibar-enabled';
+const EXPECTED_OMNIBAR_HEIGHT = 50;
+
 @Injectable()
 export class StacheOmnibarAdapterService {
-  private static readonly HAS_OMNIBAR_CLASS_NAME: string =
-    'stache-omnibar-enabled';
-  public static readonly EXPECTED_OMNIBAR_HEIGHT: number = 50;
-  private renderer: Renderer2;
-  private element: any = this.windowRef.nativeWindow.document.querySelector(
-    '.sky-omnibar-iframe'
-  );
+  #element: HTMLElement;
+  #renderer: Renderer2;
+  #windowRef: StacheWindowRef;
 
-  constructor(
-    private windowRef: StacheWindowRef,
-    private rendererFactory: RendererFactory2
-  ) {
-    this.renderer = this.rendererFactory.createRenderer(undefined, undefined);
+  constructor(windowRef: StacheWindowRef, rendererFactory: RendererFactory2) {
+    this.#windowRef = windowRef;
+    this.#renderer = rendererFactory.createRenderer(undefined, null);
+    this.#element = windowRef.nativeWindow.document.querySelector(
+      '.sky-omnibar-iframe'
+    );
   }
 
   public checkForOmnibar(): void {
     if (this.omnibarEnabled()) {
-      this.applyClassToBody();
+      this.#applyClassToBody();
     }
   }
 
   public getHeight(): number {
     if (this.omnibarEnabled()) {
-      return StacheOmnibarAdapterService.EXPECTED_OMNIBAR_HEIGHT;
+      return EXPECTED_OMNIBAR_HEIGHT;
     }
     return 0;
   }
 
   public omnibarEnabled(): boolean {
     // Converts the element's existence to a boolean.
-    return !!this.element;
+    return !!this.#element;
   }
 
-  private applyClassToBody(): void {
-    this.renderer.addClass(
-      this.windowRef.nativeWindow.document.body,
-      StacheOmnibarAdapterService.HAS_OMNIBAR_CLASS_NAME
+  #applyClassToBody(): void {
+    this.#renderer.addClass(
+      this.#windowRef.nativeWindow.document.body,
+      HAS_OMNIBAR_CLASS_NAME
     );
   }
 }

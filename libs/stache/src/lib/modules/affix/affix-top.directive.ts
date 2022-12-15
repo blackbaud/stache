@@ -9,62 +9,73 @@ import {
 import { StacheOmnibarAdapterService } from '../shared/omnibar-adapter.service';
 import { StacheWindowRef } from '../shared/window-ref';
 
+const AFFIX_CLASS_NAME = 'stache-affix-top';
+
 @Directive({
   selector: '[stacheAffixTop]',
 })
 export class StacheAffixTopDirective implements AfterViewInit {
-  public static readonly AFFIX_CLASS_NAME: string = 'stache-affix-top';
-  public isAffixed = false;
+  isAffixed = false;
 
-  private footerWrapper: HTMLElement;
-  private omnibarHeight = 0;
-  private offsetTop = 0;
-  private element: HTMLElement;
+  #footerWrapper: HTMLElement | undefined;
+  #omnibarHeight = 0;
+  #offsetTop = 0;
+  #element: HTMLElement | undefined;
+
+  #renderer: Renderer2;
+  #elementRef: ElementRef;
+  #omnibarSvc: StacheOmnibarAdapterService;
+  #windowRef: StacheWindowRef;
 
   constructor(
-    private renderer: Renderer2,
-    private elementRef: ElementRef,
-    private omnibarService: StacheOmnibarAdapterService,
-    private windowRef: StacheWindowRef
-  ) {}
+    renderer: Renderer2,
+    elementRef: ElementRef,
+    omnibarSvc: StacheOmnibarAdapterService,
+    windowRef: StacheWindowRef
+  ) {
+    this.#renderer = renderer;
+    this.#elementRef = elementRef;
+    this.#omnibarSvc = omnibarSvc;
+    this.#windowRef = windowRef;
+  }
 
   public ngAfterViewInit(): void {
-    this.footerWrapper = this.windowRef.nativeWindow.document.querySelector(
+    this.#footerWrapper = this.#windowRef.nativeWindow.document.querySelector(
       '.stache-footer-wrapper'
     );
-    const nativeElement = this.elementRef.nativeElement;
+    const nativeElement = this.#elementRef.nativeElement;
 
-    if (this.isComponent(nativeElement) && nativeElement.children[0]) {
-      this.element = nativeElement.children[0];
+    if (this.#isComponent(nativeElement) && nativeElement.children[0]) {
+      this.#element = nativeElement.children[0];
     } else {
-      this.element = nativeElement;
+      this.#element = nativeElement;
     }
   }
 
   @HostListener('window:scroll')
   public onWindowScroll(): void {
-    this.omnibarHeight = this.omnibarService.getHeight();
-    this.setMaxHeight();
+    this.#omnibarHeight = this.#omnibarSvc.getHeight();
+    this.#setMaxHeight();
 
-    if (!this.isAffixed) {
-      this.offsetTop = this.getOffset(this.element);
+    if (this.#element && !this.isAffixed) {
+      this.#offsetTop = this.#getOffset(this.#element);
     }
 
     const windowIsScrolledBeyondElement =
-      this.offsetTop - this.omnibarHeight <=
-      this.windowRef.nativeWindow.pageYOffset;
+      this.#offsetTop - this.#omnibarHeight <=
+      this.#windowRef.nativeWindow.pageYOffset;
 
     if (windowIsScrolledBeyondElement) {
-      this.affixToTop();
+      this.#affixToTop();
     } else {
-      this.resetElement();
+      this.#resetElement();
     }
   }
 
-  private isComponent(element: any): boolean {
+  #isComponent(element: HTMLElement): boolean {
     let isComponent = false;
 
-    Array.prototype.slice.call(element.attributes).forEach((item: any) => {
+    Array.prototype.slice.call(element.attributes).forEach((item) => {
       if (!isComponent && item.name.indexOf('_nghost') === 0) {
         isComponent = true;
       }
@@ -73,67 +84,63 @@ export class StacheAffixTopDirective implements AfterViewInit {
     return isComponent;
   }
 
-  private getOffset(element: any) {
+  #getOffset(element: HTMLElement): number {
     let offset = element.offsetTop;
     let el = element;
 
     while (el.offsetParent) {
-      offset += el.offsetParent.offsetTop;
-      el = el.offsetParent;
+      const parent = el.offsetParent as HTMLElement;
+      offset += parent.offsetTop;
+      el = parent;
     }
 
     return offset;
   }
 
-  private affixToTop(): void {
+  #affixToTop(): void {
     if (!this.isAffixed) {
       this.isAffixed = true;
-      this.renderer.setStyle(this.element, 'position', 'fixed');
-      this.renderer.setStyle(this.element, 'top', '0px');
-      this.renderer.setStyle(this.element, 'width', 'inherit');
-      this.renderer.addClass(
-        this.element,
-        StacheAffixTopDirective.AFFIX_CLASS_NAME
-      );
+      this.#renderer.setStyle(this.#element, 'position', 'fixed');
+      this.#renderer.setStyle(this.#element, 'top', '0px');
+      this.#renderer.setStyle(this.#element, 'width', 'inherit');
+      this.#renderer.addClass(this.#element, AFFIX_CLASS_NAME);
     }
   }
 
-  private resetElement(): void {
+  #resetElement(): void {
     if (this.isAffixed) {
       this.isAffixed = false;
-      this.renderer.setStyle(this.element, 'position', 'static');
-      this.renderer.removeClass(
-        this.element,
-        StacheAffixTopDirective.AFFIX_CLASS_NAME
-      );
+      this.#renderer.setStyle(this.#element, 'position', 'static');
+      this.#renderer.removeClass(this.#element, AFFIX_CLASS_NAME);
     }
   }
 
-  private setMaxHeight() {
-    let maxHeight = `calc(100% - ${this.omnibarHeight}px)`;
+  #setMaxHeight(): void {
+    let maxHeight = `calc(100% - ${this.#omnibarHeight}px)`;
 
-    if (this.footerIsVisible()) {
+    if (this.#footerWrapper && this.#footerIsVisible()) {
       maxHeight = `${
-        this.getOffset(this.footerWrapper) -
-        this.windowRef.nativeWindow.pageYOffset -
-        this.omnibarHeight
+        this.#getOffset(this.#footerWrapper) -
+        this.#windowRef.nativeWindow.pageYOffset -
+        this.#omnibarHeight
       }px`;
     }
 
     /* istanbul ignore else */
-    if (this.element) {
-      this.renderer.setStyle(this.element, 'height', `${maxHeight}`);
+    if (this.#element) {
+      this.#renderer.setStyle(this.#element, 'height', `${maxHeight}`);
     }
   }
 
-  private footerIsVisible(): boolean {
-    if (this.footerWrapper) {
+  #footerIsVisible(): boolean {
+    /*istanbul ignore else*/
+    if (this.#footerWrapper) {
       return (
-        this.footerWrapper.getBoundingClientRect().top <=
-        this.windowRef.nativeWindow.innerHeight
+        this.#footerWrapper.getBoundingClientRect().top <=
+        this.#windowRef.nativeWindow.innerHeight
       );
+    } else {
+      return false;
     }
-
-    return false;
   }
 }

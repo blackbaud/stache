@@ -59,7 +59,7 @@ describe('StacheAffixComponent', () => {
 
     expect(styles.position).toEqual('static');
 
-    affixComponent.affixTopDirective.isAffixed = true;
+    affixComponent.affixTopDirective!.isAffixed = true;
     detectChanges();
 
     styles = affixComponent.getStyles();
@@ -88,12 +88,12 @@ describe('StacheAffixComponent', () => {
     expect(affixComponent.maxWidthFormatted).toEqual(`${window.innerWidth}px`);
 
     spyOnProperty(
-      affixComponent.wrapper.nativeElement,
+      affixComponent.wrapper?.nativeElement,
       'offsetHeight',
       'get'
     ).and.returnValue(10);
     spyOnProperty(
-      affixComponent.wrapper.nativeElement,
+      affixComponent.wrapper?.nativeElement,
       'offsetWidth',
       'get'
     ).and.returnValue(20);
