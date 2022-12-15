@@ -7,8 +7,8 @@ const EXPECTED_OMNIBAR_HEIGHT = 50;
 
 @Injectable()
 export class StacheOmnibarAdapterService {
-  #renderer: Renderer2;
   #element: HTMLElement;
+  #renderer: Renderer2;
   #windowRef: StacheWindowRef;
 
   constructor(windowRef: StacheWindowRef, rendererFactory: RendererFactory2) {

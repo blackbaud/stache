@@ -6,6 +6,9 @@ function getWindow(): any {
   return window;
 }
 
+/**
+ * @internal
+ */
 @Injectable()
 export class StacheWindowRef {
   public get nativeWindow(): any {

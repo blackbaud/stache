@@ -133,13 +133,14 @@ export class StacheAffixTopDirective implements AfterViewInit {
   }
 
   #footerIsVisible(): boolean {
+    /*istanbul ignore else*/
     if (this.#footerWrapper) {
       return (
         this.#footerWrapper.getBoundingClientRect().top <=
         this.#windowRef.nativeWindow.innerHeight
       );
+    } else {
+      return false;
     }
-
-    return false;
   }
 }
