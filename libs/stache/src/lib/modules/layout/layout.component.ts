@@ -28,6 +28,7 @@ export class StacheLayoutComponent implements OnInit, OnChanges, StacheLayout {
   @Input()
   public set layoutType(value: string | undefined) {
     this.#_layoutType = value || DEFAULT_LAYOUT;
+    this.#updateTemplateRef();
   }
 
   public get layoutType(): string {
@@ -55,7 +56,7 @@ export class StacheLayoutComponent implements OnInit, OnChanges, StacheLayout {
   @Input()
   public showBackToTop: boolean | undefined;
 
-  public templateRef: any;
+  public templateRef: TemplateRef<unknown> | undefined;
 
   @ViewChild('blankLayout', {
     read: TemplateRef,
@@ -92,22 +93,12 @@ export class StacheLayoutComponent implements OnInit, OnChanges, StacheLayout {
   }
 
   public ngOnInit(): void {
-    switch (this.layoutType) {
-      case 'blank':
-        this.templateRef = this.blankTemplateRef;
-        break;
-      case 'sidebar':
-        this.templateRef = this.sidebarTemplateRef;
-        break;
-      default:
-        this.templateRef = this.containerTemplateRef;
-        break;
-    }
+    this.#updateTemplateRef();
   }
 
   public ngOnChanges(): void {
     // Reset the wrapper height whenever there are changes.
-    this.#windowRef.nativeWindow.setTimeout(() => {
+    setTimeout(() => {
       this.#setMinHeight();
     });
   }
@@ -120,5 +111,19 @@ export class StacheLayoutComponent implements OnInit, OnChanges, StacheLayout {
       this.#windowRef.nativeWindow.innerHeight -
       wrapper.getBoundingClientRect().top;
     this.#renderer.setStyle(wrapper, 'min-height', `${minHeight}px`);
+  }
+
+  #updateTemplateRef(): void {
+    switch (this.layoutType) {
+      case 'blank':
+        this.templateRef = this.blankTemplateRef;
+        break;
+      case 'sidebar':
+        this.templateRef = this.sidebarTemplateRef;
+        break;
+      default:
+        this.templateRef = this.containerTemplateRef;
+        break;
+    }
   }
 }

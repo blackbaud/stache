@@ -44,4 +44,14 @@ describe('StacheLayoutBlankComponent', () => {
     fixture.detectChanges();
     expect(component.className).toBe('stache-layout-test');
   });
+
+  it('should reset the identifier', () => {
+    component.identifier = 'test';
+    fixture.detectChanges();
+    expect(component.className).toBe('stache-layout-test');
+    // Reset the identifier.
+    component.identifier = undefined;
+    fixture.detectChanges();
+    expect(component.className).toBe('stache-layout-blank');
+  });
 });
