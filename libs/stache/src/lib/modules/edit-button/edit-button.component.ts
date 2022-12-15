@@ -5,26 +5,27 @@ import lodashGet from 'lodash.get';
 
 import { StacheRouteService } from '../router/route.service';
 
+const GITHUB_FILE_PATH_ROOT = '/tree/master/src/app';
+const ADO_BRANCH_SELECTOR = '&version=GBmaster';
+const ADO_FILE_PATH_ROOT = '?path=%2Fsrc%2Fapp';
+
 @Component({
   selector: 'stache-edit-button',
   templateUrl: './edit-button.component.html',
   styleUrls: ['./edit-button.component.scss'],
 })
 export class StacheEditButtonComponent implements OnInit {
-  public editButtonText: string;
-  public url: string;
+  public editButtonText: string | undefined;
 
-  private readonly githubFilePathRoot: string = '/tree/master/src/app';
-  private readonly vstsBranchSelector: string = '&version=GBmaster';
-  private readonly vstsFilePathRoot: string = '?path=%2Fsrc%2Fapp';
+  public url: string | undefined;
 
   constructor(
     private config: SkyAppConfig,
     private routeService: StacheRouteService
   ) {}
 
-  public ngOnInit() {
-    this.url = this.getUrl();
+  public ngOnInit(): void {
+    this.url = this.#getUrl();
     this.editButtonText = lodashGet(
       this.config,
       'skyux.appSettings.stache.editButton.text',
@@ -32,18 +33,21 @@ export class StacheEditButtonComponent implements OnInit {
     );
   }
 
-  private getUrl(): string {
+  #getUrl(): string {
     const base = lodashGet(
       this.config,
       'skyux.appSettings.stache.editButton.url'
     );
+
     if (!base) {
       return '';
     }
+
     const type =
       base.includes('visualstudio') || base.includes('azure')
         ? 'vsts'
         : 'github';
+
     const activeUrl = this.routeService.getActiveUrl();
     const frag = encodeURIComponent(
       activeUrl === '/' ? activeUrl : activeUrl + '/'
@@ -51,14 +55,10 @@ export class StacheEditButtonComponent implements OnInit {
 
     if (type === 'vsts') {
       return (
-        base +
-        this.vstsFilePathRoot +
-        frag +
-        'index.html' +
-        this.vstsBranchSelector
+        base + ADO_FILE_PATH_ROOT + frag + 'index.html' + ADO_BRANCH_SELECTOR
       );
     } else {
-      return base + this.githubFilePathRoot + frag + 'index.html';
+      return base + GITHUB_FILE_PATH_ROOT + frag + 'index.html';
     }
   }
 }

@@ -4,13 +4,17 @@ import { STACHE_JSON_DATA_SERVICE_CONFIG } from './json-data-service-config-toke
 
 @Injectable()
 export class StacheJsonDataService {
+  #jsonData: any;
+
   constructor(
     @Inject(STACHE_JSON_DATA_SERVICE_CONFIG)
-    private jsonData: any
-  ) {}
+    jsonData: any
+  ) {
+    this.#jsonData = jsonData;
+  }
 
   public getAll(): any {
-    return this.jsonData;
+    return this.#jsonData;
   }
 
   public getByName(name: string): any {
@@ -19,15 +23,15 @@ export class StacheJsonDataService {
       return this.getNestedData(keys);
     }
 
-    if (!this.jsonData[name]) {
+    if (!this.#jsonData[name]) {
       return;
     }
 
-    return this.jsonData[name];
+    return this.#jsonData[name];
   }
 
-  public getNestedData(keys: string[]) {
-    let baseData = this.jsonData;
+  public getNestedData(keys: string[]): any | undefined {
+    let baseData = this.#jsonData;
 
     for (let i = 0; i < keys.length; i++) {
       if (baseData[keys[i]] === undefined) {

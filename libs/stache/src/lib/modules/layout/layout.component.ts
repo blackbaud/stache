@@ -5,6 +5,7 @@ import {
   OnChanges,
   OnInit,
   Renderer2,
+  TemplateRef,
   ViewChild,
 } from '@angular/core';
 
@@ -13,6 +14,8 @@ import { StacheWindowRef } from '../shared/window-ref';
 
 import { StacheLayout } from './layout';
 
+const DEFAULT_LAYOUT = 'sidebar';
+
 @Component({
   selector: 'stache-layout',
   templateUrl: './layout.component.html',
@@ -20,54 +23,73 @@ import { StacheLayout } from './layout';
 })
 export class StacheLayoutComponent implements OnInit, OnChanges, StacheLayout {
   @Input()
-  public pageTitle: string;
+  public pageTitle: string | undefined;
 
   @Input()
-  public layoutType = 'sidebar';
+  public set layoutType(value: string | undefined) {
+    this.#_layoutType = value || DEFAULT_LAYOUT;
+  }
+
+  public get layoutType(): string {
+    return this.#_layoutType;
+  }
 
   @Input()
-  public inPageRoutes: StacheNavLink[];
+  public inPageRoutes: StacheNavLink[] | undefined;
 
   @Input()
-  public showTableOfContents: boolean;
+  public showTableOfContents: boolean | undefined;
 
   @Input()
-  public sidebarRoutes: StacheNavLink[];
+  public sidebarRoutes: StacheNavLink[] | undefined;
 
   @Input()
-  public breadcrumbsRoutes: StacheNavLink[];
+  public breadcrumbsRoutes: StacheNavLink[] | undefined;
 
   @Input()
-  public showBreadcrumbs: boolean;
+  public showBreadcrumbs: boolean | undefined;
 
   @Input()
-  public showEditButton: boolean;
+  public showEditButton: boolean | undefined;
 
   @Input()
-  public showBackToTop: boolean;
+  public showBackToTop: boolean | undefined;
 
   public templateRef: any;
 
   @ViewChild('blankLayout', {
+    read: TemplateRef,
     static: true,
   })
-  private blankTemplateRef: any;
+  public blankTemplateRef: TemplateRef<unknown> | undefined;
 
   @ViewChild('containerLayout', {
+    read: TemplateRef,
     static: true,
   })
-  private containerTemplateRef: any;
+  public containerTemplateRef: TemplateRef<unknown> | undefined;
 
   @ViewChild('sidebarLayout', {
+    read: TemplateRef,
     static: true,
   })
-  private sidebarTemplateRef: any;
+  public sidebarTemplateRef: TemplateRef<unknown> | undefined;
+
+  #_layoutType = DEFAULT_LAYOUT;
+
+  #elementRef: ElementRef;
+  #renderer: Renderer2;
+  #windowRef: StacheWindowRef;
 
   constructor(
-    private elementRef: ElementRef,
-    private renderer: Renderer2,
-    private windowRef: StacheWindowRef
-  ) {}
+    elementRef: ElementRef,
+    renderer: Renderer2,
+    windowRef: StacheWindowRef
+  ) {
+    this.#elementRef = elementRef;
+    this.#renderer = renderer;
+    this.#windowRef = windowRef;
+  }
 
   public ngOnInit(): void {
     switch (this.layoutType) {
@@ -85,18 +107,18 @@ export class StacheLayoutComponent implements OnInit, OnChanges, StacheLayout {
 
   public ngOnChanges(): void {
     // Reset the wrapper height whenever there are changes.
-    this.windowRef.nativeWindow.setTimeout(() => {
-      this.setMinHeight();
+    this.#windowRef.nativeWindow.setTimeout(() => {
+      this.#setMinHeight();
     });
   }
 
-  private setMinHeight() {
-    const wrapper = this.elementRef.nativeElement.querySelector(
+  #setMinHeight(): void {
+    const wrapper = this.#elementRef.nativeElement.querySelector(
       '.stache-layout-wrapper'
     );
     const minHeight =
-      this.windowRef.nativeWindow.innerHeight -
+      this.#windowRef.nativeWindow.innerHeight -
       wrapper.getBoundingClientRect().top;
-    this.renderer.setStyle(wrapper, 'min-height', `${minHeight}px`);
+    this.#renderer.setStyle(wrapper, 'min-height', `${minHeight}px`);
   }
 }

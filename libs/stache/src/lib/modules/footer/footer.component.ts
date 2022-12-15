@@ -13,46 +13,49 @@ import { StacheNavLink } from '../nav/nav-link';
   styleUrls: ['./footer.component.scss'],
 })
 export class StacheFooterComponent implements OnInit {
-  public copyrightDate: Date;
-  public copyrightLabel: string;
-  public siteName: string;
-  public footerLinks: StacheNavLink[];
+  public copyrightDate: Date | undefined;
+  public copyrightLabel: string | undefined;
+  public siteName: string | undefined;
+  public footerLinks: StacheNavLink[] | undefined;
 
-  constructor(
-    private configService: SkyAppConfig,
-    private resourcesService: SkyLibResourcesService
-  ) {}
+  #configSvc: SkyAppConfig;
+  #resourcesSvc: SkyLibResourcesService;
+
+  constructor(configSvc: SkyAppConfig, resourcesSvc: SkyLibResourcesService) {
+    this.#configSvc = configSvc;
+    this.#resourcesSvc = resourcesSvc;
+  }
 
   public ngOnInit(): void {
     this.copyrightDate = new Date();
-    this.setFooterData();
+    this.#setFooterData();
   }
 
-  private setFooterData(): void {
+  #setFooterData(): void {
     const navItems = lodashGet(
-      this.configService,
+      this.#configSvc,
       'skyux.appSettings.stache.footer.nav.items',
       []
-    );
+    ) as { title: string; route: string }[];
 
-    this.footerLinks = navItems.map((link: any) => {
+    this.footerLinks = navItems.map((link) => {
       return {
         name: link.title,
         path: link.route,
       } as StacheNavLink;
     });
 
-    this.resourcesService
+    this.#resourcesSvc
       .getString('stache_copyright_label')
       .pipe(first())
       .subscribe((value) => {
         this.copyrightLabel = lodashGet(
-          this.configService,
+          this.#configSvc,
           'skyux.appSettings.stache.footer.copyrightLabel',
           value
         );
       });
 
-    this.siteName = lodashGet(this.configService, 'skyux.app.title');
+    this.siteName = lodashGet(this.#configSvc, 'skyux.app.title');
   }
 }
