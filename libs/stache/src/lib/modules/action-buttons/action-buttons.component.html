@@ -1,4 +1,4 @@
-<div class="stache-action-buttons" *ngIf="routes.length">
+<div class="stache-action-buttons" *ngIf="routes?.length">
   <div *ngIf="showSearch" class="stache-action-buttons-search-container">
     <sky-search
       expandMode="fit"
@@ -11,9 +11,9 @@
   <sky-row>
     <nav class="stache-action-buttons-nav-container">
       <sky-column
-        screenSmall="6"
-        screenMedium="4"
-        screenLarge="3"
+        [screenSmall]="6"
+        [screenMedium]="4"
+        [screenLarge]="3"
         *ngFor="let route of filteredRoutes"
       >
         <a
