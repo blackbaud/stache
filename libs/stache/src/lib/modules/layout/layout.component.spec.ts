@@ -6,9 +6,10 @@ import {
   tick,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { expect } from '@skyux-sdk/testing';
-import { SkyAppConfig } from '@skyux/config';
+import { RuntimeConfig, SkyAppConfig } from '@skyux/config';
 
 import { StacheRouteMetadataService } from '../router/route-metadata.service';
 import { StacheRouteService } from '../router/route.service';
@@ -38,21 +39,26 @@ const mockRoutes = [
 ];
 
 class MockSkyAppConfig {
-  public runtime: any = {
+  public runtime: Partial<RuntimeConfig> = {
     routes: mockRoutes,
   };
 }
 
 class MockRouteService {
-  public getActiveRoutes() {
+  public getActiveRoutes(): Routes {
     return mockRoutes;
   }
-  public getActiveUrl() {
+  public getActiveUrl(): string {
     return '';
   }
 }
 
 describe('StacheLayoutComponent', () => {
+  function getWrapperEl(): HTMLDivElement {
+    return fixture.debugElement.query(By.css('.stache-layout-wrapper'))
+      .nativeElement;
+  }
+
   let component: StacheLayoutComponent;
   let fixture: ComponentFixture<StacheLayoutComponent>;
   const sampleRoutes = [{ name: 'test', path: '/test' }];
@@ -66,7 +72,7 @@ describe('StacheLayoutComponent', () => {
         { provide: StacheRouteMetadataService, useValue: { routes: [] } },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheLayoutComponent);
     component = fixture.componentInstance;
@@ -157,15 +163,24 @@ describe('StacheLayoutComponent', () => {
   });
 
   it('should set the min-height of the wrapper', fakeAsync(() => {
-    const spy = spyOn(component['renderer'], 'setStyle').and.callThrough();
     component.layoutType = 'sidebar';
     component.ngOnChanges();
     fixture.detectChanges();
     tick();
-    const wrapper = fixture.debugElement.query(
-      By.css('.stache-layout-wrapper')
-    ).nativeElement;
-    expect(spy.calls.argsFor(0)[0]).toEqual(wrapper);
-    expect(spy.calls.argsFor(0)[1]).toEqual('min-height');
+    const wrapper = getWrapperEl();
+    expect(wrapper.style.minHeight).toBeDefined();
   }));
+
+  it('should reset the layout type', () => {
+    component.layoutType = 'blank';
+    fixture.detectChanges();
+    const wrapper = getWrapperEl();
+    expect(wrapper.querySelector('.stache-layout-blank')).toExist();
+
+    // Reset the layout type.
+    component.layoutType = undefined;
+    fixture.detectChanges();
+    // The default layout is 'sidebar'.
+    expect(wrapper.querySelector('.stache-layout-sidebar')).toExist();
+  });
 });

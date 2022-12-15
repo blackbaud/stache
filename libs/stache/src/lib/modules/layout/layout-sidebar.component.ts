@@ -11,30 +11,30 @@ import { StacheLayout } from './layout';
 })
 export class StacheLayoutSidebarComponent implements StacheLayout {
   @Input()
-  public pageTitle: string;
+  public pageTitle: string | undefined;
 
   @Input()
-  public breadcrumbsRoutes: StacheNavLink[];
+  public breadcrumbsRoutes: StacheNavLink[] | undefined;
 
   @Input()
-  public inPageRoutes: StacheNavLink[];
+  public inPageRoutes: StacheNavLink[] | undefined;
 
   @Input()
-  public sidebarRoutes: StacheNavLink[];
-
-  @Input()
-  @InputConverter(booleanConverter)
-  public showBackToTop: boolean;
+  public sidebarRoutes: StacheNavLink[] | undefined;
 
   @Input()
   @InputConverter(booleanConverter)
-  public showBreadcrumbs: boolean;
+  public showBackToTop: boolean | undefined;
 
   @Input()
   @InputConverter(booleanConverter)
-  public showEditButton: boolean;
+  public showBreadcrumbs: boolean | undefined;
 
   @Input()
   @InputConverter(booleanConverter)
-  public showTableOfContents: boolean;
+  public showEditButton: boolean | undefined;
+
+  @Input()
+  @InputConverter(booleanConverter)
+  public showTableOfContents: boolean | undefined;
 }
