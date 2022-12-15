@@ -1,26 +1,26 @@
-@import '../../styles/_variables';
+@use '../../styles/_variables' as vars;
 
 .stache-footer-wrapper {
-  background-color: $stache-background-color-neutral-light;
+  background-color: vars.$stache-background-color-neutral-light;
   position: relative;
-  z-index: $stache-footer-z-index;
+  z-index: vars.$stache-footer-z-index;
 
   ::ng-deep .stache-nav-anchor {
     color: #007399;
   }
 
   .stache-footer-content {
-    padding: $stache-padding $stache-container-padding;
+    padding: vars.$stache-padding vars.$stache-container-padding;
   }
 }
 
 .stache-footer-heading {
-  margin: $stache-margin 0;
+  margin: vars.$stache-margin 0;
   font-size: 1.1em;
   font-weight: bold;
 }
 
 .stache-footer-copyright-label {
-  color: $stache-text-color-deemphasized;
+  color: vars.$stache-text-color-deemphasized;
   font-size: 85%;
 }
