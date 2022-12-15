@@ -42,9 +42,14 @@ export class StacheNavService {
   }
 
   public isExternal(route: StacheRoute | string): boolean {
-    return typeof route === 'string'
-      ? /^(https?|mailto|ftp):+|^(www)/.test(route)
-      : false;
+    const routeStr =
+      typeof route === 'string'
+        ? route
+        : typeof route.path === 'string'
+        ? route.path
+        : undefined;
+
+    return routeStr ? /^(https?|mailto|ftp):+|^(www)/.test(routeStr) : false;
   }
 
   #isCurrentRoute(routePath: string | string[], currentPath: string): boolean {

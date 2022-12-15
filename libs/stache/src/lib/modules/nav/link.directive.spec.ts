@@ -136,12 +136,11 @@ describe('StacheLinkDirective', () => {
       By.directive(StacheRouterLinkDirective)
     );
 
-    const directiveInstance = directiveElement.injector.get(
-      StacheRouterLinkDirective
-    );
+    const directiveInstance: StacheRouterLinkDirective =
+      directiveElement.injector.get(StacheRouterLinkDirective);
     directiveInstance.stacheRouterLink = '/demos';
     directiveInstance.ngAfterViewInit();
-    expect(directiveInstance._stacheRouterLink).toBe('/demos');
+    expect(directiveInstance.href).toBe('/demos');
   }));
 
   it('should set stacheRouterLink input to same page urls', async(() => {
