@@ -19,15 +19,18 @@ export class StacheEditButtonComponent implements OnInit {
 
   public url: string | undefined;
 
-  constructor(
-    private config: SkyAppConfig,
-    private routeService: StacheRouteService
-  ) {}
+  #config: SkyAppConfig;
+  #routeSvc: StacheRouteService;
+
+  constructor(config: SkyAppConfig, routeSvc: StacheRouteService) {
+    this.#config = config;
+    this.#routeSvc = routeSvc;
+  }
 
   public ngOnInit(): void {
     this.url = this.#getUrl();
     this.editButtonText = lodashGet(
-      this.config,
+      this.#config,
       'skyux.appSettings.stache.editButton.text',
       'Edit'
     );
@@ -35,7 +38,7 @@ export class StacheEditButtonComponent implements OnInit {
 
   #getUrl(): string {
     const base = lodashGet(
-      this.config,
+      this.#config,
       'skyux.appSettings.stache.editButton.url'
     );
 
@@ -48,7 +51,7 @@ export class StacheEditButtonComponent implements OnInit {
         ? 'vsts'
         : 'github';
 
-    const activeUrl = this.routeService.getActiveUrl();
+    const activeUrl = this.#routeSvc.getActiveUrl();
     const frag = encodeURIComponent(
       activeUrl === '/' ? activeUrl : activeUrl + '/'
     );

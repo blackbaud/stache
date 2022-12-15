@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { expect } from '@skyux-sdk/testing';
-import { SkyAppConfig } from '@skyux/config';
+import { SkyAppConfig, SkyuxConfig } from '@skyux/config';
 
 import { StacheRouteService } from '../router/route.service';
 
@@ -12,15 +12,16 @@ import { StacheEditButtonModule } from './edit-button.module';
 describe('StacheEditButtonComponent', () => {
   let component: StacheEditButtonComponent;
   let fixture: ComponentFixture<StacheEditButtonComponent>;
-  let mockConfigService: any;
-  let mockRouteService: any;
+  let mockConfigService: MockConfigService;
+  let mockRouteService: MockRouteService;
 
   class MockConfigService {
-    public skyux = {
+    public skyux: SkyuxConfig = {
       appSettings: {
         stache: {
           editButton: {
             url: 'https://github.com/blackbaud/skyux-lib-stache',
+            text: undefined,
           },
         },
       },
@@ -101,13 +102,12 @@ describe('StacheEditButtonComponent', () => {
 
   it('should not display if no url is set', () => {
     mockConfigService.skyux.appSettings.stache.editButton.url = undefined;
+
     fixture = TestBed.createComponent(StacheEditButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
     expect(component['url']).toBe('');
-    // tslint:disable-next-line:no-null-keyword
-    expect(fixture.debugElement.query(By.css('button')).nativeElement).toBe(
-      null
-    );
+    expect(fixture.debugElement.query(By.css('button'))).toBeNull();
   });
 });
