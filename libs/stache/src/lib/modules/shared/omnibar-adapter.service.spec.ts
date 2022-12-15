@@ -5,20 +5,23 @@ import { StacheWindowRef } from './window-ref';
 
 let mockEnabled = false;
 
-const mockElement: any = {};
+let mockElement: HTMLElement;
 
 class MockRenderer {
-  public data: any;
+  public data: unknown;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public addClass(el: any, className: string): void {
     el.classList.push(className);
   }
 }
 
 class MockWindowService {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public nativeWindow: any = {
     document: {
-      querySelector(selector: string) {
+      querySelector() {
         if (mockEnabled) {
+          mockElement = document.createElement('div');
           return mockElement;
         }
         return undefined;
@@ -31,13 +34,14 @@ class MockWindowService {
 }
 
 class MockRendererFactory {
-  public createRenderer(a: any, b: any) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+  public createRenderer(a: any, b: any): MockRenderer {
     return new MockRenderer();
   }
 }
 
 describe('StacheOmnibarAdapterService', () => {
-  const className = StacheOmnibarAdapterService['HAS_OMNIBAR_CLASS_NAME'];
+  const className = 'stache-omnibar-enabled';
   let omnibarService: StacheOmnibarAdapterService;
   let mockWindowService: MockWindowService;
   let mockRendererFactory: MockRendererFactory;
@@ -64,9 +68,7 @@ describe('StacheOmnibarAdapterService', () => {
       mockRendererFactory as RendererFactory2
     );
     const testHeight = omnibarService.getHeight();
-    expect(testHeight).toBe(
-      StacheOmnibarAdapterService.EXPECTED_OMNIBAR_HEIGHT
-    );
+    expect(testHeight).toBe(50);
   });
 
   it('should add the class stache-omnibar-enabled to the body if omnibar exists', () => {
