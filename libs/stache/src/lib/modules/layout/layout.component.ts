@@ -56,7 +56,7 @@ export class StacheLayoutComponent implements OnInit, OnChanges, StacheLayout {
   @Input()
   public showBackToTop: boolean | undefined;
 
-  public templateRef: TemplateRef<unknown>;
+  public templateRef: TemplateRef<unknown> | undefined;
 
   @ViewChild('blankLayout', {
     read: TemplateRef,
