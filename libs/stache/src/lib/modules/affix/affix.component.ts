@@ -23,45 +23,51 @@ export class StacheAffixComponent implements AfterViewInit, OnDestroy {
     read: ElementRef,
     static: false,
   })
-  public wrapper: ElementRef;
-  public minHeightFormatted: string;
-  public maxWidthFormatted: string;
+  public wrapper: ElementRef | undefined;
+
+  public minHeightFormatted: string | undefined;
+
+  public maxWidthFormatted: string | undefined;
 
   @ViewChild(StacheAffixTopDirective, {
     read: StacheAffixTopDirective,
     static: true,
   })
-  public affixTopDirective: StacheAffixTopDirective;
+  public affixTopDirective: StacheAffixTopDirective | undefined;
 
-  private windowSubscription: Subscription;
+  #windowRef: StacheWindowRef;
+  #windowSubscription: Subscription;
+  #changeDetector: ChangeDetectorRef;
 
   public constructor(
-    private windowRef: StacheWindowRef,
-    private cdRef: ChangeDetectorRef
+    windowRef: StacheWindowRef,
+    changeDetector: ChangeDetectorRef
   ) {
-    this.windowSubscription = this.windowRef.onResizeStream.subscribe(() => {
-      this.setElementRefDimensions();
+    this.#windowRef = windowRef;
+    this.#changeDetector = changeDetector;
+    this.#windowSubscription = this.#windowRef.onResizeStream.subscribe(() => {
+      this.#setElementRefDimensions();
     });
   }
 
-  public ngAfterViewInit() {
-    this.setElementRefDimensions();
-    this.cdRef.detectChanges();
+  public ngAfterViewInit(): void {
+    this.#setElementRefDimensions();
+    this.#changeDetector.detectChanges();
   }
 
   public ngOnDestroy(): void {
-    this.windowSubscription.unsubscribe();
+    this.#windowSubscription.unsubscribe();
   }
 
-  public getStyles(): any {
+  public getStyles(): Record<string, string | undefined> {
     return {
-      'min-height': this.getCssMinHeight(),
-      'max-width': this.getCssMaxWidth(),
-      position: this.getCssPosition(),
+      'min-height': this.#getCssMinHeight(),
+      'max-width': this.#getCssMaxWidth(),
+      position: this.#getCssPosition(),
     };
   }
 
-  private setElementRefDimensions(): void {
+  #setElementRefDimensions(): void {
     /* istanbul ignore else */
     if (this.wrapper) {
       this.minHeightFormatted = `${this.wrapper.nativeElement.offsetHeight}px`;
@@ -69,24 +75,24 @@ export class StacheAffixComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  private getCssPosition(): string {
-    if (this.affixTopDirective.isAffixed) {
+  #getCssPosition(): string {
+    if (this.affixTopDirective?.isAffixed) {
       return 'relative';
     }
 
     return 'static';
   }
 
-  private getCssMinHeight(): string {
-    if (this.affixTopDirective.isAffixed) {
+  #getCssMinHeight(): string | undefined {
+    if (this.affixTopDirective?.isAffixed) {
       return this.minHeightFormatted;
     }
 
     return 'auto';
   }
 
-  private getCssMaxWidth(): string {
-    if (this.affixTopDirective.isAffixed) {
+  #getCssMaxWidth(): string | undefined {
+    if (this.affixTopDirective?.isAffixed) {
       return this.maxWidthFormatted;
     }
 

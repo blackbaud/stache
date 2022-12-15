@@ -1,4 +1,4 @@
-@import '../../styles/_variables';
+@use '../../styles/_variables' as vars;
 
 .stache-affix {
   &:after {
@@ -15,8 +15,8 @@
 
 ::ng-deep .stache-omnibar-enabled {
   .stache-affix-top {
-    @media (min-width: $stache-screen-sm-min) {
-      margin-top: $stache-omnibar-height;
+    @media (min-width: vars.$stache-screen-sm-min) {
+      margin-top: vars.$stache-omnibar-height;
     }
   }
 }
