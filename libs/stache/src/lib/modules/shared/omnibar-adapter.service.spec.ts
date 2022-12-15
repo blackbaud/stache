@@ -31,13 +31,13 @@ class MockWindowService {
 }
 
 class MockRendererFactory {
-  public createRenderer(a: any, b: any) {
+  public createRenderer(a: any, b: any): MockRenderer {
     return new MockRenderer();
   }
 }
 
 describe('StacheOmnibarAdapterService', () => {
-  const className = StacheOmnibarAdapterService['HAS_OMNIBAR_CLASS_NAME'];
+  const className = 'stache-omnibar-enabled';
   let omnibarService: StacheOmnibarAdapterService;
   let mockWindowService: MockWindowService;
   let mockRendererFactory: MockRendererFactory;
@@ -64,9 +64,7 @@ describe('StacheOmnibarAdapterService', () => {
       mockRendererFactory as RendererFactory2
     );
     const testHeight = omnibarService.getHeight();
-    expect(testHeight).toBe(
-      StacheOmnibarAdapterService.EXPECTED_OMNIBAR_HEIGHT
-    );
+    expect(testHeight).toBe(50);
   });
 
   it('should add the class stache-omnibar-enabled to the body if omnibar exists', () => {

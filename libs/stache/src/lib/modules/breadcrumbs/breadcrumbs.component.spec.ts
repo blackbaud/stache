@@ -110,26 +110,26 @@ describe('StacheBreadcrumbsComponent', () => {
     ];
     component.ngOnInit();
     fixture.detectChanges();
-    expect(component.routes.length).toBe(3);
+    expect(component.routes?.length).toBe(3);
   });
 
   it('should not generate routes beyond the current path', () => {
     mockActiveUrl = '/parent/child';
     component.ngOnInit();
     fixture.detectChanges();
-    expect(component.routes.length).toBe(3);
+    expect(component.routes?.length).toBe(3);
   });
 
   it('should generate grandchild routes from SkyAppConfig', () => {
     mockActiveUrl = '/parent/child/grandchild';
     component.ngOnInit();
     fixture.detectChanges();
-    expect(component.routes.length).toBe(4);
+    expect(component.routes?.length).toBe(4);
   });
 
   it('should add a link to the home page', () => {
     component.ngOnInit();
     fixture.detectChanges();
-    expect(component.routes[0].name).toBe('Home');
+    expect(component.routes?.[0].name).toBe('Home');
   });
 });

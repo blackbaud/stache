@@ -106,6 +106,8 @@ describe('StacheEditButtonComponent', () => {
     fixture.detectChanges();
     expect(component['url']).toBe('');
     // tslint:disable-next-line:no-null-keyword
-    expect(fixture.debugElement.query(By.css('button'))).toBe(null);
+    expect(fixture.debugElement.query(By.css('button')).nativeElement).toBe(
+      null
+    );
   });
 });

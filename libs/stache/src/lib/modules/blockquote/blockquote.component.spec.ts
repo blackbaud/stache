@@ -62,7 +62,6 @@ describe('StacheBlockquoteComponent', () => {
   });
 
   it('should set author to "Source" on init if quoteSource is provided without an author', () => {
-    component.author = undefined;
     component.quoteSource = 'http://source.html';
     component.ngOnInit();
     fixture.detectChanges();

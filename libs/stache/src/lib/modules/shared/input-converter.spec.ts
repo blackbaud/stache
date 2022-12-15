@@ -7,13 +7,13 @@ import {
 
 class MockComponentExplicit {
   @InputConverter(booleanConverter)
-  public myBoolean: boolean;
+  public myBoolean: boolean | undefined;
 
   @InputConverter(stringConverter)
-  public myString: string;
+  public myString: string | undefined;
 
   @InputConverter(numberConverter)
-  public myNumber: number;
+  public myNumber: number | undefined;
 }
 
 describe('InputConverter', () => {

@@ -414,11 +414,6 @@ describe('StacheWrapperComponent', () => {
     mockTextContent = '';
   });
 
-  it('should set the jsonData property on init', () => {
-    fixture.detectChanges();
-    expect(component.jsonData).toEqual(jasmine.any(Object));
-  });
-
   it('should detect the omnibar if it exists on init', () => {
     spyOn(mockOmnibarService, 'checkForOmnibar').and.callThrough();
     component.ngOnInit();
@@ -433,8 +428,8 @@ describe('StacheWrapperComponent', () => {
 
     const inPageRoutes = testComponent.testWrapper.inPageRoutes;
 
-    expect(inPageRoutes[0].name).toEqual('First Heading');
-    expect(inPageRoutes[1].name).toEqual('Second Heading');
+    expect(inPageRoutes?.[0].name).toEqual('First Heading');
+    expect(inPageRoutes?.[1].name).toEqual('Second Heading');
   });
 
   it('should use inPageRoutes over stachePageAnchors', () => {
@@ -449,7 +444,7 @@ describe('StacheWrapperComponent', () => {
     testFixture.detectChanges();
 
     const inPageRoutes = testComponent.testWrapper.inPageRoutes;
-    expect(inPageRoutes[0].name).toEqual(testNavLink.name);
+    expect(inPageRoutes?.[0].name).toEqual(testNavLink.name);
   });
 
   it('should not navigate to a fragment if none exist', () => {

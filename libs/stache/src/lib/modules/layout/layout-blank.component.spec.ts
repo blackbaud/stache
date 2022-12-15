@@ -35,15 +35,13 @@ describe('StacheLayoutBlankComponent', () => {
   });
 
   it('should return the classname when getClassName is called', () => {
-    const className = component.getClassName();
     fixture.detectChanges();
-    expect(className).toBe('stache-layout-blank');
+    expect(component.className).toBe('stache-layout-blank');
   });
 
   it('should return the classname based on the identifier', () => {
     component.identifier = 'test';
-    const className = component.getClassName();
     fixture.detectChanges();
-    expect(className).toBe('stache-layout-test');
+    expect(component.className).toBe('stache-layout-test');
   });
 });

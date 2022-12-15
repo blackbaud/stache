@@ -90,11 +90,6 @@ describe('StacheNavService', () => {
     expect(isExternal).toBe(false);
   });
 
-  it('should return false if no path is present', () => {
-    const noPath = navService.isExternal({});
-    expect(noPath).toBe(false);
-  });
-
   it('should navigate to an external url', () => {
     navService.navigate({ path: 'www.external.com' });
     expect(windowRef.nativeWindow.location.href).toEqual('www.external.com');

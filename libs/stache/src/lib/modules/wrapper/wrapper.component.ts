@@ -14,7 +14,6 @@ import lodashGet from 'lodash.get';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
-import { StacheJsonDataService } from '../json-data/json-data.service';
 import { StacheNavLink } from '../nav/nav-link';
 import { StachePageAnchorService } from '../page-anchor/page-anchor.service';
 import { StacheOmnibarAdapterService } from '../shared/omnibar-adapter.service';
@@ -102,7 +101,6 @@ export class StacheWrapperComponent
   @Input()
   public inPageRoutes: StacheNavLink[] | undefined;
 
-  #jsonData: unknown;
   #_layout = DEFAULT_LAYOUT;
   #_showBackToTop = true;
   #_showInNav = true;
@@ -111,7 +109,6 @@ export class StacheWrapperComponent
   #_showFooter = false;
   #ngUnsubscribe = new Subject<void>();
   #config: SkyAppConfig;
-  #dataSvc: StacheJsonDataService;
   #pageAnchorSvc: StachePageAnchorService;
   #titleSvc: StacheTitleService;
   #route: ActivatedRoute;
@@ -121,7 +118,6 @@ export class StacheWrapperComponent
 
   public constructor(
     config: SkyAppConfig,
-    dataSvc: StacheJsonDataService,
     pageAnchorSvc: StachePageAnchorService,
     titleSvc: StacheTitleService,
     route: ActivatedRoute,
@@ -130,7 +126,6 @@ export class StacheWrapperComponent
     omnibarSvc: StacheOmnibarAdapterService
   ) {
     this.#config = config;
-    this.#dataSvc = dataSvc;
     this.#pageAnchorSvc = pageAnchorSvc;
     this.#titleSvc = titleSvc;
     this.#route = route;
@@ -141,7 +136,6 @@ export class StacheWrapperComponent
 
   public ngOnInit(): void {
     this.#omnibarSvc.checkForOmnibar();
-    this.#jsonData = this.#dataSvc.getAll();
     if (!this.inPageRoutes) {
       this.#pageAnchorSvc.pageAnchorsStream
         .pipe(takeUntil(this.#ngUnsubscribe))
