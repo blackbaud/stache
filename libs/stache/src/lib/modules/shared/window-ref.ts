@@ -6,29 +6,30 @@ function getWindow(): any {
   return window;
 }
 
+/**
+ * @internal
+ */
 @Injectable()
 export class StacheWindowRef {
   public get nativeWindow(): any {
     return getWindow();
   }
 
-  get onResizeStream(): Observable<Window> {
-    return this.resizeSubject.asObservable();
+  public get onResizeStream(): Observable<Window> {
+    return this.#resizeSubject.asObservable();
   }
 
-  public scrollEventStream = fromEvent(this.nativeWindow, 'scroll');
+  public scrollEventStream = fromEvent<Event>(this.nativeWindow, 'scroll');
 
-  private resizeSubject: ReplaySubject<Window>;
+  #resizeSubject = new ReplaySubject<Window>();
 
   constructor() {
-    this.resizeSubject = new ReplaySubject();
-
     this.nativeWindow.addEventListener('resize', (event: UIEvent) => {
-      this.onResize(event);
+      this.#onResize(event);
     });
   }
 
-  private onResize(event: UIEvent): void {
-    this.resizeSubject.next(event.target as Window);
+  #onResize(event: UIEvent): void {
+    this.#resizeSubject.next(event.target as Window);
   }
 }
