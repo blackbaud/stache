@@ -4,38 +4,51 @@ import {
   PathLocationStrategy,
 } from '@angular/common';
 import { DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SkyAppTestUtility, expect } from '@skyux-sdk/testing';
+import { Routes } from '@angular/router';
+import {
+  SkyAppTestUtility,
+  SkyAppTestUtilityDomEventOptions,
+  expect,
+} from '@skyux-sdk/testing';
 
 import { StacheRouteService } from '../router/route.service';
 
 import { StacheRouterLinkTestComponent } from './fixtures/link.component.fixture';
-import { StacheRouterLinkTestLocalRouteComponent } from './fixtures/link.component_localroute.fixture';
 import { StacheRouterLinkDirective } from './link.directive';
 import { StacheNavModule } from './nav.module';
 import { StacheNavService } from './nav.service';
 
 describe('StacheLinkDirective', () => {
-  let debugElement: DebugElement;
-  let directiveElement: any;
+  function clickAnchor(options: SkyAppTestUtilityDomEventOptions = {}): void {
+    // First, remove href attribute to avoid a full-page reload.
+    fixture.componentInstance.anchorEl.nativeElement.removeAttribute('href');
+    SkyAppTestUtility.fireDomEvent(
+      fixture.componentInstance.anchorEl.nativeElement,
+      'click',
+      options
+    );
+    fixture.detectChanges();
+  }
+
+  let directiveElement: DebugElement;
   let fixture: ComponentFixture<StacheRouterLinkTestComponent>;
-  let mockNavService: any;
-  let mockRouteService: any;
+  let mockNavService: MockNavService;
+  let mockRouteService: MockRouteService;
 
   class MockNavService {
-    public navigate = jasmine
-      .createSpy('navigate')
-      .and.callFake((routeObj: any) => {
-        /* */
-      });
+    public navigate = jasmine.createSpy('navigate').and.callFake(() => {
+      /* */
+    });
 
-    public isExternal(route: any): boolean {
+    public isExternal(route: unknown): boolean {
       const testPath = route;
 
       if (typeof testPath !== 'string') {
         return false;
       }
+
       return /^(https?|mailto|ftp):+|^(www)/.test(testPath);
     }
   }
@@ -64,10 +77,10 @@ describe('StacheLinkDirective', () => {
   let mockActiveUrl = '';
 
   class MockRouteService {
-    public getActiveRoutes() {
+    public getActiveRoutes(): Routes {
       return mockRoutes;
     }
-    public getActiveUrl() {
+    public getActiveUrl(): string {
       return mockActiveUrl;
     }
   }
@@ -78,10 +91,7 @@ describe('StacheLinkDirective', () => {
 
     TestBed.configureTestingModule({
       imports: [StacheNavModule],
-      declarations: [
-        StacheRouterLinkTestComponent,
-        StacheRouterLinkTestLocalRouteComponent,
-      ],
+      declarations: [StacheRouterLinkTestComponent],
       providers: [
         LocationStrategy,
         { provide: LocationStrategy, useClass: PathLocationStrategy },
@@ -95,7 +105,6 @@ describe('StacheLinkDirective', () => {
     directiveElement = fixture.debugElement.query(
       By.directive(StacheRouterLinkDirective)
     );
-    debugElement = fixture.debugElement;
   });
 
   it('should render the component', () => {
@@ -103,108 +112,117 @@ describe('StacheLinkDirective', () => {
   });
 
   it('should have a route input', () => {
+    fixture.componentInstance.routerLink = 'test-route';
+    fixture.detectChanges();
+
     const directiveInstance = directiveElement.injector.get(
       StacheRouterLinkDirective
     );
-    fixture.detectChanges();
-    expect(directiveInstance.stacheRouterLink).toBe('test-route');
+
+    expect(directiveInstance.href).toBe('/test-route');
   });
 
   it('should have a fragment input', () => {
+    fixture.componentInstance.fragment = 'test';
+    fixture.detectChanges();
+
     const directiveInstance = directiveElement.injector.get(
       StacheRouterLinkDirective
     );
-    fixture.detectChanges();
+
     expect(directiveInstance.fragment).toBe('test');
   });
 
-  it('should call the navigate method when clicked', async(() => {
+  it('should call the navigate method when clicked', async () => {
+    fixture.detectChanges();
+
     const directiveInstance = directiveElement.injector.get(
       StacheRouterLinkDirective
     );
-    spyOn(directiveInstance, 'navigate');
-    const link = debugElement.nativeElement.querySelector('a');
-    link.click();
-    fixture.whenStable().then(() => {
-      expect(directiveInstance.navigate).toHaveBeenCalled();
-    });
-  }));
 
-  it('should set stacheRouterLink input to internal urls', async(() => {
-    fixture = TestBed.createComponent(StacheRouterLinkTestLocalRouteComponent);
-    directiveElement = fixture.debugElement.query(
-      By.directive(StacheRouterLinkDirective)
-    );
+    spyOn(directiveInstance, 'navigate');
+
+    clickAnchor();
+    await fixture.whenStable();
+
+    expect(directiveInstance.navigate).toHaveBeenCalled();
+  });
+
+  it('should set stacheRouterLink input to internal urls', () => {
+    fixture.componentInstance.routerLink = '/demos';
+    fixture.detectChanges();
 
     const directiveInstance: StacheRouterLinkDirective =
       directiveElement.injector.get(StacheRouterLinkDirective);
-    directiveInstance.stacheRouterLink = '/demos';
-    directiveInstance.ngAfterViewInit();
+
     expect(directiveInstance.href).toBe('/demos');
-  }));
+  });
 
-  it('should set stacheRouterLink input to same page urls', async(() => {
+  it('should set stacheRouterLink input to same page urls', () => {
     mockActiveUrl = '/test-page';
-    fixture = TestBed.createComponent(StacheRouterLinkTestLocalRouteComponent);
-    directiveElement = fixture.debugElement.query(
-      By.directive(StacheRouterLinkDirective)
-    );
+    fixture.componentInstance.routerLink = '.';
+    fixture.detectChanges();
 
     const directiveInstance = directiveElement.injector.get(
       StacheRouterLinkDirective
     );
-    directiveInstance.stacheRouterLink = '.';
-    expect(directiveInstance._stacheRouterLink).toBe('/test-page');
+
+    expect(directiveInstance.href).toBe('/test-page');
     mockActiveUrl = '';
-  }));
+  });
 
-  it('should set stacheRouterLink input to external urls', async(() => {
-    fixture = TestBed.createComponent(StacheRouterLinkTestLocalRouteComponent);
-    directiveElement = fixture.debugElement.query(
-      By.directive(StacheRouterLinkDirective)
-    );
+  it('should set stacheRouterLink input to external urls', () => {
+    fixture.componentInstance.routerLink = 'https://www.google.com';
+    fixture.detectChanges();
 
     const directiveInstance = directiveElement.injector.get(
       StacheRouterLinkDirective
     );
-    directiveInstance.stacheRouterLink = 'https://www.google.com';
-    directiveInstance.ngAfterViewInit();
-    expect(directiveInstance._stacheRouterLink).toBe('https://www.google.com');
-  }));
 
-  it('should open in new window when shift clicked', async(() => {
-    const link = debugElement.nativeElement.querySelector('a');
-    SkyAppTestUtility.fireDomEvent(link, 'click', {
+    expect(directiveInstance.href).toBe('https://www.google.com');
+  });
+
+  it('should set stacheRouterLink input to array of strings', () => {
+    fixture.componentInstance.routerLink = ['foo', 'bar', 'baz'];
+    fixture.detectChanges();
+
+    const directiveInstance = directiveElement.injector.get(
+      StacheRouterLinkDirective
+    );
+
+    expect(directiveInstance.href).toBe('/foo/bar/baz');
+  });
+
+  it('should open in new window when shift clicked', () => {
+    fixture.detectChanges();
+
+    clickAnchor({
       keyboardEventInit: {
         shiftKey: true,
       },
     });
 
     expect(mockNavService.navigate).not.toHaveBeenCalled();
-  }));
+  });
 
-  it('should open in new window when meta (command) clicked', async(() => {
-    const link = debugElement.nativeElement.querySelector('a');
-    SkyAppTestUtility.fireDomEvent(link, 'click', {
+  it('should open in new window when meta (command) clicked', () => {
+    fixture.detectChanges();
+
+    clickAnchor({
       keyboardEventInit: {
         metaKey: true,
       },
     });
 
     expect(mockNavService.navigate).not.toHaveBeenCalled();
-  }));
+  });
 
   it('should pass the fragment to the navigate method if it exists', () => {
-    const directiveInstance = directiveElement.injector.get(
-      StacheRouterLinkDirective
-    );
-    directiveInstance.stacheRouterLink = 'test-route';
-    directiveInstance.fragment = 'test';
-    SkyAppTestUtility.fireDomEvent(
-      directiveInstance['el'].nativeElement,
-      'click'
-    );
+    fixture.componentInstance.routerLink = 'test-route';
+    fixture.componentInstance.fragment = 'test';
     fixture.detectChanges();
+
+    clickAnchor();
 
     expect(mockNavService.navigate).toHaveBeenCalledWith({
       path: 'test-route',
@@ -213,17 +231,11 @@ describe('StacheLinkDirective', () => {
   });
 
   it('should not pass a fragment if it does not exist', () => {
-    const directiveInstance = directiveElement.injector.get(
-      StacheRouterLinkDirective
-    );
-    directiveInstance.stacheRouterLink = 'test-route';
-    directiveInstance.fragment = undefined;
-
-    SkyAppTestUtility.fireDomEvent(
-      directiveInstance['el'].nativeElement,
-      'click'
-    );
+    fixture.componentInstance.routerLink = 'test-route';
+    fixture.componentInstance.fragment = undefined;
     fixture.detectChanges();
+
+    clickAnchor();
 
     expect(mockNavService.navigate).toHaveBeenCalledWith({
       path: 'test-route',

@@ -169,6 +169,12 @@ describe('StacheNavComponent', () => {
     expect(component.className).toBe('stache-nav-sidebar');
   });
 
+  it('should reset the className with an undefined navType', () => {
+    component.navType = undefined;
+    fixture.detectChanges();
+    expect(component.className).toBeUndefined();
+  });
+
   it('should filter out restricted routes when the restricted property is true', () => {
     component.routes = [
       {
