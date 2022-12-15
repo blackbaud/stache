@@ -1,3 +1,4 @@
+import { DebugElement } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -16,11 +17,11 @@ import { AffixTopFixtureComponent } from './fixtures/affix-top.component.fixture
 import { AffixFixtureModule } from './fixtures/affix.module.fixture';
 
 describe('StacheAffixTopDirective', () => {
-  const className: string = StacheAffixTopDirective.AFFIX_CLASS_NAME;
+  const className = 'stache-affix-top';
 
   let omnibarAdapterService: StacheOmnibarAdapterService;
   let fixture: ComponentFixture<AffixTopFixtureComponent>;
-  let directiveElements: any[];
+  let directiveElements: DebugElement[];
 
   function detectChanges(): void {
     fixture.detectChanges();
@@ -148,22 +149,19 @@ describe('StacheAffixTopDirective', () => {
   }));
 
   it('should set the maxHeight of the element based on footer offset - window pageYOffset - omnibar height', fakeAsync(() => {
+    // Create a mock footer.
+    const footer = document.createElement('div');
+    footer.className = 'stache-footer-wrapper';
+    footer.style.position = 'absolute';
+    footer.style.top = '450px';
+    footer.innerHTML = '<p>Stache footer</p>';
+    document.body.appendChild(footer);
+
     detectChanges();
 
     const element = directiveElements[0].nativeElement;
-    const directiveInstance = directiveElements[0].injector.get(
-      StacheAffixTopDirective
-    );
 
-    directiveInstance.footerWrapper = {
-      offsetParent: undefined,
-      offsetTop: 450,
-      getBoundingClientRect() {
-        return {
-          top: 0,
-        };
-      },
-    } as HTMLElement;
+    detectChanges();
 
     window.resizeTo(1200, 800);
     window.scrollBy(0, 350);
@@ -175,5 +173,7 @@ describe('StacheAffixTopDirective', () => {
     detectChanges();
 
     expect(element.style.height).toEqual('50px');
+
+    footer.remove();
   }));
 });

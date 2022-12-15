@@ -11,5 +11,5 @@ export class AffixFixtureComponent {
     read: StacheAffixComponent,
     static: true,
   })
-  public affixComponent: StacheAffixComponent;
+  public affixComponent!: StacheAffixComponent;
 }
