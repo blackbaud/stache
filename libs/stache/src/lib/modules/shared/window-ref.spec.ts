@@ -21,7 +21,7 @@ describe('StacheWindowRef', () => {
 
     const windowRef = new StacheWindowRef();
 
-    windowRef.onResizeStream.subscribe((event) => {
+    windowRef.onResizeStream.subscribe(() => {
       resized = true;
     });
 
