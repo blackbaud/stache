@@ -11,7 +11,7 @@ describe('StachePageSummaryComponent', () => {
     TestBed.configureTestingModule({
       imports: [StachePageSummaryModule],
       declarations: [StachePageSummaryTestComponent],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StachePageSummaryTestComponent);
   });

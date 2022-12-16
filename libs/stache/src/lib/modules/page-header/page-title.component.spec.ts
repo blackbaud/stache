@@ -9,7 +9,7 @@ describe('StachePageTitleComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [StachePageTitleComponent],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StachePageTitleComponent);
   });
