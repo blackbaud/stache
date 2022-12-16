@@ -1,15 +1,32 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
+const DEFAULT_IDENTIFIER = 'blank';
 
 @Component({
   selector: 'stache-layout-blank',
   templateUrl: './layout-blank.component.html',
   styleUrls: ['./layout-blank.component.scss'],
 })
-export class StacheLayoutBlankComponent {
+export class StacheLayoutBlankComponent implements OnInit {
   @Input()
-  public identifier = 'blank';
+  public set identifier(value: string | undefined) {
+    this.#_identifier = value || DEFAULT_IDENTIFIER;
+    this.#updateClassName();
+  }
 
-  public getClassName(): string {
-    return `stache-layout-${this.identifier}`;
+  public get identifier(): string {
+    return this.#_identifier;
+  }
+
+  public className: string | undefined;
+
+  #_identifier = DEFAULT_IDENTIFIER;
+
+  public ngOnInit(): void {
+    this.#updateClassName();
+  }
+
+  #updateClassName(): void {
+    this.className = `stache-layout-${this.identifier}`;
   }
 }
