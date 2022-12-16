@@ -18,9 +18,9 @@ export class StacheLayoutBlankComponent implements OnInit {
     return this.#_identifier;
   }
 
-  #_identifier = DEFAULT_IDENTIFIER;
-
   public className: string | undefined;
+
+  #_identifier = DEFAULT_IDENTIFIER;
 
   public ngOnInit(): void {
     this.#updateClassName();
