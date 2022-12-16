@@ -6,7 +6,6 @@ import { Subject, takeUntil } from 'rxjs';
 
 import { StacheNavLink } from '../nav/nav-link';
 
-import { SkyAppConfigRoutes } from './app-config-routes';
 import { StacheRouteMetadataConfig } from './route-metadata-config';
 import { StacheRouteMetadataService } from './route-metadata.service';
 import { sortByName, sortByOrder } from './sort';
@@ -58,7 +57,7 @@ export class StacheRouteService implements OnDestroy {
     const rootPath = this.getActiveUrl().replace(/^\//, '').split('/')[0];
 
     const appRoutes = clone(
-      (this.#configSvc.runtime?.routes as SkyAppConfigRoutes[]) || []
+      (this.#configSvc.runtime?.routes as { routePath: string }[]) || []
     );
 
     const activeChildRoutes: UnformattedStacheNavLink[] = appRoutes

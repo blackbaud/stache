@@ -38,8 +38,7 @@ describe('StacheRouteMetadataService', () => {
           useValue: config,
         },
         {
-          provide: StacheRouteMetadataService,
-          useClass: StacheRouteMetadataService,
+          StacheRouteMetadataService,
         },
       ],
     });
