@@ -15,17 +15,17 @@ import { StacheNavModule } from './nav.module';
 describe('StacheNavComponent', () => {
   let component: StacheNavComponent;
   let fixture: ComponentFixture<StacheNavComponent>;
-  let mockWindowService: any;
-  let mockRouteService: any;
+  let mockWindowService: MockWindowService;
+  let mockRouteService: MockRouteService;
   let activeUrl: string;
-  let mockRestricedViewAuthService: MockRestricedViewAuthService;
+  let mockRestrictedViewAuthService: MockRestrictedViewAuthService;
 
   class MockWindowService {
     public nativeWindow = {
       document: {
         getElementById: jasmine
           .createSpy('getElementById')
-          .and.callFake((id: any) => {
+          .and.callFake((id) => {
             if (id === 'some-header') {
               return this.testElement;
             }
@@ -38,19 +38,19 @@ describe('StacheNavComponent', () => {
     };
 
     public testElement = {
-      getBoundingClientRect() {
+      getBoundingClientRect(): { y: number } {
         return { y: 0 };
       },
     };
   }
 
   class MockRouteService {
-    public getActiveUrl() {
+    public getActiveUrl(): string {
       return activeUrl;
     }
   }
 
-  class MockRestricedViewAuthService {
+  class MockRestrictedViewAuthService {
     public isAuthenticated = new BehaviorSubject<boolean>(false);
   }
 
@@ -58,7 +58,7 @@ describe('StacheNavComponent', () => {
     activeUrl = '/test';
     mockWindowService = new MockWindowService();
     mockRouteService = new MockRouteService();
-    mockRestricedViewAuthService = new MockRestricedViewAuthService();
+    mockRestrictedViewAuthService = new MockRestrictedViewAuthService();
 
     TestBed.configureTestingModule({
       declarations: [StacheNavTestComponent],
@@ -66,9 +66,9 @@ describe('StacheNavComponent', () => {
       providers: [
         { provide: StacheRouteService, useValue: mockRouteService },
         { provide: StacheWindowRef, useValue: mockWindowService },
-        { provide: StacheAuthService, useValue: mockRestricedViewAuthService },
+        { provide: StacheAuthService, useValue: mockRestrictedViewAuthService },
       ],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheNavComponent);
     component = fixture.componentInstance;
@@ -82,41 +82,6 @@ describe('StacheNavComponent', () => {
 
     expect(component.routes[0].name).toBe('Test');
     expect(component.navType).toBe('sidebar');
-  });
-
-  it('should return true if the component has routes', () => {
-    component.routes = [{ name: 'Test', path: '/test' }];
-
-    fixture.detectChanges();
-
-    expect(component.hasRoutes()).toBe(true);
-  });
-
-  it('should return false if the component has no routes', () => {
-    component.routes = [];
-
-    fixture.detectChanges();
-
-    expect(component.hasRoutes()).toBe(false);
-  });
-
-  it('should return true if a given route has child routes', () => {
-    component.routes = [
-      {
-        name: 'Test',
-        path: '/test',
-        children: [{ name: 'Child', path: '/test/child' }],
-      },
-      { name: 'No Child', path: '/no-child' },
-    ];
-
-    const route = component.routes[0];
-    const route2 = component.routes[1];
-
-    fixture.detectChanges();
-
-    expect(component.hasChildRoutes(route)).toBe(true);
-    expect(component.hasChildRoutes(route2)).toBe(false);
   });
 
   it('should return true if a given route is active', () => {
@@ -139,16 +104,23 @@ describe('StacheNavComponent', () => {
     expect(component.routes[0].isActive).toBe(true);
     expect(component.routes[1].isActive).toBe(false);
 
-    activeUrl = '/foo';
+    activeUrl = '/foo/child';
     component.routes = [
-      { name: 'Test', path: 'test' },
-      { name: 'Foo', path: 'foo' },
+      {
+        name: 'Test',
+        path: 'test',
+      },
+      {
+        name: 'Foo',
+        path: 'foo',
+        children: [{ name: 'Child', path: '/foo/child' }],
+      },
     ];
 
     fixture.detectChanges();
 
     expect(component.routes[0].isActive).toBe(false);
-    expect(component.routes[1].isActive).toBe(true);
+    expect(component.routes[1].children?.[0].isActive).toBe(true);
   });
 
   it('should return true if a given route is current', () => {
@@ -160,13 +132,19 @@ describe('StacheNavComponent', () => {
     expect(route.isCurrent).toBe(true);
   });
 
-  it('should set the classname based on the navType on init', () => {
+  it('should set the className based on the navType on init', () => {
     component.navType = 'sidebar';
 
     component.ngOnInit();
     fixture.detectChanges();
 
-    expect(component.classname).toBe('stache-nav-sidebar');
+    expect(component.className).toBe('stache-nav-sidebar');
+  });
+
+  it('should reset the className with an undefined navType', () => {
+    component.navType = undefined;
+    fixture.detectChanges();
+    expect(component.className).toBeUndefined();
   });
 
   it('should filter out restricted routes when the restricted property is true', () => {
@@ -208,9 +186,8 @@ describe('StacheNavComponent', () => {
   });
 
   it('should show restricted routes when user is an authenticated BB user', () => {
-    mockRestricedViewAuthService.isAuthenticated = new BehaviorSubject<boolean>(
-      true
-    );
+    mockRestrictedViewAuthService.isAuthenticated =
+      new BehaviorSubject<boolean>(true);
 
     component.routes = [
       {

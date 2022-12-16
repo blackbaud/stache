@@ -16,90 +16,86 @@ import { StacheNavLink } from './nav-link';
 })
 export class StacheNavComponent implements OnDestroy, OnInit, StacheNav {
   @Input()
-  public set routes(value: StacheNavLink[]) {
-    this._routes = value;
-    this.filteredRoutes = this.filterRestrictedRoutes(
-      this.routes,
-      this.isAuthenticated
+  public set routes(value: StacheNavLink[] | undefined) {
+    this.#_routes = value;
+    this.filteredRoutes = this.#filterRestrictedRoutes(
+      value,
+      this.#isAuthenticated
     );
-    this.assignActiveStates();
+    this.#assignActiveStates();
   }
 
-  public get routes(): StacheNavLink[] {
-    return this._routes;
+  public get routes(): StacheNavLink[] | undefined {
+    return this.#_routes;
   }
 
   @Input()
-  public navType: string;
+  public set navType(value: string | undefined) {
+    this.#_navType = value;
+    this.className = value ? `stache-nav-${value}` : undefined;
+  }
 
-  public set isAuthenticated(value: boolean) {
-    if (value !== this._isAuthenticated) {
-      this._isAuthenticated = value;
-      this.filteredRoutes = this.filterRestrictedRoutes(this.routes, value);
+  public get navType(): string | undefined {
+    return this.#_navType;
+  }
+
+  set #isAuthenticated(value: boolean) {
+    if (value !== this.#_isAuthenticated) {
+      this.#_isAuthenticated = value;
+      this.filteredRoutes = this.#filterRestrictedRoutes(this.routes, value);
     }
   }
 
-  public get isAuthenticated(): boolean {
-    return this._isAuthenticated || false;
+  get #isAuthenticated(): boolean {
+    return this.#_isAuthenticated;
   }
 
-  public classname = '';
+  public className: string | undefined;
 
-  public filteredRoutes: StacheNavLink[];
+  public filteredRoutes: StacheNavLink[] | undefined;
 
-  private ngUnsubscribe = new Subject<void>();
+  #_isAuthenticated = false;
+  #_navType: string | undefined;
+  #_routes: StacheNavLink[] | undefined;
+  #authSvc: StacheAuthService;
+  #ngUnsubscribe = new Subject<void>();
+  #routeSvc: StacheRouteService;
 
-  private _isAuthenticated: boolean;
-
-  private _routes: StacheNavLink[];
-
-  public constructor(
-    private routeService: StacheRouteService,
-    private authService: StacheAuthService
-  ) {}
+  constructor(routeSvc: StacheRouteService, authSvc: StacheAuthService) {
+    this.#routeSvc = routeSvc;
+    this.#authSvc = authSvc;
+  }
 
   public ngOnInit(): void {
-    if (this.navType) {
-      this.classname = `stache-nav-${this.navType}`;
-    }
+    this.#assignActiveStates();
 
-    this.assignActiveStates();
-
-    this.authService.isAuthenticated
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((isAuthenticated: boolean) => {
-        this.isAuthenticated = isAuthenticated;
+    this.#authSvc.isAuthenticated
+      .pipe(takeUntil(this.#ngUnsubscribe))
+      .subscribe((isAuthenticated) => {
+        this.#isAuthenticated = isAuthenticated;
       });
   }
 
   public ngOnDestroy(): void {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
+    this.#ngUnsubscribe.next();
+    this.#ngUnsubscribe.complete();
   }
 
-  public hasRoutes(): boolean {
-    return Array.isArray(this.filteredRoutes) && this.filteredRoutes.length > 0;
-  }
-
-  public hasChildRoutes(route: StacheNavLink): boolean {
-    return Array.isArray(route.children);
-  }
-
-  private assignActiveStates() {
-    const activeUrl = this.routeService.getActiveUrl();
-    if (this.hasRoutes()) {
+  #assignActiveStates(): void {
+    const activeUrl = this.#routeSvc.getActiveUrl();
+    if (this.filteredRoutes) {
       this.filteredRoutes.forEach((route) => {
-        route.isActive = this.isActive(activeUrl, route);
-        route.isCurrent = this.isCurrent(activeUrl, route);
+        route.isActive = this.#isActive(activeUrl, route);
+        route.isCurrent = this.#isCurrent(activeUrl, route);
       });
     }
   }
 
-  private isActive(activeUrl: string, route: any): boolean {
+  #isActive(activeUrl: string, route: StacheNavLink): boolean {
     let path = route.path;
     let navDepth: number;
 
-    if (path.join) {
+    if (Array.isArray(path)) {
       navDepth = path.length;
       path = path.join('/');
     } else {
@@ -116,20 +112,20 @@ export class StacheNavComponent implements OnDestroy, OnInit, StacheNav {
     return isActiveParent || activeUrl === path;
   }
 
-  private isCurrent(activeUrl: string, route: any): boolean {
+  #isCurrent(activeUrl: string, route: StacheNavLink): boolean {
     let path = route.path;
 
-    if (path.join) {
+    if (Array.isArray(path)) {
       path = path.join('/');
     }
 
     return activeUrl === `/${path}`;
   }
 
-  private filterRestrictedRoutes(
-    routes: StacheNavLink[],
+  #filterRestrictedRoutes(
+    routes: StacheNavLink[] | undefined,
     isAuthenticated: boolean
-  ): StacheNavLink[] {
+  ): StacheNavLink[] | undefined {
     if (!routes || routes.length === 0 || isAuthenticated) {
       return routes;
     }

@@ -11,7 +11,7 @@ describe('StachePageHeaderComponent', () => {
     TestBed.configureTestingModule({
       imports: [StachePageHeaderModule],
       declarations: [StachePageHeaderTestComponent],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StachePageHeaderTestComponent);
   });

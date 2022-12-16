@@ -1,8 +1,17 @@
+import { NavigationExtras, Router } from '@angular/router';
+
+import { StacheWindowRef } from '../shared/window-ref';
+
 import { StacheNavService } from './nav.service';
 
 class MockRouter {
   public url = '/internal#element-id';
-  public navigate = (path: any, extras: any) => true;
+  public navigate = (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    path: string | string[],
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    extras: NavigationExtras
+  ): boolean => true;
 }
 
 let elementScrollCalled = false;
@@ -10,13 +19,13 @@ let elementScrollCalled = false;
 class MockWindowService {
   public testElement = {
     offsetTop: 20,
-    getBoundingClientRect() {
+    getBoundingClientRect(): { y: number; bottom: number } {
       return {
         y: 0,
         bottom: 0,
       };
     },
-    scrollIntoView() {
+    scrollIntoView(): void {
       elementScrollCalled = true;
       return;
     },
@@ -26,19 +35,12 @@ class MockWindowService {
     pageYOffset: 0,
     innerHeight: 0,
     document: {
-      getElementById: jasmine
-        .createSpy('getElementById')
-        .and.callFake((id: any) => {
-          if (id === 'element-id') {
-            return this.testElement;
-          }
-          return false;
-        }),
-      querySelector: jasmine
-        .createSpy('querySelector')
-        .and.callFake((selector: any) => {
-          return this.testElement;
-        }),
+      getElementById: jasmine.createSpy('getElementById').and.callFake((id) => {
+        return id === 'element-id' ? this.testElement : false;
+      }),
+      querySelector: jasmine.createSpy('querySelector').and.callFake(() => {
+        return this.testElement;
+      }),
       documentElement: this.testElement,
     },
     location: {
@@ -56,7 +58,10 @@ describe('StacheNavService', () => {
   beforeEach(() => {
     router = new MockRouter();
     windowRef = new MockWindowService();
-    navService = new StacheNavService(router as any, windowRef as any);
+    navService = new StacheNavService(
+      router as unknown as Router,
+      windowRef as unknown as StacheWindowRef
+    );
     elementScrollCalled = false;
   });
 
@@ -88,11 +93,6 @@ describe('StacheNavService', () => {
   it('should return false if a given route is not external', () => {
     const isExternal = navService.isExternal('/internal-route');
     expect(isExternal).toBe(false);
-  });
-
-  it('should return false if no path is present', () => {
-    const noPath = navService.isExternal({});
-    expect(noPath).toBe(false);
   });
 
   it('should navigate to an external url', () => {
