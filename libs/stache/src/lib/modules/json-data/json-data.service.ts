@@ -2,32 +2,39 @@ import { Inject, Injectable } from '@angular/core';
 
 import { STACHE_JSON_DATA_SERVICE_CONFIG } from './json-data-service-config-token';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type JSON_DATA = any;
+
 @Injectable()
 export class StacheJsonDataService {
+  #jsonData: JSON_DATA;
+
   constructor(
     @Inject(STACHE_JSON_DATA_SERVICE_CONFIG)
-    private jsonData: any
-  ) {}
-
-  public getAll(): any {
-    return this.jsonData;
+    jsonData: JSON_DATA
+  ) {
+    this.#jsonData = jsonData;
   }
 
-  public getByName(name: string): any {
+  public getAll(): JSON_DATA {
+    return this.#jsonData;
+  }
+
+  public getByName(name: string): JSON_DATA {
     if (name.includes('.')) {
       const keys = name.split('.');
       return this.getNestedData(keys);
     }
 
-    if (!this.jsonData[name]) {
+    if (!this.#jsonData[name]) {
       return;
     }
 
-    return this.jsonData[name];
+    return this.#jsonData[name];
   }
 
-  public getNestedData(keys: string[]) {
-    let baseData = this.jsonData;
+  public getNestedData(keys: string[]): JSON_DATA | undefined {
+    let baseData = this.#jsonData;
 
     for (let i = 0; i < keys.length; i++) {
       if (baseData[keys[i]] === undefined) {
