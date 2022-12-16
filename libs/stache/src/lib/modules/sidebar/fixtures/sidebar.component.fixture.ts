@@ -10,11 +10,11 @@ import { StacheSidebarWrapperComponent } from '../sidebar-wrapper.component';
 })
 export class SidebarFixtureComponent {
   @Input()
-  public routes: StacheNavLink[];
+  public routes: StacheNavLink[] | undefined;
 
   @ViewChild(StacheSidebarWrapperComponent, {
     read: StacheSidebarWrapperComponent,
     static: false,
   })
-  public sidebarWrapperComponent: StacheSidebarWrapperComponent;
+  public sidebarWrapperComponent!: StacheSidebarWrapperComponent;
 }

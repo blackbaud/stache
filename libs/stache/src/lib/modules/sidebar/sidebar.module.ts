@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { SkyMediaQueryModule } from '@skyux/core';
 
 import { StacheNavModule } from '../nav/nav.module';
 import { SkyStacheResourcesModule } from '../shared/sky-stache-resources.module';
@@ -11,12 +10,7 @@ import { StacheSidebarComponent } from './sidebar.component';
 
 @NgModule({
   declarations: [StacheSidebarComponent, StacheSidebarWrapperComponent],
-  imports: [
-    CommonModule,
-    SkyMediaQueryModule,
-    StacheNavModule,
-    SkyStacheResourcesModule,
-  ],
+  imports: [CommonModule, StacheNavModule, SkyStacheResourcesModule],
   exports: [StacheSidebarComponent, StacheSidebarWrapperComponent],
   providers: [StacheWindowRef],
 })
