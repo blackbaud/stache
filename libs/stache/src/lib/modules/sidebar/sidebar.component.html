@@ -4,12 +4,9 @@
     role="navigation"
     [attr.aria-labelledby]="sidebarHeadingElementId"
   >
-    <h1
-      [ngClass]="{ active: isHeadingActive() }"
-      class="stache-sidebar-heading"
-    >
+    <h1 [ngClass]="{ active: isHeadingActive }" class="stache-sidebar-heading">
       <a
-        [attr.aria-current]="isHeadingActive() ? 'page' : false"
+        [attr.aria-current]="isHeadingActive ? 'page' : false"
         [stacheRouterLink]="headingRoute"
         [attr.id]="sidebarHeadingElementId"
         class="stache-sidebar-heading-link"
