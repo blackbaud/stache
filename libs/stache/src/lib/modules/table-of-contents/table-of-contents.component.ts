@@ -40,7 +40,7 @@ export class StacheTableOfContentsComponent implements OnDestroy {
   }
 
   #updateRoutesOnScroll(routes: StacheNavLink[] | undefined): void {
-    if (routes && routes.length) {
+    if (routes?.length) {
       this.#updateView(routes);
     }
   }
@@ -68,20 +68,26 @@ export class StacheTableOfContentsComponent implements OnDestroy {
     }
     routes.forEach((route, index) => {
       const nextRoute = routes[index + 1];
-      if ((nextRoute && nextRoute.offsetTop) || 0 <= this.#viewTop) {
+      if (nextRoute && (nextRoute.offsetTop || 0) <= this.#viewTop) {
         route.isCurrent = false;
         return;
       }
-      route.isCurrent = !!(route.offsetTop || 0 <= this.#viewTop);
+      if (route.offsetTop === undefined) {
+        route.isCurrent = false;
+      } else {
+        route.isCurrent = !!(route.offsetTop <= this.#viewTop);
+      }
     });
   }
 
   #scrolledToEndOfPage(): boolean {
+    /*istanbul ignore else*/
     if (this.#documentBottom !== undefined) {
       return (
         this.#windowRef.nativeWindow.innerHeight + 5 >= this.#documentBottom
       );
+    } else {
+      return false;
     }
-    return false;
   }
 }
