@@ -13,7 +13,7 @@ describe('StacheLayoutBlankComponent', () => {
     TestBed.configureTestingModule({
       imports: [StacheLayoutModule],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheLayoutBlankComponent);
     component = fixture.componentInstance;
@@ -35,15 +35,23 @@ describe('StacheLayoutBlankComponent', () => {
   });
 
   it('should return the classname when getClassName is called', () => {
-    const className = component.getClassName();
     fixture.detectChanges();
-    expect(className).toBe('stache-layout-blank');
+    expect(component.className).toBe('stache-layout-blank');
   });
 
   it('should return the classname based on the identifier', () => {
     component.identifier = 'test';
-    const className = component.getClassName();
     fixture.detectChanges();
-    expect(className).toBe('stache-layout-test');
+    expect(component.className).toBe('stache-layout-test');
+  });
+
+  it('should reset the identifier', () => {
+    component.identifier = 'test';
+    fixture.detectChanges();
+    expect(component.className).toBe('stache-layout-test');
+    // Reset the identifier.
+    component.identifier = undefined;
+    fixture.detectChanges();
+    expect(component.className).toBe('stache-layout-blank');
   });
 });
