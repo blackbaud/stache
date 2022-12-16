@@ -1,10 +1,5 @@
-import {
-  Directive,
-  OnDestroy,
-  OnInit,
-  Sanitizer,
-  SecurityContext,
-} from '@angular/core';
+import { Directive, OnDestroy, OnInit, SecurityContext } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
 import { SkyAppConfig } from '@skyux/config';
 
@@ -16,22 +11,22 @@ import { StacheWindowRef } from '../shared/window-ref';
   selector: '[stacheGoogleAnalytics]',
 })
 export class StacheGoogleAnalyticsDirective implements OnInit, OnDestroy {
-  #tagManagerContainerId = 'GTM-W56QP9';
   #analyticsClientId = 'UA-2418840-1';
-  #isEnabled = true;
   #appName: string | undefined;
+  #isEnabled = true;
   #ngUnsubscribe = new Subject<void>();
+  #tagManagerContainerId = 'GTM-W56QP9';
 
-  #windowRef: StacheWindowRef;
   #configSvc: SkyAppConfig;
   #router: Router;
-  #sanitizer: Sanitizer;
+  #sanitizer: DomSanitizer;
+  #windowRef: StacheWindowRef;
 
   constructor(
     windowRef: StacheWindowRef,
     configSvc: SkyAppConfig,
     router: Router,
-    sanitizer: Sanitizer
+    sanitizer: DomSanitizer
   ) {
     this.#windowRef = windowRef;
     this.#configSvc = configSvc;
@@ -59,15 +54,15 @@ export class StacheGoogleAnalyticsDirective implements OnInit, OnDestroy {
 
   #addGoogleTagManagerScript(): void {
     this.#windowRef.nativeWindow.eval(`
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','${this.#sanitizer.sanitize(
-        SecurityContext.HTML,
-        this.#tagManagerContainerId
-      )}');
-    `);
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${this.#sanitizer.sanitize(
+      SecurityContext.HTML,
+      this.#tagManagerContainerId
+    )}');
+`);
   }
 
   /**
@@ -77,13 +72,13 @@ export class StacheGoogleAnalyticsDirective implements OnInit, OnDestroy {
    */
   #initGoogleAnalytics(): void {
     this.#windowRef.nativeWindow.eval(`
-      (function(i,r) {
-        i['GoogleAnalyticsObject']=r;
-        i[r]=i[r]||function() {
-          (i[r].q=i[r].q||[]).push(arguments)},
-          i[r].l=1*new Date();
-      })(window,'ga');
-    `);
+(function(i,r) {
+  i['GoogleAnalyticsObject']=r;
+  i[r]=i[r]||function() {
+    (i[r].q=i[r].q||[]).push(arguments)},
+    i[r].l=1*new Date();
+})(window,'ga');
+`);
     this.#windowRef.nativeWindow.ga('create', this.#analyticsClientId, 'auto');
   }
 
