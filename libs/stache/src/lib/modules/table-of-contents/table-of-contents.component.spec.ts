@@ -1,253 +1,223 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { expect } from '@skyux-sdk/testing';
-
-import { of as observableOf } from 'rxjs';
+import { SkyAppTestUtility, expect, expectAsync } from '@skyux-sdk/testing';
+import { SkyAppConfig } from '@skyux/config';
 
 import { StacheNavLink } from '../nav/nav-link';
-import { StacheOmnibarAdapterService } from '../shared/omnibar-adapter.service';
 import { StacheWindowRef } from '../shared/window-ref';
 
-import { StacheTableOfContentsComponent } from './table-of-contents.component';
-import { StacheTableOfContentsModule } from './table-of-contents.module';
-
-class MockWindowService {
-  public testElement = {
-    offsetTop: 20,
-    getBoundingClientRect(): { y: number; bottom: number } {
-      return {
-        y: 0,
-        bottom: 0,
-      };
-    },
-    scrollIntoView(): void {
-      return;
-    },
-  };
-
-  public nativeWindow = {
-    pageYOffset: 0,
-    innerHeight: 0,
-    document: {
-      getElementById: jasmine.createSpy('getElementById').and.callFake((id) => {
-        if (id === 'element-id') {
-          return this.testElement;
-        }
-        return false;
-      }),
-      querySelector: jasmine.createSpy('querySelector').and.callFake(() => {
-        return this.testElement;
-      }),
-      documentElement: this.testElement,
-    },
-    location: {
-      href: '',
-    },
-    scroll: jasmine.createSpy('scroll'),
-  };
-
-  public scrollEventStream = observableOf(true);
-}
-
-class MockOmnibarService {
-  public getHeight = (): number => 50;
-}
+import { TableOfContentsTestComponent } from './fixtures/toc-test.component';
+import { TableOfContentsTestModule } from './fixtures/toc-test.module';
 
 describe('StacheTableOfContentsComponent', () => {
-  let component: StacheTableOfContentsComponent;
-  let fixture: ComponentFixture<StacheTableOfContentsComponent>;
-  let mockWindowRef: MockWindowService;
-  let mockOmnibarService: MockOmnibarService;
-
-  const route: StacheNavLink = {
-    name: 'string',
-    path: '/test',
-    offsetTop: 100,
-    isCurrent: false,
-  };
-
-  beforeEach(() => {
-    mockWindowRef = new MockWindowService();
-    mockOmnibarService = new MockOmnibarService();
+  function setupTest(options: {
+    /**
+     * The window's scroll offset.
+     */
+    pageYOffset?: number;
+    /**
+     * Routes to use in the table of contents component.
+     */
+    routes: StacheNavLink[];
+  }): {
+    fixture: ComponentFixture<TableOfContentsTestComponent>;
+    windowRef: StacheWindowRef;
+  } {
+    options = { ...{ pageYOffset: 0 }, ...options };
 
     TestBed.configureTestingModule({
-      imports: [StacheTableOfContentsModule, RouterTestingModule],
-      providers: [
-        { provide: StacheWindowRef, useValue: mockWindowRef },
-        { provide: StacheOmnibarAdapterService, useValue: mockOmnibarService },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
+      imports: [TableOfContentsTestModule],
+      providers: [{ provide: SkyAppConfig, useValue: {} }],
     });
 
-    fixture = TestBed.createComponent(StacheTableOfContentsComponent);
-    component = fixture.componentInstance;
-    component.routes = [route];
-  });
+    const fixture = TestBed.createComponent(TableOfContentsTestComponent);
+    const windowRef = TestBed.inject(StacheWindowRef);
+
+    spyOnProperty(windowRef.nativeWindow, 'pageYOffset').and.returnValue(
+      options.pageYOffset
+    );
+
+    fixture.componentInstance.tocRoutes = options.routes;
+
+    return { fixture, windowRef };
+  }
+
+  function makeDocumentHeightGreaterThanViewportHeight(
+    windowRef: StacheWindowRef
+  ): void {
+    spyOnProperty(windowRef.nativeWindow, 'innerHeight').and.returnValue(900);
+    spyOn(
+      windowRef.nativeWindow.document.documentElement,
+      'getBoundingClientRect'
+    ).and.returnValue({ bottom: 5000 });
+  }
+
+  function makeDocumentHeightEqualToViewportHeight(
+    windowRef: StacheWindowRef
+  ): void {
+    const height = 200;
+    spyOnProperty(windowRef.nativeWindow, 'innerHeight').and.returnValue(
+      height
+    );
+    spyOn(
+      windowRef.nativeWindow.document.documentElement,
+      'getBoundingClientRect'
+    ).and.returnValue({ bottom: height });
+  }
+
+  function scrollWindow(
+    fixture: ComponentFixture<unknown>,
+    windowRef: StacheWindowRef
+  ): void {
+    SkyAppTestUtility.fireDomEvent(windowRef.nativeWindow, 'scroll');
+    fixture.detectChanges();
+  }
+
+  /**
+   * Verifies if the given index represents the "current" route.
+   * If 'undefined' is provided to the index value, then no routes should be "current".
+   */
+  function verifyCurrentRoute(
+    tocRoutes: StacheNavLink[],
+    index: number | undefined
+  ): void {
+    let i = 0;
+    for (const route of tocRoutes) {
+      expect(route.isCurrent).toEqual(i === index);
+      i++;
+    }
+  }
 
   it('should render the component', () => {
+    const { fixture } = setupTest({
+      routes: [],
+    });
+
     expect(fixture).toExist();
   });
 
-  // it('should not update view when no routes are provided', () => {
-  //   spyOn(component, 'updateView');
-  //   component.updateRoutesOnScroll([]);
-  //   expect(component.updateView).not.toHaveBeenCalled();
-  // });
+  it('should active routes when the window scrolls', () => {
+    const routeOffsetTop = 100;
 
-  // it('should update routes on scroll', () => {
-  //   spyOn(component, 'updateView');
-  //   component.updateRoutesOnScroll([
-  //     {
-  //       name: 'testRoute',
-  //       path: [],
-  //       offsetTop: 0,
-  //     } as StacheNavLink,
-  //   ]);
-  //   expect(component.updateView).toHaveBeenCalled();
-  // });
-
-  // it('should update the route show current status when scrolled to bottom of view', () => {
-  //   const routes = [
-  //     {
-  //       name: 'testRoute',
-  //       path: [],
-  //       offsetTop: 0,
-  //     } as StacheNavLink,
-  //   ];
-
-  //   component.updateView(routes);
-
-  //   expect(routes[0].isCurrent).toBeTruthy();
-  //   expect(component['documentBottom']).toBe(0);
-  // });
-
-  // it('should display the first route as the current route when scrolled', () => {
-  //   const test = {
-  //     offsetTop: 20,
-  //     getBoundingClientRect(): { y: number; bottom: number } {
-  //       return {
-  //         y: 0,
-  //         bottom: 150,
-  //       };
-  //     },
-  //     scrollIntoView(): void {
-  //       return;
-  //     },
-  //   };
-  //   mockWindowRef = {
-  //     testElement: test,
-  //     nativeWindow: {
-  //       pageYOffset: 0,
-  //       innerHeight: 0,
-  //       document: {
-  //         getElementById: jasmine
-  //           .createSpy('getElementById')
-  //           .and.callFake((id) => {
-  //             if (id === 'element-id') {
-  //               return test;
-  //             }
-  //             return false;
-  //           }),
-  //         querySelector: jasmine.createSpy('querySelector').and.callFake(() => {
-  //           return test;
-  //         }),
-  //         documentElement: test,
-  //       },
-  //       location: {
-  //         href: '',
-  //       },
-  //       scroll: jasmine.createSpy('scroll'),
-  //     },
-  //     scrollEventStream: observableOf(true),
-  //   };
-
-  //   component = new StacheTableOfContentsComponent(
-  //     mockWindowRef as unknown as StacheWindowRef,
-  //     mockOmnibarService as unknown as StacheOmnibarAdapterService
-  //   );
-
-  //   const routes = [
-  //     {
-  //       name: 'testRoute0',
-  //       path: [],
-  //       offsetTop: 10,
-  //     } as StacheNavLink,
-  //     {
-  //       name: 'testRoute1',
-  //       path: [],
-  //       offsetTop: 100,
-  //     } as StacheNavLink,
-  //   ];
-
-  //   component.updateView(routes);
-
-  //   expect(routes[0].isCurrent).toBeTruthy();
-  //   expect(routes[1].isCurrent).not.toBeTruthy();
-  // });
-
-  it('should display the second route as the current route when scrolled', () => {
-    const test = {
-      offsetTop: 20,
-      getBoundingClientRect(): { y: number; bottom: number } {
-        return {
-          y: 0,
-          bottom: 150,
-        };
-      },
-      scrollIntoView(): void {
-        return;
-      },
-    };
-    mockWindowRef = {
-      testElement: test,
-      nativeWindow: {
-        pageYOffset: 200,
-        innerHeight: 200,
-        document: {
-          getElementById: jasmine
-            .createSpy('getElementById')
-            .and.callFake((id) => {
-              if (id === 'element-id') {
-                return test;
-              }
-              return false;
-            }),
-          querySelector: jasmine.createSpy('querySelector').and.callFake(() => {
-            return test;
-          }),
-          documentElement: test,
-        },
-        location: {
-          href: '',
-        },
-        scroll: jasmine.createSpy('scroll'),
-      },
-      scrollEventStream: observableOf(true),
-    };
-
-    component = new StacheTableOfContentsComponent(
-      mockWindowRef as unknown as StacheWindowRef,
-      mockOmnibarService as unknown as StacheOmnibarAdapterService
-    );
-
-    const routes = [
+    const routes: StacheNavLink[] = [
       {
-        name: 'testRoute0',
-        path: [],
-        offsetTop: 10,
-      } as StacheNavLink,
+        name: 'Foo',
+        path: '/',
+        fragment: '#foo',
+        offsetTop: 0,
+      },
       {
-        name: 'testRoute1',
-        path: [],
-        offsetTop: 100,
-      } as StacheNavLink,
+        name: 'Bar',
+        path: '/',
+        fragment: '#bar',
+        offsetTop: routeOffsetTop,
+      },
+      {
+        name: 'Bar',
+        path: '/',
+        fragment: '#bar',
+        offsetTop: routeOffsetTop + 100,
+      },
     ];
 
-    component['viewTop'] = 250;
-    component['isCurrent'](routes);
+    const { fixture, windowRef } = setupTest({
+      // Make sure scroll offsets are greater than the route's offset.
+      pageYOffset: routeOffsetTop + 1,
+      routes,
+    });
 
-    expect(routes[0].isCurrent).not.toBeTruthy();
-    expect(routes[1].isCurrent).toBeTruthy();
+    fixture.detectChanges();
+
+    makeDocumentHeightGreaterThanViewportHeight(windowRef);
+    scrollWindow(fixture, windowRef);
+    verifyCurrentRoute(routes, 1);
+  });
+
+  it('should set last anchor as "current" if the scrollbar reaches the bottom of the document', () => {
+    const lastRouteOffsetTop = 200;
+
+    const routes: StacheNavLink[] = [
+      {
+        name: 'Foo',
+        path: '/',
+        fragment: '#foo',
+        offsetTop: 0,
+      },
+      {
+        name: 'Bar',
+        path: '/',
+        fragment: '#bar',
+        offsetTop: 100,
+      },
+      {
+        name: 'Baz',
+        path: '/',
+        fragment: '#baz',
+        offsetTop: lastRouteOffsetTop,
+      },
+    ];
+
+    const { fixture, windowRef } = setupTest({
+      // Scroll beyond the last route's offset.
+      pageYOffset: lastRouteOffsetTop + 1,
+      routes,
+    });
+
+    fixture.detectChanges();
+
+    makeDocumentHeightEqualToViewportHeight(windowRef);
+    scrollWindow(fixture, windowRef);
+    verifyCurrentRoute(routes, routes.length - 1);
+  });
+
+  it('should handle routes without an offsetTop', () => {
+    const routes: StacheNavLink[] = [
+      {
+        name: 'Foo',
+        path: '/',
+        fragment: '#foo',
+      },
+      {
+        name: 'Bar',
+        path: '/',
+        fragment: '#bar',
+      },
+      {
+        name: 'Baz',
+        path: '/',
+        fragment: '#baz',
+      },
+    ];
+
+    const { fixture, windowRef } = setupTest({
+      pageYOffset: 200,
+      routes,
+    });
+
+    fixture.detectChanges();
+
+    makeDocumentHeightGreaterThanViewportHeight(windowRef);
+    scrollWindow(fixture, windowRef);
+    verifyCurrentRoute(routes, undefined);
+  });
+
+  it('should be accessible', async () => {
+    const { fixture } = setupTest({
+      routes: [
+        {
+          name: 'Foo',
+          path: '/',
+          fragment: '#foo',
+        },
+        {
+          name: 'Bar',
+          path: '/',
+          fragment: '#bar',
+        },
+      ],
+    });
+
+    fixture.detectChanges();
+
+    await expectAsync(fixture.nativeElement).toBeAccessible();
   });
 });

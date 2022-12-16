@@ -64,21 +64,30 @@ export class StacheTableOfContentsComponent implements OnDestroy {
       routes.forEach((route: StacheNavLink, idx: number) => {
         route.isCurrent = idx === routes.length - 1;
       });
-    } else {
-      routes.forEach((route, index) => {
-        const nextRoute = routes[index + 1];
-        if ((nextRoute && nextRoute.offsetTop) || 0 <= this.#viewTop) {
-          route.isCurrent = false;
-          return;
-        }
-        route.isCurrent = !!(route.offsetTop || 0 <= this.#viewTop);
-      });
+      return;
     }
+    routes.forEach((route, index) => {
+      const nextRoute = routes[index + 1];
+      if (nextRoute && (nextRoute.offsetTop || 0) <= this.#viewTop) {
+        route.isCurrent = false;
+        return;
+      }
+      if (route.offsetTop === undefined) {
+        route.isCurrent = false;
+      } else {
+        route.isCurrent = !!(route.offsetTop <= this.#viewTop);
+      }
+    });
   }
 
   #scrolledToEndOfPage(): boolean {
-    return this.#documentBottom !== undefined
-      ? this.#windowRef.nativeWindow.innerHeight + 5 >= this.#documentBottom
-      : false;
+    /*istanbul ignore else*/
+    if (this.#documentBottom !== undefined) {
+      return (
+        this.#windowRef.nativeWindow.innerHeight + 5 >= this.#documentBottom
+      );
+    } else {
+      return false;
+    }
   }
 }
