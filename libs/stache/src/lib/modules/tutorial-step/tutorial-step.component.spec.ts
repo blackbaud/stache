@@ -11,7 +11,7 @@ describe('StacheTutorialStepComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [StacheTutorialStepModule],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheTutorialStepComponent);
     component = fixture.componentInstance;
