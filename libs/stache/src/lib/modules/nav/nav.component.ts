@@ -61,7 +61,7 @@ export class StacheNavComponent implements OnDestroy, OnInit, StacheNav {
   #ngUnsubscribe = new Subject<void>();
   #routeSvc: StacheRouteService;
 
-  public constructor(routeSvc: StacheRouteService, authSvc: StacheAuthService) {
+  constructor(routeSvc: StacheRouteService, authSvc: StacheAuthService) {
     this.#routeSvc = routeSvc;
     this.#authSvc = authSvc;
   }
@@ -79,14 +79,6 @@ export class StacheNavComponent implements OnDestroy, OnInit, StacheNav {
   public ngOnDestroy(): void {
     this.#ngUnsubscribe.next();
     this.#ngUnsubscribe.complete();
-  }
-
-  public hasRoutes(): boolean {
-    return !!(this.filteredRoutes && this.filteredRoutes.length > 0);
-  }
-
-  public hasChildRoutes(route: StacheNavLink): boolean {
-    return Array.isArray(route.children);
   }
 
   #assignActiveStates(): void {

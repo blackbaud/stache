@@ -21,14 +21,20 @@ import { StacheNavModule } from './nav.module';
 import { StacheNavService } from './nav.service';
 
 describe('StacheLinkDirective', () => {
+  /**
+   * Clicks the anchor element with the attached directive.
+   */
   function clickAnchor(options: SkyAppTestUtilityDomEventOptions = {}): void {
     // First, remove href attribute to avoid a full-page reload.
     fixture.componentInstance.anchorEl.nativeElement.removeAttribute('href');
+
+    // Now the anchor element can be safely clicked.
     SkyAppTestUtility.fireDomEvent(
       fixture.componentInstance.anchorEl.nativeElement,
       'click',
       options
     );
+
     fixture.detectChanges();
   }
 
@@ -48,7 +54,6 @@ describe('StacheLinkDirective', () => {
       if (typeof testPath !== 'string') {
         return false;
       }
-
       return /^(https?|mailto|ftp):+|^(www)/.test(testPath);
     }
   }
