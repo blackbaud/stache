@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
 })
 export class StachePageHeaderTestComponent {
   @Input()
-  public headerText: string;
+  public headerText: string | undefined;
 }

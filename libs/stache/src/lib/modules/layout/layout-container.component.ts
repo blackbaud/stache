@@ -11,27 +11,27 @@ import { StacheLayout } from './layout';
 })
 export class StacheLayoutContainerComponent implements StacheLayout {
   @Input()
-  public pageTitle: string;
+  public pageTitle: string | undefined;
 
   @Input()
-  public breadcrumbsRoutes: StacheNavLink[];
+  public breadcrumbsRoutes: StacheNavLink[] | undefined;
 
   @Input()
-  public inPageRoutes: StacheNavLink[];
-
-  @Input()
-  @InputConverter(booleanConverter)
-  public showBackToTop: boolean;
+  public inPageRoutes: StacheNavLink[] | undefined;
 
   @Input()
   @InputConverter(booleanConverter)
-  public showBreadcrumbs: boolean;
+  public showBackToTop: boolean | undefined;
 
   @Input()
   @InputConverter(booleanConverter)
-  public showEditButton: boolean;
+  public showBreadcrumbs: boolean | undefined;
 
   @Input()
   @InputConverter(booleanConverter)
-  public showTableOfContents: boolean;
+  public showEditButton: boolean | undefined;
+
+  @Input()
+  @InputConverter(booleanConverter)
+  public showTableOfContents: boolean | undefined;
 }
