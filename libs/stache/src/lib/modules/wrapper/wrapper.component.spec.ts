@@ -2,8 +2,7 @@ import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { expect } from '@skyux-sdk/testing';
-import { SkyAppConfig } from '@skyux/config';
-import { SkyMediaQueryModule } from '@skyux/core';
+import { SkyAppConfig, SkyuxConfig } from '@skyux/config';
 
 import { Observable, Subject, of as observableOf } from 'rxjs';
 
@@ -26,13 +25,13 @@ import { StacheWrapperModule } from './wrapper.module';
 describe('StacheWrapperComponent', () => {
   let component: StacheWrapperComponent;
   let fixture: ComponentFixture<StacheWrapperComponent>;
-  let mockActivatedRoute: any;
-  let mockConfigService: any;
-  let mockNavService: any;
-  let mockJsonDataService: any;
-  let mockTitleService: any;
-  let mockWindowService: any;
-  let mockOmnibarService: any;
+  let mockActivatedRoute: MockActivatedRoute;
+  let mockConfigService: MockConfigService;
+  let mockNavService: MockNavService;
+  let mockJsonDataService: MockJsonDataService;
+  let mockTitleService: MockTitleService;
+  let mockWindowService: MockWindowService;
+  let mockOmnibarService: MockOmnibarService;
   let mockTextContent = '';
 
   class MockActivatedRoute {
@@ -41,32 +40,32 @@ describe('StacheWrapperComponent', () => {
     // snapshot is a required prop on activatedRoute to avoid an error with `'_lastPathIndex' of undefined`
     // https://stackoverflow.com/questions/41245783/angular-testing-router-params-breaks-test-bed
     public snapshot = {};
-    public setFragment(fragString: any) {
+    public setFragment(fragString: string): void {
       this.fragment = observableOf(fragString);
     }
   }
 
   class MockNavService {
-    public navigate(route: any) {
+    public navigate(): void {
       /* */
     }
 
-    public isExternal() {
+    public isExternal(): boolean {
       return false;
     }
   }
 
-  class MockOmbibarService {
-    public checkForOmnibar() {
+  class MockOmnibarService {
+    public checkForOmnibar(): void {
       /* */
     }
-    public getHeight() {
+    public getHeight(): void {
       /* */
     }
   }
 
   class MockConfigService {
-    public skyux: any = {
+    public skyux: Partial<SkyuxConfig> = {
       appSettings: {
         stache: {
           editButton: {
@@ -75,13 +74,13 @@ describe('StacheWrapperComponent', () => {
         },
       },
     };
-    public runtime: any = {
+    public runtime = {
       routes: [],
       app: {
         base: '',
       },
     };
-    public stache: any = {
+    public stache = {
       footer: {
         nav: [
           {
@@ -119,10 +118,10 @@ describe('StacheWrapperComponent', () => {
       } as StacheNavLink,
     ]);
     public refreshRequestedStream = new Subject();
-    public scrollToAnchor(elementId: string) {
+    public scrollToAnchor(): void {
       /* */
     }
-    public addAnchor = function () {
+    public addAnchor = function (): void {
       /* */
     };
   }
@@ -133,10 +132,10 @@ describe('StacheWrapperComponent', () => {
         body: document.createElement('div'),
         getElementById: jasmine
           .createSpy('getElementById')
-          .and.callFake(function (id: any) {
+          .and.callFake(function (id) {
             if (id !== undefined) {
               return {
-                scrollIntoView() {
+                scrollIntoView(): void {
                   /* */
                 },
               };
@@ -145,19 +144,19 @@ describe('StacheWrapperComponent', () => {
           }),
         querySelector: jasmine
           .createSpy('querySelector')
-          .and.callFake(function (selector: string) {
+          .and.callFake(function () {
             return {
               textContent: mockTextContent,
               classList: {
-                add(cssClass: string) {
+                add(): void {
                   /* */
                 },
               },
-              scrollIntoView() {
+              scrollIntoView(): void {
                 /* */
               },
               offsetHeight: 50,
-              getBoundingClientRect() {
+              getBoundingClientRect(): { top: number } {
                 return {
                   top: 100,
                 };
@@ -166,7 +165,7 @@ describe('StacheWrapperComponent', () => {
           }),
         querySelectorAll: jasmine
           .createSpy('querySelectorAll')
-          .and.callFake((selector: string): any[] => {
+          .and.callFake((selector: string): Element[] => {
             if (selector === '.stache-container') {
               const mockDiv = document.createElement('div');
               return [mockDiv];
@@ -176,19 +175,19 @@ describe('StacheWrapperComponent', () => {
         documentElement: {
           querySelector: jasmine
             .createSpy('querySelector')
-            .and.callFake(function (selector: string) {
+            .and.callFake(function () {
               return {
                 textContent: mockTextContent,
                 classList: {
-                  add(cssClass: string) {
+                  add(): void {
                     /* */
                   },
                 },
-                scrollIntoView() {
+                scrollIntoView(): void {
                   /* */
                 },
                 offsetHeight: 50,
-                getBoundingClientRect() {
+                getBoundingClientRect(): { top: number } {
                   return {
                     top: 100,
                   };
@@ -199,14 +198,12 @@ describe('StacheWrapperComponent', () => {
       },
       setTimeout: jasmine
         .createSpy('setTimeout')
-        .and.callFake(function (callback: any) {
+        .and.callFake(function (callback: () => void) {
           return callback();
         }),
-      scroll: jasmine
-        .createSpy('scroll')
-        .and.callFake(function (x: number, y: number) {
-          return true;
-        }),
+      scroll: jasmine.createSpy('scroll').and.callFake(function () {
+        return true;
+      }),
       location: {
         href: '',
       },
@@ -214,17 +211,15 @@ describe('StacheWrapperComponent', () => {
 
     public scrollEventStream = observableOf(true);
 
-    get onResize() {
+    get onResize(): Observable<unknown> {
       return observableOf({});
     }
 
-    constructor(eventManager: any) {
-      eventManager = {
-        addGlobalEventListener: () => {
-          /* */
-        },
-      };
-    }
+    constructor(
+      public eventManager: {
+        addGlobalEventListener: () => void;
+      }
+    ) {}
   }
 
   beforeEach(() => {
@@ -233,8 +228,12 @@ describe('StacheWrapperComponent', () => {
     mockConfigService = new MockConfigService();
     mockJsonDataService = new MockJsonDataService();
     mockTitleService = new MockTitleService();
-    mockWindowService = new MockWindowService({});
-    mockOmnibarService = new MockOmbibarService();
+    mockWindowService = new MockWindowService({
+      addGlobalEventListener: (): void => {
+        /* */
+      },
+    });
+    mockOmnibarService = new MockOmnibarService();
 
     TestBed.configureTestingModule({
       imports: [
@@ -243,7 +242,6 @@ describe('StacheWrapperComponent', () => {
         StacheLayoutModule,
         StacheFooterModule,
         StacheWrapperModule,
-        SkyMediaQueryModule,
       ],
       declarations: [StacheWrapperTestComponent],
       providers: [
@@ -257,7 +255,7 @@ describe('StacheWrapperComponent', () => {
         { provide: StacheWindowRef, useValue: mockWindowService },
         { provide: SkyAppConfig, useValue: mockConfigService },
       ],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheWrapperComponent);
     component = fixture.componentInstance;
@@ -414,11 +412,6 @@ describe('StacheWrapperComponent', () => {
     mockTextContent = '';
   });
 
-  it('should set the jsonData property on init', () => {
-    fixture.detectChanges();
-    expect(component.jsonData).toEqual(jasmine.any(Object));
-  });
-
   it('should detect the omnibar if it exists on init', () => {
     spyOn(mockOmnibarService, 'checkForOmnibar').and.callThrough();
     component.ngOnInit();
@@ -433,8 +426,8 @@ describe('StacheWrapperComponent', () => {
 
     const inPageRoutes = testComponent.testWrapper.inPageRoutes;
 
-    expect(inPageRoutes[0].name).toEqual('First Heading');
-    expect(inPageRoutes[1].name).toEqual('Second Heading');
+    expect(inPageRoutes?.[0].name).toEqual('First Heading');
+    expect(inPageRoutes?.[1].name).toEqual('Second Heading');
   });
 
   it('should use inPageRoutes over stachePageAnchors', () => {
@@ -449,7 +442,7 @@ describe('StacheWrapperComponent', () => {
     testFixture.detectChanges();
 
     const inPageRoutes = testComponent.testWrapper.inPageRoutes;
-    expect(inPageRoutes[0].name).toEqual(testNavLink.name);
+    expect(inPageRoutes?.[0].name).toEqual(testNavLink.name);
   });
 
   it('should not navigate to a fragment if none exist', () => {
@@ -493,15 +486,7 @@ describe('StacheWrapperComponent', () => {
       mockConfigService.skyux.appSettings.stache.footer = true;
       fixture = TestBed.createComponent(StacheWrapperComponent);
       fixture.detectChanges();
-      expect(fixture.nativeElement.querySelector('stache-footer')).toBeTruthy();
-    });
-
-    // This will allow documentation writers to not worry about proper attribute binding.
-    it('should allow setting `showFooter` to string "false"', () => {
-      (component as any).showFooter = 'true';
-      fixture.detectChanges();
-      expect(component.showFooter).toEqual(true);
-      expect(fixture.nativeElement.querySelector('stache-footer')).toBeTruthy();
+      expect(fixture.nativeElement.querySelector('stache-footer')).toExist();
     });
   });
 });

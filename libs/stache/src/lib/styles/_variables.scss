@@ -1,17 +1,17 @@
-@import 'node_modules/@skyux/theme/scss/variables';
+@use 'node_modules/@skyux/theme/scss/variables' as vars;
 
-$stache-text-color-default: $sky-text-color-default !default;
-$stache-text-color-deemphasized: $sky-text-color-deemphasized !default;
-$stache-text-color-on-dark: $sky-text-color-on-dark !default;
-$stache-text-color-action-primary: $sky-text-color-action-primary !default;
-$stache-background-color-primary-dark: $sky-background-color-primary-dark !default;
-$stache-background-color-neutral-light: $sky-background-color-neutral-light !default;
-$stache-background-color-danger: $sky-background-color-danger !default;
-$stache-background-color-danger-dark: $sky-background-color-danger-dark !default;
-$stache-background-color-selected: $sky-background-color-selected !default;
-$stache-border-color-neutral-light: $sky-border-color-neutral-light !default;
-$stache-border-color-neutral-medium: $sky-border-color-neutral-medium !default;
-$stache-text-color-icon-borderless: $sky-text-color-icon-borderless !default;
+$stache-text-color-default: vars.$sky-text-color-default !default;
+$stache-text-color-deemphasized: vars.$sky-text-color-deemphasized !default;
+$stache-text-color-on-dark: vars.$sky-text-color-on-dark !default;
+$stache-text-color-action-primary: vars.$sky-text-color-action-primary !default;
+$stache-background-color-primary-dark: vars.$sky-background-color-primary-dark !default;
+$stache-background-color-neutral-light: vars.$sky-background-color-neutral-light !default;
+$stache-background-color-danger: vars.$sky-background-color-danger !default;
+$stache-background-color-danger-dark: vars.$sky-background-color-danger-dark !default;
+$stache-background-color-selected: vars.$sky-background-color-selected !default;
+$stache-border-color-neutral-light: vars.$sky-border-color-neutral-light !default;
+$stache-border-color-neutral-medium: vars.$sky-border-color-neutral-medium !default;
+$stache-text-color-icon-borderless: vars.$sky-text-color-icon-borderless !default;
 
 $stache-line-height-base: 1.428571429 !default;
 $stache-line-height-headings: 1.1 !default;
