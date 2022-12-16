@@ -41,7 +41,7 @@ describe('StacheRouteMetadataService', () => {
           useClass: StacheRouteMetadataService,
         },
       ],
-    }).compileComponents();
+    });
 
     routeMetadataService = new StacheRouteMetadataService(config);
   });
