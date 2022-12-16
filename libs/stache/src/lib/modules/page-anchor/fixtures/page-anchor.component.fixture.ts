@@ -6,8 +6,8 @@ import { Component, Input } from '@angular/core';
 })
 export class StachePageAnchorTestComponent {
   @Input()
-  public anchorContent: string;
+  public anchorContent: string | undefined;
 
   @Input()
-  public anchorId: string;
+  public anchorId: string | undefined;
 }

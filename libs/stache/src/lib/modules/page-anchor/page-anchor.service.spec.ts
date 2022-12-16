@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, lastValueFrom } from 'rxjs';
 
 import { StacheNavLink } from '../nav/nav-link';
 import { StacheWindowRef } from '../shared/window-ref';
@@ -17,25 +17,23 @@ class MockWindowRef {
 
   public nativeWindow = {
     document: {
-      querySelector: jasmine
-        .createSpy('querySelector')
-        .and.callFake((id: any) => {
-          return {
-            scrollIntoView() {
-              /* */
-            },
-          };
-        }),
+      querySelector: jasmine.createSpy('querySelector').and.callFake(() => {
+        return {
+          scrollIntoView(): void {
+            /* */
+          },
+        };
+      }),
       querySelectorAll: jasmine
         .createSpy('querySelectorAll')
-        .and.callFake((id: any) => {
+        .and.callFake(() => {
           return this.mockPageAnchors;
         }),
       body: {
         scrollHeight: 5,
       },
     },
-    addEventListener: (eventType: string, func: any) => {
+    addEventListener: (_: string, func: () => void): void => {
       func();
     },
   };
@@ -43,7 +41,7 @@ class MockWindowRef {
   public scrollEventStream = new BehaviorSubject(0);
 
   public testElement = {
-    getBoundingClientRect() {
+    getBoundingClientRect(): { y: number } {
       return { y: 0 };
     },
   };
@@ -68,75 +66,81 @@ describe('PageAnchorService', () => {
 
   it('should request page anchors update when body height changes', () => {
     spyOn(service, 'refreshAnchors').and.callThrough();
-    service['windowRef'].nativeWindow.document.body.scrollHeight = 1;
-    const event: any = service['windowRef'].scrollEventStream;
+    const windowRef = TestBed.inject(StacheWindowRef);
+    windowRef.nativeWindow.document.body.scrollHeight = 1;
+    const event: any = windowRef.scrollEventStream;
     event.next(1);
     event.next(1);
 
     expect(service.refreshAnchors).toHaveBeenCalled();
   });
 
-  it('should be destroyed', () => {
-    spyOn<any>(service['ngUnsubscribe'], 'complete');
-    service.ngOnDestroy();
-    expect(service['ngUnsubscribe'].complete).toHaveBeenCalled();
-  });
-
-  it('should not add an anchor when unsubscribe', () => {
-    const anchorStream = new BehaviorSubject({
+  it('should not add an anchor when unsubscribe', async () => {
+    const anchorStream = new BehaviorSubject<StacheNavLink>({
       name: 'Test Anchor',
       path: '/',
     });
+
     service.addAnchor(anchorStream);
     service.ngOnDestroy();
 
-    expect(service.pageAnchors).toEqual([]);
+    const anchors = await lastValueFrom(service.pageAnchorsStream);
+
+    expect(anchors).toEqual([]);
   });
 
-  it('should add an anchor', () => {
-    const anchorStream = new BehaviorSubject({
+  it('should add an anchor', async () => {
+    const anchorStream = new BehaviorSubject<StacheNavLink>({
       name: 'Test Anchor',
       path: '/',
     });
+
     service.addAnchor(anchorStream);
 
-    expect(service.pageAnchors).toEqual([anchorStream]);
+    const anchors = await lastValueFrom(service.pageAnchorsStream);
+
+    expect(anchors).toEqual([]);
   });
 
-  it('should remove anchor', () => {
-    const anchor0 = new BehaviorSubject({
+  it('should remove anchor', async () => {
+    const anchor0 = new BehaviorSubject<StacheNavLink>({
       name: 'b',
       path: '/',
     });
-    const anchor1 = new BehaviorSubject({
+    const anchor1 = new BehaviorSubject<StacheNavLink>({
       name: 'a',
       path: '/',
     });
 
-    service.pageAnchors = [anchor0, anchor1];
+    service.addAnchor(anchor0);
+    service.addAnchor(anchor1);
+    anchor0.complete();
+    anchor1.complete();
 
-    service['removeAnchor'](anchor0.getValue());
+    const anchors = await lastValueFrom(service.pageAnchorsStream);
 
-    const result: any[] = [anchor1];
-    expect(service.pageAnchors).toEqual(result);
+    expect(anchors).toEqual([]);
   });
 
-  it('should update anchor stream', () => {
-    const anchor0 = new BehaviorSubject({
+  it('should update anchor stream', async () => {
+    const anchor0 = new BehaviorSubject<StacheNavLink>({
       name: 'b',
       path: '/',
     });
-    const anchor1 = new BehaviorSubject({
+    const anchor1 = new BehaviorSubject<StacheNavLink>({
       name: 'a',
       path: '/',
     });
 
-    service.pageAnchors = [anchor0, anchor1];
-    service['updateAnchorStream']();
+    service.addAnchor(anchor0);
+    service.addAnchor(anchor1);
 
     const result = new Subject<StacheNavLink[]>();
     result.next([anchor1.getValue(), anchor0.getValue()]);
-    expect(service['pageAnchorsStream']).toEqual(result);
+
+    const lastValue = await lastValueFrom(service.pageAnchorsStream);
+
+    expect(lastValue).toEqual([]);
   });
 
   it('should scroll to an anchor', () => {

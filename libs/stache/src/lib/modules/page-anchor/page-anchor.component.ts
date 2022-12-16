@@ -32,107 +32,121 @@ export class StachePageAnchorComponent
     AfterViewChecked,
     AfterContentInit
 {
+  @Input()
+  public anchorId: string | undefined;
+
   public name = '';
-  public fragment: string;
-  public path: string[];
-  public offsetTop: number;
+  public fragment = '';
+  public path: string[] = [];
+  public offsetTop = 0;
   public anchorStream = new BehaviorSubject<StacheNavLink>({
     name: this.name,
-    path: undefined,
+    path: '/',
   });
 
-  @Input()
-  public anchorId?: string;
+  #anchorSvc: StachePageAnchorService;
+  #changeDetectorRef: ChangeDetectorRef;
+  #elementRef: ElementRef;
+  #ngUnsubscribe = new Subject<void>();
+  #routeSvc: StacheRouteService;
+  #textContent = '';
 
-  private textContent = '';
-  private ngUnsubscribe: Subject<void> = new Subject();
-
-  public constructor(
-    private elementRef: ElementRef,
-    private anchorService: StachePageAnchorService,
-    private changeDetectorRef: ChangeDetectorRef,
-    private routeService: StacheRouteService
-  ) {}
-
-  public scrollToAnchor(): void {
-    this.anchorService.scrollToAnchor(this.fragment);
+  constructor(
+    elementRef: ElementRef,
+    anchorSvc: StachePageAnchorService,
+    changeDetectorRef: ChangeDetectorRef,
+    routeSvc: StacheRouteService
+  ) {
+    this.#elementRef = elementRef;
+    this.#anchorSvc = anchorSvc;
+    this.#changeDetectorRef = changeDetectorRef;
+    this.#routeSvc = routeSvc;
   }
 
-  public ngOnInit() {
-    this.anchorService.refreshRequestedStream
-      .pipe(takeUntil(this.ngUnsubscribe))
+  public scrollToAnchor(): void {
+    this.#anchorSvc.scrollToAnchor(this.fragment);
+  }
+
+  public ngOnInit(): void {
+    this.#anchorSvc.refreshRequestedStream
+      .pipe(takeUntil(this.#ngUnsubscribe))
       .subscribe(() => {
-        this.updatePageAnchor();
+        this.#updatePageAnchor();
       });
   }
 
   public ngAfterViewInit(): void {
-    this.path = [this.routeService.getActiveUrl()];
-    this.updatePageAnchor();
-    this.anchorService.addAnchor(this.anchorStream);
-    this.changeDetectorRef.detectChanges();
+    this.path = [this.#routeSvc.getActiveUrl()];
+    this.#updatePageAnchor();
+    this.#anchorSvc.addAnchor(this.anchorStream);
+    this.#changeDetectorRef.detectChanges();
   }
 
-  public ngOnDestroy() {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
+  public ngOnDestroy(): void {
+    this.#ngUnsubscribe.next();
+    this.#ngUnsubscribe.complete();
     this.anchorStream.complete();
   }
 
   public ngAfterContentInit(): void {
-    this.textContent = this.elementRef.nativeElement.textContent;
-    this.offsetTop = this.getOffset(this.elementRef.nativeElement);
+    this.#textContent = this.#elementRef.nativeElement.textContent;
+    this.offsetTop = this.#getOffset(this.#elementRef.nativeElement);
   }
 
   public ngAfterViewChecked(): void {
-    const currentContent = this.elementRef.nativeElement.textContent;
-    const currentOffset = this.getOffset(this.elementRef.nativeElement);
+    const currentContent = this.#elementRef.nativeElement.textContent;
+    const currentOffset = this.#getOffset(this.#elementRef.nativeElement);
 
     if (
-      currentContent !== this.textContent ||
+      currentContent !== this.#textContent ||
       currentOffset !== this.offsetTop
     ) {
-      this.textContent = currentContent;
-      this.updatePageAnchor();
+      this.#textContent = currentContent;
+      this.#updatePageAnchor();
     }
   }
 
-  private setValues() {
-    const element = this.elementRef.nativeElement;
-    this.name = this.getName(element);
-    this.fragment = this.anchorId || this.getFragment(this.name);
-    this.offsetTop = this.getOffset(element);
+  #setValues(): void {
+    const element = this.#elementRef.nativeElement;
+    this.name = this.#getName(element);
+    this.fragment = this.anchorId || this.#getFragment(this.name);
+    this.offsetTop = this.#getOffset(element);
   }
 
-  private updatePageAnchor() {
-    this.setValues();
-
+  #updatePageAnchor(): void {
+    this.#setValues();
     this.anchorStream.next({
       path: this.path,
       name: this.name,
       fragment: this.fragment,
       offsetTop: this.offsetTop,
-    } as StacheNavLink);
-    this.changeDetectorRef.detectChanges();
+    });
+    this.#changeDetectorRef.detectChanges();
   }
 
-  private getOffset(element: any) {
+  #getOffset(element: HTMLElement): number {
     let offset = element.offsetTop;
     let el = element;
 
     while (el.offsetParent) {
-      offset += el.offsetParent.offsetTop;
-      el = el.offsetParent;
+      const parent = el.offsetParent as HTMLElement;
+      offset += parent.offsetTop;
+      el = parent;
     }
 
     return offset;
   }
 
-  private getName(element: any): string {
-    return element.textContent.trim();
+  #getName(element: HTMLElement): string {
+    /*istanbul ignore else*/
+    if (element.textContent) {
+      return element.textContent.trim();
+    }
+
+    return '';
   }
 
-  private getFragment(name: string): string {
+  #getFragment(name: string): string {
     return name
       .toLowerCase()
       .replace(/ /g, '-')

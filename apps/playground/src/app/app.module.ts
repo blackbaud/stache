@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SkyAppConfig } from '@skyux/config';
 import { SkyThemeService } from '@skyux/theme';
 
@@ -9,7 +10,7 @@ import { HomeComponent } from './home.component';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
-  imports: [AppRoutingModule, BrowserModule],
+  imports: [AppRoutingModule, BrowserAnimationsModule, BrowserModule],
   providers: [
     SkyThemeService,
     {
