@@ -1,6 +1,6 @@
 export interface StacheRouteMetadataConfig {
   name: string;
-  order?: number | string;
+  order?: number;
   path: string;
   showInNav?: boolean;
 }

@@ -3,6 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { numberConverter } from '../shared/input-converter';
 
 import { StacheRouteMetadataConfig } from './route-metadata-config';
+import { StacheRouteMetadataConfigJson } from './route-metadata-config-json';
 import { STACHE_ROUTE_METADATA_SERVICE_CONFIG } from './route-metadata-service-config-token';
 
 /**
@@ -31,20 +32,27 @@ import { STACHE_ROUTE_METADATA_SERVICE_CONFIG } from './route-metadata-service-c
  */
 @Injectable()
 export class StacheRouteMetadataService {
+  public readonly metadata: StacheRouteMetadataConfig[];
+
   constructor(
     @Inject(STACHE_ROUTE_METADATA_SERVICE_CONFIG)
-    public metadata: StacheRouteMetadataConfig[]
+    json: StacheRouteMetadataConfigJson[]
   ) {
-    this.metadata.forEach((route) => this.#validateNavOrder(route));
+    // Convert the input (usually a JSON file) into a usable TypeScript object.
+    this.metadata = json.map((j) => this.#validateNavOrder(j));
   }
 
-  #validateNavOrder(route: StacheRouteMetadataConfig): void {
-    if ('order' in route) {
-      const order: number = numberConverter(route.order);
-      route.order = order;
+  #validateNavOrder(
+    json: StacheRouteMetadataConfigJson
+  ): StacheRouteMetadataConfig {
+    if ('order' in json) {
+      const order: number = numberConverter(json.order);
+      json.order = order;
       if (order === undefined || order <= 0) {
-        delete route.order;
+        delete json.order;
       }
     }
+
+    return json as StacheRouteMetadataConfig;
   }
 }

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { expect } from '@skyux-sdk/testing';
 
-import { StacheRouteMetadataConfig } from './route-metadata-config';
+import { StacheRouteMetadataConfigJson } from './route-metadata-config-json';
 import { STACHE_ROUTE_METADATA_SERVICE_CONFIG } from './route-metadata-service-config-token';
 import { StacheRouteMetadataService } from './route-metadata.service';
 
 describe('StacheRouteMetadataService', () => {
   let routeMetadataService: StacheRouteMetadataService;
-  const config: StacheRouteMetadataConfig[] = [
+  const config: StacheRouteMetadataConfigJson[] = [
     {
       path: '/',
       name: 'foo',

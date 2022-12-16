@@ -117,13 +117,10 @@ export class StacheRouteService implements OnDestroy {
     const formatted = routes
       .map((route) => {
         const pathMetadata = this.#getMetadata(route);
-        const formattedRoute = Object.assign(
+        const formattedRoute: StacheNavLink = Object.assign(
           {},
           {
             path: route.path,
-            children: route.children
-              ? this.#formatRoutes(route.children)
-              : undefined,
             name: this.#getNameFromPath(
               route.segments[route.segments.length - 1]
             ),
@@ -131,7 +128,12 @@ export class StacheRouteService implements OnDestroy {
           pathMetadata
         );
 
-        return formattedRoute as StacheNavLink;
+        /*istanbul ignore else*/
+        if (route.children) {
+          formattedRoute.children = this.#formatRoutes(route.children);
+        }
+
+        return formattedRoute;
       })
       .filter((route) => route.showInNav !== false);
 
