@@ -98,7 +98,7 @@ export class StacheAffixTopDirective implements AfterViewInit {
   }
 
   #affixToTop(): void {
-    if (!this.isAffixed) {
+    if (!this.isAffixed && this.#element) {
       this.isAffixed = true;
       this.#renderer.setStyle(this.#element, 'position', 'fixed');
       this.#renderer.setStyle(this.#element, 'top', '0px');
