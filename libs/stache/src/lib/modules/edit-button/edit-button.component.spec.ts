@@ -85,7 +85,6 @@ describe('StacheEditButtonComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     expect(component['url']).toBe(
-      // tslint:disable-next-line:max-line-length
       'https://blackbaud.visualstudio.com/Products/_git/skyux-spa-stache-test-pipeline?path=%2Fsrc%2Fapp%2Ftest%2Froute%2Findex.html&version=GBmaster'
     );
   });

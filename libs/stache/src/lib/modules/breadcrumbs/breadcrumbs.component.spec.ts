@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { expect } from '@skyux-sdk/testing';
 
@@ -37,10 +38,10 @@ describe('StacheBreadcrumbsComponent', () => {
   let mockActiveUrl = '';
 
   class MockRouteService {
-    public getActiveRoutes() {
+    public getActiveRoutes(): Routes {
       return mockRoutes;
     }
-    public getActiveUrl() {
+    public getActiveUrl(): string {
       return mockActiveUrl;
     }
   }

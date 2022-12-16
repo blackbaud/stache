@@ -16,7 +16,6 @@ const ADO_FILE_PATH_ROOT = '?path=%2Fsrc%2Fapp';
 })
 export class StacheEditButtonComponent implements OnInit {
   public editButtonText: string | undefined;
-
   public url: string | undefined;
 
   #config: SkyAppConfig;
@@ -50,7 +49,6 @@ export class StacheEditButtonComponent implements OnInit {
       base.includes('visualstudio') || base.includes('azure')
         ? 'vsts'
         : 'github';
-
     const activeUrl = this.#routeSvc.getActiveUrl();
     const frag = encodeURIComponent(
       activeUrl === '/' ? activeUrl : activeUrl + '/'
