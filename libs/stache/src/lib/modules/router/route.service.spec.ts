@@ -3,7 +3,7 @@ import { SkyAppConfig } from '@skyux/config';
 
 import { of as observableOf } from 'rxjs';
 
-import { SkyAppConfigRoutes } from './app-config-route';
+import { SkyAppConfigRoutes } from './app-config-routes';
 import { StacheRouteMetadataConfig } from './route-metadata-config';
 import { StacheRouteMetadataService } from './route-metadata.service';
 import { StacheRouteService } from './route.service';
