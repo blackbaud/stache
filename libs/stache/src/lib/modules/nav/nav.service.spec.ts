@@ -36,10 +36,7 @@ class MockWindowService {
     innerHeight: 0,
     document: {
       getElementById: jasmine.createSpy('getElementById').and.callFake((id) => {
-        if (id === 'element-id') {
-          return this.testElement;
-        }
-        return false;
+        return id === 'element-id' ? this.testElement : false;
       }),
       querySelector: jasmine.createSpy('querySelector').and.callFake(() => {
         return this.testElement;

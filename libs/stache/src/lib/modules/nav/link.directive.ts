@@ -19,13 +19,11 @@ import { StacheNavService } from './nav.service';
 })
 export class StacheRouterLinkDirective implements OnChanges, AfterViewInit {
   @Input()
-  public set stacheRouterLink(value: string | string[] | undefined) {
+  public set stacheRouterLink(value: string | undefined) {
     if (value === '.') {
       this.#_stacheRouterLink = this.#routerSvc.getActiveUrl();
     } else {
-      this.#_stacheRouterLink = Array.isArray(value)
-        ? value.join('/')
-        : value ?? '';
+      this.#_stacheRouterLink = value ?? '';
     }
   }
 

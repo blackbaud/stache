@@ -84,41 +84,6 @@ describe('StacheNavComponent', () => {
     expect(component.navType).toBe('sidebar');
   });
 
-  it('should return true if the component has routes', () => {
-    component.routes = [{ name: 'Test', path: '/test' }];
-
-    fixture.detectChanges();
-
-    expect(component.hasRoutes()).toBe(true);
-  });
-
-  it('should return false if the component has no routes', () => {
-    component.routes = [];
-
-    fixture.detectChanges();
-
-    expect(component.hasRoutes()).toBe(false);
-  });
-
-  it('should return true if a given route has child routes', () => {
-    component.routes = [
-      {
-        name: 'Test',
-        path: '/test',
-        children: [{ name: 'Child', path: '/test/child' }],
-      },
-      { name: 'No Child', path: '/no-child' },
-    ];
-
-    const route = component.routes[0];
-    const route2 = component.routes[1];
-
-    fixture.detectChanges();
-
-    expect(component.hasChildRoutes(route)).toBe(true);
-    expect(component.hasChildRoutes(route2)).toBe(false);
-  });
-
   it('should return true if a given route is active', () => {
     component.routes = [{ name: 'Test', path: 'test' }];
     const route = component.routes[0];
@@ -139,16 +104,23 @@ describe('StacheNavComponent', () => {
     expect(component.routes[0].isActive).toBe(true);
     expect(component.routes[1].isActive).toBe(false);
 
-    activeUrl = '/foo';
+    activeUrl = '/foo/child';
     component.routes = [
-      { name: 'Test', path: 'test' },
-      { name: 'Foo', path: 'foo' },
+      {
+        name: 'Test',
+        path: 'test',
+      },
+      {
+        name: 'Foo',
+        path: 'foo',
+        children: [{ name: 'Child', path: '/foo/child' }],
+      },
     ];
 
     fixture.detectChanges();
 
     expect(component.routes[0].isActive).toBe(false);
-    expect(component.routes[1].isActive).toBe(true);
+    expect(component.routes[1].children[0].isActive).toBe(true);
   });
 
   it('should return true if a given route is current', () => {

@@ -21,14 +21,20 @@ import { StacheNavModule } from './nav.module';
 import { StacheNavService } from './nav.service';
 
 describe('StacheLinkDirective', () => {
+  /**
+   * Clicks the anchor element with the attached directive.
+   */
   function clickAnchor(options: SkyAppTestUtilityDomEventOptions = {}): void {
     // First, remove href attribute to avoid a full-page reload.
     fixture.componentInstance.anchorEl.nativeElement.removeAttribute('href');
+
+    // Now the anchor element can be safely clicked.
     SkyAppTestUtility.fireDomEvent(
       fixture.componentInstance.anchorEl.nativeElement,
       'click',
       options
     );
+
     fixture.detectChanges();
   }
 
@@ -48,7 +54,6 @@ describe('StacheLinkDirective', () => {
       if (typeof testPath !== 'string') {
         return false;
       }
-
       return /^(https?|mailto|ftp):+|^(www)/.test(testPath);
     }
   }
@@ -180,17 +185,6 @@ describe('StacheLinkDirective', () => {
     );
 
     expect(directiveInstance.href).toBe('https://www.google.com');
-  });
-
-  it('should set stacheRouterLink input to array of strings', () => {
-    fixture.componentInstance.routerLink = ['foo', 'bar', 'baz'];
-    fixture.detectChanges();
-
-    const directiveInstance = directiveElement.injector.get(
-      StacheRouterLinkDirective
-    );
-
-    expect(directiveInstance.href).toBe('/foo/bar/baz');
   });
 
   it('should open in new window when shift clicked', () => {

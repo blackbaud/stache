@@ -1,4 +1,4 @@
-<nav class="stache-nav" [ngClass]="className" *ngIf="hasRoutes()">
+<nav *ngIf="filteredRoutes?.length" class="stache-nav" [ngClass]="className">
   <ol class="stache-nav-list">
     <li
       class="stache-nav-list-item"
@@ -14,9 +14,9 @@
         >{{ route.name }}</a
       >
       <stache-nav
+        *ngIf="route.children"
         navType="sidebar stache-nav-sub"
         [routes]="route.children"
-        *ngIf="hasChildRoutes(route)"
       >
       </stache-nav>
     </li>
