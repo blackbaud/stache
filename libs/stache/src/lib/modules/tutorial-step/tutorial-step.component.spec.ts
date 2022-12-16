@@ -11,7 +11,7 @@ describe('StacheTutorialStepComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [StacheTutorialStepModule],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheTutorialStepComponent);
     component = fixture.componentInstance;
@@ -25,10 +25,17 @@ describe('StacheTutorialStepComponent', () => {
     expect(component.showNumber).toBe(true);
   });
 
-  // This will allow documentation writers to not worry about proper attribute binding.
-  it('should allow hiding numbers by setting `showNumber` to string "false"', () => {
-    (component as any).showNumber = 'false';
+  it('should reset the showNumber input', () => {
+    component.showNumber = false;
     fixture.detectChanges();
-    expect(component.showNumber).toEqual(false);
+    expect(
+      fixture.nativeElement.querySelector('.stache-tutorial-step')
+    ).not.toHaveClass('stache-tutorial-step-numbered');
+
+    component.showNumber = undefined;
+    fixture.detectChanges();
+    expect(
+      fixture.nativeElement.querySelector('.stache-tutorial-step')
+    ).toHaveClass('stache-tutorial-step-numbered');
   });
 });

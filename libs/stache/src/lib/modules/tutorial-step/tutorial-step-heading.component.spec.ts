@@ -15,7 +15,7 @@ describe('StacheTutorialStepHeadingComponent', () => {
       imports: [RouterTestingModule, StacheTutorialStepModule],
       providers: [SkyAppConfig],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheTutorialStepHeadingComponent);
   });

@@ -1,7 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-import { InputConverter, booleanConverter } from '../shared/input-converter';
-
 @Component({
   selector: 'stache-tutorial-step',
   templateUrl: './tutorial-step.component.html',
@@ -9,6 +7,13 @@ import { InputConverter, booleanConverter } from '../shared/input-converter';
 })
 export class StacheTutorialStepComponent {
   @Input()
-  @InputConverter(booleanConverter)
-  public showNumber = true;
+  public set showNumber(value: boolean | undefined) {
+    this.#_showNumber = value !== false;
+  }
+
+  public get showNumber(): boolean {
+    return this.#_showNumber;
+  }
+
+  #_showNumber = true;
 }

@@ -10,7 +10,7 @@ describe('StacheTutorialSummaryComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [StacheTutorialModule],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheTutorialSummaryComponent);
   });
