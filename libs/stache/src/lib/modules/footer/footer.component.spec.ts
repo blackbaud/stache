@@ -1,8 +1,7 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { expect } from '@skyux-sdk/testing';
-import { SkyAppConfig } from '@skyux/config';
-import { SkyMediaQueryModule } from '@skyux/core';
+import { expect, expectAsync } from '@skyux-sdk/testing';
+import { SkyAppConfig, SkyuxConfig } from '@skyux/config';
 
 import { StacheRouteService } from '../router/route.service';
 
@@ -12,8 +11,8 @@ import { StacheFooterModule } from './footer.module';
 describe('StacheFooterComponent', () => {
   let component: StacheFooterComponent;
   let fixture: ComponentFixture<StacheFooterComponent>;
-  let mockConfigService: any;
-  let mockRouterService: any;
+  let mockConfigService: MockConfigService;
+  let mockRouterService: MockRouterService;
 
   const footerConfig = {
     nav: {
@@ -32,7 +31,7 @@ describe('StacheFooterComponent', () => {
   };
 
   class MockConfigService {
-    public skyux = {
+    public skyux: SkyuxConfig = {
       app: {
         title: 'Some Name',
       },
@@ -45,8 +44,8 @@ describe('StacheFooterComponent', () => {
   }
 
   class MockRouterService {
-    public getActiveUrl() {
-      /* */
+    public getActiveUrl(): string {
+      return '';
     }
   }
 
@@ -54,12 +53,12 @@ describe('StacheFooterComponent', () => {
     mockConfigService = new MockConfigService();
     mockRouterService = new MockRouterService();
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, SkyMediaQueryModule, StacheFooterModule],
+      imports: [RouterTestingModule, StacheFooterModule],
       providers: [
         { provide: StacheRouteService, useValue: mockRouterService },
         { provide: SkyAppConfig, useValue: mockConfigService },
       ],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheFooterComponent);
     component = fixture.componentInstance;
@@ -81,7 +80,7 @@ describe('StacheFooterComponent', () => {
     component.ngOnInit();
     fixture.detectChanges();
 
-    const mappedFooterLinks = footerConfig.nav.items.map((navItem: any) => {
+    const mappedFooterLinks = footerConfig.nav.items.map((navItem) => {
       return {
         name: navItem.title,
         path: navItem.route,
@@ -109,8 +108,8 @@ describe('StacheFooterComponent', () => {
     expect(component.siteName).toBe(undefined);
   });
 
-  it('should be accessible', async(() => {
+  it('should be accessible', async () => {
     fixture.detectChanges();
-    expect(fixture.debugElement.nativeElement).toBeAccessible();
-  }));
+    await expectAsync(fixture.debugElement.nativeElement).toBeAccessible();
+  });
 });

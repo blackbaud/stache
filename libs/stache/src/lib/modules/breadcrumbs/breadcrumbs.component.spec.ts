@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { expect } from '@skyux-sdk/testing';
 
@@ -37,10 +38,10 @@ describe('StacheBreadcrumbsComponent', () => {
   let mockActiveUrl = '';
 
   class MockRouteService {
-    public getActiveRoutes() {
+    public getActiveRoutes(): Routes {
       return mockRoutes;
     }
-    public getActiveUrl() {
+    public getActiveUrl(): string {
       return mockActiveUrl;
     }
   }
@@ -53,7 +54,7 @@ describe('StacheBreadcrumbsComponent', () => {
         { provide: StacheRouteService, useClass: MockRouteService },
         { provide: StacheRouteMetadataService, useValue: { routes: [] } },
       ],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheBreadcrumbsComponent);
     component = fixture.componentInstance;
@@ -110,26 +111,26 @@ describe('StacheBreadcrumbsComponent', () => {
     ];
     component.ngOnInit();
     fixture.detectChanges();
-    expect(component.routes.length).toBe(3);
+    expect(component.routes?.length).toBe(3);
   });
 
   it('should not generate routes beyond the current path', () => {
     mockActiveUrl = '/parent/child';
     component.ngOnInit();
     fixture.detectChanges();
-    expect(component.routes.length).toBe(3);
+    expect(component.routes?.length).toBe(3);
   });
 
   it('should generate grandchild routes from SkyAppConfig', () => {
     mockActiveUrl = '/parent/child/grandchild';
     component.ngOnInit();
     fixture.detectChanges();
-    expect(component.routes.length).toBe(4);
+    expect(component.routes?.length).toBe(4);
   });
 
   it('should add a link to the home page', () => {
     component.ngOnInit();
     fixture.detectChanges();
-    expect(component.routes[0].name).toBe('Home');
+    expect(component.routes?.[0].name).toBe('Home');
   });
 });
