@@ -1,74 +1,98 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { SkyAppConfig } from '@skyux/config';
 
+import { Subject, takeUntil } from 'rxjs';
+
 import { StacheNavLink } from '../nav/nav-link';
 
+import { StacheRouteMetadataConfig } from './route-metadata-config';
 import { StacheRouteMetadataService } from './route-metadata.service';
+import { sortByName, sortByOrder } from './sort';
+
+type UnformattedStacheNavLink = {
+  path: string;
+  segments: string[];
+  children?: UnformattedStacheNavLink[];
+};
+
+function clone<T>(thing: T): T {
+  return JSON.parse(JSON.stringify(thing));
+}
 
 @Injectable()
-export class StacheRouteService {
-  private activeRoutes: StacheNavLink[];
+export class StacheRouteService implements OnDestroy {
+  #activeRoutes: StacheNavLink[] | undefined;
+  #configSvc: SkyAppConfig;
+  #ngUnsubscribe = new Subject<void>();
+  #routeMetadataSvc: StacheRouteMetadataService;
+  #router: Router;
 
-  public constructor(
-    private router: Router,
-    private configService: SkyAppConfig,
-    private routeMetadataService: StacheRouteMetadataService
+  constructor(
+    router: Router,
+    configSvc: SkyAppConfig,
+    routeMetadataSvc: StacheRouteMetadataService
   ) {
-    router.events.subscribe((val: any) => {
+    this.#router = router;
+    this.#configSvc = configSvc;
+    this.#routeMetadataSvc = routeMetadataSvc;
+
+    router.events.pipe(takeUntil(this.#ngUnsubscribe)).subscribe((val) => {
       if (val instanceof NavigationStart) {
         this.clearActiveRoutes();
       }
     });
   }
 
+  public ngOnDestroy(): void {
+    this.#ngUnsubscribe.next();
+    this.#ngUnsubscribe.complete();
+  }
+
   public getActiveRoutes(): StacheNavLink[] {
-    if (this.activeRoutes) {
-      return this.activeRoutes;
+    if (this.#activeRoutes) {
+      return this.#activeRoutes;
     }
 
     const rootPath = this.getActiveUrl().replace(/^\//, '').split('/')[0];
 
-    const appRoutes = this.clone(this.configService.runtime?.routes || []);
+    const appRoutes = clone(
+      (this.#configSvc.runtime?.routes as { routePath: string }[]) || []
+    );
 
-    const activeChildRoutes = appRoutes
-      .filter((route: any) => {
-        return route.routePath.indexOf(rootPath) === 0;
-      })
-      .map((route: any) => {
-        return {
-          segments: route.routePath.split('/'),
-          path: route.routePath,
-        };
-      });
+    const activeChildRoutes: UnformattedStacheNavLink[] = appRoutes
+      .filter((route) => route.routePath.indexOf(rootPath) === 0)
+      .map((route) => ({
+        segments: route.routePath.split('/'),
+        path: route.routePath,
+      }));
 
-    const activeRoutes = [
+    const activeRoutes: UnformattedStacheNavLink[] = [
       {
         path: rootPath,
         segments: [rootPath],
-        children: this.assignChildren(activeChildRoutes, rootPath),
+        children: this.#assignChildren(activeChildRoutes, rootPath),
       },
     ];
 
-    this.activeRoutes = this.formatRoutes(activeRoutes);
+    this.#activeRoutes = this.#formatRoutes(activeRoutes);
 
-    return this.clone(this.activeRoutes) as StacheNavLink[];
+    return clone(this.#activeRoutes);
   }
 
   public getActiveUrl(): string {
-    return this.router.url.split('?')[0].split('#')[0];
+    return this.#router.url.split('?')[0].split('#')[0];
   }
 
-  public clearActiveRoutes() {
-    this.activeRoutes = undefined;
+  public clearActiveRoutes(): void {
+    this.#activeRoutes = undefined;
   }
 
-  private clone(thing: any): any {
-    return JSON.parse(JSON.stringify(thing));
-  }
-
-  private assignChildren(routes: any[], parentPath: string): any[] {
-    const assignedRoutes: any[] = [];
+  #assignChildren(
+    routes: UnformattedStacheNavLink[],
+    parentPath: string
+  ): UnformattedStacheNavLink[] {
+    const assignedRoutes: UnformattedStacheNavLink[] = [];
     const depth = parentPath.split('/').length + 1;
 
     routes.forEach((route) => {
@@ -80,7 +104,7 @@ export class StacheRouteService {
         depth === routeDepth && route.path.indexOf(parentPath + '/') > -1;
 
       if (isChildRoute) {
-        route.children = this.assignChildren(routes, route.path);
+        route.children = this.#assignChildren(routes, route.path);
         assignedRoutes.push(route);
       }
     });
@@ -88,35 +112,40 @@ export class StacheRouteService {
     return assignedRoutes;
   }
 
-  private formatRoutes(routes: any[]): StacheNavLink[] {
+  #formatRoutes(routes: UnformattedStacheNavLink[]): StacheNavLink[] {
     const formatted = routes
       .map((route) => {
-        const pathMetadata = this.getMetadata(route);
-
-        const formattedRoute = Object.assign(
+        const pathMetadata = this.#getMetadata(route);
+        const formattedRoute: StacheNavLink = Object.assign(
           {},
           {
             path: route.path,
-            children: this.formatRoutes(route.children),
-            name: this.getNameFromPath(
+            name: this.#getNameFromPath(
               route.segments[route.segments.length - 1]
             ),
           },
           pathMetadata
         );
 
-        return formattedRoute as any;
+        /*istanbul ignore else*/
+        if (route.children) {
+          formattedRoute.children = this.#formatRoutes(route.children);
+        }
+
+        return formattedRoute;
       })
       .filter((route) => route.showInNav !== false);
 
-    return this.sortRoutes(formatted) as StacheNavLink[];
+    return this.#sortRoutes(formatted) as StacheNavLink[];
   }
 
-  private getMetadata(route: any): any {
-    const allMetadata = this.routeMetadataService.metadata;
+  #getMetadata(
+    route: UnformattedStacheNavLink
+  ): Partial<StacheRouteMetadataConfig> {
+    const allMetadata = this.#routeMetadataSvc.metadata;
 
     if (allMetadata) {
-      const foundRoute = allMetadata.filter((metaRoute: any) => {
+      const foundRoute = allMetadata.filter((metaRoute) => {
         return metaRoute.path === route.path;
       })[0];
 
@@ -128,33 +157,39 @@ export class StacheRouteService {
     return {};
   }
 
-  private getNameFromPath(path: string): string {
+  #getNameFromPath(path: string): string {
     path = path.replace(/-/g, ' ');
-    return this.toTitleCase(path);
+    return this.#toTitleCase(path);
   }
 
-  private toTitleCase(phrase: string): string {
+  #toTitleCase(phrase: string): string {
     return phrase
       .split(' ')
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
   }
 
-  private sortRoutes(routes: StacheNavLink[]): StacheNavLink[] {
+  #sortRoutes(routes: StacheNavLink[]): StacheNavLink[] {
     const sortedRoutes = routes
-      .filter((route: any) => !('order' in route))
-      .sort(this.sortByName);
+      .filter((route) => !('order' in route))
+      .sort(sortByName);
 
     const routesWithNavOrder = routes
-      .filter((route: any) => 'order' in route)
-      .sort(this.sortByName)
-      .sort(this.sortByOrder);
+      .filter((route) => 'order' in route)
+      .sort(sortByName)
+      .sort(sortByOrder);
 
-    routesWithNavOrder.forEach((route: any) => {
-      let newIdx = route.order - 1;
+    routesWithNavOrder.forEach((route) => {
+      // We know route order is defined in this loop.
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const order = route.order!;
+      let newIdx = order - 1;
       const validPosition = (): boolean => newIdx < sortedRoutes.length;
-      const positionPreviouslyAssigned = (): boolean =>
-        sortedRoutes[newIdx].order <= route.order;
+      const positionPreviouslyAssigned = (): boolean => {
+        return sortedRoutes[newIdx].order === undefined
+          ? false
+          : sortedRoutes[newIdx].order <= order;
+      };
 
       if (validPosition()) {
         while (validPosition() && positionPreviouslyAssigned()) {
@@ -167,25 +202,5 @@ export class StacheRouteService {
     });
 
     return sortedRoutes;
-  }
-
-  private sortByName(a: any, b: any): number {
-    if (a.name.toLowerCase() < b.name.toLowerCase()) {
-      return -1;
-    } else if (a.name.toLowerCase() > b.name.toLowerCase()) {
-      return 1;
-    } else {
-      return 0;
-    }
-  }
-
-  private sortByOrder(a: any, b: any): number {
-    if (a.order < b.order) {
-      return -1;
-    } else if (a.order > b.order) {
-      return 1;
-    } else {
-      return 0;
-    }
   }
 }
