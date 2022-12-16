@@ -77,7 +77,6 @@ describe('StacheEditButtonComponent', () => {
   });
 
   it('should set the url for a VSTS repo', () => {
-    // tslint:disable-next-line:max-line-length
     mockConfigService.skyux.appSettings.stache.editButton.url =
       'https://blackbaud.visualstudio.com/Products/_git/skyux-spa-stache-test-pipeline';
 

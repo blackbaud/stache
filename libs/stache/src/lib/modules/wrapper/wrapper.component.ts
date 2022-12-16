@@ -1,4 +1,3 @@
-/* tslint:disable:component-selector */
 import {
   AfterViewInit,
   ChangeDetectorRef,
