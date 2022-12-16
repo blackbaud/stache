@@ -12,7 +12,7 @@ describe('StacheBlockquoteComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [StacheBlockquoteModule],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheBlockquoteComponent);
     component = fixture.componentInstance;
@@ -62,7 +62,6 @@ describe('StacheBlockquoteComponent', () => {
   });
 
   it('should set author to "Source" on init if quoteSource is provided without an author', () => {
-    component.author = undefined;
     component.quoteSource = 'http://source.html';
     component.ngOnInit();
     fixture.detectChanges();
@@ -72,27 +71,5 @@ describe('StacheBlockquoteComponent', () => {
     expect(component.author).toBe('Source');
     expect(testFixture.href).toContain('http://source.html');
     expect(testFixture.textContent).toContain('Source');
-  });
-
-  it('should return a boolean from hasAuthor whether the author has been set', () => {
-    component.author = 'Test Author';
-    fixture.detectChanges();
-    const withAuthor = component.hasAuthor();
-    component.author = undefined;
-    fixture.detectChanges();
-    const noAuthor = component.hasAuthor();
-    expect(withAuthor).toBe(true);
-    expect(noAuthor).toBe(false);
-  });
-
-  it('should return a boolean from hasQuoteSource whether a quoteSource has been set', () => {
-    component.quoteSource = 'https://some-source.html';
-    fixture.detectChanges();
-    const withSource = component.hasQuoteSource();
-    component.quoteSource = undefined;
-    fixture.detectChanges();
-    const noSource = component.hasQuoteSource();
-    expect(withSource).toBe(true);
-    expect(noSource).toBe(false);
   });
 });

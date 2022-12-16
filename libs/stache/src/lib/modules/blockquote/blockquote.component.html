@@ -4,12 +4,12 @@
   </div>
   <blockquote class="stache-blockquote-content">
     <ng-content></ng-content>
-    <div *ngIf="hasAuthor()" class="stache-blockquote-source">
+    <div *ngIf="author" class="stache-blockquote-source">
       &mdash;
-      <a *ngIf="hasQuoteSource()" href="{{ quoteSource }}">
+      <a *ngIf="quoteSource" href="{{ quoteSource }}">
         <span>{{ author }}</span>
       </a>
-      <span *ngIf="!hasQuoteSource()">{{ author }}</span>
+      <span *ngIf="!quoteSource">{{ author }}</span>
     </div>
   </blockquote>
 </div>
