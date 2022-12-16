@@ -1,11 +1,10 @@
 import {
   ComponentFixture,
   TestBed,
-  async,
   fakeAsync,
   tick,
 } from '@angular/core/testing';
-import { expect } from '@skyux-sdk/testing';
+import { expect, expectAsync } from '@skyux-sdk/testing';
 import { SkyAppConfig } from '@skyux/config';
 import { SkyMediaBreakpoints, SkyMediaQueryService } from '@skyux/core';
 
@@ -17,9 +16,9 @@ import { SidebarFixtureModule } from './fixtures/sidebar.module.fixture';
 describe('Sidebar', () => {
   let component: SidebarFixtureComponent;
   let fixture: ComponentFixture<SidebarFixtureComponent>;
-  let mediaQueryService: any;
+  let mediaQueryService: MockMediaQueryService;
 
-  const mockConfig: any = {
+  const mockConfig = {
     runtime: {
       routes: [
         {
@@ -28,15 +27,15 @@ describe('Sidebar', () => {
       ],
     },
     skyux: {},
-  };
+  } as unknown as Partial<SkyAppConfig>;
 
   class MockMediaQueryService {
     public current = SkyMediaBreakpoints.md;
-    private currentSubject = new BehaviorSubject<SkyMediaBreakpoints>(
+    public currentSubject = new BehaviorSubject<SkyMediaBreakpoints>(
       this.current
     );
 
-    public subscribe(listener: any): Subscription {
+    public subscribe(listener: (_: SkyMediaBreakpoints) => void): Subscription {
       return this.currentSubject.subscribe((value) => {
         listener(value);
       });
@@ -48,11 +47,11 @@ describe('Sidebar', () => {
     tick();
   }
 
-  function getToggleButton(): any {
+  function getToggleButton(): HTMLButtonElement {
     return fixture.nativeElement.querySelector('.stache-sidebar-button');
   }
 
-  function getHeadingElement(): any {
+  function getHeadingElement(): HTMLHeadingElement {
     return fixture.nativeElement.querySelector('.stache-sidebar-heading');
   }
 
@@ -228,10 +227,10 @@ describe('Sidebar', () => {
     ).toEqual(false);
   }));
 
-  it('should be accessible', async(() => {
+  it('should be accessible', async () => {
     fixture.detectChanges();
-    expect(fixture.debugElement.nativeElement).toBeAccessible();
-  }));
+    await expectAsync(fixture.debugElement.nativeElement).toBeAccessible();
+  });
 
   it('should collapse the sidebar on small screens', fakeAsync(() => {
     detectChanges();

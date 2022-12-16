@@ -22,7 +22,7 @@ let nextUniqueId = 0;
 })
 export class StacheSidebarWrapperComponent implements OnDestroy, AfterViewInit {
   @Input()
-  public sidebarRoutes: StacheNavLink[];
+  public sidebarRoutes: StacheNavLink[] | undefined;
 
   public sidebarOpen = false;
 
@@ -30,44 +30,47 @@ export class StacheSidebarWrapperComponent implements OnDestroy, AfterViewInit {
 
   public elementId = `stache-sidebar-content-panel-${nextUniqueId++}`;
 
-  private mediaQuerySubscription: Subscription;
+  #mediaQuerySubscription: Subscription;
+
+  #renderer: Renderer2;
+  #windowRef: StacheWindowRef;
 
   constructor(
-    private renderer: Renderer2,
-    private windowRef: StacheWindowRef,
-    private mediaQueryService: SkyMediaQueryService
+    renderer: Renderer2,
+    windowRef: StacheWindowRef,
+    mediaQuerySvc: SkyMediaQueryService
   ) {
-    this.mediaQuerySubscription = this.mediaQueryService.subscribe(
-      (args: SkyMediaBreakpoints) => {
-        this.sidebarOpen = args <= SkyMediaBreakpoints.sm;
-        this.toggleSidebar();
-      }
-    );
+    this.#renderer = renderer;
+    this.#windowRef = windowRef;
+    this.#mediaQuerySubscription = mediaQuerySvc.subscribe((args) => {
+      this.sidebarOpen = args <= SkyMediaBreakpoints.sm;
+      this.toggleSidebar();
+    });
   }
 
   public ngAfterViewInit(): void {
-    this.addClassToBody();
+    this.#addClassToBody();
   }
 
   public ngOnDestroy(): void {
-    this.removeClassFromBody();
-    this.mediaQuerySubscription.unsubscribe();
+    this.#removeClassFromBody();
+    this.#mediaQuerySubscription.unsubscribe();
   }
 
   public toggleSidebar(): void {
     this.sidebarOpen = !this.sidebarOpen;
   }
 
-  private addClassToBody(): void {
-    this.renderer.addClass(
-      this.windowRef.nativeWindow.document.body,
+  #addClassToBody(): void {
+    this.#renderer.addClass(
+      this.#windowRef.nativeWindow.document.body,
       SIDEBAR_CSS_CLASS_NAME
     );
   }
 
-  private removeClassFromBody(): void {
-    this.renderer.removeClass(
-      this.windowRef.nativeWindow.document.body,
+  #removeClassFromBody(): void {
+    this.#renderer.removeClass(
+      this.#windowRef.nativeWindow.document.body,
       SIDEBAR_CSS_CLASS_NAME
     );
   }
