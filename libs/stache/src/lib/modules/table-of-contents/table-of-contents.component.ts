@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 
-import { Subscription } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
 import { StacheNavLink } from '../nav/nav-link';
 import { StacheOmnibarAdapterService } from '../shared/omnibar-adapter.service';
@@ -13,62 +13,72 @@ import { StacheWindowRef } from '../shared/window-ref';
 })
 export class StacheTableOfContentsComponent implements OnDestroy {
   @Input()
-  public routes: StacheNavLink[];
-  private viewTop: number;
-  private documentBottom: number;
-  private scrollEventStream: Subscription;
+  public routes: StacheNavLink[] | undefined;
+
+  #documentBottom: number | undefined;
+  #ngUnsubscribe = new Subject<void>();
+  #omnibarSvc: StacheOmnibarAdapterService;
+  #viewTop = 0;
+  #windowRef: StacheWindowRef;
 
   constructor(
-    private windowRef: StacheWindowRef,
-    private omnibarService: StacheOmnibarAdapterService
+    windowRef: StacheWindowRef,
+    omnibarSvc: StacheOmnibarAdapterService
   ) {
-    this.scrollEventStream = this.windowRef.scrollEventStream.subscribe(() => {
-      this.updateRoutesOnScroll(this.routes);
-    });
+    this.#windowRef = windowRef;
+    this.#omnibarSvc = omnibarSvc;
+    this.#windowRef.scrollEventStream
+      .pipe(takeUntil(this.#ngUnsubscribe))
+      .subscribe(() => {
+        this.#updateRoutesOnScroll(this.routes);
+      });
   }
 
-  public ngOnDestroy() {
-    this.scrollEventStream.unsubscribe();
+  public ngOnDestroy(): void {
+    this.#ngUnsubscribe.next();
+    this.#ngUnsubscribe.complete();
   }
 
-  public updateRoutesOnScroll(routes: any[]) {
-    if (routes && routes.length) {
-      this.updateView(routes);
+  #updateRoutesOnScroll(routes: StacheNavLink[] | undefined): void {
+    if (routes?.length) {
+      this.#updateView(routes);
     }
   }
 
-  public updateView(routes: StacheNavLink[]) {
-    this.trackViewTop();
-    this.isCurrent(routes);
+  #updateView(routes: StacheNavLink[]): void {
+    this.#trackViewTop();
+    this.#isCurrent(routes);
   }
 
-  private trackViewTop() {
-    this.viewTop =
-      this.windowRef.nativeWindow.pageYOffset + this.omnibarService.getHeight();
-    this.documentBottom = Math.round(
-      this.windowRef.nativeWindow.document.documentElement.getBoundingClientRect()
+  #trackViewTop(): void {
+    this.#viewTop =
+      this.#windowRef.nativeWindow.pageYOffset + this.#omnibarSvc.getHeight();
+    this.#documentBottom = Math.round(
+      this.#windowRef.nativeWindow.document.documentElement.getBoundingClientRect()
         .bottom
     );
   }
 
-  private isCurrent(routes: StacheNavLink[]): void {
-    if (this.scrolledToEndOfPage()) {
+  #isCurrent(routes: StacheNavLink[]): void {
+    if (this.#scrolledToEndOfPage()) {
       routes.forEach((route: StacheNavLink, idx: number) => {
         route.isCurrent = idx === routes.length - 1;
       });
-      return;
+    } else {
+      routes.forEach((route, index) => {
+        const nextRoute = routes[index + 1];
+        if ((nextRoute && nextRoute.offsetTop) || 0 <= this.#viewTop) {
+          route.isCurrent = false;
+          return;
+        }
+        route.isCurrent = !!(route.offsetTop || 0 <= this.#viewTop);
+      });
     }
-    routes.forEach((route, index) => {
-      const nextRoute = routes[index + 1];
-      if (nextRoute && nextRoute.offsetTop <= this.viewTop) {
-        route.isCurrent = false;
-        return;
-      }
-      route.isCurrent = route.offsetTop <= this.viewTop;
-    });
   }
 
-  private scrolledToEndOfPage() {
-    return this.windowRef.nativeWindow.innerHeight + 5 >= this.documentBottom;
+  #scrolledToEndOfPage(): boolean {
+    return this.#documentBottom !== undefined
+      ? this.#windowRef.nativeWindow.innerHeight + 5 >= this.#documentBottom
+      : false;
   }
 }

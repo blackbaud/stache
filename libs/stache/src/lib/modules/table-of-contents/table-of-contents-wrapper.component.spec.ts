@@ -1,7 +1,7 @@
 import { Renderer2 } from '@angular/core';
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { expect } from '@skyux-sdk/testing';
+import { expect, expectAsync } from '@skyux-sdk/testing';
 
 import { of as observableOf } from 'rxjs';
 
@@ -16,15 +16,15 @@ import { StacheTableOfContentsModule } from './table-of-contents.module';
 class MockWindowService {
   public nativeWindow = {
     document: {
-      querySelector: () => {
+      querySelector: (): void => {
         /* */
       },
       body: {
         classList: {
-          add: () => {
+          add: (): void => {
             /* */
           },
-          remove: () => {
+          remove: (): void => {
             /* */
           },
         },
@@ -36,15 +36,17 @@ class MockWindowService {
 }
 
 class MockStacheRouteService {
-  public getActiveUrl = () => '';
+  public getActiveUrl = (): string => '';
 }
 
 class MockRenderer {
-  public classList: any[] = [];
-  public addClass = (el: any, classname: any) => {
+  public classList: string[] = [];
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public addClass = (el: Element, className: string): void => {
     /* */
   };
-  public removeClass = (el: any, classname: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public removeClass = (el: Element, className: string): void => {
     /* */
   };
 }
@@ -57,16 +59,16 @@ const route = {
 };
 
 class MockOmnibarService {
-  public getHeight = () => 50;
+  public getHeight = (): number => 50;
 }
 
 describe('Table of Contents Wrapper Component', () => {
   let component: StacheTableOfContentsWrapperComponent;
   let fixture: ComponentFixture<StacheTableOfContentsWrapperComponent>;
-  let mockWindowService: any;
-  let mockStacheRouteService: any;
-  let mockRenderer: any;
-  let mockOmnibarAdapterService: any;
+  let mockWindowService: MockWindowService;
+  let mockStacheRouteService: MockStacheRouteService;
+  let mockRenderer: MockRenderer;
+  let mockOmnibarAdapterService: MockOmnibarService;
 
   beforeEach(() => {
     mockWindowService = new MockWindowService();
@@ -89,7 +91,7 @@ describe('Table of Contents Wrapper Component', () => {
           useValue: mockOmnibarAdapterService,
         },
       ],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(StacheTableOfContentsWrapperComponent);
     component = fixture.componentInstance;
@@ -101,8 +103,8 @@ describe('Table of Contents Wrapper Component', () => {
     expect(fixture).toExist();
   });
 
-  it('should pass accessibility', async(() => {
+  it('should pass accessibility', async () => {
     fixture.detectChanges();
-    expect(fixture.nativeElement).toBeAccessible();
-  }));
+    await expectAsync(fixture.nativeElement).toBeAccessible();
+  });
 });

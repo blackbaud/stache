@@ -1,27 +1,27 @@
-@import '../../styles/_variables';
+@use '../../styles/_variables' as vars;
 
 ::ng-deep .stache-table-of-contents {
-  padding-right: $stache-padding;
+  padding-right: vars.$stache-padding;
 
-  @media (max-width: $stache-screen-lg-min) {
-    padding-left: $stache-padding;
+  @media (max-width: vars.$stache-screen-lg-min) {
+    padding-left: vars.$stache-padding;
   }
 
   .stache-nav-list {
-    color: $stache-text-color-default;
+    color: vars.$stache-text-color-default;
   }
 
   .stache-nav-list-item {
     font-size: 15px;
     margin: 3px 0;
     padding-left: 0.5em;
-    line-height: $stache-line-height-base;
+    line-height: vars.$stache-line-height-base;
     border-left: 4px solid transparent;
     hyphens: auto;
 
     &.current {
-      @media (min-width: $stache-screen-lg-min) {
-        border-left-color: $stache-background-color-primary-dark;
+      @media (min-width: vars.$stache-screen-lg-min) {
+        border-left-color: vars.$stache-background-color-primary-dark;
       }
     }
 
@@ -42,12 +42,12 @@
 }
 
 .stache-table-of-contents-heading {
-  margin-top: $stache-padding-double;
+  margin-top: vars.$stache-padding-double;
   font-size: 1.5em;
   font-weight: 300;
   padding-left: 8px;
 
-  @media (max-width: $stache-screen-lg-min) {
+  @media (max-width: vars.$stache-screen-lg-min) {
     margin-top: 0px;
   }
 }

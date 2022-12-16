@@ -20,31 +20,34 @@ export class StacheTableOfContentsWrapperComponent
   implements AfterViewInit, OnDestroy
 {
   @Input()
-  public tocRoutes: StacheNavLink[];
+  public tocRoutes: StacheNavLink[] | undefined;
 
-  constructor(
-    private renderer: Renderer2,
-    private windowRef: StacheWindowRef
-  ) {}
+  #renderer: Renderer2;
+  #windowRef: StacheWindowRef;
+
+  constructor(renderer: Renderer2, windowRef: StacheWindowRef) {
+    this.#renderer = renderer;
+    this.#windowRef = windowRef;
+  }
 
   public ngAfterViewInit(): void {
-    this.addClassToBody();
+    this.#addClassToBody();
   }
 
   public ngOnDestroy(): void {
-    this.removeClassFromBody();
+    this.#removeClassFromBody();
   }
 
-  private addClassToBody(): void {
-    this.renderer.addClass(
-      this.windowRef.nativeWindow.document.body,
+  #addClassToBody(): void {
+    this.#renderer.addClass(
+      this.#windowRef.nativeWindow.document.body,
       HAS_TOC_CLASS_NAME
     );
   }
 
-  private removeClassFromBody(): void {
-    this.renderer.removeClass(
-      this.windowRef.nativeWindow.document.body,
+  #removeClassFromBody(): void {
+    this.#renderer.removeClass(
+      this.#windowRef.nativeWindow.document.body,
       HAS_TOC_CLASS_NAME
     );
   }
