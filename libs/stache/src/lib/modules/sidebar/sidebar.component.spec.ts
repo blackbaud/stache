@@ -136,7 +136,7 @@ describe('Sidebar', () => {
     const heading = getHeadingElement();
     const anchor = heading.querySelector('a');
 
-    expect(anchor.getAttribute('href')).toEqual('/foo/bar/baz');
+    expect(anchor?.getAttribute('href')).toEqual('/foo/bar/baz');
   }));
 
   it('should add a / to a heading route when one is not present', fakeAsync(() => {
@@ -153,8 +153,8 @@ describe('Sidebar', () => {
     const heading = getHeadingElement();
     const anchor = heading.querySelector('a');
 
-    expect(heading.textContent.trim()).toEqual('Header');
-    expect(anchor.getAttribute('href')).toEqual('/');
+    expect(heading.textContent?.trim()).toEqual('Header');
+    expect(anchor?.getAttribute('href')).toEqual('/');
   }));
 
   it('should not add a / to a heading route when one is present', fakeAsync(() => {
@@ -171,8 +171,8 @@ describe('Sidebar', () => {
     const heading = getHeadingElement();
     const anchor = heading.querySelector('a');
 
-    expect(heading.textContent.trim()).toEqual('Header');
-    expect(anchor.getAttribute('href')).toEqual('/');
+    expect(heading.textContent?.trim()).toEqual('Header');
+    expect(anchor?.getAttribute('href')).toEqual('/');
   }));
 
   it('should allow an external heading route', fakeAsync(() => {
@@ -189,8 +189,8 @@ describe('Sidebar', () => {
     const heading = getHeadingElement();
     const anchor = heading.querySelector('a');
 
-    expect(heading.textContent.trim()).toEqual('Header');
-    expect(anchor.getAttribute('href')).toEqual('https://example.org');
+    expect(heading.textContent?.trim()).toEqual('Header');
+    expect(anchor?.getAttribute('href')).toEqual('https://example.org');
   }));
 
   it('should open and close the sidebar', fakeAsync(() => {
