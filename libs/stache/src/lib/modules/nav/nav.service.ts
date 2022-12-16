@@ -1,56 +1,58 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 
 import { StacheWindowRef } from '../shared/window-ref';
 
+import { StacheNavLink } from './nav-link';
+
+type StacheRoute = Omit<StacheNavLink, 'name'>;
+
 @Injectable()
 export class StacheNavService {
-  public constructor(
-    private router: Router,
-    private windowRef: StacheWindowRef
-  ) {}
+  #router: Router;
+  #windowRef: StacheWindowRef;
 
-  public navigate(route: any): void {
-    const extras: any = { queryParamsHandling: 'merge' };
-    const currentPath = this.router.url.split('?')[0].split('#')[0];
+  constructor(router: Router, windowRef: StacheWindowRef) {
+    this.#router = router;
+    this.#windowRef = windowRef;
+  }
+
+  public navigate(route: StacheRoute): void {
+    const extras: NavigationExtras = { queryParamsHandling: 'merge' };
+    const currentPath = this.#router.url.split('?')[0].split('#')[0];
 
     if (this.isExternal(route)) {
-      this.windowRef.nativeWindow.location.href = route.path;
+      this.#windowRef.nativeWindow.location.href = route.path;
       return;
     }
 
     if (route.fragment) {
-      if (this.isCurrentRoute(route.path, currentPath)) {
-        this.navigateInPage(route.fragment);
+      if (this.#isCurrentRoute(route.path, currentPath)) {
+        this.#navigateInPage(route.fragment);
         return;
       }
       extras.fragment = route.fragment;
     }
 
     if (Array.isArray(route.path)) {
-      this.router.navigate(route.path, extras);
+      this.#router.navigate(route.path, extras);
     } else {
-      this.router.navigate([route.path], extras);
+      this.#router.navigate([route.path], extras);
     }
   }
 
-  public isExternal(route: any): boolean {
-    let path = route;
+  public isExternal(route: StacheRoute | string): boolean {
+    const routeStr =
+      typeof route === 'string'
+        ? route
+        : typeof route.path === 'string'
+        ? route.path
+        : undefined;
 
-    if (route.path) {
-      path = route.path;
-    }
-
-    if (typeof path !== 'string') {
-      return false;
-    }
-    return /^(https?|mailto|ftp):+|^(www)/.test(path);
+    return routeStr ? /^(https?|mailto|ftp):+|^(www)/.test(routeStr) : false;
   }
 
-  private isCurrentRoute(
-    routePath: string | string[],
-    currentPath: string
-  ): boolean {
+  #isCurrentRoute(routePath: string | string[], currentPath: string): boolean {
     let path = routePath;
 
     if (Array.isArray(path)) {
@@ -62,17 +64,16 @@ export class StacheNavService {
     );
   }
 
-  private navigateInPage(fragment: string): void {
+  #navigateInPage(fragment: string): void {
     const element =
-      this.windowRef.nativeWindow.document.getElementById(fragment);
-
+      this.#windowRef.nativeWindow.document.getElementById(fragment);
     if (element) {
       element.scrollIntoView();
-      this.windowRef.nativeWindow.location.hash = fragment;
+      this.#windowRef.nativeWindow.location.hash = fragment;
     } else {
       // The current page is the path intended, but no element with the fragment exists, scroll to
       // the top of the page.
-      this.windowRef.nativeWindow.scroll(0, 0);
+      this.#windowRef.nativeWindow.scroll(0, 0);
     }
   }
 }

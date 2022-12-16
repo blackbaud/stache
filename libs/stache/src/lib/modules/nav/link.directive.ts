@@ -14,50 +14,55 @@ import { StacheRouteService } from '../router/route.service';
 
 import { StacheNavService } from './nav.service';
 
-// eslint-disable-next-line @angular-eslint/no-input-rename
 @Directive({
   selector: '[stacheRouterLink]',
 })
 export class StacheRouterLinkDirective implements OnChanges, AfterViewInit {
-  private _stacheRouterLink = '';
-
-  // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input('stacheRouterLink')
-  set stacheRouterLink(routerLink: string) {
-    if (routerLink === '.') {
-      this._stacheRouterLink = this.routerService.getActiveUrl();
+  @Input()
+  public set stacheRouterLink(value: string | string[] | undefined) {
+    if (value === '.') {
+      this.#_stacheRouterLink = this.#routerSvc.getActiveUrl();
     } else {
-      this._stacheRouterLink = routerLink;
+      this.#_stacheRouterLink = Array.isArray(value)
+        ? value.join('/')
+        : value ?? '';
     }
   }
 
-  get stacheRouterLink() {
-    return this._stacheRouterLink;
+  public get stacheRouterLink(): string {
+    return this.#_stacheRouterLink;
   }
 
   @Input()
-  public fragment: string;
+  public fragment: string | undefined;
 
-  // the url displayed on the anchor element.
   @HostBinding()
-  public href: string;
+  public href: string | undefined;
+
+  #_stacheRouterLink = '';
+  #navSvc: StacheNavService;
+  #routerSvc: StacheRouteService;
+  #locationStrategy: LocationStrategy;
 
   constructor(
-    private navService: StacheNavService,
-    private routerService: StacheRouteService,
-    private el: ElementRef,
-    private locationStrategy: LocationStrategy,
-    private renderer: Renderer2
+    navSvc: StacheNavService,
+    routerSvc: StacheRouteService,
+    elementRef: ElementRef,
+    locationStrategy: LocationStrategy,
+    renderer: Renderer2
   ) {
-    this.renderer.setStyle(this.el.nativeElement, 'cursor', 'pointer');
+    this.#routerSvc = routerSvc;
+    this.#locationStrategy = locationStrategy;
+    this.#navSvc = navSvc;
+    renderer.setStyle(elementRef.nativeElement, 'cursor', 'pointer');
   }
 
-  public ngOnChanges(): any {
-    this.updateTargetUrlAndHref();
+  public ngOnChanges(): void {
+    this.#updateTargetUrlAndHref();
   }
 
-  public ngAfterViewInit() {
-    this.updateTargetUrlAndHref();
+  public ngAfterViewInit(): void {
+    this.#updateTargetUrlAndHref();
   }
 
   @HostListener('click', ['$event'])
@@ -66,7 +71,7 @@ export class StacheRouterLinkDirective implements OnChanges, AfterViewInit {
       return true;
     } else {
       event.preventDefault();
-      this.navService.navigate({
+      this.#navSvc.navigate({
         path: this.stacheRouterLink,
         fragment: this.fragment,
       });
@@ -74,17 +79,17 @@ export class StacheRouterLinkDirective implements OnChanges, AfterViewInit {
     }
   }
 
-  private updateTargetUrlAndHref(): void {
+  #updateTargetUrlAndHref(): void {
     let path = `${this.stacheRouterLink}`;
 
     if (this.fragment) {
       path += `#${this.fragment}`;
     }
 
-    if (this.navService.isExternal(path)) {
+    if (this.#navSvc.isExternal(path)) {
       this.href = path;
     } else {
-      this.href = this.locationStrategy.prepareExternalUrl(path);
+      this.href = this.#locationStrategy.prepareExternalUrl(path);
     }
   }
 }
