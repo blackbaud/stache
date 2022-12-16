@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { StacheNav } from '../nav/nav';
 import { StacheNavLink } from '../nav/nav-link';
@@ -12,7 +12,7 @@ let uniqueId = 0;
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })
-export class StacheSidebarComponent implements StacheNav {
+export class StacheSidebarComponent implements StacheNav, OnInit {
   @Input()
   public set routes(value: StacheNavLink[] | undefined) {
     if (!value || !value.length || !Array.isArray(value)) {
@@ -27,6 +27,7 @@ export class StacheSidebarComponent implements StacheNav {
   public childRoutes: StacheNavLink[] | undefined;
   public heading: string | undefined;
   public headingRoute: string | string[] | undefined;
+  public isHeadingActive = false;
   public sidebarHeadingElementId = `stache-sidebar-heading-${uniqueId++}`;
 
   #_routes: StacheNavLink[] = [];
@@ -38,9 +39,8 @@ export class StacheSidebarComponent implements StacheNav {
     this.#navSvc = navSvc;
   }
 
-  public isHeadingActive(): boolean {
-    const url = this.#routeSvc.getActiveUrl();
-    return url === this.headingRoute;
+  public ngOnInit(): void {
+    this.isHeadingActive = this.#routeSvc.getActiveUrl() === this.headingRoute;
   }
 
   #filterRoutes(routes: StacheNavLink[]): StacheNavLink[] {
