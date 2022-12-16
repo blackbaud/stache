@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SkyAppConfig } from '@skyux/config';
@@ -14,7 +13,7 @@ import { StacheGoogleAnalyticsTestComponent } from './fixtures/google-analytics.
 const DEFAULT_TAG_MANAGER_ID = 'GTM-W56QP9';
 const DEFAULT_CLIENT_ID = 'UA-2418840-1';
 
-fdescribe('StacheGoogleAnalyticsDirective', () => {
+describe('StacheGoogleAnalyticsDirective', () => {
   function setupTest(options: {
     appConfig: unknown;
     isGoogleAlreadySetup: boolean;
