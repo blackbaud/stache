@@ -115,7 +115,7 @@ export class StacheWrapperComponent
   #changeDetectorRef: ChangeDetectorRef;
   #omnibarSvc: StacheOmnibarAdapterService;
 
-  public constructor(
+  constructor(
     config: SkyAppConfig,
     pageAnchorSvc: StachePageAnchorService,
     titleSvc: StacheTitleService,

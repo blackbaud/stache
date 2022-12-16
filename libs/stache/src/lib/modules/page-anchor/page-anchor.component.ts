@@ -51,7 +51,7 @@ export class StachePageAnchorComponent
   #changeDetectorRef: ChangeDetectorRef;
   #routeSvc: StacheRouteService;
 
-  public constructor(
+  constructor(
     elementRef: ElementRef,
     anchorSvc: StachePageAnchorService,
     changeDetectorRef: ChangeDetectorRef,
