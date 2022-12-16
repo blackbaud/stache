@@ -6,7 +6,7 @@ import { StacheJsonDataService } from './json-data.service';
 
 describe('StacheJsonDataService', () => {
   let dataService: StacheJsonDataService;
-  const config: any = {
+  const config = {
     global: {
       productNameLong: 'Stache 2',
     },

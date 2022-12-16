@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { SkyAppConfig } from '@skyux/config';
+
+import { Subject, takeUntil } from 'rxjs';
 
 import { StacheNavLink } from '../nav/nav-link';
 
@@ -9,18 +11,23 @@ import { StacheRouteMetadataConfig } from './route-metadata-config';
 import { StacheRouteMetadataService } from './route-metadata.service';
 import { sortByName, sortByOrder } from './sort';
 
-interface UnformattedStacheNavLink {
+type UnformattedStacheNavLink = {
   path: string;
   segments: string[];
   children?: UnformattedStacheNavLink[];
+};
+
+function clone<T>(thing: T): T {
+  return JSON.parse(JSON.stringify(thing));
 }
 
 @Injectable()
-export class StacheRouteService {
+export class StacheRouteService implements OnDestroy {
   #activeRoutes: StacheNavLink[] | undefined;
-  #router: Router;
   #configSvc: SkyAppConfig;
+  #ngUnsubscribe = new Subject<void>();
   #routeMetadataSvc: StacheRouteMetadataService;
+  #router: Router;
 
   constructor(
     router: Router,
@@ -31,11 +38,16 @@ export class StacheRouteService {
     this.#configSvc = configSvc;
     this.#routeMetadataSvc = routeMetadataSvc;
 
-    router.events.subscribe((val) => {
+    router.events.pipe(takeUntil(this.#ngUnsubscribe)).subscribe((val) => {
       if (val instanceof NavigationStart) {
         this.clearActiveRoutes();
       }
     });
+  }
+
+  public ngOnDestroy(): void {
+    this.#ngUnsubscribe.next();
+    this.#ngUnsubscribe.complete();
   }
 
   public getActiveRoutes(): StacheNavLink[] {
@@ -45,7 +57,7 @@ export class StacheRouteService {
 
     const rootPath = this.getActiveUrl().replace(/^\//, '').split('/')[0];
 
-    const appRoutes = this.#clone(
+    const appRoutes = clone(
       (this.#configSvc.runtime?.routes as SkyAppConfigRoutes[]) || []
     );
 
@@ -66,7 +78,7 @@ export class StacheRouteService {
 
     this.#activeRoutes = this.#formatRoutes(activeRoutes);
 
-    return this.#clone(this.#activeRoutes);
+    return clone(this.#activeRoutes);
   }
 
   public getActiveUrl(): string {
@@ -75,10 +87,6 @@ export class StacheRouteService {
 
   public clearActiveRoutes(): void {
     this.#activeRoutes = undefined;
-  }
-
-  #clone<T>(thing: T): T {
-    return JSON.parse(JSON.stringify(thing));
   }
 
   #assignChildren(
@@ -109,7 +117,7 @@ export class StacheRouteService {
     const formatted = routes
       .map((route) => {
         const pathMetadata = this.#getMetadata(route);
-        return Object.assign(
+        const formattedRoute = Object.assign(
           {},
           {
             path: route.path,
@@ -121,7 +129,9 @@ export class StacheRouteService {
             ),
           },
           pathMetadata
-        ) as StacheNavLink;
+        );
+
+        return formattedRoute as StacheNavLink;
       })
       .filter((route) => route.showInNav !== false);
 
@@ -174,8 +184,11 @@ export class StacheRouteService {
       const order = route.order!;
       let newIdx = order - 1;
       const validPosition = (): boolean => newIdx < sortedRoutes.length;
-      const positionPreviouslyAssigned = (): boolean =>
-        (sortedRoutes[newIdx].order || 9999) <= order;
+      const positionPreviouslyAssigned = (): boolean => {
+        return sortedRoutes[newIdx].order === undefined
+          ? false
+          : sortedRoutes[newIdx].order <= order;
+      };
 
       if (validPosition()) {
         while (validPosition() && positionPreviouslyAssigned()) {

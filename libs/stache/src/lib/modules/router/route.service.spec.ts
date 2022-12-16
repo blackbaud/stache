@@ -152,7 +152,7 @@ class MockStacheRouteMetadataService {
     {
       path: 'order-routes/first/order-one',
       order: 1,
-      name: 'Order one',
+      name: 'Order One',
     },
     {
       path: 'order-routes/first/order-five',
@@ -313,7 +313,7 @@ describe('StacheRouteService', () => {
     expect(activeRoutes[0].children?.[0].children?.[6].name).toBe('A Three');
   });
 
-  it('should filter out all decendant routes containing showInNav: true', () => {
+  it('should filter out all descendant routes containing showInNav: true', () => {
     router.url = '/order-routes';
     const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].children?.[0].children?.[0].name).toBe('Order One');
