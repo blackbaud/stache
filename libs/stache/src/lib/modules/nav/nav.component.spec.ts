@@ -15,8 +15,8 @@ import { StacheNavModule } from './nav.module';
 describe('StacheNavComponent', () => {
   let component: StacheNavComponent;
   let fixture: ComponentFixture<StacheNavComponent>;
-  let mockWindowService: any;
-  let mockRouteService: any;
+  let mockWindowService: MockWindowService;
+  let mockRouteService: MockRouteService;
   let activeUrl: string;
   let mockRestrictedViewAuthService: MockRestrictedViewAuthService;
 
@@ -25,7 +25,7 @@ describe('StacheNavComponent', () => {
       document: {
         getElementById: jasmine
           .createSpy('getElementById')
-          .and.callFake((id: any) => {
+          .and.callFake((id) => {
             if (id === 'some-header') {
               return this.testElement;
             }
