@@ -187,6 +187,17 @@ describe('StacheLinkDirective', () => {
     expect(directiveInstance.href).toBe('https://www.google.com');
   });
 
+  it('should set stacheRouterLink input to array of strings', () => {
+    fixture.componentInstance.routerLink = ['foo', 'bar', 'baz'];
+    fixture.detectChanges();
+
+    const directiveInstance = directiveElement.injector.get(
+      StacheRouterLinkDirective
+    );
+
+    expect(directiveInstance.href).toBe('/foo/bar/baz');
+  });
+
   it('should open in new window when shift clicked', () => {
     fixture.detectChanges();
 

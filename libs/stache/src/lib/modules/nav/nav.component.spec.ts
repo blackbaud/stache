@@ -120,7 +120,7 @@ describe('StacheNavComponent', () => {
     fixture.detectChanges();
 
     expect(component.routes[0].isActive).toBe(false);
-    expect(component.routes[1].children[0].isActive).toBe(true);
+    expect(component.routes[1].children?.[0].isActive).toBe(true);
   });
 
   it('should return true if a given route is current', () => {
