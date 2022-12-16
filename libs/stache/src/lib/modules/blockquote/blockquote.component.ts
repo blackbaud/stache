@@ -1,9 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 
 @Component({
   selector: 'stache-blockquote',
   templateUrl: './blockquote.component.html',
   styleUrls: ['./blockquote.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StacheBlockquoteComponent implements OnInit {
   @Input()

@@ -47,11 +47,14 @@ describe('StacheBackToTopComponent', () => {
     expect(expectedOffsetValue).toBe(400);
   });
 
-  // This will allow documentation writers to not worry about proper attribute binding.
-  it('should parse string offsets to numbers', () => {
-    (component as any).offset = '500';
+  it('should reset offset', () => {
+    component.offset = 400;
     fixture.detectChanges();
-    expect(component.offset).toEqual(500);
+    expect(component.offset).toBe(400);
+
+    component.offset = undefined;
+    fixture.detectChanges();
+    expect(component.offset).toBe(200); // <-- default
   });
 
   it('should be hidden when the window y offset is less than the specified offset', () => {
