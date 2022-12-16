@@ -11,6 +11,7 @@ export function sortByName(a: StacheNavLink, b: StacheNavLink): number {
 }
 
 export function sortByOrder(a: StacheNavLink, b: StacheNavLink): number {
+  /*istanbul ignore if: this function is never called when order is undefined*/
   if (a.order === undefined || b.order === undefined) {
     return -1;
   }
