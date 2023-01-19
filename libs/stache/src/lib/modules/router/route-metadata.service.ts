@@ -29,6 +29,7 @@ import { STACHE_ROUTE_METADATA_SERVICE_CONFIG } from './route-metadata-service-c
  *   "showInNav": true
  * }
  * ```
+ * @internal
  */
 @Injectable()
 export class StacheRouteMetadataService {
