@@ -1,49 +1,66 @@
+import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { expect } from '@skyux-sdk/testing';
 
-import { StacheRouteMetadataConfigJson } from './route-metadata-config-json';
-import { STACHE_ROUTE_METADATA_SERVICE_CONFIG } from './route-metadata-service-config-token';
 import { StacheRouteMetadataService } from './route-metadata.service';
+
+@Component({ template: '' })
+class TestComponent {}
 
 describe('StacheRouteMetadataService', () => {
   let routeMetadataService: StacheRouteMetadataService;
-  const config: StacheRouteMetadataConfigJson[] = [
-    {
-      path: '/',
-      name: 'foo',
-      order: '1',
-    },
-    {
-      path: '/',
-      name: 'bar',
-    },
-    {
-      path: '/one',
-      name: 'one',
-      order: '-100',
-    },
-    {
-      path: '/two',
-      name: 'two',
-      order: 0,
-    },
-  ];
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [],
-      providers: [
-        {
-          provide: STACHE_ROUTE_METADATA_SERVICE_CONFIG,
-          useValue: config,
-        },
-        {
-          StacheRouteMetadataService,
-        },
+      declarations: [TestComponent],
+      imports: [
+        RouterTestingModule.withRoutes([
+          {
+            path: '',
+            component: TestComponent,
+            data: {
+              stache: {
+                name: 'foo',
+                order: '1',
+              },
+            },
+          },
+          {
+            path: '',
+            component: TestComponent,
+            data: {
+              stache: {
+                name: 'bar',
+              },
+            },
+          },
+          {
+            path: 'one',
+            component: TestComponent,
+            data: {
+              stache: {
+                name: 'one',
+                order: '-100',
+              },
+            },
+          },
+          {
+            path: 'two',
+            component: TestComponent,
+            data: {
+              stache: {
+                name: 'two',
+                order: 0,
+              },
+            },
+          },
+        ]),
       ],
+      providers: [StacheRouteMetadataService],
     });
 
-    routeMetadataService = new StacheRouteMetadataService(config);
+    routeMetadataService = TestBed.inject(StacheRouteMetadataService);
   });
 
   it('should have a routes property', () => {

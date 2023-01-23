@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Route } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { SkyAppTestUtility, expect, expectAsync } from '@skyux-sdk/testing';
 import { SkyAppConfig } from '@skyux/config';
 
@@ -25,7 +27,24 @@ describe('StacheTableOfContentsComponent', () => {
     options = { ...{ pageYOffset: 0 }, ...options };
 
     TestBed.configureTestingModule({
-      imports: [TableOfContentsTestModule],
+      imports: [
+        TableOfContentsTestModule,
+        RouterTestingModule.withRoutes(
+          options.routes.map((route) => {
+            return {
+              path: route.path,
+              component: TableOfContentsTestComponent,
+              data: {
+                stache: {
+                  name: route.name,
+                  order: route.order,
+                  showInNav: route.showInNav,
+                },
+              },
+            } as Route;
+          })
+        ),
+      ],
       providers: [{ provide: SkyAppConfig, useValue: {} }],
     });
 
@@ -101,19 +120,19 @@ describe('StacheTableOfContentsComponent', () => {
     const routes: StacheNavLink[] = [
       {
         name: 'Foo',
-        path: '/',
+        path: '',
         fragment: '#foo',
         offsetTop: 0,
       },
       {
         name: 'Bar',
-        path: '/',
+        path: '',
         fragment: '#bar',
         offsetTop: routeOffsetTop,
       },
       {
         name: 'Bar',
-        path: '/',
+        path: '',
         fragment: '#bar',
         offsetTop: routeOffsetTop + 100,
       },
@@ -138,19 +157,19 @@ describe('StacheTableOfContentsComponent', () => {
     const routes: StacheNavLink[] = [
       {
         name: 'Foo',
-        path: '/',
+        path: '',
         fragment: '#foo',
         offsetTop: 0,
       },
       {
         name: 'Bar',
-        path: '/',
+        path: '',
         fragment: '#bar',
         offsetTop: 100,
       },
       {
         name: 'Baz',
-        path: '/',
+        path: '',
         fragment: '#baz',
         offsetTop: lastRouteOffsetTop,
       },
@@ -173,17 +192,17 @@ describe('StacheTableOfContentsComponent', () => {
     const routes: StacheNavLink[] = [
       {
         name: 'Foo',
-        path: '/',
+        path: '',
         fragment: '#foo',
       },
       {
         name: 'Bar',
-        path: '/',
+        path: '',
         fragment: '#bar',
       },
       {
         name: 'Baz',
-        path: '/',
+        path: '',
         fragment: '#baz',
       },
     ];
@@ -205,12 +224,12 @@ describe('StacheTableOfContentsComponent', () => {
       routes: [
         {
           name: 'Foo',
-          path: '/',
+          path: '',
           fragment: '#foo',
         },
         {
           name: 'Bar',
-          path: '/',
+          path: '',
           fragment: '#bar',
         },
       ],
