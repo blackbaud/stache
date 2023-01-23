@@ -66,7 +66,7 @@ export class StacheRouteMetadataService implements OnDestroy {
     const path = basePath + route.path;
     const data: StacheRouteMetadataConfigJson = {
       path,
-      ...route.data?.stache,
+      ...(route.data['stache'] || {}),
     };
     if (data) {
       const json = this.#validateNavOrder(data);
