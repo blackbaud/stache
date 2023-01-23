@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { RouterPreloader } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { expect } from '@skyux-sdk/testing';
+
+import { BehaviorSubject } from 'rxjs';
 
 import { StacheRouteMetadataService } from './route-metadata.service';
 
@@ -25,6 +28,17 @@ describe('StacheRouteMetadataService', () => {
                 order: '1',
               },
             },
+            children: [
+              {
+                path: '',
+                component: TestComponent,
+                data: {
+                  stache: {
+                    order: 0,
+                  },
+                },
+              },
+            ],
           },
           {
             path: '',
@@ -36,6 +50,10 @@ describe('StacheRouteMetadataService', () => {
             },
           },
           {
+            path: 'no-data',
+            component: TestComponent,
+          },
+          {
             path: 'one',
             component: TestComponent,
             data: {
@@ -44,20 +62,30 @@ describe('StacheRouteMetadataService', () => {
                 order: '-100',
               },
             },
-          },
-          {
-            path: 'two',
-            component: TestComponent,
-            data: {
-              stache: {
-                name: 'two',
-                order: 0,
+            children: [
+              {
+                path: 'two',
+                component: TestComponent,
+                data: {
+                  stache: {
+                    name: 'two',
+                    order: 0,
+                  },
+                },
               },
-            },
+            ],
           },
         ]),
       ],
-      providers: [StacheRouteMetadataService],
+      providers: [
+        StacheRouteMetadataService,
+        {
+          provide: RouterPreloader,
+          useValue: {
+            preload: () => new BehaviorSubject(undefined),
+          },
+        },
+      ],
     });
 
     routeMetadataService = TestBed.inject(StacheRouteMetadataService);

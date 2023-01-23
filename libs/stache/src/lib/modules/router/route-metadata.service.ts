@@ -15,9 +15,6 @@ import { StacheRouteMetadataConfigJson } from './route-metadata-config-json';
 @Injectable()
 export class StacheRouteMetadataService implements OnDestroy {
   public metadata: StacheRouteMetadataConfig[] = [];
-  public get routes(): Route[] {
-    return this.#router.config;
-  }
 
   #router: Router;
   #subscriptions = new Subscription();
@@ -66,7 +63,7 @@ export class StacheRouteMetadataService implements OnDestroy {
     const path = basePath + route.path;
     const data: StacheRouteMetadataConfigJson = {
       path,
-      ...(route.data['stache'] || {}),
+      ...(route.data ? route.data['stache'] : {}),
     };
     if (data) {
       const json = this.#validateNavOrder(data);
