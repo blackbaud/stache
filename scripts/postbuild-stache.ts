@@ -1,11 +1,15 @@
 import fs from 'fs-extra';
 import path from 'path';
 
+import { runCommand } from './utils/spawn';
+
+const CWD = process.cwd();
+
 function copyFilesToDist() {
   const pathsToCopy = [
     ['collection.json'],
-    ['/src/schematics/migrations/migration-collection.json'],
-    ['/src/schematics/ng-add/schema.json'],
+    ['/schematics/migrations/migration-collection.json'],
+    ['/schematics/ng-add/schema.json'],
   ];
 
   pathsToCopy.forEach((pathArr) => {
@@ -23,14 +27,26 @@ function copyFilesToDist() {
   });
 }
 
-function postBuildPackages() {
-  console.log('Running @blackbaud/skyux-lib-stache postbuild step...');
+async function buildSchematics() {
+  console.log('Building @blackbaud/skyux-lib-stache schematics...');
+
+  await runCommand(path.resolve(CWD, 'node_modules/.bin/tsc'), [
+    '--project',
+    'libs/stache/tsconfig.schematics.json',
+  ]);
+
+  copyFilesToDist();
+
+  console.log('Done.');
+}
+
+async function postbuildI18n() {
   try {
-    copyFilesToDist();
+    await buildSchematics();
   } catch (err) {
-    console.error('[postbuild-stache error]', err);
+    console.error('[postbuild-i18n error]', err);
     process.exit(1);
   }
 }
 
-postBuildPackages();
+postbuildI18n();

@@ -7,7 +7,7 @@ import path from 'path';
 
 import { createTestLibrary } from '../testing/scaffold';
 
-const COLLECTION_PATH = path.resolve(__dirname, '../../../collection.json');
+const COLLECTION_PATH = path.resolve(__dirname, '../../collection.json');
 
 describe('ng-add.schematic', () => {
   const runner = new SchematicTestRunner('schematics', COLLECTION_PATH);
