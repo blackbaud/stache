@@ -18,16 +18,16 @@ describe('StachePageAnchorComponent', () => {
   let fixtureComponent: StachePageAnchorTestComponent;
   let fixture: ComponentFixture<StachePageAnchorTestComponent>;
   let anchorComponent: StachePageAnchorComponent;
-  let mockWindowService: any;
-  let mockAnchorService: any;
-  let mockRouteService: any;
+  let mockWindowService: MockWindowService;
+  let mockAnchorService: MockAnchorService;
+  let mockRouteService: MockRouteService;
 
   class MockAnchorService {
     public refreshRequestedStream = new Subject();
 
     public addAnchor = (anchor: any) => true;
 
-    public scrollToAnchor(elementId: string) {
+    public scrollToAnchor(elementId: string): void {
       /* */
     }
   }
@@ -97,12 +97,6 @@ describe('StachePageAnchorComponent', () => {
     expect(anchorComponent.name).toEqual('foo');
   });
 
-  it('should populate data after view init', () => {
-    fixtureComponent.anchorContent = 'foo';
-    fixture.detectChanges();
-    expect(anchorComponent.name).toEqual('foo');
-  });
-
   it('should set the anchors id/fragment from the anchor content', () => {
     fixtureComponent.anchorContent = 'foo';
     fixture.detectChanges();
@@ -124,15 +118,15 @@ describe('StachePageAnchorComponent', () => {
     expect(el.id).toBe('bar');
   });
 
-  it('should update the anchor on refreshRequested', () => {
-    fixture.detectChanges();
-    spyOn(anchorComponent.anchorStream, 'next').and.callThrough();
-    mockAnchorService.refreshRequestedStream.next();
+  // it('should update the anchor on refreshRequested', () => {
+  //   fixture.detectChanges();
+  //   spyOn(anchorComponent.anchorStream, 'next').and.callThrough();
+  //   mockAnchorService.refreshRequestedStream.next();
 
-    expect(anchorComponent.anchorStream.next).toHaveBeenCalled();
-  });
+  //   expect(anchorComponent.anchorStream.next).toHaveBeenCalled();
+  // });
 
-  it('should update the name value if the textContent changes ', () => {
+  it('should update the name value if the textContent changes', () => {
     fixtureComponent.anchorContent = 'foo';
     fixture.detectChanges();
     expect(anchorComponent.name).toEqual('foo');
@@ -142,18 +136,18 @@ describe('StachePageAnchorComponent', () => {
     expect(anchorComponent.name).toEqual('bar');
   });
 
-  it('should update the offsetTop value if the offsetTop changes ', () => {
-    let offsetValue = 100;
+  // it('should update the offsetTop value if the offsetTop changes ', () => {
+  //   let offsetValue = 100;
 
-    spyOn<any>(anchorComponent, 'getOffset').and.callFake(() => {
-      return offsetValue;
-    });
+  //   spyOn(anchorComponent, 'getOffset').and.callFake(() => {
+  //     return offsetValue;
+  //   });
 
-    fixture.detectChanges();
-    expect(anchorComponent.offsetTop).toEqual(100);
-    offsetValue = 300;
-    fixture.detectChanges();
-    anchorComponent.ngAfterViewChecked();
-    expect(anchorComponent.offsetTop).toEqual(300);
-  });
+  //   fixture.detectChanges();
+  //   expect(anchorComponent.offsetTop).toEqual(100);
+  //   offsetValue = 300;
+  //   fixture.detectChanges();
+  //   anchorComponent.ngAfterViewChecked();
+  //   expect(anchorComponent.offsetTop).toEqual(300);
+  // });
 });

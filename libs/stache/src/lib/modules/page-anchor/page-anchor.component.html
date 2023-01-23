@@ -1,8 +1,8 @@
-<div [attr.id]="fragment" class="stache-page-anchor">
+<div class="stache-page-anchor" [attr.id]="fragment">
   <a
-    routerLink="{{ path }}"
-    fragment="{{ fragment }}"
     queryParamsHandling="merge"
+    [fragment]="fragment"
+    [routerLink]="path"
     (click)="scrollToAnchor()"
   >
     <h2 class="stache-page-anchor-heading">

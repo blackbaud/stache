@@ -63,9 +63,9 @@ export class StachePageAnchorService implements OnDestroy {
   public ngOnDestroy(): void {
     this.#ngUnsubscribe.next();
     this.#ngUnsubscribe.complete();
-    this.#pageAnchors$.forEach((o) => o.complete());
-    this.#pageAnchorsStream$.complete();
-    this.#refreshRequestedStream$.complete();
+    // this.#pageAnchors$.forEach((o) => o.complete());
+    // this.#pageAnchorsStream$.complete();
+    // this.#refreshRequestedStream$.complete();
   }
 
   public refreshAnchors(): void {

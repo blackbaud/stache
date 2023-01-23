@@ -35,19 +35,16 @@ export class StachePageAnchorComponent
   @Input()
   public anchorId: string | undefined;
 
-  public name = '';
   public fragment = '';
+  public name = '';
   public path: string[] = [];
-  public offsetTop = 0;
-  public anchorStream = new BehaviorSubject<StacheNavLink>({
-    name: this.name,
-    path: '/',
-  });
 
+  #anchorStream: BehaviorSubject<StacheNavLink>;
   #anchorSvc: StachePageAnchorService;
   #changeDetectorRef: ChangeDetectorRef;
   #elementRef: ElementRef;
   #ngUnsubscribe = new Subject<void>();
+  #offsetTop = 0;
   #routeSvc: StacheRouteService;
   #textContent = '';
 
@@ -61,6 +58,11 @@ export class StachePageAnchorComponent
     this.#anchorSvc = anchorSvc;
     this.#changeDetectorRef = changeDetectorRef;
     this.#routeSvc = routeSvc;
+
+    this.#anchorStream = new BehaviorSubject<StacheNavLink>({
+      name: this.name,
+      path: '/',
+    });
   }
 
   public scrollToAnchor(): void {
@@ -78,19 +80,19 @@ export class StachePageAnchorComponent
   public ngAfterViewInit(): void {
     this.path = [this.#routeSvc.getActiveUrl()];
     this.#updatePageAnchor();
-    this.#anchorSvc.addAnchor(this.anchorStream);
+    this.#anchorSvc.addAnchor(this.#anchorStream);
     this.#changeDetectorRef.detectChanges();
   }
 
   public ngOnDestroy(): void {
     this.#ngUnsubscribe.next();
     this.#ngUnsubscribe.complete();
-    this.anchorStream.complete();
+    this.#anchorStream.complete();
   }
 
   public ngAfterContentInit(): void {
     this.#textContent = this.#elementRef.nativeElement.textContent;
-    this.offsetTop = this.#getOffset(this.#elementRef.nativeElement);
+    this.#offsetTop = this.#getOffset(this.#elementRef.nativeElement);
   }
 
   public ngAfterViewChecked(): void {
@@ -99,7 +101,7 @@ export class StachePageAnchorComponent
 
     if (
       currentContent !== this.#textContent ||
-      currentOffset !== this.offsetTop
+      currentOffset !== this.#offsetTop
     ) {
       this.#textContent = currentContent;
       this.#updatePageAnchor();
@@ -110,16 +112,16 @@ export class StachePageAnchorComponent
     const element = this.#elementRef.nativeElement;
     this.name = this.#getName(element);
     this.fragment = this.anchorId || this.#getFragment(this.name);
-    this.offsetTop = this.#getOffset(element);
+    this.#offsetTop = this.#getOffset(element);
   }
 
   #updatePageAnchor(): void {
     this.#setValues();
-    this.anchorStream.next({
+    this.#anchorStream.next({
       path: this.path,
       name: this.name,
       fragment: this.fragment,
-      offsetTop: this.offsetTop,
+      offsetTop: this.#offsetTop,
     });
     this.#changeDetectorRef.detectChanges();
   }
