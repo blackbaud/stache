@@ -2,7 +2,7 @@ import path from 'path';
 
 import { runCommand } from './utils/spawn';
 
-async function posttestI18n() {
+async function posttest() {
   console.log('Testing library schematics...');
 
   try {
@@ -27,4 +27,4 @@ async function posttestI18n() {
   }
 }
 
-posttestI18n();
+posttest();

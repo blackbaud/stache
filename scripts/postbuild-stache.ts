@@ -40,7 +40,7 @@ async function buildSchematics() {
   console.log('Done.');
 }
 
-async function postbuildI18n() {
+async function postbuild() {
   try {
     await buildSchematics();
   } catch (err) {
@@ -49,4 +49,4 @@ async function postbuildI18n() {
   }
 }
 
-postbuildI18n();
+postbuild();
