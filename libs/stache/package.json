@@ -6,7 +6,7 @@
     "save": "dependencies"
   },
   "ng-update": {
-    "migrations": "./src/schematics/migrations/migration-collection.json",
+    "migrations": "./schematics/migrations/migration-collection.json",
     "packageGroup": {
       "@blackbaud/skyux-lib-clipboard": "0.0.0-PLACEHOLDER",
       "@blackbaud/skyux-lib-code-block": "0.0.0-PLACEHOLDER",
