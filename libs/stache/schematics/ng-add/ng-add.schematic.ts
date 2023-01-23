@@ -22,7 +22,7 @@ function installEssentialSkyUxPackages(skyuxVersion: string): Rule {
       addPackageJsonDependency(tree, {
         type: NodeDependencyType.Default,
         name: packageName,
-        version: `^${skyuxVersion}`,
+        version: skyuxVersion,
         overwrite: true,
       });
     }
@@ -31,10 +31,13 @@ function installEssentialSkyUxPackages(skyuxVersion: string): Rule {
 
 export default function ngAdd(): Rule {
   return async (_tree, context) => {
-    // Get the currently installed version of SKY UX.
-    const { version: skyuxVersion } = fs.readJsonSync(
+    // Get the preferred version of SKY UX found in the "peerDependencies" section of
+    // @blackbaud/skyux-lib-stache package.json.
+    const packageJson = fs.readJsonSync(
       path.resolve(__dirname, '../../package.json')
     );
+
+    const skyuxVersion = packageJson.peerDependencies['@skyux/core'];
 
     context.addTask(new NodePackageInstallTask());
 
