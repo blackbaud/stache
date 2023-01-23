@@ -18,7 +18,8 @@ jobs:
           package-name: 'stache'
           pull-request-title-pattern: 'chore: release ${version}'
           labels: 'autorelease ${{ github.ref_name }}: pending'
-          release-as: '7.1.0'
+          prerelease: true
+          release-as: '8.0.0-alpha.0'
           release-labels: 'autorelease ${{ github.ref_name }}: tagged'
           draft-pull-request: true
           include-v-in-tag: false

@@ -1,6 +1,19 @@
 {
   "name": "@blackbaud/skyux-lib-stache",
   "version": "0.0.0-PLACEHOLDER",
+  "schematics": "./collection.json",
+  "ng-add": {
+    "save": "dependencies"
+  },
+  "ng-update": {
+    "migrations": "./src/schematics/migrations/migration-collection.json",
+    "packageGroup": {
+      "@blackbaud/skyux-lib-clipboard": "0.0.0-PLACEHOLDER",
+      "@blackbaud/skyux-lib-code-block": "0.0.0-PLACEHOLDER",
+      "@blackbaud/skyux-lib-media": "0.0.0-PLACEHOLDER",
+      "@blackbaud/skyux-lib-stache": "0.0.0-PLACEHOLDER"
+    }
+  },
   "peerDependencies": {
     "@angular/common": "^14.2.12",
     "@angular/core": "^14.2.12",

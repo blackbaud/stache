@@ -1,6 +1,6 @@
 {
   "name": "stache",
-  "version": "7.0.0",
+  "version": "8.0.0-alpha.0",
   "license": "MIT",
   "scripts": {
     "ng": "nx",
@@ -99,6 +99,7 @@
     "@skyux-sdk/testing": "7.0.0",
     "@skyux/dev-infra-private": "github:blackbaud/skyux-dev-infra-private-builds#2.4.0",
     "@trivago/prettier-plugin-sort-imports": "4.0.0",
+    "@types/fs-extra": "11.0.1",
     "@types/jasmine": "4.0.3",
     "@types/lodash.get": "4.4.2",
     "@types/node": "16.11.7",
@@ -107,6 +108,7 @@
     "@typescript-eslint/parser": "5.45.1",
     "eslint": "8.15.0",
     "eslint-config-prettier": "8.1.0",
+    "fs-extra": "11.1.0",
     "jasmine-core": "4.2.0",
     "jasmine-spec-reporter": "7.0.0",
     "karma": "6.4.1",
