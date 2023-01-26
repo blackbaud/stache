@@ -1,292 +1,327 @@
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
-import { SkyAppConfig } from '@skyux/config';
+import { Component, NgModule } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import {
+  NavigationEnd,
+  PreloadAllModules,
+  Route,
+  Router,
+  RouterModule,
+  RouterPreloader,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import { of as observableOf } from 'rxjs';
+import { Observable, of as observableOf, of } from 'rxjs';
 
-import { StacheRouteMetadataConfig } from './route-metadata-config';
-import { StacheRouteMetadataService } from './route-metadata.service';
 import { StacheRouteService } from './route.service';
 
-class MockStacheConfigService {
-  public runtime: { routes: { routePath: string }[] } | undefined = {
-    routes: [
-      {
-        routePath: '',
+class MockRouterPreloader {
+  public preload(): Observable<any> {
+    return observableOf({});
+  }
+}
+
+@Component({ template: '' })
+class MockComponent {}
+
+@NgModule({
+  imports: [
+    RouterModule.forChild([{ path: 'async', component: MockComponent }]),
+  ],
+  exports: [RouterModule],
+})
+class MockRouterModule {}
+
+const mockRoutes: Route[] = [
+  {
+    path: 'other-parent',
+    component: MockComponent,
+    data: {
+      stache: {
+        name: 'Custom Route Name',
       },
+    },
+    children: [
       {
-        routePath: 'order-routes',
-      },
-      {
-        routePath: 'order-routes/first',
-      },
-      {
-        routePath: 'order-routes/first/order-one',
-      },
-      {
-        routePath: 'order-routes/first/order-two',
-      },
-      {
-        routePath: 'order-routes/first/order-three',
-      },
-      {
-        routePath: 'order-routes/first/order-four',
-      },
-      {
-        routePath: 'order-routes/first/order-five',
-      },
-      {
-        routePath: 'order-routes/first/sample',
-      },
-      {
-        routePath: 'order-routes/first/sample-two',
-      },
-      {
-        routePath: 'order-routes/first/hidden-child',
-      },
-      {
-        routePath: 'order-routes/first/shown-child',
-      },
-      {
-        routePath: 'order-routes/third',
-      },
-      {
-        routePath: 'order-routes/second',
-      },
-      {
-        routePath: 'order-routes/fourth',
-      },
-      {
-        routePath: 'order-routes/shown-child',
-      },
-      {
-        routePath: 'order-routes/hidden-child',
-      },
-      {
-        routePath: 'parent',
-      },
-      {
-        routePath: 'parent/child',
-      },
-      {
-        routePath: 'parent/child/grandchild',
-      },
-      {
-        routePath: 'parent/child/grandchild/grand-grandchild',
-      },
-      {
-        routePath: 'other-parent',
-      },
-      {
-        routePath: 'other-parent/other-child',
-      },
-      {
-        routePath: 'other-parent/other-child/other-grandchild',
-      },
-      {
-        routePath: 'testing-children',
-      },
-      {
-        routePath: 'testing-children/child',
-      },
-      {
-        routePath: 'testing-children1',
-      },
-      {
-        routePath: 'testing-children1/child',
-      },
-      {
-        routePath: 'testing-children2',
-      },
-      {
-        routePath: 'testing-children2/child',
+        path: 'sub',
+        component: MockComponent,
+        data: {
+          stache: {
+            name: 'Subby McSubface',
+          },
+        },
       },
     ],
-  };
-  public skyux: unknown = {};
-}
-
-class MockRouter {
-  public url = '/parent/child/grandchild';
-  public events = observableOf(new NavigationStart(0, ''));
-}
-
-class MockStacheRouteMetadataService {
-  public metadata: StacheRouteMetadataConfig[] | undefined = [
-    {
-      path: 'other-parent',
-      name: 'Custom Route Name',
+  },
+  {
+    path: 'order-routes',
+    component: MockComponent,
+    data: {
+      stache: {
+        name: 'Order Routes',
+      },
     },
-    {
-      path: 'order-routes/first',
-      name: 'A First',
+  },
+  {
+    path: 'order-routes/first',
+    component: MockComponent,
+    data: {
+      stache: {
+        name: 'A First',
+      },
     },
-    {
-      path: 'order-routes/hidden-child',
-      showInNav: false,
-      name: 'Z Hidden Route',
+  },
+  {
+    path: 'order-routes/first/order-two',
+    component: MockComponent,
+    data: {
+      stache: {
+        name: 'B Three',
+        order: 2,
+      },
     },
-    {
-      path: 'order-routes/shown-child',
-      showInNav: true,
-      name: 'Z Shown route',
+  },
+  {
+    path: 'order-routes/first/order-one',
+    component: MockComponent,
+    data: {
+      stache: {
+        name: 'Order One',
+        order: 1,
+      },
     },
-    {
-      path: 'order-routes/third',
-      name: 'C Third',
+  },
+  {
+    path: 'order-routes/first/order-five',
+    component: MockComponent,
+    data: {
+      stache: {
+        name: 'A',
+      },
     },
-    {
-      path: 'order-routes/second',
-      name: 'B Second',
+  },
+  {
+    path: 'order-routes/first/order-three',
+    component: MockComponent,
+    data: {
+      stache: {
+        name: 'B Three',
+        order: 3,
+      },
     },
-    {
-      path: 'order-routes/fourth',
-      name: 'fourth route',
-      order: 4,
+  },
+  {
+    path: 'order-routes/hidden-child',
+    component: MockComponent,
+    data: {
+      stache: {
+        name: 'Z Hidden Route',
+        showInNav: false,
+      },
     },
-    {
-      path: 'order-routes/first/order-two',
-      order: 2,
-      name: 'B Three',
+  },
+  {
+    path: 'order-routes/shown-child',
+    component: MockComponent,
+    data: {
+      stache: {
+        name: 'Z Shown route',
+        showInNav: true,
+      },
     },
-    {
-      path: 'order-routes/first/order-one',
-      order: 1,
-      name: 'Order One',
+  },
+  {
+    path: 'order-routes/third',
+    component: MockComponent,
+    data: {
+      stache: {
+        name: 'C Third',
+      },
     },
-    {
-      path: 'order-routes/first/order-five',
-      name: 'A',
+  },
+  {
+    path: 'order-routes/second',
+    component: MockComponent,
+    data: {
+      stache: {
+        name: 'B Second',
+      },
     },
-    {
-      path: 'order-routes/first/order-three',
-      order: 3,
-      name: 'B Three',
+  },
+  {
+    path: 'order-routes/fourth',
+    component: MockComponent,
+    data: {
+      stache: {
+        name: 'fourth route',
+        order: 4,
+      },
     },
-    {
-      path: 'order-routes/first/hidden-child',
-      showInNav: false,
-      name: 'Hidden grandchild route',
-      order: 9999,
+  },
+  {
+    path: 'order-routes/first/hidden-child',
+    component: MockComponent,
+    data: {
+      stache: {
+        name: 'Hidden grandchild route',
+        showInNav: false,
+        order: 9999,
+      },
     },
-    {
-      path: 'order-routes/first/shown-child',
-      showInNav: true,
-      name: 'Shown grandchild route',
-      order: 99999,
+  },
+  {
+    path: 'order-routes/first/shown-child',
+    component: MockComponent,
+    data: {
+      stache: {
+        name: 'Shown grandchild route',
+        showInNav: true,
+        order: 99999,
+      },
     },
-    {
-      path: 'order-routes/first/sample',
-      order: 4,
-      name: 'A Three',
+  },
+  {
+    path: 'order-routes/first/sample',
+    component: MockComponent,
+    data: {
+      stache: {
+        name: 'A Three',
+        order: 4,
+      },
     },
-    {
-      path: 'order-routes/first/order-four',
-      order: 3,
-      name: 'A Three',
+  },
+  {
+    path: 'order-routes/first/order-four',
+    component: MockComponent,
+    data: {
+      stache: {
+        name: 'A Three',
+        order: 3,
+      },
     },
-    {
-      path: 'order-routes/first/sample-two',
-      order: 999,
-      name: 'A Three',
+  },
+  {
+    path: 'order-routes/first/sample-two',
+    component: MockComponent,
+    data: {
+      stache: {
+        name: 'A Three',
+        order: 999,
+      },
     },
-  ];
-}
+  },
+  {
+    path: 'order-routes/async',
+    loadChildren: () => Promise.resolve(MockRouterModule),
+  },
+];
 
 describe('StacheRouteService', () => {
   let routeService: StacheRouteService;
-  let configService: MockStacheConfigService;
-  let router: MockRouter;
-  let routeMetadataService: MockStacheRouteMetadataService;
+  let router: Router;
+  let routerPreloader: MockRouterPreloader;
 
-  beforeEach(() => {
-    configService = new MockStacheConfigService();
-    router = new MockRouter();
-    routeMetadataService = new MockStacheRouteMetadataService();
-
+  async function setupTest(
+    options: { routes?: Route[] | undefined } = {}
+  ): Promise<void> {
+    routerPreloader = new MockRouterPreloader();
+    TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule.withRoutes(
+          'routes' in options ? options.routes : mockRoutes,
+          { preloadingStrategy: PreloadAllModules }
+        ),
+      ],
+      providers: [
+        {
+          provide: RouterPreloader,
+          useValue: routerPreloader,
+        },
+      ],
+    });
+    router = TestBed.inject(Router);
     routeService = new StacheRouteService(
       router as Router,
-      configService as unknown as SkyAppConfig,
-      routeMetadataService as StacheRouteMetadataService
+      routerPreloader as RouterPreloader
     );
-  });
+    await router.navigateByUrl('/other-parent');
+  }
 
-  it('should not include child routes from similar parents (a, a1, a2)', () => {
-    router.url = '/testing-children';
+  it('should not include child routes from similar parents (a, a1, a2)', async () => {
+    await setupTest();
+    await router.navigateByUrl('/other-parent');
     const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].children?.length).toBe(1);
   });
 
-  it('should only assemble the active routes once', () => {
+  it('should only assemble the active routes once', async () => {
+    await setupTest();
     let activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].children?.length).toBe(1);
 
-    configService.runtime = { routes: [] };
+    const router = TestBed.inject(Router);
+    router.resetConfig([]);
+
     activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].children?.length).toBe(1);
   });
 
-  it('should handle missing config.runtime', () => {
-    delete configService.runtime;
-
-    const activeRoutes = routeService.getActiveRoutes();
-    expect(activeRoutes[0].children?.length).toBe(0);
-  });
-
-  it('should only unset the active routes on NavigationStart', () => {
+  it('should not unset the active routes on NavigationEnd', async () => {
+    await setupTest();
     (router as any).events = observableOf(new NavigationEnd(0, '', ''));
     spyOn(StacheRouteService.prototype, 'clearActiveRoutes');
     routeService = new StacheRouteService(
       router as Router,
-      configService as unknown as SkyAppConfig,
-      routeMetadataService as StacheRouteMetadataService
+      routerPreloader as RouterPreloader
     );
     expect(
       StacheRouteService.prototype.clearActiveRoutes
     ).not.toHaveBeenCalled();
   });
 
-  it('should return the active URL', () => {
+  it('should return the active URL', async () => {
+    await setupTest();
     const url = routeService.getActiveUrl();
     expect(url).toBe(router.url);
   });
 
-  it('should order routes in hierarchies', () => {
+  it('should order routes in hierarchies', async () => {
+    await setupTest();
+    await router.navigateByUrl('/order-routes/first/order-one');
     const activeRoutes = routeService.getActiveRoutes();
-    expect(activeRoutes[0].path).toBe('parent');
-    expect(activeRoutes[0].children?.[0].path).toBe('parent/child');
+    expect(activeRoutes[0].path).toBe('order-routes');
+    expect(activeRoutes[0].children?.[0].path).toBe('order-routes/first');
     expect(activeRoutes[0].children?.[0].children?.[0].path).toBe(
-      'parent/child/grandchild'
+      'order-routes/first/order-one'
     );
   });
 
-  it("should create the route's name from the path by default", () => {
+  it("should create the route's name from the path by default", async () => {
+    await setupTest();
+    await router.navigateByUrl('/order-routes/first/order-one');
     const activeRoutes = routeService.getActiveRoutes();
-    expect(activeRoutes[0].name).toBe('Parent');
-    expect(activeRoutes[0].children?.[0].name).toBe('Child');
-    expect(activeRoutes[0].children?.[0].children?.[0].name).toBe('Grandchild');
+    expect(activeRoutes[0].name).toBe('Order Routes');
+    expect(activeRoutes[0].children?.[0].name).toBe('A First');
+    expect(activeRoutes[0].children?.[0].children?.[0].name).toBe('Order One');
   });
 
-  it("should use the route's name provided in route metadata service", () => {
-    router.url = '/other-parent';
+  it("should use the route's name provided in route metadata service", async () => {
+    await setupTest();
+    await router.navigateByUrl('/other-parent');
     const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].name).toBe('Custom Route Name');
   });
 
-  it('should handle an undefined routes property in route metadata service', () => {
-    delete routeMetadataService.metadata;
-    const activeRoutes = routeService.getActiveRoutes();
-    expect(activeRoutes[0].name).toBe('Parent');
-  });
-
-  it('should order routes alphabetically by name', () => {
-    router.url = '/order-routes';
+  it('should order routes alphabetically by name', async () => {
+    await setupTest();
+    await router.navigateByUrl('/order-routes');
     const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].children?.[0].name).toBe('A First');
     expect(activeRoutes[0].children?.[2].name).toBe('C Third');
   });
 
-  it('should filter out routes with showInNav: false', () => {
-    router.url = '/order-routes';
+  it('should filter out routes with showInNav: false', async () => {
+    await setupTest();
+    await router.navigateByUrl('/order-routes');
     const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].children?.[0].name).toBe('A First');
     expect(activeRoutes[0].children?.[2].name).toBe('C Third');
@@ -305,15 +340,17 @@ describe('StacheRouteService', () => {
     });
   });
 
-  it('should arrange routes in their nav Order locations', () => {
-    router.url = '/order-routes';
+  it('should arrange routes in their nav Order locations', async () => {
+    await setupTest();
+    await router.navigateByUrl('/order-routes');
     const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].children?.[0].children?.[0].name).toBe('Order One');
     expect(activeRoutes[0].children?.[0].children?.[6].name).toBe('A Three');
   });
 
-  it('should filter out all descendant routes containing showInNav: true', () => {
-    router.url = '/order-routes';
+  it('should filter out all descendant routes containing showInNav: true', async () => {
+    await setupTest();
+    await router.navigateByUrl('/order-routes');
     const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].children?.[0].children?.[0].name).toBe('Order One');
     expect(activeRoutes[0].children?.[0].children?.[6].name).toBe('A Three');
@@ -334,8 +371,9 @@ describe('StacheRouteService', () => {
     });
   });
 
-  it('should order routes with the same navOrder alphabetically', () => {
-    router.url = '/order-routes';
+  it('should order routes with the same navOrder alphabetically', async () => {
+    await setupTest();
+    await router.navigateByUrl('/order-routes');
     const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].children?.[0].children?.[2].name).toBe('A Three');
     expect(activeRoutes[0].children?.[0].children?.[2].order).toBe(3);
@@ -343,8 +381,9 @@ describe('StacheRouteService', () => {
     expect(activeRoutes[0].children?.[0].children?.[3].order).toBe(3);
   });
 
-  it('should place routes in their assigned order, skipping non ordered routes', () => {
-    router.url = '/order-routes';
+  it('should place routes in their assigned order, skipping non ordered routes', async () => {
+    await setupTest();
+    await router.navigateByUrl('/order-routes');
     const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].children?.[0].children?.[5].name).toBe('A');
     expect(activeRoutes[0].children?.[0].children?.[5].order).toBe(undefined);

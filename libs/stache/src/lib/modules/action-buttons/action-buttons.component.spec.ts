@@ -5,6 +5,8 @@ import { Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { expect, expectAsync } from '@skyux-sdk/testing';
 
+import { Subject } from 'rxjs';
+
 import { StacheRouteService } from '../router/route.service';
 
 import { StacheActionButtonsComponent } from './action-buttons.component';
@@ -34,6 +36,8 @@ describe('StacheActionButtonsComponent', () => {
   ];
 
   class MockRouteService {
+    public readonly updated$ = new Subject<void>();
+
     public getActiveRoutes(): Routes {
       return mockRoutes;
     }

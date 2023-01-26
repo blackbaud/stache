@@ -1,31 +1,74 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { SpyLocation } from '@angular/common/testing';
+import { Component, NgModule } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Routes } from '@angular/router';
+import { Router, RouterModule, RouterPreloader } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { expect } from '@skyux-sdk/testing';
 
-import { StacheRouteMetadataService } from '../router/route-metadata.service';
+import { firstValueFrom } from 'rxjs';
+
 import { StacheRouteService } from '../router/route.service';
 
 import { StacheBreadcrumbsComponent } from './breadcrumbs.component';
 import { StacheBreadcrumbsModule } from './breadcrumbs.module';
 
+@Component({ template: '' })
+class TestComponent {}
+
+@NgModule({
+  imports: [
+    RouterModule.forChild([
+      {
+        path: 'async',
+        component: TestComponent,
+        data: { stache: { name: 'Async' } },
+      },
+    ]),
+  ],
+  exports: [RouterModule],
+})
+class TestModule {}
+
 describe('StacheBreadcrumbsComponent', () => {
   let component: StacheBreadcrumbsComponent;
   let fixture: ComponentFixture<StacheBreadcrumbsComponent>;
-
-  let mockRoutes = [
+  const baseRoutes = [
     {
       path: '',
+      component: TestComponent,
+      data: {
+        stache: {
+          name: 'Top Level',
+        },
+      },
       children: [
         {
           path: 'parent',
+          component: TestComponent,
+          data: {
+            stache: {
+              name: 'Parent Level',
+            },
+          },
           children: [
             {
-              path: 'parent/child',
+              path: 'child',
+              component: TestComponent,
+              data: {
+                stache: {
+                  name: 'Child Level',
+                },
+              },
               children: [
                 {
-                  path: 'parent/child/grandchild',
+                  path: 'grandchild',
+                  component: TestComponent,
+                  data: {
+                    stache: {
+                      name: 'Grandchild Level',
+                    },
+                  },
                 },
               ],
             },
@@ -35,25 +78,16 @@ describe('StacheBreadcrumbsComponent', () => {
     },
   ];
 
-  let mockActiveUrl = '';
-
-  class MockRouteService {
-    public getActiveRoutes(): Routes {
-      return mockRoutes;
-    }
-    public getActiveUrl(): string {
-      return mockActiveUrl;
-    }
-  }
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [],
-      imports: [RouterTestingModule, StacheBreadcrumbsModule],
-      providers: [
-        { provide: StacheRouteService, useClass: MockRouteService },
-        { provide: StacheRouteMetadataService, useValue: { routes: [] } },
+      imports: [
+        RouterTestingModule.withRoutes(baseRoutes, {
+          initialNavigation: 'disabled',
+        }),
+        StacheBreadcrumbsModule,
       ],
+      providers: [SpyLocation],
     });
 
     fixture = TestBed.createComponent(StacheBreadcrumbsComponent);
@@ -66,13 +100,12 @@ describe('StacheBreadcrumbsComponent', () => {
 
   it('should only have one route on base root path', () => {
     component.routes = undefined;
-    mockActiveUrl = '';
-    mockRoutes = [
+    TestBed.inject(Router).resetConfig([
       {
         path: '',
         children: [],
       },
-    ];
+    ]);
     fixture.detectChanges();
     const links = fixture.debugElement.queryAll(By.css('.stache-nav-anchor'));
 
@@ -91,40 +124,28 @@ describe('StacheBreadcrumbsComponent', () => {
     expect(links.length).toBe(2);
   });
 
-  it('should generate child routes from SkyAppConfig', () => {
-    mockActiveUrl = '/parent/child';
-    mockRoutes = [
-      {
-        path: 'parent',
-        children: [
-          {
-            path: 'parent/child',
-            children: [
-              {
-                path: 'parent/child/grandchild',
-                children: [],
-              },
-            ],
-          },
-        ],
-      },
-    ];
+  it('should generate child routes from Router', async () => {
+    const router = TestBed.inject(Router);
+    router.resetConfig(baseRoutes[0].children);
+    await fixture.ngZone.run(() => router.navigateByUrl('/parent/child'));
     component.ngOnInit();
-    fixture.detectChanges();
     expect(component.routes?.length).toBe(3);
   });
 
-  it('should not generate routes beyond the current path', () => {
-    mockActiveUrl = '/parent/child';
+  it('should not generate routes beyond the current path', async () => {
+    const router = TestBed.inject(Router);
+    await fixture.ngZone.run(() => router.navigateByUrl('/parent/child'));
     component.ngOnInit();
-    fixture.detectChanges();
     expect(component.routes?.length).toBe(3);
   });
 
-  it('should generate grandchild routes from SkyAppConfig', () => {
-    mockActiveUrl = '/parent/child/grandchild';
+  it('should generate grandchild routes from Router', async () => {
+    const router = TestBed.inject(Router);
+    router.resetConfig(baseRoutes[0].children);
+    await fixture.ngZone.run(() =>
+      router.navigateByUrl('/parent/child/grandchild')
+    );
     component.ngOnInit();
-    fixture.detectChanges();
     expect(component.routes?.length).toBe(4);
   });
 
@@ -132,5 +153,19 @@ describe('StacheBreadcrumbsComponent', () => {
     component.ngOnInit();
     fixture.detectChanges();
     expect(component.routes?.[0].name).toBe('Home');
+  });
+
+  it('should receive updates from route service', async () => {
+    const router = TestBed.inject(Router);
+    router.resetConfig([
+      {
+        ...baseRoutes[0],
+        children: undefined,
+        loadChildren: () => TestModule,
+      },
+    ]);
+    await fixture.ngZone.run(() => router.navigateByUrl('/async'));
+    component.ngOnInit();
+    expect(component.routes?.length).toBe(2);
   });
 });

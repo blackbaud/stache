@@ -4,7 +4,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { expect } from '@skyux-sdk/testing';
 import { SkyAppConfig } from '@skyux/config';
 
-import { StacheRouteMetadataService } from '../router/route-metadata.service';
+import { Subject } from 'rxjs';
+
 import { StacheRouteService } from '../router/route.service';
 
 import { StacheLayoutContainerComponent } from './layout-container.component';
@@ -38,6 +39,8 @@ class MockSkyAppConfig {
 }
 
 class MockRouteService {
+  public readonly updated$ = new Subject<void>();
+
   public getActiveRoutes() {
     return mockRoutes;
   }
@@ -57,7 +60,6 @@ describe('StacheLayoutContainerComponent', () => {
       providers: [
         { provide: StacheRouteService, useClass: MockRouteService },
         { provide: SkyAppConfig, useClass: MockSkyAppConfig },
-        { provide: StacheRouteMetadataService, useValue: { routes: [] } },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });

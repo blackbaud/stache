@@ -37,7 +37,6 @@ export * from './lib/modules/page-header/page-header.module';
 
 export * from './lib/modules/page-summary/page-summary.module';
 
-export * from './lib/modules/router/route-metadata.service';
 export * from './lib/modules/router/route.service';
 export * from './lib/modules/router/router.module';
 

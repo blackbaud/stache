@@ -9,9 +9,9 @@ import { By } from '@angular/platform-browser';
 import { Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { expect } from '@skyux-sdk/testing';
-import { RuntimeConfig, SkyAppConfig } from '@skyux/config';
 
-import { StacheRouteMetadataService } from '../router/route-metadata.service';
+import { Subject } from 'rxjs';
+
 import { StacheRouteService } from '../router/route.service';
 
 import { StacheLayoutComponent } from './layout.component';
@@ -38,13 +38,9 @@ const mockRoutes = [
   },
 ];
 
-class MockSkyAppConfig {
-  public runtime: Partial<RuntimeConfig> = {
-    routes: mockRoutes,
-  };
-}
-
 class MockRouteService {
+  public readonly updated$ = new Subject<void>();
+
   public getActiveRoutes(): Routes {
     return mockRoutes;
   }
@@ -66,11 +62,7 @@ describe('StacheLayoutComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [StacheLayoutModule, RouterTestingModule],
-      providers: [
-        { provide: StacheRouteService, useClass: MockRouteService },
-        { provide: SkyAppConfig, useClass: MockSkyAppConfig },
-        { provide: StacheRouteMetadataService, useValue: { routes: [] } },
-      ],
+      providers: [{ provide: StacheRouteService, useClass: MockRouteService }],
       schemas: [NO_ERRORS_SCHEMA],
     });
 

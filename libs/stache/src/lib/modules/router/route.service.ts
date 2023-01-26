@@ -1,13 +1,28 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { NavigationStart, Router } from '@angular/router';
-import { SkyAppConfig } from '@skyux/config';
+import {
+  NavigationStart,
+  Route,
+  RouteConfigLoadEnd,
+  Router,
+  RouterPreloader,
+} from '@angular/router';
 
-import { Subject, takeUntil } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  concatAll,
+  filter,
+  from,
+  mergeAll,
+  of,
+  takeUntil,
+} from 'rxjs';
 
 import { StacheNavLink } from '../nav/nav-link';
+import { numberConverter } from '../shared/input-converter';
 
 import { StacheRouteMetadataConfig } from './route-metadata-config';
-import { StacheRouteMetadataService } from './route-metadata.service';
+import { StacheRouteMetadataConfigJson } from './route-metadata-config-json';
 import { sortByName, sortByOrder } from './sort';
 
 type UnformattedStacheNavLink = {
@@ -22,20 +37,27 @@ function clone<T>(thing: T): T {
 
 @Injectable()
 export class StacheRouteService implements OnDestroy {
-  #activeRoutes: StacheNavLink[] | undefined;
-  #configSvc: SkyAppConfig;
+  activeRoutes: StacheNavLink[] | undefined = undefined;
+  #metadata: StacheRouteMetadataConfig[] = [];
   #ngUnsubscribe = new Subject<void>();
-  #routeMetadataSvc: StacheRouteMetadataService;
   #router: Router;
 
-  constructor(
-    router: Router,
-    configSvc: SkyAppConfig,
-    routeMetadataSvc: StacheRouteMetadataService
-  ) {
+  constructor(router: Router, preloader: RouterPreloader) {
     this.#router = router;
-    this.#configSvc = configSvc;
-    this.#routeMetadataSvc = routeMetadataSvc;
+    from([
+      from([of(undefined), preloader.preload()]).pipe(
+        takeUntil(this.#ngUnsubscribe),
+        concatAll()
+      ),
+      this.#router.events.pipe(
+        takeUntil(this.#ngUnsubscribe),
+        filter((e) => e instanceof RouteConfigLoadEnd)
+      ),
+    ])
+      .pipe(mergeAll())
+      .subscribe(() => {
+        this.#addRouteMetadata('', ...this.#router.config).subscribe();
+      });
 
     router.events.pipe(takeUntil(this.#ngUnsubscribe)).subscribe((val) => {
       if (val instanceof NavigationStart) {
@@ -50,21 +72,17 @@ export class StacheRouteService implements OnDestroy {
   }
 
   public getActiveRoutes(): StacheNavLink[] {
-    if (this.#activeRoutes) {
-      return this.#activeRoutes;
+    if (this.activeRoutes) {
+      return this.activeRoutes;
     }
 
     const rootPath = this.getActiveUrl().replace(/^\//, '').split('/')[0];
 
-    const appRoutes = clone(
-      (this.#configSvc.runtime?.routes as { routePath: string }[]) || []
-    );
-
-    const activeChildRoutes: UnformattedStacheNavLink[] = appRoutes
-      .filter((route) => route.routePath.indexOf(rootPath) === 0)
+    const activeChildRoutes: UnformattedStacheNavLink[] = this.#metadata
+      .filter((route) => route.path.indexOf(rootPath) === 0)
       .map((route) => ({
-        segments: route.routePath.split('/'),
-        path: route.routePath,
+        segments: route.path.split('/'),
+        path: route.path,
       }));
 
     const activeRoutes: UnformattedStacheNavLink[] = [
@@ -75,9 +93,9 @@ export class StacheRouteService implements OnDestroy {
       },
     ];
 
-    this.#activeRoutes = this.#formatRoutes(activeRoutes);
+    this.activeRoutes = this.#formatRoutes(activeRoutes);
 
-    return clone(this.#activeRoutes);
+    return clone(this.activeRoutes);
   }
 
   public getActiveUrl(): string {
@@ -85,7 +103,7 @@ export class StacheRouteService implements OnDestroy {
   }
 
   public clearActiveRoutes(): void {
-    this.#activeRoutes = undefined;
+    this.activeRoutes = undefined;
   }
 
   #assignChildren(
@@ -99,7 +117,7 @@ export class StacheRouteService implements OnDestroy {
       const routeDepth = route.segments.length;
 
       // Adding trailing slash to force end of parent path.  Otherwise:
-      // a/child, a1/child, and a2/child would have all three children displayed under a.
+      // a/child, a1/child, and a2/child would have all three children displayed under "a".
       const isChildRoute =
         depth === routeDepth && route.path.indexOf(parentPath + '/') > -1;
 
@@ -127,7 +145,6 @@ export class StacheRouteService implements OnDestroy {
           pathMetadata
         );
 
-        /*istanbul ignore else*/
         if (route.children) {
           formattedRoute.children = this.#formatRoutes(route.children);
         }
@@ -139,19 +156,59 @@ export class StacheRouteService implements OnDestroy {
     return this.#sortRoutes(formatted) as StacheNavLink[];
   }
 
+  #addRouteMetadata(
+    basePath: string,
+    ...routes: (Route & { _loadedRoutes?: Route[] })[]
+  ): Observable<void> {
+    return from(
+      routes.map((route) => {
+        const path = [basePath, route.path].filter((p) => !!p).join('/');
+        const data: StacheRouteMetadataConfigJson | undefined = route.data
+          ? route.data['stache']
+          : undefined;
+        if (
+          data &&
+          (data.name || data.order) &&
+          !this.#metadata.find((m) => m.path === path)
+        ) {
+          const json = this.#validateNavOrder({ ...data, path });
+          this.#metadata.push(json);
+        }
+
+        if (route.children || route._loadedRoutes) {
+          return this.#addRouteMetadata(
+            path,
+            ...(route.children || route._loadedRoutes || [])
+          );
+        }
+        return of(undefined);
+      })
+    ).pipe(takeUntil(this.#ngUnsubscribe), mergeAll());
+  }
+
+  #validateNavOrder(
+    json: StacheRouteMetadataConfigJson
+  ): StacheRouteMetadataConfig {
+    if ('order' in json) {
+      const order: number = numberConverter(json.order);
+      json.order = order;
+      if (order === undefined || order <= 0 || Number.isNaN(order)) {
+        delete json.order;
+      }
+    }
+
+    return json as StacheRouteMetadataConfig;
+  }
+
   #getMetadata(
     route: UnformattedStacheNavLink
   ): Partial<StacheRouteMetadataConfig> {
-    const allMetadata = this.#routeMetadataSvc.metadata;
+    const foundRoute = this.#metadata.filter((metaRoute) => {
+      return metaRoute.path === route.path;
+    })[0];
 
-    if (allMetadata) {
-      const foundRoute = allMetadata.filter((metaRoute) => {
-        return metaRoute.path === route.path;
-      })[0];
-
-      if (foundRoute) {
-        return foundRoute;
-      }
+    if (foundRoute) {
+      return foundRoute;
     }
 
     return {};
