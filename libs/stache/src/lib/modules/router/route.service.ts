@@ -175,8 +175,9 @@ export class StacheRouteService implements OnDestroy {
           this.#metadata.push(json);
         }
 
-        if (route.children) {
-          return this.#addRouteMetadata(path, ...route.children);
+        const childRoutes = route.children || route._loadedRoutes || [];
+        if (childRoutes.length > 0) {
+          return this.#addRouteMetadata(path, ...childRoutes);
         }
         return of(undefined);
       })
