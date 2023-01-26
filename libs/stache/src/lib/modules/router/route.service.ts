@@ -168,18 +168,15 @@ export class StacheRouteService implements OnDestroy {
           : undefined;
         if (
           data &&
-          (data.name || data.order) &&
+          (data.order || data.name) &&
           !this.#metadata.find((m) => m.path === path)
         ) {
           const json = this.#validateNavOrder({ ...data, path });
           this.#metadata.push(json);
         }
 
-        if (route.children || route._loadedRoutes) {
-          return this.#addRouteMetadata(
-            path,
-            ...(route.children || route._loadedRoutes || [])
-          );
+        if (route.children) {
+          return this.#addRouteMetadata(path, ...route.children);
         }
         return of(undefined);
       })
