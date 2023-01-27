@@ -24,18 +24,38 @@ const routes: Routes = [
   {
     path: 'design',
     component: DesignPlaygroundComponent,
+    data: {
+      stache: {
+        name: 'Design',
+      },
+    },
   },
   {
     path: 'design/guidelines',
     component: GuidelinesPlaygroundComponent,
+    data: {
+      stache: {
+        name: 'Guidelines',
+      },
+    },
   },
   {
     path: 'design/principles',
     component: PrinciplesPlaygroundComponent,
+    data: {
+      stache: {
+        name: 'Principles',
+      },
+    },
   },
   {
     path: 'design/styles',
     component: StylesPlaygroundComponent,
+    data: {
+      stache: {
+        name: 'Styles',
+      },
+    },
   },
 ];
 

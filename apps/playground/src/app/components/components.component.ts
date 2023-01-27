@@ -30,7 +30,7 @@ export class ComponentsPlaygroundComponent {
     {
       icon: 'gift',
       name: 'Wrapper',
-      path: 'components/stache/wrapper',
+      path: 'components/wrapper',
     },
   ];
 }

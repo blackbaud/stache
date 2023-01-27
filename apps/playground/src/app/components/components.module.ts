@@ -16,6 +16,7 @@ import { CodeBlockPlaygroundComponent } from './code-block/code-block-playground
 import { ComponentsPlaygroundComponent } from './components.component';
 import { HeroPlaygroundComponent } from './media/hero-playground.component';
 import { ImagePlaygroundComponent } from './media/image-playground.component';
+import { MediaPlaygroundComponent } from './media/media.component';
 import { VideoPlaygroundComponent } from './media/video-playground.component';
 import { StachePlaygroundComponent } from './stache/stache-playground.component';
 
@@ -25,18 +26,66 @@ import { StachePlaygroundComponent } from './stache/stache-playground.component'
       {
         path: '',
         component: ComponentsPlaygroundComponent,
+        data: {
+          stache: {
+            name: 'Components',
+          },
+        },
       },
       {
         path: 'code-block/code-block',
         component: CodeBlockPlaygroundComponent,
+        data: {
+          stache: {
+            name: 'Code block',
+          },
+        },
+      },
+      {
+        path: 'media',
+        component: MediaPlaygroundComponent,
+        data: {
+          stache: {
+            name: 'Media',
+          },
+        },
       },
       {
         path: 'media/hero',
         component: HeroPlaygroundComponent,
+        data: {
+          stache: {
+            name: 'Hero',
+          },
+        },
       },
-      { path: 'media/image', component: ImagePlaygroundComponent },
-      { path: 'media/video', component: VideoPlaygroundComponent },
-      { path: 'stache/wrapper', component: StachePlaygroundComponent },
+      {
+        path: 'media/image',
+        component: ImagePlaygroundComponent,
+        data: {
+          stache: {
+            name: 'Image',
+          },
+        },
+      },
+      {
+        path: 'media/video',
+        component: VideoPlaygroundComponent,
+        data: {
+          stache: {
+            name: 'Video',
+          },
+        },
+      },
+      {
+        path: 'wrapper',
+        component: StachePlaygroundComponent,
+        data: {
+          stache: {
+            name: 'Wrapper',
+          },
+        },
+      },
     ]),
   ],
 })
@@ -58,6 +107,7 @@ class ComponentsPlaygroundRoutingModule {}
     ComponentsPlaygroundComponent,
     HeroPlaygroundComponent,
     ImagePlaygroundComponent,
+    MediaPlaygroundComponent,
     StachePlaygroundComponent,
     VideoPlaygroundComponent,
   ],
