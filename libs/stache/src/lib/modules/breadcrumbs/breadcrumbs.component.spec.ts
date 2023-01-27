@@ -1,14 +1,9 @@
-import { SpyLocation } from '@angular/common/testing';
 import { Component, NgModule } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router, RouterModule, RouterPreloader } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { expect } from '@skyux-sdk/testing';
-
-import { firstValueFrom } from 'rxjs';
-
-import { StacheRouteService } from '../router/route.service';
 
 import { StacheBreadcrumbsComponent } from './breadcrumbs.component';
 import { StacheBreadcrumbsModule } from './breadcrumbs.module';
@@ -87,7 +82,6 @@ describe('StacheBreadcrumbsComponent', () => {
         }),
         StacheBreadcrumbsModule,
       ],
-      providers: [SpyLocation],
     });
 
     fixture = TestBed.createComponent(StacheBreadcrumbsComponent);

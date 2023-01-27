@@ -37,7 +37,7 @@ function clone<T>(thing: T): T {
 
 @Injectable()
 export class StacheRouteService implements OnDestroy {
-  activeRoutes: StacheNavLink[] | undefined = undefined;
+  #activeRoutes: StacheNavLink[] | undefined;
   #metadata: StacheRouteMetadataConfig[] = [];
   #ngUnsubscribe = new Subject<void>();
   #router: Router;
@@ -72,13 +72,15 @@ export class StacheRouteService implements OnDestroy {
   }
 
   public getActiveRoutes(): StacheNavLink[] {
-    if (this.activeRoutes) {
-      return this.activeRoutes;
+    if (this.#activeRoutes) {
+      return this.#activeRoutes;
     }
 
     const rootPath = this.getActiveUrl().replace(/^\//, '').split('/')[0];
 
-    const activeChildRoutes: UnformattedStacheNavLink[] = this.#metadata
+    const appRoutes = this.#metadata;
+
+    const activeChildRoutes: UnformattedStacheNavLink[] = appRoutes
       .filter((route) => route.path.indexOf(rootPath) === 0)
       .map((route) => ({
         segments: route.path.split('/'),
@@ -93,9 +95,9 @@ export class StacheRouteService implements OnDestroy {
       },
     ];
 
-    this.activeRoutes = this.#formatRoutes(activeRoutes);
+    this.#activeRoutes = this.#formatRoutes(activeRoutes);
 
-    return clone(this.activeRoutes);
+    return clone(this.#activeRoutes);
   }
 
   public getActiveUrl(): string {
@@ -103,7 +105,7 @@ export class StacheRouteService implements OnDestroy {
   }
 
   public clearActiveRoutes(): void {
-    this.activeRoutes = undefined;
+    this.#activeRoutes = undefined;
   }
 
   #assignChildren(
@@ -117,7 +119,7 @@ export class StacheRouteService implements OnDestroy {
       const routeDepth = route.segments.length;
 
       // Adding trailing slash to force end of parent path.  Otherwise:
-      // a/child, a1/child, and a2/child would have all three children displayed under "a".
+      // a/child, a1/child, and a2/child would have all three children displayed under a.
       const isChildRoute =
         depth === routeDepth && route.path.indexOf(parentPath + '/') > -1;
 
@@ -201,12 +203,16 @@ export class StacheRouteService implements OnDestroy {
   #getMetadata(
     route: UnformattedStacheNavLink
   ): Partial<StacheRouteMetadataConfig> {
-    const foundRoute = this.#metadata.filter((metaRoute) => {
-      return metaRoute.path === route.path;
-    })[0];
+    const allMetadata = this.#metadata;
 
-    if (foundRoute) {
-      return foundRoute;
+    if (allMetadata) {
+      const foundRoute = allMetadata.filter((metaRoute) => {
+        return metaRoute.path === route.path;
+      })[0];
+
+      if (foundRoute) {
+        return foundRoute;
+      }
     }
 
     return {};

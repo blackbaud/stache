@@ -10,8 +10,6 @@ import { Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { expect } from '@skyux-sdk/testing';
 
-import { Subject } from 'rxjs';
-
 import { StacheRouteService } from '../router/route.service';
 
 import { StacheLayoutComponent } from './layout.component';
@@ -39,8 +37,6 @@ const mockRoutes = [
 ];
 
 class MockRouteService {
-  public readonly updated$ = new Subject<void>();
-
   public getActiveRoutes(): Routes {
     return mockRoutes;
   }

@@ -4,8 +4,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { expect } from '@skyux-sdk/testing';
 import { SkyAppConfig } from '@skyux/config';
 
-import { Subject } from 'rxjs';
-
 import { StacheRouteService } from '../router/route.service';
 
 import { StacheLayoutSidebarComponent } from './layout-sidebar.component';
@@ -39,8 +37,6 @@ class MockSkyAppConfig {
 }
 
 class MockRouteService {
-  public readonly updated$ = new Subject<void>();
-
   public getActiveRoutes() {
     return mockRoutes;
   }
