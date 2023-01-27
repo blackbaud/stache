@@ -1,15 +1,22 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StacheModule } from '@blackbaud/skyux-lib-stache';
 import { SkyAppConfig } from '@skyux/config';
 import { SkyThemeService } from '@skyux/theme';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DesignPlaygroundModule } from './design/design.module';
 import { HomeComponent } from './home.component';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
-  imports: [AppRoutingModule, BrowserModule],
+  imports: [
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    DesignPlaygroundModule,
+    StacheModule,
+  ],
   providers: [
     SkyThemeService,
     {

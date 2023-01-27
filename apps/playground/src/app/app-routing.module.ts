@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { DesignPlaygroundComponent } from './design/design.component';
+import { GuidelinesPlaygroundComponent } from './design/guidelines/guidelines.component';
+import { PrinciplesPlaygroundComponent } from './design/principles/principles.component';
+import { StylesPlaygroundComponent } from './design/styles/styles.component';
 import { HomeComponent } from './home.component';
 
 const routes: Routes = [
@@ -9,25 +13,49 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'code-block',
+    // Used to test lazy-loaded routes.
+    path: 'components',
     loadChildren: () =>
-      import('./code-block/code-block-playground.module').then(
-        (m) => m.CodeBlockPlaygroundModule
+      import('./components/components.module').then(
+        (m) => m.ComponentsPlaygroundModule
       ),
   },
+  // Used to test eagerly-loaded routes.
   {
-    path: 'media',
-    loadChildren: () =>
-      import('./media/media-playground.module').then(
-        (m) => m.MediaPlaygroundModule
-      ),
+    path: 'design',
+    component: DesignPlaygroundComponent,
+    data: {
+      stache: {
+        name: 'Design',
+      },
+    },
   },
   {
-    path: 'stache',
-    loadChildren: () =>
-      import('./stache/stache-playground.module').then(
-        (m) => m.StachePlaygroundModule
-      ),
+    path: 'design/guidelines',
+    component: GuidelinesPlaygroundComponent,
+    data: {
+      stache: {
+        name: 'Guidelines',
+      },
+    },
+  },
+  {
+    path: 'design/principles',
+    component: PrinciplesPlaygroundComponent,
+    data: {
+      stache: {
+        name: 'Principles',
+      },
+    },
+  },
+  {
+    path: 'design/styles',
+    component: StylesPlaygroundComponent,
+    data: {
+      stache: {
+        name: 'Styles',
+      },
+    },
   },
 ];
 
