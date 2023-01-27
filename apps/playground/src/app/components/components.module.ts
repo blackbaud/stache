@@ -10,7 +10,7 @@ import {
   SkyImageModule,
   SkyVideoModule,
 } from '@blackbaud/skyux-lib-media';
-import { StacheModule } from '@blackbaud/skyux-lib-stache';
+import { StacheModule, StacheRouterModule } from '@blackbaud/skyux-lib-stache';
 
 import { CodeBlockPlaygroundComponent } from './code-block/code-block-playground.component';
 import { ComponentsPlaygroundComponent } from './components.component';
@@ -94,6 +94,8 @@ class ComponentsPlaygroundRoutingModule {}
 @NgModule({
   imports: [
     ComponentsPlaygroundRoutingModule,
+    // This is needed for any top-level lazy-loaded modules.
+    StacheRouterModule.forChild('components'),
     CommonModule,
     SkyCodeBlockModule,
     SkyCodeModule,
