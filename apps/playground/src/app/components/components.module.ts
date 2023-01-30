@@ -10,7 +10,7 @@ import {
   SkyImageModule,
   SkyVideoModule,
 } from '@blackbaud/skyux-lib-media';
-import { StacheModule } from '@blackbaud/skyux-lib-stache';
+import { StacheModule, StacheRouterModule } from '@blackbaud/skyux-lib-stache';
 
 import { CodeBlockPlaygroundComponent } from './code-block/code-block-playground.component';
 import { ComponentsPlaygroundComponent } from './components.component';
@@ -101,6 +101,7 @@ class ComponentsPlaygroundRoutingModule {}
     SkyImageModule,
     SkyVideoModule,
     StacheModule,
+    StacheRouterModule.forChild('components'),
   ],
   declarations: [
     CodeBlockPlaygroundComponent,

@@ -5,7 +5,7 @@ import {
   SkyCodeBlockModule,
   SkyCodeModule,
 } from '@blackbaud/skyux-lib-code-block';
-import { StacheModule } from '@blackbaud/skyux-lib-stache';
+import { StacheModule, StacheRouterModule } from '@blackbaud/skyux-lib-stache';
 
 import { NavigationComponent } from './navigation.component';
 import { RecursionComponent } from './supporting-pages/recursion/recursion.component';
@@ -55,6 +55,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class NavigationRoutingModule {}
+
+@NgModule({
   declarations: [
     NavigationComponent,
     SupportingPagesComponent,
@@ -66,8 +72,8 @@ const routes: Routes = [
     StacheModule,
     SkyCodeBlockModule,
     SkyCodeModule,
-    RouterModule.forChild(routes),
+    NavigationRoutingModule,
+    StacheRouterModule.forChild('navigation'),
   ],
-  exports: [RouterModule],
 })
 export class NavigationModule {}

@@ -1,39 +1,46 @@
 import { Component, NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import {
-  NavigationEnd,
-  PreloadAllModules,
-  Route,
-  Router,
-  RouterModule,
-  RouterPreloader,
-} from '@angular/router';
+import { NavigationEnd, Route, Router, RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { StacheRouterModule } from '@blackbaud/skyux-lib-stache';
 
-import { Observable, of as observableOf, of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { StacheRouteService } from './route.service';
-
-class MockRouterPreloader {
-  public preload(): Observable<any> {
-    return observableOf({});
-  }
-}
 
 @Component({ template: '' })
 class MockComponent {}
 
-@NgModule({
-  imports: [
-    RouterModule.forChild([{ path: 'async', component: MockComponent }]),
-  ],
-  exports: [RouterModule],
-})
-class MockRouterModule {}
-
 const mockRoutes: Route[] = [
   {
-    path: 'other-parent',
+    path: 'a',
+    component: MockComponent,
+    data: {
+      stache: {
+        name: 'A',
+      },
+    },
+  },
+  {
+    path: 'a1',
+    component: MockComponent,
+    data: {
+      stache: {
+        name: 'A1',
+      },
+    },
+  },
+  {
+    path: 'a2',
+    component: MockComponent,
+    data: {
+      stache: {
+        name: 'A2',
+      },
+    },
+  },
+  {
+    path: 'order-routes-other',
     component: MockComponent,
     data: {
       stache: {
@@ -75,7 +82,7 @@ const mockRoutes: Route[] = [
     component: MockComponent,
     data: {
       stache: {
-        name: 'B Three',
+        name: 'B Two',
         order: 2,
       },
     },
@@ -153,7 +160,7 @@ const mockRoutes: Route[] = [
     data: {
       stache: {
         name: 'fourth route',
-        order: 4,
+        order: 444444,
       },
     },
   },
@@ -209,70 +216,49 @@ const mockRoutes: Route[] = [
       },
     },
   },
-  {
-    path: 'order-routes/async',
-    loadChildren: () => Promise.resolve(MockRouterModule),
-  },
 ];
 
 describe('StacheRouteService', () => {
   let routeService: StacheRouteService;
   let router: Router;
-  let routerPreloader: MockRouterPreloader;
 
   async function setupTest(
     options: { routes?: Route[] | undefined } = {}
   ): Promise<void> {
-    routerPreloader = new MockRouterPreloader();
+    const routes: Route[] = 'routes' in options ? options.routes : mockRoutes;
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule.withRoutes(
-          'routes' in options ? options.routes : mockRoutes,
-          { preloadingStrategy: PreloadAllModules }
-        ),
-      ],
-      providers: [
-        {
-          provide: RouterPreloader,
-          useValue: routerPreloader,
-        },
-      ],
+      imports: [RouterTestingModule.withRoutes(routes), StacheRouterModule],
     });
     router = TestBed.inject(Router);
-    routeService = new StacheRouteService(
-      router as Router,
-      routerPreloader as RouterPreloader
-    );
-    await router.navigateByUrl('/other-parent');
+    routeService = new StacheRouteService(router as Router, [routes]);
+    await router.navigateByUrl('/order-routes/first/sample-two');
   }
 
   it('should not include child routes from similar parents (a, a1, a2)', async () => {
     await setupTest();
-    await router.navigateByUrl('/other-parent');
+    spyOn(StacheRouteService.prototype, 'clearActiveRoutes');
+    await router.navigateByUrl('/a');
+    expect(StacheRouteService.prototype.clearActiveRoutes).toHaveBeenCalled();
     const activeRoutes = routeService.getActiveRoutes();
-    expect(activeRoutes[0].children?.length).toBe(1);
+    expect(activeRoutes[0].name).toBe('A');
   });
 
   it('should only assemble the active routes once', async () => {
     await setupTest();
     let activeRoutes = routeService.getActiveRoutes();
-    expect(activeRoutes[0].children?.length).toBe(1);
+    expect(activeRoutes[0].children?.length).toBe(5);
 
     const router = TestBed.inject(Router);
     router.resetConfig([]);
 
     activeRoutes = routeService.getActiveRoutes();
-    expect(activeRoutes[0].children?.length).toBe(1);
+    expect(activeRoutes[0].children?.length).toBe(5);
   });
 
   it('should not unset the active routes on NavigationEnd', async () => {
     await setupTest();
     (router as any).events = observableOf(new NavigationEnd(0, '', ''));
     spyOn(StacheRouteService.prototype, 'clearActiveRoutes');
-    routeService = new StacheRouteService(
-      router as Router,
-      routerPreloader as RouterPreloader
-    );
     expect(
       StacheRouteService.prototype.clearActiveRoutes
     ).not.toHaveBeenCalled();
@@ -306,7 +292,7 @@ describe('StacheRouteService', () => {
 
   it("should use the route's name provided in route metadata service", async () => {
     await setupTest();
-    await router.navigateByUrl('/other-parent');
+    await router.navigateByUrl('/order-routes-other');
     const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].name).toBe('Custom Route Name');
   });
@@ -315,8 +301,13 @@ describe('StacheRouteService', () => {
     await setupTest();
     await router.navigateByUrl('/order-routes');
     const activeRoutes = routeService.getActiveRoutes();
-    expect(activeRoutes[0].children?.[0].name).toBe('A First');
-    expect(activeRoutes[0].children?.[2].name).toBe('C Third');
+    expect(activeRoutes[0].children.map((c) => c.name)).toEqual([
+      'A First',
+      'B Second',
+      'C Third',
+      'Z Shown route',
+      'fourth route',
+    ]);
   });
 
   it('should filter out routes with showInNav: false', async () => {
