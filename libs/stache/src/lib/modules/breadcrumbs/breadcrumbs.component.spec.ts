@@ -13,7 +13,7 @@ describe('StacheBreadcrumbsComponent', () => {
   let component: StacheBreadcrumbsComponent;
   let fixture: ComponentFixture<StacheBreadcrumbsComponent>;
 
-  let mockRoutes: any[];
+  let mockRoutes: Routes;
 
   let mockActiveUrl: string;
 
@@ -66,6 +66,16 @@ describe('StacheBreadcrumbsComponent', () => {
         children: [],
       },
     ];
+    fixture.detectChanges();
+    const links = fixture.debugElement.queryAll(By.css('.stache-nav-anchor'));
+
+    expect(links.length).toBe(1);
+  });
+
+  it('should have at least one route on base root path', () => {
+    component.routes = undefined;
+    mockActiveUrl = '';
+    mockRoutes = [];
     fixture.detectChanges();
     const links = fixture.debugElement.queryAll(By.css('.stache-nav-anchor'));
 

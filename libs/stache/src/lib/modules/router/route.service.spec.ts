@@ -1,17 +1,17 @@
-import { Component, NgModule } from '@angular/core';
+import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { NavigationEnd, Route, Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Route, Router, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { StacheRouterModule } from '@blackbaud/skyux-lib-stache';
 
 import { of as observableOf } from 'rxjs';
 
 import { StacheRouteService } from './route.service';
+import { StacheRouterModule } from './router.module';
 
 @Component({ template: '' })
 class MockComponent {}
 
-const mockRoutes: Route[] = [
+const mockRoutes: Routes = [
   {
     path: 'a',
     component: MockComponent,
@@ -45,19 +45,9 @@ const mockRoutes: Route[] = [
     data: {
       stache: {
         name: 'Custom Route Name',
+        order: 'woah',
       },
     },
-    children: [
-      {
-        path: 'sub',
-        component: MockComponent,
-        data: {
-          stache: {
-            name: 'Subby McSubface',
-          },
-        },
-      },
-    ],
   },
   {
     path: 'order-routes',
@@ -223,14 +213,18 @@ describe('StacheRouteService', () => {
   let router: Router;
 
   async function setupTest(
-    options: { routes?: Route[] | undefined } = {}
+    options: { routes?: Routes[] | undefined } = {}
   ): Promise<void> {
-    const routes: Route[] = 'routes' in options ? options.routes : mockRoutes;
+    const routes: Routes[] | undefined =
+      'routes' in options ? options.routes : [mockRoutes];
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes(routes), StacheRouterModule],
+      imports: [
+        RouterTestingModule.withRoutes([].concat(...(routes || []))),
+        StacheRouterModule,
+      ],
     });
     router = TestBed.inject(Router);
-    routeService = new StacheRouteService(router as Router, [routes]);
+    routeService = new StacheRouteService(router as Router, routes);
     await router.navigateByUrl('/order-routes/first/sample-two');
   }
 
@@ -380,5 +374,25 @@ describe('StacheRouteService', () => {
     expect(activeRoutes[0].children?.[0].children?.[5].order).toBe(undefined);
     expect(activeRoutes[0].children?.[0].children?.[6].name).toBe('A Three');
     expect(activeRoutes[0].children?.[0].children?.[6].order).toBe(999);
+  });
+
+  it('should create without routes', async () => {
+    router = TestBed.inject(Router);
+    routeService = new StacheRouteService(router as Router);
+    expect(routeService).toBeTruthy();
+  });
+
+  it('should create with options', async () => {
+    TestBed.configureTestingModule({
+      imports: [RouterTestingModule.withRoutes(mockRoutes)],
+    });
+    router = TestBed.inject(Router);
+    routeService = new StacheRouteService(router as Router, [mockRoutes], {
+      path: 'order-routes',
+    });
+    expect(routeService).toBeTruthy();
+    await router.navigateByUrl('/order-routes');
+    const activeRoutes = routeService.getActiveRoutes();
+    expect(activeRoutes[0].name).toBe('Order Routes');
   });
 });
