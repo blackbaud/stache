@@ -4,7 +4,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { expect } from '@skyux-sdk/testing';
 import { SkyAppConfig } from '@skyux/config';
 
-import { StacheRouteMetadataService } from '../router/route-metadata.service';
 import { StacheRouteService } from '../router/route.service';
 
 import { StacheLayoutSidebarComponent } from './layout-sidebar.component';
@@ -57,7 +56,6 @@ describe('StacheLayoutSidebarComponent', () => {
       providers: [
         { provide: StacheRouteService, useClass: MockRouteService },
         { provide: SkyAppConfig, useClass: MockSkyAppConfig },
-        { provide: StacheRouteMetadataService, useValue: { routes: [] } },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });

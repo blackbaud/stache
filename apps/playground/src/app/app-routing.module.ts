@@ -57,6 +57,11 @@ const routes: Routes = [
       },
     },
   },
+  {
+    path: 'navigation',
+    loadChildren: () =>
+      import('./navigation/navigation.module').then((m) => m.NavigationModule),
+  },
 ];
 
 @NgModule({

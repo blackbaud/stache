@@ -35,14 +35,16 @@ export class StacheBreadcrumbsComponent implements StacheNav, OnInit {
       path: '/',
     });
 
-    if (root.path === '') {
+    if (!root) {
       return breadcrumbRoutes;
     }
 
-    breadcrumbRoutes.push({
-      name: root.name,
-      path: root.path,
-    });
+    if (root.path !== '') {
+      breadcrumbRoutes.push({
+        name: root.name,
+        path: root.path,
+      });
+    }
 
     const addRoute = (route: StacheNavLink): void => {
       breadcrumbRoutes.push({
