@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.0.0-alpha.1](https://github.com/blackbaud/stache/compare/8.0.0-alpha.0...8.0.0-alpha.1) (2023-01-31)
+
+
+### Features
+
+* update route metadata service to read from router module ([#25](https://github.com/blackbaud/stache/issues/25)) ([1f6d19b](https://github.com/blackbaud/stache/commit/1f6d19b2d69c85b24faec4a60ff76a2534c57fa8))
+
 ## 8.0.0-alpha.0 (2023-01-23)
 
 
