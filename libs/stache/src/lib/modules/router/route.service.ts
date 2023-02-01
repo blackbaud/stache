@@ -7,7 +7,8 @@ import {
   Routes,
 } from '@angular/router';
 
-import { Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { StacheNavLink } from '../nav/nav-link';
 import { numberConverter } from '../shared/input-converter';
