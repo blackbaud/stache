@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.0.0-alpha.2](https://github.com/blackbaud/stache/compare/8.0.0-alpha.1...8.0.0-alpha.2) (2023-02-01)
+
+
+### Bug Fixes
+
+* add support for `rxjs@6` ([#31](https://github.com/blackbaud/stache/issues/31)) ([733bfb3](https://github.com/blackbaud/stache/commit/733bfb33b7f74dc0caca97118ecab30ef06d903a))
+
 ## [8.0.0-alpha.1](https://github.com/blackbaud/stache/compare/8.0.0-alpha.0...8.0.0-alpha.1) (2023-01-31)
 
 
