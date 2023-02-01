@@ -1,6 +1,7 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 
-import { Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { StacheNavLink } from '../nav/nav-link';
 import { StacheOmnibarAdapterService } from '../shared/omnibar-adapter.service';
