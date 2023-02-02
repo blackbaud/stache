@@ -213,10 +213,10 @@ describe('StacheRouteService', () => {
   let router: Router;
 
   async function setupTest(
-    options: { routes?: Routes[] | undefined } = {}
+    options: { routes?: Routes | undefined } = {}
   ): Promise<void> {
-    const routes: Routes[] | undefined =
-      'routes' in options ? options.routes : [mockRoutes];
+    const routes: Routes | undefined =
+      'routes' in options ? options.routes : mockRoutes;
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([].concat(...(routes || []))),
@@ -267,6 +267,26 @@ describe('StacheRouteService', () => {
   it('should order routes in hierarchies', async () => {
     await setupTest();
     await router.navigateByUrl('/order-routes/first/order-one');
+    const activeRoutes = routeService.getActiveRoutes();
+    expect(activeRoutes[0].path).toBe('order-routes');
+    expect(activeRoutes[0].children?.[0].path).toBe('order-routes/first');
+    expect(activeRoutes[0].children?.[0].children?.[0].path).toBe(
+      'order-routes/first/order-one'
+    );
+  });
+
+  it('should handle child routes of a single "root" route', async () => {
+    const rootRoute: Route = {
+      path: '',
+      children: mockRoutes,
+    };
+
+    await setupTest({
+      routes: [rootRoute],
+    });
+
+    await router.navigateByUrl('/order-routes/first/order-one');
+
     const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].path).toBe('order-routes');
     expect(activeRoutes[0].children?.[0].path).toBe('order-routes/first');
@@ -387,7 +407,7 @@ describe('StacheRouteService', () => {
       imports: [RouterTestingModule.withRoutes(mockRoutes)],
     });
     router = TestBed.inject(Router);
-    routeService = new StacheRouteService(router as Router, [mockRoutes], {
+    routeService = new StacheRouteService(router as Router, mockRoutes, {
       path: 'order-routes',
     });
     expect(routeService).toBeTruthy();

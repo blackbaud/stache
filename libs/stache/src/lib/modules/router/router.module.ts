@@ -16,10 +16,7 @@ export class StacheRouterModule {
       providers: [
         {
           provide: StacheRouteService,
-          useFactory: (
-            router: Router,
-            routes: Routes[]
-          ): StacheRouteService => {
+          useFactory: (router: Router, routes: Routes): StacheRouteService => {
             const options = new StacheRouteOptions();
             options.path = path;
 

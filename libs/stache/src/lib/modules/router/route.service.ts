@@ -29,6 +29,47 @@ function clone<T>(thing: T): T {
   return JSON.parse(JSON.stringify(thing));
 }
 
+/**
+ * The StacheRouteService assumes the consuming application's routes are "flat", without children.
+ * For example:
+ * ```
+ * const routes: Routes = [
+ *   {
+ *     path: '',
+ *     component: HomeComponent,
+ *   },
+ *   {
+ *     path: 'design',
+ *     component: DesignPlaygroundComponent,
+ *     data: {
+ *       stache: {
+ *         name: 'Design',
+ *       },
+ *     },
+ *   },
+ *   {
+ *     path: 'design/styles',
+ *     component: StylesPlaygroundComponent,
+ *     data: {
+ *       stache: {
+ *         name: 'Styles',
+ *       },
+ *     },
+ *   },
+ * ];
+ * ```
+ * Import the StacheRouterModule into lazy-loaded modules to give the Stache route service the desired route config.
+ * For example:
+ * ```
+ * @NgModule({
+ *   import: [
+ *     RouterModule.forChild({...}),
+ *     StacheRouterModule.forChild('my-top-level-route')
+ *   ]
+ * })
+ * export class MyLazyLoadedModule {}
+ * ```
+ */
 @Injectable()
 export class StacheRouteService implements OnDestroy {
   #activeRoutes: StacheNavLink[] | undefined;
@@ -39,12 +80,12 @@ export class StacheRouteService implements OnDestroy {
 
   constructor(
     router: Router,
-    @Optional() @Inject(ROUTES) routes?: Routes[],
+    @Optional() @Inject(ROUTES) routes?: Routes,
     @Optional() options?: StacheRouteOptions
   ) {
     this.#options = options;
     this.#router = router;
-    this.#routes = ([] as Route[]).concat(...(routes || []));
+    this.#routes = ([] as Routes).concat(...(routes || []));
 
     router.events.pipe(takeUntil(this.#ngUnsubscribe)).subscribe((val) => {
       if (val instanceof NavigationStart) {
@@ -65,7 +106,12 @@ export class StacheRouteService implements OnDestroy {
 
     const rootPath = this.getActiveUrl().replace(/^\//, '').split('/')[0];
 
-    const appRoutes = this.#routes;
+    const appRoutes =
+      // Internal-only: The SKY UX 'eject' utility places all routes as children of a single
+      // "root" route, so we need to account for that when deriving the active routes.
+      this.#routes.length === 1 && this.#routes[0].children
+        ? this.#routes[0].children
+        : this.#routes;
 
     const activeChildRoutes = appRoutes
       .filter((route) => {
