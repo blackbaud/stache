@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.0.0-alpha.3](https://github.com/blackbaud/stache/compare/8.0.0-alpha.2...8.0.0-alpha.3) (2023-02-02)
+
+
+### Bug Fixes
+
+* **stache:** fix the StacheRouteService to handle child routes of a single root route ([#33](https://github.com/blackbaud/stache/issues/33)) ([7bbd9a6](https://github.com/blackbaud/stache/commit/7bbd9a646e2420360d18e0c289b9f15afff8d2f9))
+
 ## [8.0.0-alpha.2](https://github.com/blackbaud/stache/compare/8.0.0-alpha.1...8.0.0-alpha.2) (2023-02-01)
 
 
