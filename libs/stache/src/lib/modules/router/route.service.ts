@@ -76,7 +76,7 @@ export class StacheRouteService implements OnDestroy {
   #ngUnsubscribe = new Subject<void>();
   #options: StacheRouteOptions | undefined;
   #router: Router;
-  #routes: Route[] = [];
+  #routes: Routes = [];
 
   constructor(
     router: Router,
@@ -106,12 +106,9 @@ export class StacheRouteService implements OnDestroy {
 
     const rootPath = this.getActiveUrl().replace(/^\//, '').split('/')[0];
 
-    const appRoutes =
-      // Internal-only: The SKY UX 'eject' utility places all routes as children of a single
-      // "root" route, so we need to account for that when deriving the active routes.
-      this.#routes.length === 1 && this.#routes[0].children
-        ? this.#routes[0].children
-        : this.#routes;
+    const appRoutes = this.#options?.path
+      ? this.#routes
+      : this.#getRouteBranch(this.#routes, rootPath);
 
     const activeChildRoutes = appRoutes
       .filter((route) => {
@@ -149,6 +146,31 @@ export class StacheRouteService implements OnDestroy {
 
   public clearActiveRoutes(): void {
     this.#activeRoutes = undefined;
+  }
+
+  /**
+   * Recursively finds the "branch" of the routes tree that contains the given root path.
+   */
+  #getRouteBranch(routes: Routes, rootPath: string): Routes {
+    const pathExistsInRoot = routes.some(
+      (route) => route.path?.indexOf(rootPath) === 0
+    );
+
+    if (pathExistsInRoot) {
+      return routes;
+    }
+
+    // Path not found, look in each route's children.
+    for (const route of routes) {
+      if (route.children) {
+        const childRoutes = this.#getRouteBranch(route.children, rootPath);
+        if (childRoutes.length > 0) {
+          return childRoutes;
+        }
+      }
+    }
+
+    return [];
   }
 
   #prependOptionsPath(path: string | undefined): string | undefined {

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { StacheModule } from '@blackbaud/skyux-lib-stache';
 
 import { DesignPlaygroundComponent } from './design.component';
+import { GuidelinesButtonsAndLinksPlaygroundComponent } from './guidelines/buttons-and-links/principles/buttons-and-links.component';
 import { GuidelinesPlaygroundComponent } from './guidelines/guidelines.component';
 import { PrinciplesPlaygroundComponent } from './principles/principles.component';
 import { StylesPlaygroundComponent } from './styles/styles.component';
@@ -12,6 +13,7 @@ import { StylesPlaygroundComponent } from './styles/styles.component';
   declarations: [
     DesignPlaygroundComponent,
     GuidelinesPlaygroundComponent,
+    GuidelinesButtonsAndLinksPlaygroundComponent,
     PrinciplesPlaygroundComponent,
     StylesPlaygroundComponent,
   ],
