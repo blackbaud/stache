@@ -8,9 +8,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DesignPlaygroundModule } from './design/design.module';
 import { HomeComponent } from './home.component';
+import { NotFoundComponent } from './not-found.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent, HomeComponent, NotFoundComponent],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,

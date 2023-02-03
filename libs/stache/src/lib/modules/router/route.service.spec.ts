@@ -13,6 +13,15 @@ class MockComponent {}
 
 const mockRoutes: Routes = [
   {
+    path: '',
+    children: [
+      {
+        path: 'foobar',
+        component: MockComponent,
+      },
+    ],
+  },
+  {
     path: 'a',
     component: MockComponent,
     data: {
@@ -235,6 +244,16 @@ describe('StacheRouteService', () => {
     expect(StacheRouteService.prototype.clearActiveRoutes).toHaveBeenCalled();
     const activeRoutes = routeService.getActiveRoutes();
     expect(activeRoutes[0].name).toBe('A');
+  });
+
+  it('should locate the nearest branch that includes the root route', async () => {
+    await setupTest();
+    spyOn(StacheRouteService.prototype, 'clearActiveRoutes');
+    await router.navigateByUrl('/foobar');
+    expect(StacheRouteService.prototype.clearActiveRoutes).toHaveBeenCalled();
+    expect(routeService.getActiveRoutes()).toEqual([
+      { path: 'foobar', name: 'Foobar', showInNav: true, children: [] },
+    ]);
   });
 
   it('should only assemble the active routes once', async () => {
