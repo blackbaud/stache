@@ -20,7 +20,6 @@ export * from './lib/modules/hide-from-search/hide-from-search.module';
 
 export * from './lib/modules/include/include.module';
 
-export * from './lib/modules/json-data/json-data.module';
 export * from './lib/modules/json-data/json-data-service-config-token';
 export * from './lib/modules/json-data/json-data.service';
 

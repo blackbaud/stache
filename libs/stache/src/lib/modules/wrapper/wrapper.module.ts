@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 import { StacheAnalyticsModule } from '../analytics/analytics.module';
 import { StacheFooterModule } from '../footer/footer.module';
-import { StacheJsonDataModule } from '../json-data/json-data.module';
 import { StacheLayoutModule } from '../layout/layout.module';
 import { StachePageAnchorModule } from '../page-anchor/page-anchor.module';
 import { StacheOmnibarAdapterService } from '../shared/omnibar-adapter.service';
@@ -18,7 +17,6 @@ import { StacheWrapperComponent } from './wrapper.component';
     CommonModule,
     RouterModule,
     StacheAnalyticsModule,
-    StacheJsonDataModule,
     StachePageAnchorModule,
     StacheLayoutModule,
     StacheFooterModule,
