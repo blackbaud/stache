@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.0.0-alpha.4](https://github.com/blackbaud/stache/compare/8.0.0-alpha.3...8.0.0-alpha.4) (2023-02-03)
+
+
+### Bug Fixes
+
+* **stache:** recursively look for child routes when locating root path ([#37](https://github.com/blackbaud/stache/issues/37)) ([b9c455e](https://github.com/blackbaud/stache/commit/b9c455e73dcfbae8b41b17001b95810dc14e89b6))
+
 ## [8.0.0-alpha.3](https://github.com/blackbaud/stache/compare/8.0.0-alpha.2...8.0.0-alpha.3) (2023-02-02)
 
 
