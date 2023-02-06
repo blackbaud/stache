@@ -1,5 +1,16 @@
 # Changelog
 
+## [8.0.0-alpha.5](https://github.com/blackbaud/stache/compare/8.0.0-alpha.4...8.0.0-alpha.5) (2023-02-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* **stache:** set `StacheJsonDataService` as provided in 'root' ([#39](https://github.com/blackbaud/stache/issues/39))
+
+### Features
+
+* **stache:** set `StacheJsonDataService` as provided in 'root' ([#39](https://github.com/blackbaud/stache/issues/39)) ([03d905c](https://github.com/blackbaud/stache/commit/03d905c6c52413ceda70fa9e014ddc86f357fe01))
+
 ## [8.0.0-alpha.4](https://github.com/blackbaud/stache/compare/8.0.0-alpha.3...8.0.0-alpha.4) (2023-02-03)
 
 
