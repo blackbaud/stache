@@ -9,9 +9,7 @@ import { StacheBreadcrumbsModule } from './modules/breadcrumbs/breadcrumbs.modul
 import { StacheEditButtonModule } from './modules/edit-button/edit-button.module';
 import { StacheFooterModule } from './modules/footer/footer.module';
 import { StacheHideFromSearchModule } from './modules/hide-from-search/hide-from-search.module';
-import { StacheIncludeModule } from './modules/include/include.module';
 import { StacheLayoutModule } from './modules/layout/layout.module';
-import { StacheMarkdownModule } from './modules/markdown/markdown.module';
 import { StacheNavModule } from './modules/nav/nav.module';
 import { StachePageAnchorModule } from './modules/page-anchor/page-anchor.module';
 import { StachePageHeaderModule } from './modules/page-header/page-header.module';
@@ -33,9 +31,7 @@ import { StacheWrapperModule } from './modules/wrapper/wrapper.module';
     StacheEditButtonModule,
     StacheFooterModule,
     StacheHideFromSearchModule,
-    StacheIncludeModule,
     StacheLayoutModule,
-    StacheMarkdownModule,
     StacheNavModule,
     StachePageAnchorModule,
     StachePageHeaderModule,

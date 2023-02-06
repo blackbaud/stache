@@ -18,14 +18,10 @@ export * from './lib/modules/footer/footer.module';
 
 export * from './lib/modules/hide-from-search/hide-from-search.module';
 
-export * from './lib/modules/include/include.module';
-
 export * from './lib/modules/json-data/json-data-service-config-token';
 export * from './lib/modules/json-data/json-data.service';
 
 export * from './lib/modules/layout/layout.module';
-
-export * from './lib/modules/markdown/markdown.module';
 
 export * from './lib/modules/nav/nav-link';
 export * from './lib/modules/nav/nav.module';
@@ -64,7 +60,6 @@ export { StacheBreadcrumbsComponent as λ9 } from './lib/modules/breadcrumbs/bre
 export { StacheEditButtonComponent as λ10 } from './lib/modules/edit-button/edit-button.component';
 export { StacheFooterComponent as λ11 } from './lib/modules/footer/footer.component';
 export { StacheHideFromSearchComponent as λ12 } from './lib/modules/hide-from-search/hide-from-search.component';
-export { StacheIncludeComponent as λ13 } from './lib/modules/include/include.component';
 export { StacheSidebarComponent as λ14 } from './lib/modules/sidebar/sidebar.component';
 export { StacheSidebarWrapperComponent as λ15 } from './lib/modules/sidebar/sidebar-wrapper.component';
 export { StacheTableOfContentsComponent as λ16 } from './lib/modules/table-of-contents/table-of-contents.component';
@@ -74,7 +69,6 @@ export { StachePageTitleComponent as λ19 } from './lib/modules/page-header/page
 export { StachePageAnchorComponent as λ20 } from './lib/modules/page-anchor/page-anchor.component';
 export { StachePageSummaryComponent as λ21 } from './lib/modules/page-summary/page-summary.component';
 export { StacheLayoutComponent as λ22 } from './lib/modules/layout/layout.component';
-export { StacheMarkdownComponent as λ23 } from './lib/modules/markdown/markdown.component';
 export { StacheTutorialStepComponent as λ24 } from './lib/modules/tutorial-step/tutorial-step.component';
 export { StacheTutorialStepBodyComponent as λ25 } from './lib/modules/tutorial-step/tutorial-step-body.component';
 export { StacheTutorialStepHeadingComponent as λ26 } from './lib/modules/tutorial-step/tutorial-step-heading.component';
