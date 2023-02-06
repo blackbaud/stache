@@ -1,5 +1,16 @@
 # Changelog
 
+## [8.0.0-alpha.6](https://github.com/blackbaud/stache/compare/8.0.0-alpha.5...8.0.0-alpha.6) (2023-02-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* **stache:** remove markdown and includes components ([#41](https://github.com/blackbaud/stache/issues/41))
+
+### Features
+
+* **stache:** remove markdown and includes components ([#41](https://github.com/blackbaud/stache/issues/41)) ([27ae4ac](https://github.com/blackbaud/stache/commit/27ae4ac5f7ca8859beab13990afdcbe2c7379e7b))
+
 ## [8.0.0-alpha.5](https://github.com/blackbaud/stache/compare/8.0.0-alpha.4...8.0.0-alpha.5) (2023-02-06)
 
 
