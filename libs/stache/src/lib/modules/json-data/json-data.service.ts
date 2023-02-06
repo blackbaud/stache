@@ -1,19 +1,20 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core';
 
 import { STACHE_JSON_DATA_SERVICE_CONFIG } from './json-data-service-config-token';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type JSON_DATA = any;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class StacheJsonDataService {
   #jsonData: JSON_DATA;
 
   constructor(
+    @Optional()
     @Inject(STACHE_JSON_DATA_SERVICE_CONFIG)
-    jsonData: JSON_DATA
+    jsonData?: JSON_DATA
   ) {
-    this.#jsonData = jsonData;
+    this.#jsonData = jsonData || {};
   }
 
   public getAll(): JSON_DATA {
