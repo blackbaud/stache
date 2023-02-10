@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.0.0-beta.0](https://github.com/blackbaud/stache/compare/8.0.0-alpha.6...8.0.0-beta.0) (2023-02-10)
+
+
+### Features
+
+* add support for SKY UX 7.6.1 ([#44](https://github.com/blackbaud/stache/issues/44)) ([38aa982](https://github.com/blackbaud/stache/commit/38aa98263ec111c99b9764d1d249e294785cc871))
+
 ## [8.0.0-alpha.6](https://github.com/blackbaud/stache/compare/8.0.0-alpha.5...8.0.0-alpha.6) (2023-02-06)
 
 
