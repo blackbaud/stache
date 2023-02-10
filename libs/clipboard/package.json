@@ -4,8 +4,8 @@
   "peerDependencies": {
     "@angular/common": "^14.2.12",
     "@angular/core": "^14.2.12",
-    "@skyux/core": "^7.0.0",
-    "@skyux/i18n": "^7.0.0"
+    "@skyux/core": "^7.6.1",
+    "@skyux/i18n": "^7.6.1"
   },
   "dependencies": {
     "tslib": "^2.4.1"
