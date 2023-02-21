@@ -19,8 +19,7 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "target": "es2020",
-    "types": ["jasmine", "node"],
-    "resolveJsonModule": true
+    "types": ["jasmine", "node"]
   },
   "include": ["schematics/**/*"]
 }
