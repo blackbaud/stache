@@ -2,12 +2,11 @@ import {
   SchematicTestRunner,
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
-
-import { joinPathFragments } from 'nx/src/utils/path';
+import { normalize } from '@angular-devkit/core';
 
 import { createTestLibrary } from '../testing/scaffold';
 
-const COLLECTION_PATH = joinPathFragments(__dirname, '../../collection.json');
+const COLLECTION_PATH = normalize(`${__dirname}/../../collection.json`);
 
 describe('ng-add.schematic', () => {
   const runner = new SchematicTestRunner('schematics', COLLECTION_PATH);
