@@ -3,11 +3,13 @@ import {
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
 
-import path from 'path';
+import { joinPathFragments } from "nx/src/utils/path";
 
 import { createTestLibrary } from '../testing/scaffold';
 
-const COLLECTION_PATH = path.resolve(__dirname, '../../collection.json');
+import { peerDependencies } from '../../package.json';
+
+const COLLECTION_PATH = joinPathFragments(__dirname, '../../collection.json');
 
 describe('ng-add.schematic', () => {
   const runner = new SchematicTestRunner('schematics', COLLECTION_PATH);
@@ -24,7 +26,7 @@ describe('ng-add.schematic', () => {
   function runSchematic(
     options: { project?: string } = {}
   ): Promise<UnitTestTree> {
-    return runner.runSchematicAsync('ng-add', options, tree).toPromise();
+    return runner.runSchematic('ng-add', options, tree);
   }
 
   it('should install essential SKY UX packages', async () => {
@@ -41,7 +43,7 @@ describe('ng-add.schematic', () => {
     ];
 
     for (const packageName of packageNames) {
-      expect(packageJson.dependencies[packageName]).toEqual('^7.6.1');
+      expect(packageJson.dependencies[packageName]).toEqual(peerDependencies['@skyux/core']);
     }
   });
 });
