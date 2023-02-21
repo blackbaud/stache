@@ -1,8 +1,8 @@
+import { normalize } from '@angular-devkit/core';
 import {
   SchematicTestRunner,
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
-import { normalize } from '@angular-devkit/core';
 
 import { createTestLibrary } from '../testing/scaffold';
 
