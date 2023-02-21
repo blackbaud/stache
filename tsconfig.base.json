@@ -19,6 +19,7 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
+      "@skyux-sdk/tools": ["libs/sdk/tools/src/index.ts"],
       "@blackbaud/skyux-lib-clipboard": ["libs/clipboard/src/index.ts"],
       "@blackbaud/skyux-lib-code-block": ["libs/code-block/src/index.ts"],
       "@blackbaud/skyux-lib-media": ["libs/media/src/index.ts"],

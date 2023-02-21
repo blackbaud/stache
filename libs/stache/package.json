@@ -1,6 +1,21 @@
 {
   "name": "@blackbaud/skyux-lib-stache",
   "version": "0.0.0-PLACEHOLDER",
+  "author": "Blackbaud, Inc.",
+  "keywords": [
+    "blackbaud",
+    "skyux",
+    "stache"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blackbaud/stache.git"
+  },
+  "bugs": {
+    "url": "https://github.com/blackbaud/stache/issues"
+  },
+  "homepage": "https://github.com/blackbaud/stache#readme",
   "schematics": "./collection.json",
   "ng-add": {
     "save": "dependencies"
@@ -30,20 +45,5 @@
   "dependencies": {
     "lodash.get": "4.4.2",
     "tslib": "^2.4.1"
-  },
-  "author": "Blackbaud, Inc.",
-  "keywords": [
-    "blackbaud",
-    "skyux",
-    "stache"
-  ],
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/blackbaud/stache.git"
-  },
-  "bugs": {
-    "url": "https://github.com/blackbaud/stache/issues"
-  },
-  "homepage": "https://github.com/blackbaud/stache#readme"
+  }
 }

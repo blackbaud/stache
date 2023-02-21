@@ -1,15 +1,6 @@
 {
   "name": "@blackbaud/skyux-lib-clipboard",
   "version": "0.0.0-PLACEHOLDER",
-  "peerDependencies": {
-    "@angular/common": "^14.2.12",
-    "@angular/core": "^14.2.12",
-    "@skyux/core": "^7.6.1",
-    "@skyux/i18n": "^7.6.1"
-  },
-  "dependencies": {
-    "tslib": "^2.4.1"
-  },
   "author": "Blackbaud, Inc.",
   "keywords": [
     "blackbaud",
@@ -24,5 +15,14 @@
   "bugs": {
     "url": "https://github.com/blackbaud/stache/issues"
   },
-  "homepage": "https://github.com/blackbaud/stache#readme"
+  "homepage": "https://github.com/blackbaud/stache#readme",
+  "peerDependencies": {
+    "@angular/common": "^14.2.12",
+    "@angular/core": "^14.2.12",
+    "@skyux/core": "^7.6.1",
+    "@skyux/i18n": "^7.6.1"
+  },
+  "dependencies": {
+    "tslib": "^2.4.1"
+  }
 }

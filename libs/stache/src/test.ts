@@ -8,17 +8,6 @@ import {
   platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 
-declare const require: {
-  context(
-    path: string,
-    deep?: boolean,
-    filter?: RegExp
-  ): {
-    <T>(id: string): T;
-    keys(): string[];
-  };
-};
-
 // Fix for crossvent "global is not defined" error. The crossvent library
 // is used by Dragula, which in turn is used by multiple SKY UX components.
 // See: https://github.com/bevacqua/dragula/issues/602
@@ -29,8 +18,3 @@ getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting()
 );
-
-// Then we find all the tests.
-const context = require.context('./', true, /\.spec\.ts$/);
-// And load the modules.
-context.keys().forEach(context);
