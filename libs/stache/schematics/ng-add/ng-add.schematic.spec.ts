@@ -3,11 +3,9 @@ import {
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
 
-import { joinPathFragments } from "nx/src/utils/path";
+import { joinPathFragments } from 'nx/src/utils/path';
 
 import { createTestLibrary } from '../testing/scaffold';
-
-import { peerDependencies } from '../../package.json';
 
 const COLLECTION_PATH = joinPathFragments(__dirname, '../../collection.json');
 
@@ -43,7 +41,7 @@ describe('ng-add.schematic', () => {
     ];
 
     for (const packageName of packageNames) {
-      expect(packageJson.dependencies[packageName]).toEqual(peerDependencies['@skyux/core']);
+      expect(packageJson.dependencies[packageName]).toEqual('8.0.0-alpha.0');
     }
   });
 });
