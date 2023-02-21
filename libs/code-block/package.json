@@ -1,17 +1,6 @@
 {
   "name": "@blackbaud/skyux-lib-code-block",
   "version": "0.0.0-PLACEHOLDER",
-  "peerDependencies": {
-    "@angular/common": "^14.2.12",
-    "@angular/core": "^14.2.12",
-    "@angular/platform-browser": "^14.2.12",
-    "@blackbaud/skyux-lib-clipboard": "0.0.0-PLACEHOLDER",
-    "@skyux/i18n": "^7.6.1"
-  },
-  "dependencies": {
-    "prismjs": "1.29.0",
-    "tslib": "^2.4.1"
-  },
   "author": "Blackbaud, Inc.",
   "keywords": [
     "blackbaud",
@@ -26,5 +15,16 @@
   "bugs": {
     "url": "https://github.com/blackbaud/stache/issues"
   },
-  "homepage": "https://github.com/blackbaud/stache#readme"
+  "homepage": "https://github.com/blackbaud/stache#readme",
+  "peerDependencies": {
+    "@angular/common": "^15.1.5",
+    "@angular/core": "^15.1.5",
+    "@angular/platform-browser": "^15.1.5",
+    "@blackbaud/skyux-lib-clipboard": "0.0.0-PLACEHOLDER",
+    "@skyux/i18n": "^8.0.0-alpha.0"
+  },
+  "dependencies": {
+    "prismjs": "1.29.0",
+    "tslib": "^2.4.1"
+  }
 }

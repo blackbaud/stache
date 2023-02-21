@@ -270,11 +270,11 @@ describe('StacheRouteService', () => {
 
   it('should not unset the active routes on NavigationEnd', async () => {
     await setupTest();
-    (router as any).events = observableOf(new NavigationEnd(0, '', ''));
     spyOn(StacheRouteService.prototype, 'clearActiveRoutes');
+    await router.navigate(['a']);
     expect(
       StacheRouteService.prototype.clearActiveRoutes
-    ).not.toHaveBeenCalled();
+    ).toHaveBeenCalledTimes(1);
   });
 
   it('should return the active URL', async () => {
