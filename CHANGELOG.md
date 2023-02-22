@@ -1,5 +1,16 @@
 # Changelog
 
+## [8.0.0-rc.0](https://github.com/blackbaud/stache/compare/8.0.0-beta.0...8.0.0-rc.0) (2023-02-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* support Angular 15 ([#46](https://github.com/blackbaud/stache/issues/46))
+
+### Features
+
+* support Angular 15 ([#46](https://github.com/blackbaud/stache/issues/46)) ([b19ab3e](https://github.com/blackbaud/stache/commit/b19ab3e2310a33dd355db5440ff883e9aadd249e))
+
 ## [8.0.0-beta.0](https://github.com/blackbaud/stache/compare/8.0.0-alpha.6...8.0.0-beta.0) (2023-02-10)
 
 
