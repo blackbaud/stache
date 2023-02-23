@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { StacheNavLink } from '../nav/nav-link';
+import { booleanConverter, InputConverter } from '../shared/input-converter';
 
 const SEARCH_KEYS: (keyof StacheNavLink)[] = ['name', 'summary'];
 
@@ -21,7 +22,8 @@ export class StacheActionButtonsComponent {
   }
 
   @Input()
-  public set showSearch(value: boolean | undefined) {
+  @InputConverter(booleanConverter)
+  public set showSearch(value: boolean | string | undefined) {
     this.#_showSearch = value !== false;
   }
 

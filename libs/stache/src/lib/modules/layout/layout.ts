@@ -4,9 +4,9 @@ export interface StacheLayout {
   pageTitle?: string;
   breadcrumbsRoutes?: StacheNavLink[];
   inPageRoutes?: StacheNavLink[];
-  showBackToTop?: boolean;
-  showBreadcrumbs?: boolean;
-  showEditButton?: boolean;
-  showTableOfContents?: boolean;
+  showBackToTop?: boolean | string;
+  showBreadcrumbs?: boolean | string;
+  showEditButton?: boolean | string;
+  showTableOfContents?: boolean | string;
   sidebarRoutes?: StacheNavLink[];
 }
