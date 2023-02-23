@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.0.0-beta.1](https://github.com/blackbaud/stache/compare/8.0.0-beta.0...8.0.0-beta.1) (2023-02-23)
+
+
+### Bug Fixes
+
+* **stache:** add input converters back to inputs ([#51](https://github.com/blackbaud/stache/issues/51)) ([522e173](https://github.com/blackbaud/stache/commit/522e173a9058d6fea868feb9a6af5b1bc9e7250c))
+
 ## [8.0.0-beta.0](https://github.com/blackbaud/stache/compare/8.0.0-alpha.6...8.0.0-beta.0) (2023-02-10)
 
 
