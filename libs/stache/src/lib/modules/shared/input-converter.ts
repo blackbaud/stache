@@ -1,4 +1,4 @@
-export const stringConverter = (value: any) => {
+export const stringConverter = (value: any): string => {
   if (value === undefined || typeof value === 'string') {
     return value;
   }
@@ -6,7 +6,7 @@ export const stringConverter = (value: any) => {
   return value.toString();
 };
 
-export const booleanConverter = (value: any) => {
+export const booleanConverter = (value: any): boolean => {
   if (value === undefined || typeof value === 'boolean') {
     return value;
   }
@@ -14,7 +14,7 @@ export const booleanConverter = (value: any) => {
   return value.toString() === 'true';
 };
 
-export const numberConverter = (value: any) => {
+export const numberConverter = (value: any): number => {
   if (value === undefined || typeof value === 'number') {
     return value;
   }
