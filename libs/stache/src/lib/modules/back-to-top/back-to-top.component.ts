@@ -1,5 +1,6 @@
 import { Component, HostListener, Input } from '@angular/core';
 
+import { InputConverter, numberConverter } from '../shared/input-converter';
 import { StacheWindowRef } from '../shared/window-ref';
 
 const DEFAULT_OFFSET = 200;
@@ -11,8 +12,9 @@ const DEFAULT_OFFSET = 200;
 })
 export class StacheBackToTopComponent {
   @Input()
-  public set offset(value: number | undefined) {
-    this.#_offset = value ?? DEFAULT_OFFSET;
+  @InputConverter(numberConverter)
+  public set offset(value: number | string | undefined) {
+    this.#_offset = (value as number | undefined) ?? DEFAULT_OFFSET;
   }
 
   public get offset(): number {
