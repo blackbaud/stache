@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { StacheNavLink } from '../nav/nav-link';
-import { booleanConverter, InputConverter } from '../shared/input-converter';
+import { InputConverter, booleanConverter } from '../shared/input-converter';
 
 const SEARCH_KEYS: (keyof StacheNavLink)[] = ['name', 'summary'];
 

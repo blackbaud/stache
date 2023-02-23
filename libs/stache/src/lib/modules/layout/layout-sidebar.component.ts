@@ -24,17 +24,17 @@ export class StacheLayoutSidebarComponent implements StacheLayout {
 
   @Input()
   @InputConverter(booleanConverter)
-  public showBackToTop: boolean  | string | undefined;
+  public showBackToTop: boolean | string | undefined;
 
   @Input()
   @InputConverter(booleanConverter)
-  public showBreadcrumbs: boolean  | string | undefined;
+  public showBreadcrumbs: boolean | string | undefined;
 
   @Input()
   @InputConverter(booleanConverter)
-  public showEditButton: boolean  | string | undefined;
+  public showEditButton: boolean | string | undefined;
 
   @Input()
   @InputConverter(booleanConverter)
-  public showTableOfContents: boolean  | string | undefined;
+  public showTableOfContents: boolean | string | undefined;
 }
