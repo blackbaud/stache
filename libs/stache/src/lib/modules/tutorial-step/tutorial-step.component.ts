@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { booleanConverter, InputConverter } from '../shared/input-converter';
 
 @Component({
   selector: 'stache-tutorial-step',
@@ -7,7 +8,8 @@ import { Component, Input } from '@angular/core';
 })
 export class StacheTutorialStepComponent {
   @Input()
-  public set showNumber(value: boolean | undefined) {
+  @InputConverter(booleanConverter)
+  public set showNumber(value: boolean | string | undefined) {
     this.#_showNumber = value !== false;
   }
 
