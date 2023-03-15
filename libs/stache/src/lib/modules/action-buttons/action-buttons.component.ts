@@ -23,7 +23,7 @@ export class StacheActionButtonsComponent {
 
   @Input()
   public set showSearch(value: boolean | string | undefined) {
-    this.#_showSearch = booleanConverter(value);
+    this.#_showSearch = booleanConverter(value) !== false;
   }
 
   public get showSearch(): boolean {
