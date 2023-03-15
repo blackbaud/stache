@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { StacheNavLink } from '../nav/nav-link';
-import { InputConverter, booleanConverter } from '../shared/input-converter';
+import { booleanConverter } from '../shared/input-converter';
 
 import { StacheLayout } from './layout';
 
@@ -20,18 +20,43 @@ export class StacheLayoutContainerComponent implements StacheLayout {
   public inPageRoutes: StacheNavLink[] | undefined;
 
   @Input()
-  @InputConverter(booleanConverter)
-  public showBackToTop: boolean | string | undefined;
+  public set showBackToTop(value: boolean | string | undefined) {
+    this.#_showBackToTop = booleanConverter(value);
+  }
+
+  public get showBackToTop(): boolean {
+    return this.#_showBackToTop;
+  }
 
   @Input()
-  @InputConverter(booleanConverter)
-  public showBreadcrumbs: boolean | string | undefined;
+  public set showBreadcrumbs(value: boolean | string | undefined) {
+    this.#_showBreadcrumbs = booleanConverter(value);
+  }
+
+  public get showBreadcrumbs(): boolean {
+    return this.#_showBreadcrumbs;
+  }
 
   @Input()
-  @InputConverter(booleanConverter)
-  public showEditButton: boolean | string | undefined;
+  public set showEditButton(value: boolean | string | undefined) {
+    this.#_showEditButton = booleanConverter(value);
+  }
+
+  public get showEditButton(): boolean {
+    return this.#_showEditButton;
+  }
 
   @Input()
-  @InputConverter(booleanConverter)
-  public showTableOfContents: boolean | string | undefined;
+  public set showTableOfContents(value: boolean | string | undefined) {
+    this.#_showTableOfContents = booleanConverter(value);
+  }
+
+  public get showTableOfContents(): boolean {
+    return this.#_showTableOfContents;
+  }
+
+  #_showBackToTop = false;
+  #_showBreadcrumbs = false;
+  #_showEditButton = false;
+  #_showTableOfContents = false;
 }
