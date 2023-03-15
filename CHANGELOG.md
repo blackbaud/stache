@@ -7,12 +7,26 @@
 
 * **stache:** convert component inputs when the inputs use an internal setter ([#58](https://github.com/blackbaud/stache/issues/58)) ([#60](https://github.com/blackbaud/stache/issues/60)) ([8e61bfd](https://github.com/blackbaud/stache/commit/8e61bfdf03c9e16e60d38bf74dc01f0cde4b4ecd))
 
+## [8.0.0-beta.2](https://github.com/blackbaud/stache/compare/8.0.0-beta.1...8.0.0-beta.2) (2023-03-15)
+
+
+### Bug Fixes
+
+* **stache:** convert component inputs when the inputs use an internal setter ([#58](https://github.com/blackbaud/stache/issues/58)) ([65287ad](https://github.com/blackbaud/stache/commit/65287ad64deca151083ba8f13db3640d637c54b0))
+
 ## [8.0.0-rc.1](https://github.com/blackbaud/stache/compare/8.0.0-rc.0...8.0.0-rc.1) (2023-02-23)
 
 
 ### Bug Fixes
 
 * **stache:** add input converters back to inputs ([#51](https://github.com/blackbaud/stache/issues/51)) ([#53](https://github.com/blackbaud/stache/issues/53)) ([6ba2b6b](https://github.com/blackbaud/stache/commit/6ba2b6b120c6084f3755e1c3ffacd9c33e1f3042))
+
+## [8.0.0-beta.1](https://github.com/blackbaud/stache/compare/8.0.0-beta.0...8.0.0-beta.1) (2023-02-23)
+
+
+### Bug Fixes
+
+* **stache:** add input converters back to inputs ([#51](https://github.com/blackbaud/stache/issues/51)) ([522e173](https://github.com/blackbaud/stache/commit/522e173a9058d6fea868feb9a6af5b1bc9e7250c))
 
 ## [8.0.0-rc.0](https://github.com/blackbaud/stache/compare/8.0.0-beta.0...8.0.0-rc.0) (2023-02-22)
 
