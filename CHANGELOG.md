@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.0.0-beta.2](https://github.com/blackbaud/stache/compare/8.0.0-beta.1...8.0.0-beta.2) (2023-03-15)
+
+
+### Bug Fixes
+
+* **stache:** convert component inputs when the inputs use an internal setter ([#58](https://github.com/blackbaud/stache/issues/58)) ([65287ad](https://github.com/blackbaud/stache/commit/65287ad64deca151083ba8f13db3640d637c54b0))
+
 ## [8.0.0-rc.1](https://github.com/blackbaud/stache/compare/8.0.0-rc.0...8.0.0-rc.1) (2023-02-23)
 
 
