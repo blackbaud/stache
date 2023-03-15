@@ -18,7 +18,7 @@ import { StacheJsonDataService } from '../json-data/json-data.service';
 import { StacheNavLink } from '../nav/nav-link';
 import { StacheNavService } from '../nav/nav.service';
 import { StachePageAnchorService } from '../page-anchor/page-anchor.service';
-import { InputConverter, booleanConverter } from '../shared/input-converter';
+import { booleanConverter } from '../shared/input-converter';
 import { StacheOmnibarAdapterService } from '../shared/omnibar-adapter.service';
 import { StacheWindowRef } from '../shared/window-ref';
 
@@ -58,8 +58,13 @@ export class StacheWrapperComponent
   public showEditButton: boolean = this.checkEditButtonUrl();
 
   @Input()
-  @InputConverter(booleanConverter)
-  public showFooter: boolean = this.checkFooterData();
+  public set showFooter(value: boolean | string | undefined) {
+    this.#_showFooter = booleanConverter(value);
+  }
+
+  public get showFooter(): boolean {
+    return this.#_showFooter;
+  }
 
   @Input()
   public showTableOfContents = false;
@@ -75,6 +80,8 @@ export class StacheWrapperComponent
 
   public jsonData: any;
   private ngUnsubscribe = new Subject<void>();
+
+  #_showFooter = this.checkFooterData();
 
   public constructor(
     private config: SkyAppConfig,
