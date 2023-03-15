@@ -1,38 +1,46 @@
 import {
-  InputConverter,
   booleanConverter,
   numberConverter,
   stringConverter,
 } from './input-converter';
 
-class MockComponentExplicit {
-  @InputConverter(booleanConverter)
-  public myBoolean: boolean;
+describe('Input converters', () => {
+  it('should convert values to a boolean', () => {
+    const convertedTrue = booleanConverter('true');
+    expect(convertedTrue).toBeTrue();
 
-  @InputConverter(stringConverter)
-  public myString: string;
+    const convertedFalse = booleanConverter('false');
+    expect(convertedFalse).toBeFalse();
 
-  @InputConverter(numberConverter)
-  public myNumber: number;
-}
+    const convertedUndefinedBoolean = booleanConverter(undefined);
+    expect(convertedUndefinedBoolean).toBeUndefined();
 
-describe('InputConverter', () => {
-  it('should convert values when using explicit converters', () => {
-    const component = new MockComponentExplicit();
+    const nonStandardString = booleanConverter('thing');
+    expect(nonStandardString).toBeFalse();
+  });
 
-    component.myBoolean = 'true' as any;
-    expect(component.myBoolean).toBe(true);
+  it('should convert values to a number', () => {
+    const convertedNumber = numberConverter('7');
+    expect(convertedNumber).toBe(7);
 
-    component.myBoolean = 'false' as any;
-    expect(component.myBoolean).toBe(false);
+    const convertedUndefinedNumber = numberConverter(undefined);
+    expect(convertedUndefinedNumber).toBeUndefined();
 
-    component.myString = 5 as any;
-    expect(component.myString).toBe('5');
+    const nonStandardNumber = numberConverter('thing');
+    expect(nonStandardNumber).toBeNaN();
+  });
 
-    component.myString = 'hello' as any;
-    expect(component.myString).toBe('hello');
+  it('should convert values to a string', () => {
+    const convertedNumberString = stringConverter(5);
+    expect(convertedNumberString).toBe('5');
 
-    component.myNumber = '7' as any;
-    expect(component.myNumber).toBe(7);
+    const unconvertedString = stringConverter('hello');
+    expect(unconvertedString).toBe('hello');
+
+    const convertedUndefinedString = stringConverter(undefined);
+    expect(convertedUndefinedString).toBeUndefined();
+
+    const nonStandardString = stringConverter({ foo: 'bar' });
+    expect(nonStandardString).toBe('[object Object]');
   });
 });
