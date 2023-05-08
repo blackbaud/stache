@@ -20,7 +20,7 @@
     "@angular/common": "^15.2.1",
     "@angular/core": "^15.2.1",
     "@angular/platform-browser": "^15.2.1",
-    "@skyux/i18n": "^8.0.0-alpha.0"
+    "@skyux/i18n": "^8.0.0-beta.3"
   },
   "dependencies": {
     "tslib": "^2.4.1"
