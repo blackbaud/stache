@@ -30,16 +30,16 @@
     }
   },
   "peerDependencies": {
-    "@angular/cli": "^15.1.6",
-    "@angular/common": "^15.1.5",
-    "@angular/core": "^15.1.5",
-    "@angular/platform-browser": "^15.1.5",
-    "@angular/router": "^15.1.5",
-    "@skyux/config": "^8.0.0-alpha.0",
-    "@skyux/core": "^8.0.0-alpha.0",
-    "@skyux/i18n": "^8.0.0-alpha.0",
-    "@skyux/layout": "^8.0.0-alpha.0",
-    "@skyux/lookup": "^8.0.0-alpha.0",
+    "@angular/cli": "^15.2.1",
+    "@angular/common": "^15.2.1",
+    "@angular/core": "^15.2.1",
+    "@angular/platform-browser": "^15.2.1",
+    "@angular/router": "^15.2.1",
+    "@skyux/config": "^8.0.0-beta.3",
+    "@skyux/core": "^8.0.0-beta.3",
+    "@skyux/i18n": "^8.0.0-beta.3",
+    "@skyux/layout": "^8.0.0-beta.3",
+    "@skyux/lookup": "^8.0.0-beta.3",
     "fs-extra": "^10.1.0 || ^11"
   },
   "dependencies": {
