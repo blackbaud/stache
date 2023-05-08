@@ -101,7 +101,7 @@
     "@ryansonshine/cz-conventional-changelog": "3.3.4",
     "@schematics/angular": "15.2.1",
     "@skyux-sdk/testing": "8.0.0-beta.3",
-    "@skyux/dev-infra-private": "github:blackbaud/skyux-dev-infra-private-builds#2.5.0",
+    "@skyux/dev-infra-private": "github:blackbaud/skyux-dev-infra-private-builds#8.0.0-beta.1",
     "@trivago/prettier-plugin-sort-imports": "4.0.0",
     "@types/cross-spawn": "6.0.2",
     "@types/fs-extra": "11.0.1",
