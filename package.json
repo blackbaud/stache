@@ -21,7 +21,8 @@
     "dev:pristine": "skyux-dev pristine-commit"
   },
   "engines": {
-    "node": "^18.14.2"
+    "node": "^18.14.2",
+    "npm": "^9.5.0"
   },
   "config": {
     "commitizen": {
@@ -81,10 +82,12 @@
   "private": true,
   "devDependencies": {
     "@angular-devkit/build-angular": "15.2.1",
+    "@angular-devkit/core": "15.2.1",
+    "@angular-devkit/schematics": "15.2.1",
     "@angular-eslint/eslint-plugin": "15.2.1",
     "@angular-eslint/eslint-plugin-template": "15.2.1",
     "@angular-eslint/template-parser": "15.2.1",
-    "@angular/cli": "15.2.1",
+    "@angular/cli": "~15.2.0",
     "@angular/compiler-cli": "15.2.1",
     "@angular/language-service": "15.2.1",
     "@istanbuljs/nyc-config-typescript": "1.0.2",
@@ -96,6 +99,7 @@
     "@nrwl/workspace": "15.8.5",
     "@ryansonshine/commitizen": "4.2.8",
     "@ryansonshine/cz-conventional-changelog": "3.3.4",
+    "@schematics/angular": "15.2.1",
     "@skyux-sdk/testing": "8.0.0-beta.3",
     "@skyux/dev-infra-private": "github:blackbaud/skyux-dev-infra-private-builds#2.5.0",
     "@trivago/prettier-plugin-sort-imports": "4.0.0",
