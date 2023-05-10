@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.0.0](https://github.com/blackbaud/stache/compare/8.0.0-rc.2...8.0.0) (2023-05-10)
+
+
+### Features
+
+* trigger 8.0.0 release ([#66](https://github.com/blackbaud/stache/issues/66)) ([6d41b2f](https://github.com/blackbaud/stache/commit/6d41b2f7089d2da2a6ee691f919a55dc421a1294))
+
 ## [8.0.0-rc.2](https://github.com/blackbaud/stache/compare/8.0.0-rc.1...8.0.0-rc.2) (2023-03-15)
 
 
