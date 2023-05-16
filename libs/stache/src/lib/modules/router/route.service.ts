@@ -71,7 +71,7 @@ function clone<T>(thing: T): T {
  *    path: 'lazy',
  *    loadComponent: () => import('./path/to/lazy.component'),
  *    providers: [
- *      { provide: StacheRouteOptions, useValue: {basePath: 'nested'}}
+ *      { provide: STACHE_ROUTE_OPTIONS, useValue: {basePath: 'nested'}}
  *    ]
  *    data: {
  *      stache: {
