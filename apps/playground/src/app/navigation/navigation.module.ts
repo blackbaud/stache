@@ -5,7 +5,11 @@ import {
   SkyCodeBlockModule,
   SkyCodeModule,
 } from '@blackbaud/skyux-lib-code-block';
-import { StacheModule, StacheRouterModule } from '@blackbaud/skyux-lib-stache';
+import {
+  STACHE_ROUTE_OPTIONS,
+  StacheModule,
+  StacheRouterModule,
+} from '@blackbaud/skyux-lib-stache';
 
 import { NavigationComponent } from './navigation.component';
 import { RecursionComponent } from './supporting-pages/recursion/recursion.component';
@@ -51,6 +55,26 @@ const routes: Routes = [
         name: 'Recursion',
       },
     },
+  },
+  {
+    path: 'lazy',
+    loadComponent: () => import('./lazy/lazy.component'),
+    providers: [
+      {
+        provide: STACHE_ROUTE_OPTIONS,
+        useValue: { basePath: 'navigation' },
+      },
+    ],
+  },
+  {
+    path: 'lazy/recursive',
+    loadComponent: () => import('./lazy/lazy.component'),
+    providers: [
+      {
+        provide: STACHE_ROUTE_OPTIONS,
+        useValue: { basePath: 'navigation' },
+      },
+    ],
   },
 ];
 

@@ -427,7 +427,7 @@ describe('StacheRouteService', () => {
     });
     router = TestBed.inject(Router);
     routeService = new StacheRouteService(router as Router, mockRoutes, {
-      path: 'order-routes',
+      basePath: 'order-routes',
     });
     expect(routeService).toBeTruthy();
     await router.navigateByUrl('/order-routes');
