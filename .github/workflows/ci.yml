@@ -39,7 +39,12 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Start Nx Cloud CI run
-        run: npx nx-cloud start-ci-run
+        run: |
+          if [ $MATRIX_SIZE -gt 1 ]; then
+            npx nx-cloud start-ci-run
+          else
+            echo "Nx Cloud CI run not started because MATRIX_SIZE is $MATRIX_SIZE"
+          fi
       - name: Agent list
         run: |
           echo 'matrix_size=${{ env.MATRIX_SIZE }}' >> $GITHUB_OUTPUT
