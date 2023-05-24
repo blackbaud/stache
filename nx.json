@@ -3,6 +3,13 @@
   "npmScope": "stache",
   "tasksRunnerOptions": {
     "default": {
+      "runner": "@nrwl/nx-cloud",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "posttest", "e2e"],
+        "accessToken": "Mzc2MGM2NDAtNTc5OS00NjA0LTlkODQtOGVmMWFmMWVjNDBhfHJlYWQtd3JpdGU="
+      }
+    },
+    "local": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
         "cacheableOperations": ["build", "lint", "test", "posttest", "e2e"]
