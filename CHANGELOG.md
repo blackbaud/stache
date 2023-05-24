@@ -1,9 +1,5 @@
 # Changelog
 
-## 8.0.1 (2023-05-16)
-
-* **stache:** expose `StacheRouteOptions` to allow lazy loaded component routes to override the base path for navigation
-
 ## [8.0.0](https://github.com/blackbaud/stache/compare/8.0.0-rc.2...8.0.0) (2023-05-10)
 
 
