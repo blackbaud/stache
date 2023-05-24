@@ -45,7 +45,7 @@ jobs:
 
   agents:
     name: Bootup Nx Cloud agent
-    if: ${{ env.parallelism }} > 1
+    if: ${{ env.parallelism > 1 }}
     runs-on: ubuntu-latest
     needs: install-deps
     strategy:
@@ -180,7 +180,7 @@ jobs:
   stop-agents:
     name: Stop Nx Cloud agents
     runs-on: ubuntu-latest
-    if: ${{ env.parallelism }} > 1
+    if: ${{ env.parallelism > 1 }}
     needs: [install-deps, lint, build, build-dist, coverage]
     steps:
       - uses: actions/checkout@v3
