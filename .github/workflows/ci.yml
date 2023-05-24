@@ -7,7 +7,8 @@ on:
   pull_request:
 
 env:
-  NX_CLOUD_DISTRIBUTED_EXECUTION: true
+  # NX_CLOUD_DISTRIBUTED_EXECUTION: true
+  parallelism: 1
 
 jobs:
   install-deps:
@@ -38,14 +39,17 @@ jobs:
         run: npm ci
       - name: Start Nx Cloud CI run
         run: npx nx-cloud start-ci-run
+      - name: Agent list
+        run: |
+          node -e 'console.log("agents=" + JSON.stringify({ agent: Array.from(Array(${{ env.parallelism }}).keys()).map(i => i + 1) }))' >> $GITHUB_OUTPUT
 
   agents:
     name: Bootup Nx Cloud agent
+    if: ${{ env.parallelism }} > 1
     runs-on: ubuntu-latest
     needs: install-deps
     strategy:
-      matrix:
-        agent: [1, 2, 3]
+      matrix: ${{ fromJSON(needs.install-deps.outputs.agents) }}
     steps:
       - uses: actions/checkout@v3
       - name: Retrieve node_modules cache
@@ -91,7 +95,7 @@ jobs:
       - name: Check code formatting
         run: npx prettier --check .
       - name: Run lint
-        run: npx nx affected:lint --quiet --silent --parallel=3
+        run: npx nx affected:lint --quiet --silent --parallel=${{ env.parallelism }}
 
   build:
     name: Build
@@ -119,7 +123,7 @@ jobs:
       - name: Run NGCC
         run: npx ngcc
       - name: Build
-        run: npx nx affected --target=build --parallel=3
+        run: npx nx affected --target=build --parallel=${{ env.parallelism }}
 
   build-dist:
     name: Build packages distribution
@@ -170,13 +174,13 @@ jobs:
         run: npx ngcc
       - name: Code coverage
         run: |
-          npx nx affected --target=test --browsers=ChromeHeadless --code-coverage --parallel=3 --progress=false --source-map --watch=false
-          npx nx affected --target=posttest --browsers=ChromeHeadless --parallel=3 --watch=false
+          npx nx affected --target=test --browsers=ChromeHeadless --code-coverage --parallel=${{ env.parallelism }} --progress=false --source-map --watch=false
+          npx nx affected --target=posttest --browsers=ChromeHeadless --parallel=${{ env.parallelism }} --watch=false
 
   stop-agents:
     name: Stop Nx Cloud agents
     runs-on: ubuntu-latest
-    if: always()
+    if: ${{ env.parallelism }} > 1
     needs: [install-deps, lint, build, build-dist, coverage]
     steps:
       - uses: actions/checkout@v3
