@@ -8,6 +8,7 @@ on:
 
 env:
   NX_CLOUD_DISTRIBUTED_EXECUTION: false
+  NX_TASKS_RUNNER: local
   MATRIX_SIZE: 1
 
 jobs:
@@ -41,11 +42,12 @@ jobs:
         run: npx nx-cloud start-ci-run
       - name: Agent list
         run: |
+          echo 'matrix_size=${{ env.MATRIX_SIZE }}' >> $GITHUB_OUTPUT
           node -e 'console.log("agents=" + JSON.stringify({ agent: Array.from(Array(${{ env.MATRIX_SIZE }}).keys()).map(i => i + 1) }))' >> $GITHUB_OUTPUT
 
   agents:
     name: Bootup Nx Cloud agent
-    if: env.NX_CLOUD_DISTRIBUTED_EXECUTION == 'true'
+    if: needs.install-deps.outputs.matrix_size > 1
     runs-on: ubuntu-latest
     needs: install-deps
     strategy:
@@ -180,7 +182,7 @@ jobs:
   stop-agents:
     name: Stop Nx Cloud agents
     runs-on: ubuntu-latest
-    if: env.NX_CLOUD_DISTRIBUTED_EXECUTION == 'true'
+    if: needs.install-deps.outputs.matrix_size > 1
     needs: [install-deps, lint, build, build-dist, coverage]
     steps:
       - uses: actions/checkout@v3
