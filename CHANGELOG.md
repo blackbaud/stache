@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.1.0](https://github.com/blackbaud/stache/compare/8.0.0...8.1.0) (2023-05-26)
+
+
+### Features
+
+* **stache:** allow `StacheRouteOptions` to be provided with navigation information for lazy loaded components ([#68](https://github.com/blackbaud/stache/issues/68)) Thanks @Blackbaud-NicklausGlyder! ([90f57eb](https://github.com/blackbaud/stache/commit/90f57eb04d249387084cb7065c342ab4573a5c16))
+
 ## [8.0.0](https://github.com/blackbaud/stache/compare/8.0.0-rc.2...8.0.0) (2023-05-10)
 
 
