@@ -9,7 +9,7 @@ import { StacheRouteService } from './route.service';
 })
 export class StacheRouterModule {
   public static forChild(
-    path: string
+    basePath: string
   ): ModuleWithProviders<StacheRouterModule> {
     return {
       ngModule: StacheRouterModule,
@@ -17,8 +17,9 @@ export class StacheRouterModule {
         {
           provide: StacheRouteService,
           useFactory: (router: Router, routes: Routes): StacheRouteService => {
-            const options = new StacheRouteOptions();
-            options.path = path;
+            const options: StacheRouteOptions = {
+              basePath,
+            };
 
             return new StacheRouteService(router, routes, options);
           },

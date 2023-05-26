@@ -1,11 +1,5 @@
 import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
-import {
-  NavigationStart,
-  ROUTES,
-  Route,
-  Router,
-  Routes,
-} from '@angular/router';
+import { NavigationStart, ROUTES, Router, Routes } from '@angular/router';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -15,7 +9,7 @@ import { numberConverter } from '../shared/input-converter';
 
 import { StacheRouteMetadataConfig } from './route-metadata-config';
 import { StacheRouteMetadataConfigJson } from './route-metadata-config-json';
-import { StacheRouteOptions } from './route-options';
+import { STACHE_ROUTE_OPTIONS, StacheRouteOptions } from './route-options';
 import { sortByName, sortByOrder } from './sort';
 
 type UnformattedStacheNavLink = {
@@ -69,6 +63,24 @@ function clone<T>(thing: T): T {
  * })
  * export class MyLazyLoadedModule {}
  * ```
+ * Lazy loaded components will lose the context provided by StacheRouterModule.forChild(...)
+ * You may override the StacheRouteOptions via a route provider to wire lazy components into navigation
+ * ```
+ *  const routes: Routes = [
+ *  {
+ *    path: 'lazy',
+ *    loadComponent: () => import('./path/to/lazy.component'),
+ *    providers: [
+ *      { provide: STACHE_ROUTE_OPTIONS, useValue: {basePath: 'nested'}}
+ *    ]
+ *    data: {
+ *      stache: {
+ *        name: 'Lazy',
+ *      },
+ *    },
+ *  },
+ * ];
+ * ```
  */
 @Injectable()
 export class StacheRouteService implements OnDestroy {
@@ -81,7 +93,7 @@ export class StacheRouteService implements OnDestroy {
   constructor(
     router: Router,
     @Optional() @Inject(ROUTES) routes?: Routes,
-    @Optional() options?: StacheRouteOptions
+    @Optional() @Inject(STACHE_ROUTE_OPTIONS) options?: StacheRouteOptions
   ) {
     this.#options = options;
     this.#router = router;
@@ -106,7 +118,7 @@ export class StacheRouteService implements OnDestroy {
 
     const rootPath = this.getActiveUrl().replace(/^\//, '').split('/')[0];
 
-    const appRoutes = this.#options?.path
+    const appRoutes = this.#options?.basePath
       ? this.#routes
       : this.#getRouteBranch(this.#routes, rootPath);
 
@@ -114,7 +126,7 @@ export class StacheRouteService implements OnDestroy {
       .filter((route) => {
         // If options.path is specified, it means that all routes are children
         // of the root path.
-        return this.#options?.path || route.path?.indexOf(rootPath) === 0;
+        return this.#options?.basePath || route.path?.indexOf(rootPath) === 0;
       })
       .map((route) => {
         const path = this.#prependOptionsPath(route.path);
@@ -176,8 +188,10 @@ export class StacheRouteService implements OnDestroy {
   #prependOptionsPath(path: string | undefined): string | undefined {
     // If options.path is specified, all routes are children of the root path,
     // so prepend it to each path when building the path for navigation.
-    if (this.#options?.path) {
-      path = path ? `${this.#options.path}/${path}` : this.#options.path;
+    if (this.#options?.basePath) {
+      path = path
+        ? `${this.#options.basePath}/${path}`
+        : this.#options.basePath;
     }
 
     return path;
