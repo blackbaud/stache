@@ -1,4 +1,4 @@
 {
-  "baseBranch": "main",
+  "baseBranch": "8.x.x",
   "documentationExcludeProjects": ["clipboard", "code-block", "media", "stache"]
 }
