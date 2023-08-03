@@ -54,10 +54,14 @@ export class StacheEditButtonComponent implements OnInit {
 
     if (type === 'vsts') {
       return (
-        base + ADO_FILE_PATH_ROOT + frag + 'index.html' + ADO_BRANCH_SELECTOR
+        base +
+        ADO_FILE_PATH_ROOT +
+        frag +
+        'index.component.html' +
+        ADO_BRANCH_SELECTOR
       );
     } else {
-      return base + GITHUB_FILE_PATH_ROOT + frag + 'index.html';
+      return base + GITHUB_FILE_PATH_ROOT + frag + 'index.component.html';
     }
   }
 }
