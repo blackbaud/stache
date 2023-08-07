@@ -12,7 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Next release
-        if: ${{ env.PRERELEASE == 'true' }}
+        # if: ${{ env.PRERELEASE == 'true' }}
+        if: ${{ false }}
         id: next-release
         run: |
           # Log commands and exit on error.

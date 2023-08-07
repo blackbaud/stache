@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import {
-  StacheRouteService,
-  StacheRouterModule,
-} from '@blackbaud/skyux-lib-stache';
+
+import { StacheRouteService } from './route.service';
+import { StacheRouterModule } from './router.module';
 
 @Component({ template: '' })
 class TestComponent {}
