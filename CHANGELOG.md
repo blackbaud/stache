@@ -11,6 +11,12 @@
 
 * drop support for Angular 15; add support for Angular 16 ([#77](https://github.com/blackbaud/stache/issues/77)) ([1d1d7db](https://github.com/blackbaud/stache/commit/1d1d7dbcdece12a1514f31cd90b426fc2ced9f2d))
 
+### Bug Fixes
+
+* **stache:** set correct component URL for edit button ([#75](https://github.com/blackbaud/stache/issues/75)) ([42903c0](https://github.com/blackbaud/stache/commit/42903c024eb33d7edaa531e553e9c4cd4924c9b1))
+
+## [8.1.1](https://github.com/blackbaud/stache/compare/8.1.0...8.1.1) (2023-08-03)
+
 
 ### Bug Fixes
 
