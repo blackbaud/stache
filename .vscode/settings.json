@@ -3,12 +3,14 @@
   "editor.formatOnSave": true,
   "prettier.requireConfig": true,
   "cSpell.words": [
+    "blackbaud",
     "crossvent",
     "Dragula",
     "labelledby",
     "omnibar",
     "packagr",
     "prismjs",
+    "skyux",
     "Stache"
   ]
 }

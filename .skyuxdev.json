@@ -1,4 +1,10 @@
 {
   "baseBranch": "main",
-  "documentationExcludeProjects": ["clipboard", "code-block", "media", "stache"]
+  "documentationExcludeProjects": [
+    "clipboard",
+    "code-block",
+    "media",
+    "stache"
+  ],
+  "packageNameUsedToDetermineDistTags": "@blackbaud/skyux-lib-stache"
 }
