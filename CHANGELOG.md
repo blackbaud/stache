@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.0.0](https://github.com/blackbaud/stache/compare/9.0.0-alpha.0...9.0.0) (2023-09-14)
+
+
+### Features
+
+* add support for `@skyux/core@9.0.0` ([#80](https://github.com/blackbaud/stache/issues/80)) ([4dda365](https://github.com/blackbaud/stache/commit/4dda365d7a68da9a671185ed790497618910888b))
+
 ## [9.0.0-alpha.0](https://github.com/blackbaud/stache/compare/8.1.0...9.0.0-alpha.0) (2023-08-07)
 
 
