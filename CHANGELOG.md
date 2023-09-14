@@ -3,9 +3,18 @@
 ## [9.0.0](https://github.com/blackbaud/stache/compare/9.0.0-alpha.0...9.0.0) (2023-09-14)
 
 
+### ⚠ BREAKING CHANGES
+
+* drop support for Angular 15; add support for Angular 16 ([#77](https://github.com/blackbaud/stache/issues/77))
+
 ### Features
 
+* drop support for Angular 15; add support for Angular 16 ([#77](https://github.com/blackbaud/stache/issues/77)) ([1d1d7db](https://github.com/blackbaud/stache/commit/1d1d7dbcdece12a1514f31cd90b426fc2ced9f2d))
 * add support for `@skyux/core@9.0.0` ([#80](https://github.com/blackbaud/stache/issues/80)) ([4dda365](https://github.com/blackbaud/stache/commit/4dda365d7a68da9a671185ed790497618910888b))
+
+### Bug Fixes
+
+* **stache:** set correct component URL for edit button ([#75](https://github.com/blackbaud/stache/issues/75)) ([42903c0](https://github.com/blackbaud/stache/commit/42903c024eb33d7edaa531e553e9c4cd4924c9b1))
 
 ## [9.0.0-alpha.0](https://github.com/blackbaud/stache/compare/8.1.0...9.0.0-alpha.0) (2023-08-07)
 
