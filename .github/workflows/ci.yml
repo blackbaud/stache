@@ -173,8 +173,7 @@ jobs:
           key: ${{ runner.os }}-node-${{ needs.install-deps.outputs.node-version }}-modules-${{ hashFiles('package-lock.json') }}
       - name: Code coverage
         run: |
-          npx nx affected --target=test --browsers=ChromeHeadless --code-coverage --parallel=${{ env.MATRIX_SIZE }} --progress=false --source-map --watch=false
-          npx nx affected --target=posttest --browsers=ChromeHeadless --parallel=${{ env.MATRIX_SIZE }} --watch=false
+          npx nx affected --target=test,posttest --configuration=ci --parallel=${{ env.MATRIX_SIZE }}
 
   stop-agents:
     name: Stop Nx Cloud agents

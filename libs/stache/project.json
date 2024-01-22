@@ -42,7 +42,7 @@
       },
       "configurations": {
         "ci": {
-          "browsers": "ChromeHeadlessNoSandbox",
+          "browsers": "ChromeHeadless",
           "codeCoverage": true,
           "progress": false,
           "sourceMap": true,
