@@ -39,6 +39,15 @@
           "node_modules/@skyux/theme/css/sky.css",
           "node_modules/@skyux/theme/css/themes/modern/styles.css"
         ]
+      },
+      "configurations": {
+        "ci": {
+          "browsers": "ChromeHeadlessNoSandbox",
+          "codeCoverage": true,
+          "progress": false,
+          "sourceMap": true,
+          "watch": false
+        }
       }
     },
     "posttest": {
