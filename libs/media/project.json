@@ -9,8 +9,7 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "libs/media/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": false
+        "project": "libs/media/ng-package.json"
       },
       "configurations": {
         "production": {
@@ -37,10 +36,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["libs/media/**/*.ts", "libs/media/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": ["component", "npm"]

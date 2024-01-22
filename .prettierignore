@@ -14,3 +14,5 @@ CHANGELOG.md
 
 # Prismjs language imports need to be in a specific, non-alphabetical order.
 libs/code-block/src/lib/modules/code-block/prism-languages.ts
+
+/.nx/cache
