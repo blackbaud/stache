@@ -9,8 +9,7 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "libs/stache/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": false
+        "project": "libs/stache/ng-package.json"
       },
       "configurations": {
         "production": {
@@ -40,6 +39,15 @@
           "node_modules/@skyux/theme/css/sky.css",
           "node_modules/@skyux/theme/css/themes/modern/styles.css"
         ]
+      },
+      "configurations": {
+        "ci": {
+          "browsers": "ChromeHeadless",
+          "codeCoverage": true,
+          "progress": false,
+          "sourceMap": true,
+          "watch": false
+        }
       }
     },
     "posttest": {
@@ -49,10 +57,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["libs/stache/**/*.ts", "libs/stache/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": ["component", "npm"]
