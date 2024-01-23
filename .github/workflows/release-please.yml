@@ -1,12 +1,14 @@
 name: Release Please
 on:
+  schedule:
+    - cron: '0 5 * * *'
   workflow_dispatch:
   push:
     branches:
       - main
 env:
-  PRERELEASE: 'false'
-  MAJOR_VERSION: 9
+  PRERELEASE: 'true'
+  MAJOR_VERSION: 10
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -22,10 +24,14 @@ jobs:
           CURRENT_RELEASE=$(gh release list -R ${{ github.repository }}|grep '^v${{ env.MAJOR_VERSION }}'|head -1|cut -d$'\t' -f 3)
 
           # Bump the prerelease version.
-          NEXT_VERSION=$(npx --yes semver -i prerelease $CURRENT_RELEASE)
+          if [ -z "$CURRENT_RELEASE" ]; then
+            NEXT_VERSION="${{ env.MAJOR_VERSION }}.0.0-alpha.0"
+          else
+            NEXT_VERSION=$(npx --yes semver -i prerelease $CURRENT_RELEASE)
+          fi
 
           # If version is empty, exit.
-          if [ -z "$CURRENT_RELEASE" ] || [ -z "$NEXT_VERSION" ]; then
+          if [ -z "$NEXT_VERSION" ]; then
             echo "Not able to determine prerelease version."
             exit 1
           fi
@@ -44,8 +50,7 @@ jobs:
           pull-request-title-pattern: 'chore: release ${version}'
           labels: 'autorelease ${{ github.ref_name }}: pending'
           release-labels: 'autorelease ${{ github.ref_name }}: tagged'
-          # release-as: '${{ steps.next-release.outputs.next-release }}'
-          release-as: 9.0.0
+          release-as: '${{ steps.next-release.outputs.next-release }}'
           prerelease: ${{ env.PRERELEASE == 'true' }}
           draft-pull-request: true
           include-v-in-tag: false
@@ -73,7 +78,7 @@ jobs:
         run: npm ci
       - name: Build
         if: ${{ steps.release.outputs.release_created }}
-        run: npx skyux-dev create-packages-dist
+        run: npx skyux-dev create-packages-dist --skipNxCache
       - name: Publish
         if: ${{ steps.release.outputs.release_created }}
         run: npx skyux-dev publish-packages-dist
@@ -96,3 +101,14 @@ jobs:
           SLACK_MESSAGE: Failed to publish Stache ${{ steps.release.outputs.tag_name }} to NPM!
           SLACK_ICON: https://github.com/blackbaud.png?size=48
           SLACK_USERNAME: Stache
+      - name: Notify Slack (failure, non-release)
+        if: ${{ failure() && !steps.release.outputs.release_created }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_MESSAGE: Failed when preparing Stache release!
+          SLACK_ICON: https://github.com/blackbaud.png?size=48
+          SLACK_USERNAME: Stache
+          #cor-skyux-notifications
+          SLACK_CHANNEL: C01GY7ZP4HM
