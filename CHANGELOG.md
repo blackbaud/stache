@@ -1,5 +1,16 @@
 # Changelog
 
+## [10.0.0-alpha.0](https://github.com/blackbaud/stache/compare/9.0.0...10.0.0-alpha.0) (2024-01-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* Added support for Angular 17 and removed support for Angular 16
+
+### Features
+
+* add Angular 17 support ([#85](https://github.com/blackbaud/stache/issues/85)) ([3447279](https://github.com/blackbaud/stache/commit/34472796fd60068e7ac6cde8dc9bb2480714a16c))
+
 ## [9.0.0](https://github.com/blackbaud/stache/compare/9.0.0-alpha.0...9.0.0) (2023-09-14)
 
 
