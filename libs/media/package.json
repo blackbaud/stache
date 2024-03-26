@@ -17,9 +17,9 @@
   },
   "homepage": "https://github.com/blackbaud/stache#readme",
   "peerDependencies": {
-    "@angular/common": "^17.1.0",
-    "@angular/core": "^17.1.0",
-    "@angular/platform-browser": "^17.1.0",
+    "@angular/common": "^17.3.1",
+    "@angular/core": "^17.3.1",
+    "@angular/platform-browser": "^17.3.1",
     "@skyux/i18n": "^10.0.0"
   },
   "dependencies": {
