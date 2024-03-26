@@ -42,7 +42,7 @@ describe('StacheTableOfContentsComponent', () => {
                 },
               },
             } as Route;
-          })
+          }),
         ),
       ],
       providers: [{ provide: SkyAppConfig, useValue: {} }],
@@ -52,7 +52,7 @@ describe('StacheTableOfContentsComponent', () => {
     const windowRef = TestBed.inject(StacheWindowRef);
 
     spyOnProperty(windowRef.nativeWindow, 'pageYOffset').and.returnValue(
-      options.pageYOffset
+      options.pageYOffset,
     );
 
     fixture.componentInstance.tocRoutes = options.routes;
@@ -61,31 +61,31 @@ describe('StacheTableOfContentsComponent', () => {
   }
 
   function makeDocumentHeightGreaterThanViewportHeight(
-    windowRef: StacheWindowRef
+    windowRef: StacheWindowRef,
   ): void {
     spyOnProperty(windowRef.nativeWindow, 'innerHeight').and.returnValue(900);
     spyOn(
       windowRef.nativeWindow.document.documentElement,
-      'getBoundingClientRect'
+      'getBoundingClientRect',
     ).and.returnValue({ bottom: 5000 });
   }
 
   function makeDocumentHeightEqualToViewportHeight(
-    windowRef: StacheWindowRef
+    windowRef: StacheWindowRef,
   ): void {
     const height = 200;
     spyOnProperty(windowRef.nativeWindow, 'innerHeight').and.returnValue(
-      height
+      height,
     );
     spyOn(
       windowRef.nativeWindow.document.documentElement,
-      'getBoundingClientRect'
+      'getBoundingClientRect',
     ).and.returnValue({ bottom: height });
   }
 
   function scrollWindow(
     fixture: ComponentFixture<unknown>,
-    windowRef: StacheWindowRef
+    windowRef: StacheWindowRef,
   ): void {
     SkyAppTestUtility.fireDomEvent(windowRef.nativeWindow, 'scroll');
     fixture.detectChanges();
@@ -97,7 +97,7 @@ describe('StacheTableOfContentsComponent', () => {
    */
   function verifyCurrentRoute(
     tocRoutes: StacheNavLink[],
-    index: number | undefined
+    index: number | undefined,
   ): void {
     let i = 0;
     for (const route of tocRoutes) {

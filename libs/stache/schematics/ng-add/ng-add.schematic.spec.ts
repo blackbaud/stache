@@ -21,7 +21,7 @@ describe('ng-add.schematic', () => {
   });
 
   function runSchematic(
-    options: { project?: string } = {}
+    options: { project?: string } = {},
   ): Promise<UnitTestTree> {
     return runner.runSchematic('ng-add', options, tree);
   }

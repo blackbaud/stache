@@ -16,7 +16,7 @@ export class StacheGoogleAnalyticsDirective implements OnInit {
   public constructor(
     private windowRef: StacheWindowRef,
     private configService: SkyAppConfig,
-    private router: Router
+    private router: Router,
   ) {}
 
   public ngOnInit(): void {

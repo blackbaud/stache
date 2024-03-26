@@ -28,7 +28,7 @@ describe('SkyCodeComponent', () => {
     testFixture.detectChanges();
 
     const codeElement = testFixture.debugElement.query(
-      By.css('.sky-code')
+      By.css('.sky-code'),
     ).nativeElement;
     expect(codeElement).toHaveText('some code');
   });

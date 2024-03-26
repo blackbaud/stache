@@ -38,7 +38,7 @@ export class StacheSidebarWrapperComponent implements OnDestroy, AfterViewInit {
   constructor(
     renderer: Renderer2,
     windowRef: StacheWindowRef,
-    mediaQuerySvc: SkyMediaQueryService
+    mediaQuerySvc: SkyMediaQueryService,
   ) {
     this.#renderer = renderer;
     this.#windowRef = windowRef;
@@ -64,14 +64,14 @@ export class StacheSidebarWrapperComponent implements OnDestroy, AfterViewInit {
   #addClassToBody(): void {
     this.#renderer.addClass(
       this.#windowRef.nativeWindow.document.body,
-      SIDEBAR_CSS_CLASS_NAME
+      SIDEBAR_CSS_CLASS_NAME,
     );
   }
 
   #removeClassFromBody(): void {
     this.#renderer.removeClass(
       this.#windowRef.nativeWindow.document.body,
-      SIDEBAR_CSS_CLASS_NAME
+      SIDEBAR_CSS_CLASS_NAME,
     );
   }
 }

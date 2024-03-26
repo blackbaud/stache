@@ -46,8 +46,8 @@ export class StacheNavService {
       typeof route === 'string'
         ? route
         : typeof route.path === 'string'
-        ? route.path
-        : undefined;
+          ? route.path
+          : undefined;
 
     return routeStr ? /^(https?|mailto|ftp):+|^(www)/.test(routeStr) : false;
   }

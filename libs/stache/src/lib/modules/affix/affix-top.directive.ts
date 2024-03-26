@@ -31,7 +31,7 @@ export class StacheAffixTopDirective implements AfterViewInit {
     renderer: Renderer2,
     elementRef: ElementRef,
     omnibarSvc: StacheOmnibarAdapterService,
-    windowRef: StacheWindowRef
+    windowRef: StacheWindowRef,
   ) {
     this.#renderer = renderer;
     this.#elementRef = elementRef;
@@ -41,7 +41,7 @@ export class StacheAffixTopDirective implements AfterViewInit {
 
   public ngAfterViewInit(): void {
     this.#footerWrapper = this.#windowRef.nativeWindow.document.querySelector(
-      '.stache-footer-wrapper'
+      '.stache-footer-wrapper',
     );
     const nativeElement = this.#elementRef.nativeElement;
 

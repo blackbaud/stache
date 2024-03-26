@@ -26,7 +26,7 @@ describe('StacheBlockquoteComponent', () => {
     component.author = 'Some Author';
     fixture.detectChanges();
     const testFixture = fixture.debugElement.query(
-      By.css('.stache-blockquote')
+      By.css('.stache-blockquote'),
     ).nativeElement;
     expect(testFixture.innerHTML).toContain('stache-blockquote-source');
   });
@@ -36,7 +36,7 @@ describe('StacheBlockquoteComponent', () => {
     component.quoteSource = undefined;
     fixture.detectChanges();
     const testFixture = fixture.debugElement.query(
-      By.css('.stache-blockquote')
+      By.css('.stache-blockquote'),
     ).nativeElement;
     expect(testFixture.innerHTML).not.toContain('stache-blockquote-source');
   });
@@ -45,7 +45,7 @@ describe('StacheBlockquoteComponent', () => {
     component.author = 'Some Author';
     fixture.detectChanges();
     const testFixture = fixture.debugElement.query(
-      By.css('.stache-blockquote-source')
+      By.css('.stache-blockquote-source'),
     ).nativeElement;
     expect(testFixture.textContent).toContain('Some Author');
   });
@@ -55,7 +55,7 @@ describe('StacheBlockquoteComponent', () => {
     component.quoteSource = 'http://source.html';
     fixture.detectChanges();
     const testFixture = fixture.debugElement.query(
-      By.css('.stache-blockquote-source > a')
+      By.css('.stache-blockquote-source > a'),
     ).nativeElement;
     expect(testFixture.href).toContain('http://source.html');
     expect(testFixture.textContent).toContain('Some Author');
@@ -66,7 +66,7 @@ describe('StacheBlockquoteComponent', () => {
     component.ngOnInit();
     fixture.detectChanges();
     const testFixture = fixture.debugElement.query(
-      By.css('.stache-blockquote-source > a')
+      By.css('.stache-blockquote-source > a'),
     ).nativeElement;
     expect(component.author).toBe('Source');
     expect(testFixture.href).toContain('http://source.html');

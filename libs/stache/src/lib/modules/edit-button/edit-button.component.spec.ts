@@ -72,7 +72,7 @@ describe('StacheEditButtonComponent', () => {
   it('should set the url for a gitHub repo', () => {
     fixture.detectChanges();
     expect(component['url']).toBe(
-      'https://github.com/blackbaud/skyux-lib-stache/tree/master/src/app%2Ftest%2Froute%2Findex.component.html'
+      'https://github.com/blackbaud/skyux-lib-stache/tree/master/src/app%2Ftest%2Froute%2Findex.component.html',
     );
   });
 
@@ -85,7 +85,7 @@ describe('StacheEditButtonComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     expect(component['url']).toBe(
-      'https://blackbaud.visualstudio.com/Products/_git/skyux-spa-stache-test-pipeline?path=%2Fsrc%2Fapp%2Ftest%2Froute%2Findex.component.html&version=GBmaster'
+      'https://blackbaud.visualstudio.com/Products/_git/skyux-spa-stache-test-pipeline?path=%2Fsrc%2Fapp%2Ftest%2Froute%2Findex.component.html&version=GBmaster',
     );
   });
 
@@ -95,7 +95,7 @@ describe('StacheEditButtonComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     expect(component.url).toEqual(
-      'https://github.com/blackbaud/skyux-lib-stache/tree/master/src/app%2Findex.component.html'
+      'https://github.com/blackbaud/skyux-lib-stache/tree/master/src/app%2Findex.component.html',
     );
   });
 

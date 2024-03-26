@@ -76,7 +76,7 @@ describe('StacheActionButtonsComponent', () => {
 
     fixture.detectChanges();
     const actionButtons = fixture.debugElement.queryAll(
-      By.css('.sky-action-button')
+      By.css('.sky-action-button'),
     );
 
     expect(actionButtons.length).toBe(1);

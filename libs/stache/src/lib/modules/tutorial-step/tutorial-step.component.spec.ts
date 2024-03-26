@@ -29,13 +29,13 @@ describe('StacheTutorialStepComponent', () => {
     component.showNumber = false;
     fixture.detectChanges();
     expect(
-      fixture.nativeElement.querySelector('.stache-tutorial-step')
+      fixture.nativeElement.querySelector('.stache-tutorial-step'),
     ).not.toHaveClass('stache-tutorial-step-numbered');
 
     component.showNumber = undefined;
     fixture.detectChanges();
     expect(
-      fixture.nativeElement.querySelector('.stache-tutorial-step')
+      fixture.nativeElement.querySelector('.stache-tutorial-step'),
     ).toHaveClass('stache-tutorial-step-numbered');
   });
 });

@@ -26,11 +26,9 @@ describe('StacheAffixTopDirective', () => {
     fixture.detectChanges();
     tick();
   }
-  
+
   function getDirectiveElements(): DebugElement[] {
-    return fixture.debugElement.queryAll(
-      By.directive(StacheAffixTopDirective)
-    );
+    return fixture.debugElement.queryAll(By.directive(StacheAffixTopDirective));
   }
 
   beforeEach(() => {
@@ -45,7 +43,7 @@ describe('StacheAffixTopDirective', () => {
     [StacheOmnibarAdapterService],
     (_omnibarAdapterService: StacheOmnibarAdapterService) => {
       omnibarAdapterService = _omnibarAdapterService;
-    }
+    },
   ));
 
   it('should exist on the component', fakeAsync(() => {
@@ -56,7 +54,7 @@ describe('StacheAffixTopDirective', () => {
 
   it('should call the on window scroll method when the window scrolls', fakeAsync(() => {
     const directiveInstance = getDirectiveElements()[0].injector.get(
-      StacheAffixTopDirective
+      StacheAffixTopDirective,
     );
 
     detectChanges();
@@ -125,8 +123,8 @@ describe('StacheAffixTopDirective', () => {
     window.scrollTo(0, 0);
     SkyAppTestUtility.fireDomEvent(window, 'scroll');
     detectChanges();
-    
-    element = getDirectiveElements()[1].nativeElement.children[0]
+
+    element = getDirectiveElements()[1].nativeElement.children[0];
 
     expect(element).not.toHaveCssClass(className);
   }));

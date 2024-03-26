@@ -76,7 +76,7 @@ describe('StachePageAnchorComponent', () => {
     fixture = TestBed.createComponent(StachePageAnchorTestComponent);
     fixtureComponent = fixture.componentInstance;
     anchorComponent = fixture.debugElement.query(
-      By.directive(StachePageAnchorComponent)
+      By.directive(StachePageAnchorComponent),
     ).componentInstance;
   });
 
@@ -107,7 +107,7 @@ describe('StachePageAnchorComponent', () => {
     fixtureComponent.anchorContent = 'foo';
     fixture.detectChanges();
     const el = fixture.debugElement.nativeElement.querySelector(
-      '.stache-page-anchor'
+      '.stache-page-anchor',
     );
     expect(anchorComponent.fragment).toEqual('foo');
     expect(el.id).toBe('foo');
@@ -118,7 +118,7 @@ describe('StachePageAnchorComponent', () => {
     fixtureComponent.anchorContent = 'foo';
     fixture.detectChanges();
     const el = fixture.debugElement.nativeElement.querySelector(
-      '.stache-page-anchor'
+      '.stache-page-anchor',
     );
     expect(anchorComponent.fragment).toEqual('bar');
     expect(el.id).toBe('bar');

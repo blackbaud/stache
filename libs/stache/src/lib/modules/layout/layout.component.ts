@@ -85,7 +85,7 @@ export class StacheLayoutComponent implements OnInit, OnChanges, StacheLayout {
   constructor(
     elementRef: ElementRef,
     renderer: Renderer2,
-    windowRef: StacheWindowRef
+    windowRef: StacheWindowRef,
   ) {
     this.#elementRef = elementRef;
     this.#renderer = renderer;
@@ -105,7 +105,7 @@ export class StacheLayoutComponent implements OnInit, OnChanges, StacheLayout {
 
   #setMinHeight(): void {
     const wrapper = this.#elementRef.nativeElement.querySelector(
-      '.stache-layout-wrapper'
+      '.stache-layout-wrapper',
     );
     const minHeight =
       this.#windowRef.nativeWindow.innerHeight -

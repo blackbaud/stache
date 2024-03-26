@@ -15,7 +15,7 @@ export class StacheOmnibarAdapterService {
     this.#windowRef = windowRef;
     this.#renderer = rendererFactory.createRenderer(undefined, null);
     this.#element = windowRef.nativeWindow.document.querySelector(
-      '.sky-omnibar-iframe'
+      '.sky-omnibar-iframe',
     );
   }
 
@@ -40,7 +40,7 @@ export class StacheOmnibarAdapterService {
   #applyClassToBody(): void {
     this.#renderer.addClass(
       this.#windowRef.nativeWindow.document.body,
-      HAS_OMNIBAR_CLASS_NAME
+      HAS_OMNIBAR_CLASS_NAME,
     );
   }
 }

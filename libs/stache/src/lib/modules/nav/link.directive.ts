@@ -49,7 +49,7 @@ export class StacheRouterLinkDirective implements OnChanges, AfterViewInit {
     routerSvc: StacheRouteService,
     elementRef: ElementRef,
     locationStrategy: LocationStrategy,
-    renderer: Renderer2
+    renderer: Renderer2,
   ) {
     this.#routerSvc = routerSvc;
     this.#locationStrategy = locationStrategy;

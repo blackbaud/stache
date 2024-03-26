@@ -51,7 +51,7 @@ export class StachePageAnchorComponent
     private elementRef: ElementRef,
     private anchorService: StachePageAnchorService,
     private changeDetectorRef: ChangeDetectorRef,
-    private routeService: StacheRouteService
+    private routeService: StacheRouteService,
   ) {}
 
   public scrollToAnchor(): void {

@@ -5,7 +5,7 @@ import { SkyImageTestComponent } from './fixtures/image.component.fixture';
 import { SkyImageModule } from './image.module';
 
 function getCaptionElement(
-  fixture: ComponentFixture<SkyImageTestComponent>
+  fixture: ComponentFixture<SkyImageTestComponent>,
 ): HTMLElement {
   return fixture.nativeElement.querySelector('.sky-image-caption');
 }
@@ -43,7 +43,7 @@ describe('Image component', () => {
     expect(caption).toBe('test caption');
     expect(cmp.captionType).toBe('default');
     expect(captionElement.classList.contains('sky-image-caption-default')).toBe(
-      true
+      true,
     );
   });
 
@@ -59,7 +59,7 @@ describe('Image component', () => {
     const captionElement = getCaptionElement(fixture);
     expect(captionElement.innerText.trim()).toBe('Do test caption');
     expect(captionElement.classList.contains('sky-image-caption-success')).toBe(
-      true
+      true,
     );
   });
 
@@ -75,7 +75,7 @@ describe('Image component', () => {
     const captionElement = getCaptionElement(fixture);
     expect(captionElement.innerText.trim()).toBe("Don't test caption");
     expect(captionElement.classList.contains('sky-image-caption-danger')).toBe(
-      true
+      true,
     );
   });
 

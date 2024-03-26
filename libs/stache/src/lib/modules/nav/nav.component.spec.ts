@@ -158,7 +158,7 @@ describe('StacheNavComponent', () => {
     fixture.detectChanges();
 
     const listItems = fixture.nativeElement.querySelectorAll(
-      '.stache-nav-list-item'
+      '.stache-nav-list-item',
     );
 
     expect(listItems.length).toEqual(0);
@@ -179,7 +179,7 @@ describe('StacheNavComponent', () => {
     fixture.detectChanges();
 
     const listItems = fixture.nativeElement.querySelectorAll(
-      '.stache-nav-list-item'
+      '.stache-nav-list-item',
     );
 
     expect(listItems.length).toEqual(2);
@@ -207,7 +207,7 @@ describe('StacheNavComponent', () => {
     fixture.detectChanges();
 
     const listItems = fixture.nativeElement.querySelectorAll(
-      '.stache-nav-list-item'
+      '.stache-nav-list-item',
     );
 
     expect(listItems.length).toEqual(3);

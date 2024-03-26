@@ -34,7 +34,7 @@ export default function ngAdd(): Rule {
     // Get the preferred version of SKY UX found in the "peerDependencies" section of
     // @blackbaud/skyux-lib-stache package.json.
     const packageJson = fs.readJsonSync(
-      path.resolve(__dirname, '../../package.json')
+      path.resolve(__dirname, '../../package.json'),
     );
 
     const skyuxVersion = packageJson.peerDependencies['@skyux/core'];

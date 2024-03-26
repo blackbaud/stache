@@ -143,7 +143,7 @@ describe('PageAnchorService', () => {
     const windowService = TestBed.inject(StacheWindowRef);
     service.scrollToAnchor('foobar');
     expect(
-      windowService.nativeWindow.document.querySelector
+      windowService.nativeWindow.document.querySelector,
     ).toHaveBeenCalledWith('#foobar');
   });
 });

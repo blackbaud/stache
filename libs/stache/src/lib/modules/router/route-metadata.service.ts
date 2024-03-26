@@ -36,14 +36,14 @@ export class StacheRouteMetadataService {
 
   constructor(
     @Inject(STACHE_ROUTE_METADATA_SERVICE_CONFIG)
-    json: StacheRouteMetadataConfigJson[]
+    json: StacheRouteMetadataConfigJson[],
   ) {
     // Convert the input (usually a JSON file) into a usable TypeScript object.
     this.metadata = json.map((j) => this.#validateNavOrder(j));
   }
 
   #validateNavOrder(
-    json: StacheRouteMetadataConfigJson
+    json: StacheRouteMetadataConfigJson,
   ): StacheRouteMetadataConfig {
     if ('order' in json) {
       const order: number = numberConverter(json.order);

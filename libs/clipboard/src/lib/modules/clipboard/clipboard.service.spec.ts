@@ -25,7 +25,7 @@ describe('SkyCopyToClipboardService', () => {
 
     spyOn(
       mockWindowRef.nativeWindow.navigator.clipboard,
-      'writeText'
+      'writeText',
     ).and.callFake((text: string) => {
       mockText = text;
       return Promise.resolve();

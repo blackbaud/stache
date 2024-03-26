@@ -32,7 +32,7 @@ describe('Sidebar', () => {
   class MockMediaQueryService {
     public current = SkyMediaBreakpoints.md;
     public currentSubject = new BehaviorSubject<SkyMediaBreakpoints>(
-      this.current
+      this.current,
     );
 
     public subscribe(listener: (_: SkyMediaBreakpoints) => void): Subscription {
@@ -57,19 +57,19 @@ describe('Sidebar', () => {
 
   function verifyOpened(): void {
     expect(
-      fixture.nativeElement.querySelector('.stache-sidebar-open')
+      fixture.nativeElement.querySelector('.stache-sidebar-open'),
     ).toBeTruthy();
     expect(
-      fixture.componentInstance.sidebarWrapperComponent.sidebarOpen
+      fixture.componentInstance.sidebarWrapperComponent.sidebarOpen,
     ).toEqual(true);
   }
 
   function verifyClosed(): void {
     expect(
-      fixture.nativeElement.querySelector('.stache-sidebar-closed')
+      fixture.nativeElement.querySelector('.stache-sidebar-closed'),
     ).toBeTruthy();
     expect(
-      fixture.componentInstance.sidebarWrapperComponent.sidebarOpen
+      fixture.componentInstance.sidebarWrapperComponent.sidebarOpen,
     ).toEqual(false);
   }
 
@@ -209,7 +209,7 @@ describe('Sidebar', () => {
     detectChanges();
 
     expect(
-      document.body.className.indexOf('stache-sidebar-enabled') > -1
+      document.body.className.indexOf('stache-sidebar-enabled') > -1,
     ).toEqual(true);
   }));
 
@@ -217,13 +217,13 @@ describe('Sidebar', () => {
     detectChanges();
 
     expect(
-      document.body.className.indexOf('stache-sidebar-enabled') > -1
+      document.body.className.indexOf('stache-sidebar-enabled') > -1,
     ).toEqual(true);
 
     fixture.destroy();
 
     expect(
-      document.body.className.indexOf('stache-sidebar-enabled') > -1
+      document.body.className.indexOf('stache-sidebar-enabled') > -1,
     ).toEqual(false);
   }));
 

@@ -31,14 +31,14 @@ export class StacheEditButtonComponent implements OnInit {
     this.editButtonText = lodashGet(
       this.#config,
       'skyux.appSettings.stache.editButton.text',
-      'Edit'
+      'Edit',
     );
   }
 
   #getUrl(): string {
     const base = lodashGet(
       this.#config,
-      'skyux.appSettings.stache.editButton.url'
+      'skyux.appSettings.stache.editButton.url',
     );
     if (!base) {
       return '';
@@ -49,7 +49,7 @@ export class StacheEditButtonComponent implements OnInit {
         : 'github';
     const activeUrl = this.#routeSvc.getActiveUrl();
     const frag = encodeURIComponent(
-      activeUrl === '/' ? activeUrl : activeUrl + '/'
+      activeUrl === '/' ? activeUrl : activeUrl + '/',
     );
 
     if (type === 'vsts') {

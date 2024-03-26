@@ -41,7 +41,7 @@ export class StacheAffixComponent implements AfterViewInit, OnDestroy {
 
   public constructor(
     windowRef: StacheWindowRef,
-    changeDetector: ChangeDetectorRef
+    changeDetector: ChangeDetectorRef,
   ) {
     this.#windowRef = windowRef;
     this.#changeDetector = changeDetector;

@@ -4,7 +4,10 @@ import { SkyAppConfig } from '@skyux/config';
 
 @Injectable()
 export class StacheTitleService {
-  constructor(private title: Title, private configService: SkyAppConfig) {}
+  constructor(
+    private title: Title,
+    private configService: SkyAppConfig,
+  ) {}
 
   public setTitle(...parts: string[]) {
     let windowTitle = this.configService.skyux.app.title;

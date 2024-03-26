@@ -93,7 +93,7 @@ export class StacheRouteService implements OnDestroy {
   constructor(
     router: Router,
     @Optional() @Inject(ROUTES) routes?: Routes,
-    @Optional() @Inject(STACHE_ROUTE_OPTIONS) options?: StacheRouteOptions
+    @Optional() @Inject(STACHE_ROUTE_OPTIONS) options?: StacheRouteOptions,
   ) {
     this.#options = options;
     this.#router = router;
@@ -165,7 +165,7 @@ export class StacheRouteService implements OnDestroy {
    */
   #getRouteBranch(routes: Routes, rootPath: string): Routes {
     const pathExistsInRoot = routes.some(
-      (route) => route.path?.indexOf(rootPath) === 0
+      (route) => route.path?.indexOf(rootPath) === 0,
     );
 
     if (pathExistsInRoot) {
@@ -199,7 +199,7 @@ export class StacheRouteService implements OnDestroy {
 
   #assignChildren(
     routes: UnformattedStacheNavLink[],
-    parentPath: string
+    parentPath: string,
   ): UnformattedStacheNavLink[] {
     const assignedRoutes: UnformattedStacheNavLink[] = [];
     const depth = parentPath.split('/').length + 1;
@@ -233,10 +233,10 @@ export class StacheRouteService implements OnDestroy {
           {
             path: route.path,
             name: this.#getNameFromPath(
-              route.segments[route.segments.length - 1]
+              route.segments[route.segments.length - 1],
             ),
           },
-          pathMetadata
+          pathMetadata,
         );
 
         if (route.children) {
@@ -251,7 +251,7 @@ export class StacheRouteService implements OnDestroy {
   }
 
   #validateNavOrder(
-    json: StacheRouteMetadataConfigJson
+    json: StacheRouteMetadataConfigJson,
   ): StacheRouteMetadataConfig {
     if ('order' in json) {
       const order: number = numberConverter(json.order);
