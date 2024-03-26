@@ -21,11 +21,16 @@ describe('StacheAffixTopDirective', () => {
 
   let omnibarAdapterService: StacheOmnibarAdapterService;
   let fixture: ComponentFixture<AffixTopFixtureComponent>;
-  let directiveElements: DebugElement[];
 
   function detectChanges(): void {
     fixture.detectChanges();
     tick();
+  }
+  
+  function getDirectiveElements(): DebugElement[] {
+    return fixture.debugElement.queryAll(
+      By.directive(StacheAffixTopDirective)
+    );
   }
 
   beforeEach(() => {
@@ -34,9 +39,6 @@ describe('StacheAffixTopDirective', () => {
     });
 
     fixture = TestBed.createComponent(AffixTopFixtureComponent);
-    directiveElements = fixture.debugElement.queryAll(
-      By.directive(StacheAffixTopDirective)
-    );
   });
 
   beforeEach(inject(
@@ -49,11 +51,11 @@ describe('StacheAffixTopDirective', () => {
   it('should exist on the component', fakeAsync(() => {
     detectChanges();
 
-    expect(directiveElements[0]).not.toBeNull();
+    expect(getDirectiveElements()[0]).not.toBeNull();
   }));
 
   it('should call the on window scroll method when the window scrolls', fakeAsync(() => {
-    const directiveInstance = directiveElements[0].injector.get(
+    const directiveInstance = getDirectiveElements()[0].injector.get(
       StacheAffixTopDirective
     );
 
@@ -68,7 +70,7 @@ describe('StacheAffixTopDirective', () => {
   it('should add or remove stache-affix-top class based on offset to window ratio', fakeAsync(() => {
     detectChanges();
 
-    const element = directiveElements[0].nativeElement;
+    const element = getDirectiveElements()[0].nativeElement;
     element.style.marginTop = '50px';
 
     window.scrollTo(0, 500);
@@ -89,7 +91,7 @@ describe('StacheAffixTopDirective', () => {
   it('should take the omnibar height into consideration in the offset to window ratio', fakeAsync(() => {
     detectChanges();
 
-    const element = directiveElements[0].nativeElement;
+    const element = getDirectiveElements()[0].nativeElement;
     element.style.marginTop = '50px';
 
     window.scrollTo(0, 25);
@@ -116,14 +118,15 @@ describe('StacheAffixTopDirective', () => {
 
     detectChanges();
 
-    const element = directiveElements[1].nativeElement.children[0];
+    let element = getDirectiveElements()[1].nativeElement.children[0];
 
     expect(element).toHaveCssClass(className);
 
     window.scrollTo(0, 0);
     SkyAppTestUtility.fireDomEvent(window, 'scroll');
-
     detectChanges();
+    
+    element = getDirectiveElements()[1].nativeElement.children[0]
 
     expect(element).not.toHaveCssClass(className);
   }));
@@ -131,7 +134,7 @@ describe('StacheAffixTopDirective', () => {
   it('should not attempt to reset the element if it already has', fakeAsync(() => {
     detectChanges();
 
-    const element = directiveElements[0].nativeElement;
+    const element = getDirectiveElements()[0].nativeElement;
     element.style.marginTop = '500px';
 
     window.scrollTo(0, 0);
@@ -159,7 +162,7 @@ describe('StacheAffixTopDirective', () => {
 
     detectChanges();
 
-    const element = directiveElements[0].nativeElement;
+    const element = getDirectiveElements()[0].nativeElement;
 
     detectChanges();
 
