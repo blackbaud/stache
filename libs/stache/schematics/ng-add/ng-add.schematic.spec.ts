@@ -40,7 +40,7 @@ describe('ng-add.schematic', () => {
     ];
 
     for (const packageName of packageNames) {
-      expect(packageJson.dependencies[packageName]).toEqual('^10.0.0-alpha.0');
+      expect(packageJson.dependencies[packageName]).toEqual('^10.0.0');
     }
   });
 });

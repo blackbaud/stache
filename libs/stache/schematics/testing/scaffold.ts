@@ -18,7 +18,7 @@ export async function createTestApp(
     routing: true,
     strict: true,
     style: 'scss',
-    version: '16',
+    version: '17',
   });
 }
 
