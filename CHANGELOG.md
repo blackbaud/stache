@@ -1,5 +1,12 @@
 # Changelog
 
+## [10.0.0](https://github.com/blackbaud/stache/compare/10.0.0-alpha.0...10.0.0) (2024-03-26)
+
+
+### Features
+
+* release 10.0.0 ([#87](https://github.com/blackbaud/stache/issues/87)) ([3257114](https://github.com/blackbaud/stache/commit/325711438468d144f2e105c0ad95afb937379561))
+
 ## [10.0.0-alpha.0](https://github.com/blackbaud/stache/compare/9.0.0...10.0.0-alpha.0) (2024-01-24)
 
 
