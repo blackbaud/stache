@@ -17,7 +17,7 @@ import {
   getLibStringForLocale,
 } from '@skyux/i18n';
 
-const RESOURCES: { [locale: string]: SkyLibResources } = {
+const RESOURCES: Record<string, SkyLibResources> = {
   'EN-US': {
     stache_copyright_label: { message: 'Blackbaud, Inc. All rights reserved.' },
     stache_sidebar_label: { message: 'Sidebar Navigation' },
