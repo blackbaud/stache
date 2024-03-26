@@ -18,7 +18,9 @@ import {
 } from '@skyux/i18n';
 
 const RESOURCES: Record<string, SkyLibResources> = {
-  'EN-US': {"sky_copy_to_clipboard_button_title":{"message":"Copy to clipboard"}},
+  'EN-US': {
+    sky_copy_to_clipboard_button_title: { message: 'Copy to clipboard' },
+  },
 };
 
 SkyLibResourcesService.addResources(RESOURCES);
@@ -41,8 +43,8 @@ export class SkyClipboardResourcesProvider implements SkyLibResourcesProvider {
     {
       provide: SKY_LIB_RESOURCES_PROVIDERS,
       useClass: SkyClipboardResourcesProvider,
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 export class SkyClipboardResourcesModule {}
