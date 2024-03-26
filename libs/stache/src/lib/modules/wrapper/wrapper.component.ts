@@ -92,7 +92,7 @@ export class StacheWrapperComponent
     private navService: StacheNavService,
     private windowRef: StacheWindowRef,
     private changeDetectorRef: ChangeDetectorRef,
-    private omnibarService: StacheOmnibarAdapterService
+    private omnibarService: StacheOmnibarAdapterService,
   ) {}
 
   public ngOnInit(): void {
@@ -131,7 +131,7 @@ export class StacheWrapperComponent
   private getTutorialHeader(): string {
     const currentTutorialHeader =
       this.windowRef.nativeWindow.document.querySelector(
-        `.stache-tutorial-heading`
+        `.stache-tutorial-heading`,
       );
     if (currentTutorialHeader && currentTutorialHeader.textContent) {
       return currentTutorialHeader.textContent.trim();
@@ -141,7 +141,7 @@ export class StacheWrapperComponent
   private checkEditButtonUrl(): boolean {
     const url = lodashGet(
       this.config,
-      'skyux.appSettings.stache.editButton.url'
+      'skyux.appSettings.stache.editButton.url',
     );
     return url !== undefined;
   }
@@ -149,7 +149,7 @@ export class StacheWrapperComponent
   private checkFooterData(): boolean {
     const footerData = lodashGet(
       this.config,
-      'skyux.appSettings.stache.footer'
+      'skyux.appSettings.stache.footer',
     );
     return footerData !== undefined;
   }

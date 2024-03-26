@@ -12,7 +12,7 @@ export class StacheJsonDataService {
   constructor(
     @Optional()
     @Inject(STACHE_JSON_DATA_SERVICE_CONFIG)
-    jsonData?: JSON_DATA
+    jsonData?: JSON_DATA,
   ) {
     this.#jsonData = jsonData || {};
   }

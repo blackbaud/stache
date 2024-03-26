@@ -129,7 +129,7 @@ export class SkyCodeBlockComponent implements AfterViewInit, OnChanges {
     return Prism.highlight(
       code,
       Prism.languages[this.languageType],
-      this.languageType
+      this.languageType,
     );
   }
 

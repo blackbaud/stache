@@ -18,7 +18,7 @@ async function posttest() {
       {
         stdio: 'inherit',
         cwd: path.resolve(__dirname, '../libs/stache'), // Must run in context of lib folder to pick up tsconfig.json.
-      }
+      },
     );
     console.log('Done.');
   } catch (err) {

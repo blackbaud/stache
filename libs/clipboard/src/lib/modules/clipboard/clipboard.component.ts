@@ -58,7 +58,7 @@ export class SkyCopyToClipboardComponent {
   constructor(
     changeDetector: ChangeDetectorRef,
     clipboardSvc: SkyCopyToClipboardService,
-    windowRef: SkyAppWindowRef
+    windowRef: SkyAppWindowRef,
   ) {
     this.#changeDetector = changeDetector;
     this.#clipboardSvc = clipboardSvc;

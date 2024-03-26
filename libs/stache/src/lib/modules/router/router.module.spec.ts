@@ -40,7 +40,7 @@ describe('StacheRouterModule', () => {
     const service = TestBed.inject(StacheRouteService);
     const fixture = TestBed.createComponent(TestComponent);
     await fixture.ngZone.run(() =>
-      TestBed.inject(Router).navigateByUrl('test')
+      TestBed.inject(Router).navigateByUrl('test'),
     );
     expect(TestBed.inject(Router).url).toEqual('/test');
     expect(service.getActiveRoutes().map((r) => r.path)).toEqual(['test']);

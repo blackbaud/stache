@@ -17,7 +17,7 @@ import {
   getLibStringForLocale,
 } from '@skyux/i18n';
 
-const RESOURCES: { [locale: string]: SkyLibResources } = {
+const RESOURCES: Record<string, SkyLibResources> = {
   'EN-US': {
     skyux_image_do_text: { message: 'Do' },
     skyux_image_dont_text: { message: "Don't" },
@@ -29,7 +29,7 @@ SkyLibResourcesService.addResources(RESOURCES);
 export class SkyMediaResourcesProvider implements SkyLibResourcesProvider {
   public getString(
     localeInfo: SkyAppLocaleInfo,
-    name: string
+    name: string,
   ): string | undefined {
     return getLibStringForLocale(RESOURCES, localeInfo.locale, name);
   }

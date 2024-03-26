@@ -22,7 +22,7 @@ class MockClipboardService {
 
 describe('SkyCopyToClipboardComponent', () => {
   function getCopyToClipboardButton(
-    fixture: ComponentFixture<SkyClipboardTestComponent>
+    fixture: ComponentFixture<SkyClipboardTestComponent>,
   ): HTMLElement {
     return fixture.nativeElement.querySelector('button');
   }
@@ -129,7 +129,7 @@ describe('SkyCopyToClipboardComponent', () => {
     const button = getCopyToClipboardButton(fixture);
     expect(button.getAttribute('aria-label')).toBeNull();
     expect(button.getAttribute('aria-labelledby')).toEqual(
-      'test-aria-labelledby'
+      'test-aria-labelledby',
     );
   });
 
@@ -140,7 +140,7 @@ describe('SkyCopyToClipboardComponent', () => {
     const button = getCopyToClipboardButton(fixture);
     expect(button.getAttribute('aria-label')).toBeNull();
     expect(button.getAttribute('aria-labelledby')).toEqual(
-      'test-aria-labelledby'
+      'test-aria-labelledby',
     );
   });
 

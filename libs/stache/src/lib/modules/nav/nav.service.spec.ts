@@ -10,7 +10,7 @@ class MockRouter {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     path: string | string[],
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    extras: NavigationExtras
+    extras: NavigationExtras,
   ): boolean => true;
 }
 
@@ -60,7 +60,7 @@ describe('StacheNavService', () => {
     windowRef = new MockWindowService();
     navService = new StacheNavService(
       router as unknown as Router,
-      windowRef as unknown as StacheWindowRef
+      windowRef as unknown as StacheWindowRef,
     );
     elementScrollCalled = false;
   });
@@ -113,7 +113,7 @@ describe('StacheNavService', () => {
     navService.navigate({ path: ['/internal', '/deeper-internal'] });
     expect(router.navigate).toHaveBeenCalledWith(
       ['/internal', '/deeper-internal'],
-      { queryParamsHandling: 'merge' }
+      { queryParamsHandling: 'merge' },
     );
   });
 

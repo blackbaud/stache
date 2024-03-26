@@ -35,7 +35,7 @@ describe('StacheAffixComponent', () => {
     detectChanges();
     const affixComponent = component.affixComponent;
     expect(affixComponent.minHeightFormatted).toEqual(
-      `${fixture.nativeElement.offsetHeight}px`
+      `${fixture.nativeElement.offsetHeight}px`,
     );
     expect(affixComponent.maxWidthFormatted).toEqual(`${window.innerWidth}px`);
   }));
@@ -73,7 +73,7 @@ describe('StacheAffixComponent', () => {
     const affixElement = getAffixElement();
 
     expect(
-      affixElement.children[0].getAttribute('stacheaffixtop')
+      affixElement.children[0].getAttribute('stacheaffixtop'),
     ).toBeDefined();
   }));
 
@@ -83,19 +83,19 @@ describe('StacheAffixComponent', () => {
     const affixComponent = component.affixComponent;
 
     expect(affixComponent.minHeightFormatted).toEqual(
-      `${fixture.nativeElement.offsetHeight}px`
+      `${fixture.nativeElement.offsetHeight}px`,
     );
     expect(affixComponent.maxWidthFormatted).toEqual(`${window.innerWidth}px`);
 
     spyOnProperty(
       affixComponent.wrapper?.nativeElement,
       'offsetHeight',
-      'get'
+      'get',
     ).and.returnValue(10);
     spyOnProperty(
       affixComponent.wrapper?.nativeElement,
       'offsetWidth',
-      'get'
+      'get',
     ).and.returnValue(20);
 
     SkyAppTestUtility.fireDomEvent(window, 'resize');

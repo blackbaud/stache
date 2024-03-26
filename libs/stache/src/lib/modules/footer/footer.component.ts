@@ -35,7 +35,7 @@ export class StacheFooterComponent implements OnInit {
     const navItems = lodashGet(
       this.#configSvc,
       'skyux.appSettings.stache.footer.nav.items',
-      []
+      [],
     ) as { title: string; route: string }[];
 
     this.footerLinks = navItems.map((link) => {
@@ -52,7 +52,7 @@ export class StacheFooterComponent implements OnInit {
         this.copyrightLabel = lodashGet(
           this.#configSvc,
           'skyux.appSettings.stache.footer.copyrightLabel',
-          value
+          value,
         );
       });
 

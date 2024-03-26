@@ -102,7 +102,7 @@ describe('StacheFooterComponent', () => {
 
     expect(component.copyrightLabel).not.toEqual(footerConfig.copyrightLabel);
     expect(component.copyrightLabel).toEqual(
-      'Blackbaud, Inc. All rights reserved.'
+      'Blackbaud, Inc. All rights reserved.',
     );
 
     expect(component.siteName).toBe(undefined);

@@ -197,16 +197,17 @@ describe('StacheWrapperComponent', () => {
             }),
         },
       },
-      setTimeout: jasmine
-        .createSpy('setTimeout')
-        .and.callFake(function (callback: any) {
-          return callback();
-        }),
-      scroll: jasmine
-        .createSpy('scroll')
-        .and.callFake(function (x: number, y: number) {
-          return true;
-        }),
+      setTimeout: jasmine.createSpy('setTimeout').and.callFake(function (
+        callback: any,
+      ) {
+        return callback();
+      }),
+      scroll: jasmine.createSpy('scroll').and.callFake(function (
+        x: number,
+        y: number,
+      ) {
+        return true;
+      }),
       location: {
         href: '',
       },
@@ -456,7 +457,7 @@ describe('StacheWrapperComponent', () => {
     mockActivatedRoute.setFragment(undefined);
     const subscribeSpy = spyOn(
       mockActivatedRoute.fragment,
-      'subscribe'
+      'subscribe',
     ).and.callThrough();
     const navSpy = spyOn(mockNavService, 'navigate').and.callThrough();
     const testFixture = TestBed.createComponent(StacheWrapperTestComponent);

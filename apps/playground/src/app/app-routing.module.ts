@@ -62,7 +62,7 @@ const routes: Routes = [
     path: 'components',
     loadChildren: () =>
       import('./components/components.module').then(
-        (m) => m.ComponentsPlaygroundModule
+        (m) => m.ComponentsPlaygroundModule,
       ),
   },
   {

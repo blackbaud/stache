@@ -222,7 +222,7 @@ describe('StacheRouteService', () => {
   let router: Router;
 
   async function setupTest(
-    options: { routes?: Routes | undefined } = {}
+    options: { routes?: Routes | undefined } = {},
   ): Promise<void> {
     const routes: Routes | undefined =
       'routes' in options ? options.routes : mockRoutes;
@@ -273,7 +273,7 @@ describe('StacheRouteService', () => {
     spyOn(StacheRouteService.prototype, 'clearActiveRoutes');
     await router.navigate(['a']);
     expect(
-      StacheRouteService.prototype.clearActiveRoutes
+      StacheRouteService.prototype.clearActiveRoutes,
     ).toHaveBeenCalledTimes(1);
   });
 
@@ -290,7 +290,7 @@ describe('StacheRouteService', () => {
     expect(activeRoutes[0].path).toBe('order-routes');
     expect(activeRoutes[0].children?.[0].path).toBe('order-routes/first');
     expect(activeRoutes[0].children?.[0].children?.[0].path).toBe(
-      'order-routes/first/order-one'
+      'order-routes/first/order-one',
     );
   });
 
@@ -310,7 +310,7 @@ describe('StacheRouteService', () => {
     expect(activeRoutes[0].path).toBe('order-routes');
     expect(activeRoutes[0].children?.[0].path).toBe('order-routes/first');
     expect(activeRoutes[0].children?.[0].children?.[0].path).toBe(
-      'order-routes/first/order-one'
+      'order-routes/first/order-one',
     );
   });
 

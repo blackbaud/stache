@@ -20,7 +20,7 @@ export class StacheNavComponent implements OnDestroy, OnInit, StacheNav {
     this.#_routes = value;
     this.filteredRoutes = this.#filterRestrictedRoutes(
       value,
-      this.#isAuthenticated
+      this.#isAuthenticated,
     );
     this.#assignActiveStates();
   }
@@ -124,7 +124,7 @@ export class StacheNavComponent implements OnDestroy, OnInit, StacheNav {
 
   #filterRestrictedRoutes(
     routes: StacheNavLink[] | undefined,
-    isAuthenticated: boolean
+    isAuthenticated: boolean,
   ): StacheNavLink[] | undefined {
     if (!routes || routes.length === 0 || isAuthenticated) {
       return routes;

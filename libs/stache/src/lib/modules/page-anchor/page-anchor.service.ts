@@ -18,7 +18,7 @@ export class StachePageAnchorService implements OnDestroy {
       .pipe(
         takeUntil(this.ngUnsubscribe),
         map((e) => this.windowRef.nativeWindow.document.body.scrollHeight),
-        pairwise()
+        pairwise(),
       )
       .subscribe((height) => {
         if (height[0] !== height[1]) {
@@ -52,7 +52,7 @@ export class StachePageAnchorService implements OnDestroy {
 
   public scrollToAnchor(elementId: string): void {
     const element = this.windowRef.nativeWindow.document.querySelector(
-      `#${elementId}`
+      `#${elementId}`,
     );
     /*istanbul ignore else*/
     if (element) {
@@ -64,20 +64,20 @@ export class StachePageAnchorService implements OnDestroy {
     this.pageAnchors = this.pageAnchors.filter(
       (anchor: BehaviorSubject<StacheNavLink>) => {
         return anchor.getValue().name !== removedAnchor.name;
-      }
+      },
     );
   }
 
   private updateAnchorStream() {
     this.pageAnchors.sort(this.sortPageAnchors);
     this.pageAnchorsStream.next(
-      this.pageAnchors.map((anchor) => anchor.getValue())
+      this.pageAnchors.map((anchor) => anchor.getValue()),
     );
   }
 
   private sortPageAnchors(
     anchorA: BehaviorSubject<StacheNavLink>,
-    anchorB: BehaviorSubject<StacheNavLink>
+    anchorB: BehaviorSubject<StacheNavLink>,
   ) {
     return anchorA.getValue().offsetTop - anchorB.getValue().offsetTop;
   }

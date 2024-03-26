@@ -41,14 +41,14 @@ export class StacheTableOfContentsWrapperComponent
   #addClassToBody(): void {
     this.#renderer.addClass(
       this.#windowRef.nativeWindow.document.body,
-      HAS_TOC_CLASS_NAME
+      HAS_TOC_CLASS_NAME,
     );
   }
 
   #removeClassFromBody(): void {
     this.#renderer.removeClass(
       this.#windowRef.nativeWindow.document.body,
-      HAS_TOC_CLASS_NAME
+      HAS_TOC_CLASS_NAME,
     );
   }
 }

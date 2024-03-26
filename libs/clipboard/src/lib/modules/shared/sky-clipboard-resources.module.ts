@@ -17,7 +17,7 @@ import {
   getLibStringForLocale,
 } from '@skyux/i18n';
 
-const RESOURCES: { [locale: string]: SkyLibResources } = {
+const RESOURCES: Record<string, SkyLibResources> = {
   'EN-US': {
     sky_copy_to_clipboard_button_title: { message: 'Copy to clipboard' },
   },
@@ -28,7 +28,7 @@ SkyLibResourcesService.addResources(RESOURCES);
 export class SkyClipboardResourcesProvider implements SkyLibResourcesProvider {
   public getString(
     localeInfo: SkyAppLocaleInfo,
-    name: string
+    name: string,
   ): string | undefined {
     return getLibStringForLocale(RESOURCES, localeInfo.locale, name);
   }

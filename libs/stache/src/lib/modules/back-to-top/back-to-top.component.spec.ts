@@ -72,7 +72,7 @@ describe('StacheBackToTopComponent', () => {
   it('should trigger a click event on button click', async () => {
     spyOn(component, 'scrollToTop');
     const button = debugElement.nativeElement.querySelector(
-      '.stache-back-to-top'
+      '.stache-back-to-top',
     );
     button.click();
     await fixture.whenStable();
@@ -82,7 +82,7 @@ describe('StacheBackToTopComponent', () => {
   it('should call the scroll method on the window when clicked', async () => {
     spyOn(windowRef, 'scroll');
     const button = debugElement.nativeElement.querySelector(
-      '.stache-back-to-top'
+      '.stache-back-to-top',
     );
     button.click();
     await fixture.whenStable();

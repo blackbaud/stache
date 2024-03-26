@@ -57,14 +57,14 @@ describe('SkyCodeBlockComponent', () => {
     component.code = code;
     fixture.detectChanges();
     expect(element.querySelector('.sky-code-output')?.textContent).toContain(
-      code
+      code,
     );
 
     const newCode = '{ "foo": "baz" }';
     component.code = newCode;
     fixture.detectChanges();
     expect(element.querySelector('.sky-code-output')?.textContent).toContain(
-      newCode
+      newCode,
     );
   }));
 
@@ -73,7 +73,7 @@ describe('SkyCodeBlockComponent', () => {
     component.codeAsInnerContent = code;
     fixture.detectChanges();
     expect(element.querySelector('.sky-code-output')?.textContent).toContain(
-      code
+      code,
     );
   });
 
@@ -82,7 +82,7 @@ describe('SkyCodeBlockComponent', () => {
     component.codeAsInnerContent = code;
     fixture.detectChanges();
     expect(element.querySelector('.sky-code-output')?.textContent).toContain(
-      code
+      code,
     );
   });
 

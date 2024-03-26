@@ -55,7 +55,7 @@ describe('StacheOmnibarAdapterService', () => {
   it('should return 0 for the height of the omnibar if it does not exist', () => {
     omnibarService = new StacheOmnibarAdapterService(
       mockWindowService as StacheWindowRef,
-      mockRendererFactory as RendererFactory2
+      mockRendererFactory as RendererFactory2,
     );
     const testHeight = omnibarService.getHeight();
     expect(testHeight).toBe(0);
@@ -65,7 +65,7 @@ describe('StacheOmnibarAdapterService', () => {
     mockEnabled = true;
     omnibarService = new StacheOmnibarAdapterService(
       mockWindowService as StacheWindowRef,
-      mockRendererFactory as RendererFactory2
+      mockRendererFactory as RendererFactory2,
     );
     const testHeight = omnibarService.getHeight();
     expect(testHeight).toBe(50);
@@ -75,11 +75,11 @@ describe('StacheOmnibarAdapterService', () => {
     mockEnabled = true;
     omnibarService = new StacheOmnibarAdapterService(
       mockWindowService as StacheWindowRef,
-      mockRendererFactory as RendererFactory2
+      mockRendererFactory as RendererFactory2,
     );
     omnibarService.checkForOmnibar();
     expect(mockWindowService.nativeWindow.document.body.classList).toContain(
-      className
+      className,
     );
   });
 
@@ -87,18 +87,18 @@ describe('StacheOmnibarAdapterService', () => {
     mockEnabled = false;
     omnibarService = new StacheOmnibarAdapterService(
       mockWindowService as StacheWindowRef,
-      mockRendererFactory as RendererFactory2
+      mockRendererFactory as RendererFactory2,
     );
     omnibarService.checkForOmnibar();
     expect(
-      mockWindowService.nativeWindow.document.body.classList
+      mockWindowService.nativeWindow.document.body.classList,
     ).not.toContain(className);
   });
 
   it('should return false if the omnibar does not exist', () => {
     omnibarService = new StacheOmnibarAdapterService(
       mockWindowService as StacheWindowRef,
-      mockRendererFactory as RendererFactory2
+      mockRendererFactory as RendererFactory2,
     );
     expect(omnibarService.omnibarEnabled()).toBe(false);
   });
@@ -107,7 +107,7 @@ describe('StacheOmnibarAdapterService', () => {
     mockEnabled = true;
     omnibarService = new StacheOmnibarAdapterService(
       mockWindowService as StacheWindowRef,
-      mockRendererFactory as RendererFactory2
+      mockRendererFactory as RendererFactory2,
     );
     expect(omnibarService.omnibarEnabled()).toBe(true);
   });

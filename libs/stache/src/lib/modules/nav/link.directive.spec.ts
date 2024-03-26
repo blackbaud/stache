@@ -32,7 +32,7 @@ describe('StacheLinkDirective', () => {
     SkyAppTestUtility.fireDomEvent(
       fixture.componentInstance.anchorEl.nativeElement,
       'click',
-      options
+      options,
     );
 
     fixture.detectChanges();
@@ -108,7 +108,7 @@ describe('StacheLinkDirective', () => {
 
     fixture = TestBed.createComponent(StacheRouterLinkTestComponent);
     directiveElement = fixture.debugElement.query(
-      By.directive(StacheRouterLinkDirective)
+      By.directive(StacheRouterLinkDirective),
     );
   });
 
@@ -121,7 +121,7 @@ describe('StacheLinkDirective', () => {
     fixture.detectChanges();
 
     const directiveInstance = directiveElement.injector.get(
-      StacheRouterLinkDirective
+      StacheRouterLinkDirective,
     );
 
     expect(directiveInstance.href).toBe('/test-route');
@@ -132,7 +132,7 @@ describe('StacheLinkDirective', () => {
     fixture.detectChanges();
 
     const directiveInstance = directiveElement.injector.get(
-      StacheRouterLinkDirective
+      StacheRouterLinkDirective,
     );
 
     expect(directiveInstance.fragment).toBe('test');
@@ -142,7 +142,7 @@ describe('StacheLinkDirective', () => {
     fixture.detectChanges();
 
     const directiveInstance = directiveElement.injector.get(
-      StacheRouterLinkDirective
+      StacheRouterLinkDirective,
     );
 
     spyOn(directiveInstance, 'navigate');
@@ -169,7 +169,7 @@ describe('StacheLinkDirective', () => {
     fixture.detectChanges();
 
     const directiveInstance = directiveElement.injector.get(
-      StacheRouterLinkDirective
+      StacheRouterLinkDirective,
     );
 
     expect(directiveInstance.href).toBe('/test-page');
@@ -181,7 +181,7 @@ describe('StacheLinkDirective', () => {
     fixture.detectChanges();
 
     const directiveInstance = directiveElement.injector.get(
-      StacheRouterLinkDirective
+      StacheRouterLinkDirective,
     );
 
     expect(directiveInstance.href).toBe('https://www.google.com');
@@ -192,7 +192,7 @@ describe('StacheLinkDirective', () => {
     fixture.detectChanges();
 
     const directiveInstance = directiveElement.injector.get(
-      StacheRouterLinkDirective
+      StacheRouterLinkDirective,
     );
 
     expect(directiveInstance.href).toBe('/foo/bar/baz');

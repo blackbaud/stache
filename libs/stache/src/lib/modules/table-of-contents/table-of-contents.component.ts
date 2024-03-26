@@ -24,7 +24,7 @@ export class StacheTableOfContentsComponent implements OnDestroy {
 
   constructor(
     windowRef: StacheWindowRef,
-    omnibarSvc: StacheOmnibarAdapterService
+    omnibarSvc: StacheOmnibarAdapterService,
   ) {
     this.#windowRef = windowRef;
     this.#omnibarSvc = omnibarSvc;
@@ -56,7 +56,7 @@ export class StacheTableOfContentsComponent implements OnDestroy {
       this.#windowRef.nativeWindow.pageYOffset + this.#omnibarSvc.getHeight();
     this.#documentBottom = Math.round(
       this.#windowRef.nativeWindow.document.documentElement.getBoundingClientRect()
-        .bottom
+        .bottom,
     );
   }
 

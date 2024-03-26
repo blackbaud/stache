@@ -74,13 +74,13 @@ describe('StacheGoogleAnalyticsDirective', () => {
 
     fixture = TestBed.createComponent(StacheGoogleAnalyticsTestComponent);
     directiveElement = fixture.debugElement.query(
-      By.directive(StacheGoogleAnalyticsDirective)
+      By.directive(StacheGoogleAnalyticsDirective),
     );
   });
 
   it('should use config settings over defaults', () => {
     const directiveInstance = directiveElement.injector.get(
-      StacheGoogleAnalyticsDirective
+      StacheGoogleAnalyticsDirective,
     );
 
     expect(directiveInstance['tagManagerContainerId']).toEqual('GTM-W56QP9');
@@ -106,18 +106,18 @@ describe('StacheGoogleAnalyticsDirective', () => {
 
   it('should format and store the appName from the runtime.base', () => {
     const directiveInstance = directiveElement.injector.get(
-      StacheGoogleAnalyticsDirective
+      StacheGoogleAnalyticsDirective,
     );
     directiveInstance.updateDefaultConfigs();
     expect(directiveInstance['configService'].runtime.app.base).toEqual(
-      '/test-base/'
+      '/test-base/',
     );
     expect(directiveInstance['appName']).toEqual('test-base');
   });
 
   it('should add the Google Tag Manager script if it does not exist, from ngOnInit', () => {
     const directiveInstance = directiveElement.injector.get(
-      StacheGoogleAnalyticsDirective
+      StacheGoogleAnalyticsDirective,
     );
     spyOn(directiveInstance, 'addGoogleTagManagerScript').and.callThrough();
     directiveInstance.ngOnInit();
@@ -126,7 +126,7 @@ describe('StacheGoogleAnalyticsDirective', () => {
 
   it('should run none of the other methods if the GTM script exists already', () => {
     const directiveInstance = directiveElement.injector.get(
-      StacheGoogleAnalyticsDirective
+      StacheGoogleAnalyticsDirective,
     );
     spyOn(directiveInstance, 'addGoogleTagManagerScript').and.callThrough();
     mockWindowService.nativeWindow.ga = () => true;
@@ -136,7 +136,7 @@ describe('StacheGoogleAnalyticsDirective', () => {
 
   it('should handle empty stache config in skyuxconfig.json', () => {
     const directiveInstance = directiveElement.injector.get(
-      StacheGoogleAnalyticsDirective
+      StacheGoogleAnalyticsDirective,
     );
     mockConfigService.skyux.appSettings = undefined;
     spyOn(directiveInstance, 'addGoogleTagManagerScript').and.callThrough();
@@ -146,7 +146,7 @@ describe('StacheGoogleAnalyticsDirective', () => {
 
   it('should not run if enabled is set to `false`', () => {
     const directiveInstance = directiveElement.injector.get(
-      StacheGoogleAnalyticsDirective
+      StacheGoogleAnalyticsDirective,
     );
     mockConfigService.skyux.appSettings.stache.googleAnalytics.enabled =
       'false';
@@ -157,7 +157,7 @@ describe('StacheGoogleAnalyticsDirective', () => {
 
   it("should not run if enabled is set to `'false'`", () => {
     const directiveInstance = directiveElement.injector.get(
-      StacheGoogleAnalyticsDirective
+      StacheGoogleAnalyticsDirective,
     );
     mockConfigService.skyux.appSettings.stache.googleAnalytics.enabled = false;
     spyOn(directiveInstance, 'addGoogleTagManagerScript').and.callThrough();
@@ -167,7 +167,7 @@ describe('StacheGoogleAnalyticsDirective', () => {
 
   it('should not run if in development mode', () => {
     const directiveInstance = directiveElement.injector.get(
-      StacheGoogleAnalyticsDirective
+      StacheGoogleAnalyticsDirective,
     );
     mockConfigService.runtime.command = 'none';
     spyOn(directiveInstance, 'addGoogleTagManagerScript').and.callThrough();

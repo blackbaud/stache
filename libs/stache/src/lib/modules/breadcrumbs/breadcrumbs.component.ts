@@ -66,7 +66,7 @@ export class StacheBreadcrumbsComponent implements StacheNav, OnInit {
 
   #findActiveBranch(
     routes: StacheNavLink[],
-    callback: (navLink: StacheNavLink) => void
+    callback: (navLink: StacheNavLink) => void,
   ): void {
     const activeUrl = `${this.#routeSvc.getActiveUrl()}/`;
     routes.forEach((route: StacheNavLink) => {
