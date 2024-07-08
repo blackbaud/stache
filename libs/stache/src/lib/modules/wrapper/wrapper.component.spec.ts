@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { expect } from '@skyux-sdk/testing';
