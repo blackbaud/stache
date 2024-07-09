@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { expect } from '@skyux-sdk/testing';
@@ -334,7 +334,7 @@ describe('StacheWrapperComponent', () => {
     });
   });
 
-  it('should set the showEditButton to false by default', async(() => {
+  it('should set the showEditButton to false by default', waitForAsync(() => {
     mockConfigService.skyux.appSettings.stache.editButton = undefined;
     fixture = TestBed.createComponent(StacheWrapperComponent);
     component = fixture.componentInstance;

@@ -16,3 +16,5 @@ CHANGELOG.md
 libs/code-block/src/lib/modules/code-block/prism-languages.ts
 
 /.nx/cache
+
+/.nx/workspace-data
