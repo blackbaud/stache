@@ -3,6 +3,7 @@ import {
   SchematicTestRunner,
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
+import { VERSION } from '@skyux/packages';
 
 import { createTestLibrary } from '../testing/scaffold';
 
@@ -40,7 +41,7 @@ describe('ng-add.schematic', () => {
     ];
 
     for (const packageName of packageNames) {
-      expect(packageJson.dependencies[packageName]).toEqual('^11.0.0-alpha.0');
+      expect(packageJson.dependencies[packageName]).toEqual(`^${VERSION}`);
     }
   });
 });

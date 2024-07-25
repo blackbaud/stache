@@ -30,20 +30,19 @@
     }
   },
   "peerDependencies": {
-    "@angular/cli": "^18.0.7",
-    "@angular/common": "^18.0.6",
-    "@angular/core": "^18.0.6",
-    "@angular/platform-browser": "^18.0.6",
-    "@angular/router": "^18.0.6",
-    "@skyux/config": "^11.0.0-alpha.0",
-    "@skyux/core": "^11.0.0-alpha.0",
-    "@skyux/i18n": "^11.0.0-alpha.0",
-    "@skyux/layout": "^11.0.0-alpha.0",
-    "@skyux/lookup": "^11.0.0-alpha.0",
-    "fs-extra": "^10.1.0 || ^11"
+    "@angular/cli": "^18.1.2",
+    "@angular/common": "^18.1.2",
+    "@angular/core": "^18.1.2",
+    "@angular/platform-browser": "^18.1.2",
+    "@angular/router": "^18.1.2",
+    "@skyux/config": "^11.0.0-alpha.6",
+    "@skyux/core": "^11.0.0-alpha.6",
+    "@skyux/i18n": "^11.0.0-alpha.6",
+    "@skyux/layout": "^11.0.0-alpha.6",
+    "@skyux/lookup": "^11.0.0-alpha.6"
   },
   "dependencies": {
     "lodash.get": "4.4.2",
-    "tslib": "^2.6.2"
+    "tslib": "^2.6.3"
   }
 }

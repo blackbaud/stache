@@ -17,14 +17,14 @@
   },
   "homepage": "https://github.com/blackbaud/stache#readme",
   "peerDependencies": {
-    "@angular/common": "^18.0.6",
-    "@angular/core": "^18.0.6",
-    "@angular/platform-browser": "^18.0.6",
+    "@angular/common": "^18.1.2",
+    "@angular/core": "^18.1.2",
+    "@angular/platform-browser": "^18.1.2",
     "@blackbaud/skyux-lib-clipboard": "0.0.0-PLACEHOLDER",
-    "@skyux/i18n": "^11.0.0-alpha.0"
+    "@skyux/i18n": "^11.0.0-alpha.6"
   },
   "dependencies": {
     "prismjs": "1.29.0",
-    "tslib": "^2.6.2"
+    "tslib": "^2.6.3"
   }
 }
