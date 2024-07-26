@@ -25,7 +25,7 @@ export class StacheRouterLinkDirective implements OnChanges, AfterViewInit {
     } else {
       this.#_stacheRouterLink = Array.isArray(value)
         ? value.join('/')
-        : value ?? '';
+        : (value ?? '');
     }
   }
 
