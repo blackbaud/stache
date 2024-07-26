@@ -1,5 +1,12 @@
 # Changelog
 
+## [11.0.0-alpha.1](https://github.com/blackbaud/stache/compare/11.0.0-alpha.0...11.0.0-alpha.1) (2024-07-26)
+
+
+### Features
+
+* add support for @angular/core@18.1.2 ([#96](https://github.com/blackbaud/stache/issues/96)) ([5671c08](https://github.com/blackbaud/stache/commit/5671c082095f224d2692d12b46864435dac25697))
+
 ## [11.0.0-alpha.0](https://github.com/blackbaud/stache/compare/10.0.0...11.0.0-alpha.0) (2024-07-09)
 
 
