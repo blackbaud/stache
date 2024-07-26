@@ -5,9 +5,6 @@ import {
   addPackageJsonDependency,
 } from '@schematics/angular/utility/dependencies';
 
-import fs from 'fs-extra';
-import path from 'path';
-
 function installEssentialSkyUxPackages(skyuxVersion: string): Rule {
   return async (tree) => {
     const packageNames = [
@@ -31,16 +28,8 @@ function installEssentialSkyUxPackages(skyuxVersion: string): Rule {
 
 export default function ngAdd(): Rule {
   return async (_tree, context) => {
-    // Get the preferred version of SKY UX found in the "peerDependencies" section of
-    // @blackbaud/skyux-lib-stache package.json.
-    const packageJson = fs.readJsonSync(
-      path.resolve(__dirname, '../../package.json'),
-    );
-
-    const skyuxVersion = packageJson.peerDependencies['@skyux/core'];
-
     context.addTask(new NodePackageInstallTask());
 
-    return chain([installEssentialSkyUxPackages(skyuxVersion)]);
+    return chain([installEssentialSkyUxPackages('^11.0.0-alpha.6')]);
   };
 }

@@ -3,7 +3,7 @@
     class="sky-image"
     [alt]="imageAlt"
     [ngClass]="{
-      'sky-image-border': showBorder
+      'sky-image-border': showBorder,
     }"
     [src]="imageSource"
   />
@@ -15,7 +15,7 @@
       'sky-image-caption-info sky-text-info': captionType === 'info',
       'sky-image-caption-success sky-text-success': captionType === 'success',
       'sky-image-caption-warning sky-text-warning': captionType === 'warning',
-      'sky-image-caption-danger sky-text-danger': captionType === 'danger'
+      'sky-image-caption-danger sky-text-danger': captionType === 'danger',
     }"
   >
     <ng-container [ngSwitch]="captionType">
