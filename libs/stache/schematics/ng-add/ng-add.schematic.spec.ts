@@ -41,7 +41,7 @@ describe('ng-add.schematic', () => {
     ];
 
     for (const packageName of packageNames) {
-      expect(packageJson.dependencies[packageName]).toEqual(`^${VERSION}`);
+      expect(packageJson.dependencies[packageName]).toEqual(`^${VERSION.full}`);
     }
   });
 });
