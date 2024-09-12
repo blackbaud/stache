@@ -3,9 +3,13 @@
 ## [11.0.0](https://github.com/blackbaud/stache/compare/11.0.0-alpha.1...11.0.0) (2024-09-11)
 
 
+### ⚠ BREAKING CHANGES
+
+* Added support for Angular 18 and removed support for Angular 17
+
 ### Features
 
-* release 11.0.0 ([#98](https://github.com/blackbaud/stache/issues/98)) ([6c6b0bb](https://github.com/blackbaud/stache/commit/6c6b0bb71272adb1afedc5588a201191ae92b9e4))
+* add support for Angular 18 ([#94](https://github.com/blackbaud/stache/issues/94)) ([499fa04](https://github.com/blackbaud/stache/commit/499fa040f200193549dc2cecfc0dc261fbf1d12d))
 
 ## [11.0.0-alpha.1](https://github.com/blackbaud/stache/compare/11.0.0-alpha.0...11.0.0-alpha.1) (2024-07-26)
 
