@@ -5,6 +5,7 @@ import { SkyCopyToClipboardComponent } from '../clipboard.component';
 @Component({
   selector: 'sky-clipboard-test',
   templateUrl: './clipboard.component.fixture.html',
+  standalone: false,
 })
 export class SkyClipboardTestComponent {
   public ariaLabel: string | undefined;

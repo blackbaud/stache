@@ -29,6 +29,7 @@ import { StacheTitleService } from './title.service';
   selector: 'stache',
   templateUrl: './wrapper.component.html',
   styleUrls: ['./wrapper.component.scss'],
+  standalone: false,
 })
 export class StacheWrapperComponent
   implements OnInit, AfterViewInit, OnDestroy

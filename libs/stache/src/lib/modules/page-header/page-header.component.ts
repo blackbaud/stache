@@ -4,5 +4,6 @@ import { Component } from '@angular/core';
   selector: 'stache-page-header',
   templateUrl: './page-header.component.html',
   styleUrls: ['./page-header.component.scss'],
+  standalone: false,
 })
 export class StachePageHeaderComponent {}

@@ -4,5 +4,6 @@ import { Component } from '@angular/core';
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'sky-test-component',
   templateUrl: './google-analytics.component.fixture.html',
+  standalone: false,
 })
 export class StacheGoogleAnalyticsTestComponent {}

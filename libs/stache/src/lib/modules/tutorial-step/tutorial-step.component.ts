@@ -6,6 +6,7 @@ import { booleanConverter } from '../shared/input-converter';
   selector: 'stache-tutorial-step',
   templateUrl: './tutorial-step.component.html',
   styleUrls: ['./tutorial-step.component.scss'],
+  standalone: false,
 })
 export class StacheTutorialStepComponent {
   @Input()

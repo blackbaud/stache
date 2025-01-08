@@ -8,6 +8,7 @@ import { StacheRouteService } from '../router/route.service';
   selector: 'stache-breadcrumbs',
   templateUrl: './breadcrumbs.component.html',
   styleUrls: ['./breadcrumbs.component.scss'],
+  standalone: false,
 })
 export class StacheBreadcrumbsComponent implements StacheNav, OnInit {
   @Input()

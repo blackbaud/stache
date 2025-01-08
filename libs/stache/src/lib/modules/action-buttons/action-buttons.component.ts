@@ -9,6 +9,7 @@ const SEARCH_KEYS: (keyof StacheNavLink)[] = ['name', 'summary'];
   selector: 'stache-action-buttons',
   templateUrl: './action-buttons.component.html',
   styleUrls: ['./action-buttons.component.scss'],
+  standalone: false,
 })
 export class StacheActionButtonsComponent {
   @Input()

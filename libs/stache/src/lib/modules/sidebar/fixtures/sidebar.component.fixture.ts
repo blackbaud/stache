@@ -7,6 +7,7 @@ import { StacheSidebarWrapperComponent } from '../sidebar-wrapper.component';
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'sidebar-test-cmp',
   templateUrl: './sidebar.component.fixture.html',
+  standalone: false,
 })
 export class SidebarFixtureComponent {
   @Input()

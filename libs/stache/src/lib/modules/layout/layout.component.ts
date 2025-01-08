@@ -20,6 +20,7 @@ const DEFAULT_LAYOUT = 'sidebar';
   selector: 'stache-layout',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss'],
+  standalone: false,
 })
 export class StacheLayoutComponent implements OnInit, OnChanges, StacheLayout {
   @Input()

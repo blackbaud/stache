@@ -9,6 +9,7 @@ const DEFAULT_OFFSET = 200;
   selector: 'stache-back-to-top',
   templateUrl: './back-to-top.component.html',
   styleUrls: ['./back-to-top.component.scss'],
+  standalone: false,
 })
 export class StacheBackToTopComponent {
   @Input()

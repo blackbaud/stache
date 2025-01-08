@@ -6,6 +6,7 @@ const DEFAULT_IDENTIFIER = 'blank';
   selector: 'stache-layout-blank',
   templateUrl: './layout-blank.component.html',
   styleUrls: ['./layout-blank.component.scss'],
+  standalone: false,
 })
 export class StacheLayoutBlankComponent implements OnInit {
   @Input()

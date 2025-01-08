@@ -21,6 +21,7 @@ const DEFAULT_LANGUAGE = 'markup';
   selector: 'sky-code-block',
   templateUrl: './code-block.component.html',
   styleUrls: ['./code-block.component.scss'],
+  standalone: false,
 })
 export class SkyCodeBlockComponent implements AfterViewInit, OnChanges {
   @Input()

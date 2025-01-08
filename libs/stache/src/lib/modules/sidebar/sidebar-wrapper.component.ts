@@ -19,6 +19,7 @@ let nextUniqueId = 0;
   selector: 'stache-sidebar-wrapper',
   templateUrl: './sidebar-wrapper.component.html',
   styleUrls: ['./sidebar-wrapper.component.scss'],
+  standalone: false,
 })
 export class StacheSidebarWrapperComponent implements OnDestroy, AfterViewInit {
   @Input()

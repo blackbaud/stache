@@ -4,5 +4,6 @@ import { Component } from '@angular/core';
   selector: 'stache-container',
   templateUrl: './container.component.html',
   styleUrls: ['./container.component.scss'],
+  standalone: false,
 })
 export class StacheContainerComponent {}

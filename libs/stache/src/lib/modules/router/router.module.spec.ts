@@ -6,7 +6,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { StacheRouteService } from './route.service';
 import { StacheRouterModule } from './router.module';
 
-@Component({ template: '' })
+@Component({
+  template: '',
+  standalone: false,
+})
 class TestComponent {}
 
 describe('StacheRouterModule', () => {

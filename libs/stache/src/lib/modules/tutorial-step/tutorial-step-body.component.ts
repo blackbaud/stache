@@ -5,5 +5,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   templateUrl: './tutorial-step-body.component.html',
   styleUrls: ['./tutorial-step-body.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class StacheTutorialStepBodyComponent {}

@@ -13,6 +13,7 @@ const AFFIX_CLASS_NAME = 'stache-affix-top';
 
 @Directive({
   selector: '[stacheAffixTop]',
+  standalone: false,
 })
 export class StacheAffixTopDirective implements AfterViewInit {
   isAffixed = false;

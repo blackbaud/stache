@@ -13,6 +13,7 @@ const ADO_FILE_PATH_ROOT = '?path=%2Fsrc%2Fapp';
   selector: 'stache-edit-button',
   templateUrl: './edit-button.component.html',
   styleUrls: ['./edit-button.component.scss'],
+  standalone: false,
 })
 export class StacheEditButtonComponent implements OnInit {
   public editButtonText: string | undefined;

@@ -2,7 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
-@Component({ template: '' })
+@Component({
+  template: '',
+  standalone: false,
+})
 export class TestRouterRootComponent {}
 
 const routes: Routes = [

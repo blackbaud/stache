@@ -5,5 +5,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   templateUrl: './video-playground.component.html',
   styleUrls: ['./video-playground.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class VideoPlaygroundComponent {}

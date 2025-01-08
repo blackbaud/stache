@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   templateUrl: './hero-subheading.component.html',
   styleUrls: ['./hero-subheading.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class SkyHeroSubheadingComponent {
   @Input()

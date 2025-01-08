@@ -11,6 +11,7 @@ let uniqueId = 0;
   selector: 'stache-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
+  standalone: false,
 })
 export class StacheSidebarComponent implements StacheNav, OnInit {
   @Input()

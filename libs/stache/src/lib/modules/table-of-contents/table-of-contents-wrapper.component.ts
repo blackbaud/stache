@@ -15,6 +15,7 @@ const HAS_TOC_CLASS_NAME = 'stache-table-of-contents-enabled';
   selector: 'stache-table-of-contents-wrapper',
   templateUrl: './table-of-contents-wrapper.component.html',
   styleUrls: ['./table-of-contents-wrapper.component.scss'],
+  standalone: false,
 })
 export class StacheTableOfContentsWrapperComponent
   implements AfterViewInit, OnDestroy

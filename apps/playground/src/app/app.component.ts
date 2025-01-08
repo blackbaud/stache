@@ -11,6 +11,7 @@ import {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class AppComponent {
   constructor(themeSvc: SkyThemeService, renderer: Renderer2) {

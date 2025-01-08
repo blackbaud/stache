@@ -4,6 +4,7 @@ import { StacheNavLink } from '@blackbaud/skyux-lib-stache';
 @Component({
   selector: 'app-components-playground',
   templateUrl: './components.component.html',
+  standalone: false,
 })
 export class ComponentsPlaygroundComponent {
   public actionButtonRoutes: StacheNavLink[] = [

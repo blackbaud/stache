@@ -2,7 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-@Component({ selector: 'stache-test-router-child', template: '' })
+@Component({
+  selector: 'stache-test-router-child',
+  template: '',
+  standalone: false,
+})
 export class TestRouterChildComponent {}
 
 const routes: Routes = [

@@ -6,6 +6,7 @@ import { SkyCopyToClipboardService } from './clipboard.service';
 @Component({
   selector: 'sky-copy-to-clipboard',
   templateUrl: './clipboard.component.html',
+  standalone: false,
 })
 export class SkyCopyToClipboardComponent {
   /**

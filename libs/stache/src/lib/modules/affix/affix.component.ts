@@ -17,6 +17,7 @@ import { StacheAffixTopDirective } from './affix-top.directive';
   selector: 'stache-affix',
   templateUrl: './affix.component.html',
   styleUrls: ['./affix.component.scss'],
+  standalone: false,
 })
 export class StacheAffixComponent implements AfterViewInit, OnDestroy {
   @ViewChild('stacheAffixWrapper', {

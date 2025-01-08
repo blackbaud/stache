@@ -22,6 +22,7 @@ import { StachePageAnchorService } from './page-anchor.service';
   selector: 'stache-page-anchor',
   templateUrl: './page-anchor.component.html',
   styleUrls: ['./page-anchor.component.scss'],
+  standalone: false,
 })
 export class StachePageAnchorComponent
   implements

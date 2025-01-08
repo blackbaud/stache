@@ -12,6 +12,7 @@ const DEFAULT_OPACITY = '0.4';
   templateUrl: './hero.component.html',
   styleUrls: ['./hero.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class SkyHeroComponent {
   @Input()

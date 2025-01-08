@@ -8,7 +8,10 @@ import { of as observableOf } from 'rxjs';
 import { StacheRouteService } from './route.service';
 import { StacheRouterModule } from './router.module';
 
-@Component({ template: '' })
+@Component({
+  template: '',
+  standalone: false,
+})
 class MockComponent {}
 
 const mockRoutes: Routes = [

@@ -13,6 +13,7 @@ import { StacheNavLink } from './nav-link';
   selector: 'stache-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
+  standalone: false,
 })
 export class StacheNavComponent implements OnDestroy, OnInit, StacheNav {
   @Input()
