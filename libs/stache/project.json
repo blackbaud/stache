@@ -4,12 +4,14 @@
   "projectType": "library",
   "sourceRoot": "libs/stache/src",
   "prefix": "stache",
+  "tags": ["component", "npm"],
   "targets": {
     "build": {
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "libs/stache/ng-package.json"
+        "project": "libs/stache/ng-package.json",
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "production": {
@@ -59,6 +61,5 @@
     "lint": {
       "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": ["component", "npm"]
+  }
 }

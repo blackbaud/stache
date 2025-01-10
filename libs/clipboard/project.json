@@ -4,12 +4,14 @@
   "projectType": "library",
   "sourceRoot": "libs/clipboard/src",
   "prefix": "sky",
+  "tags": ["component", "npm"],
   "targets": {
     "build": {
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "libs/clipboard/ng-package.json"
+        "project": "libs/clipboard/ng-package.json",
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "production": {
@@ -47,6 +49,5 @@
     "lint": {
       "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": ["component", "npm"]
+  }
 }

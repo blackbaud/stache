@@ -4,12 +4,14 @@
   "projectType": "library",
   "sourceRoot": "libs/media/src",
   "prefix": "sky",
+  "tags": ["component", "npm"],
   "targets": {
     "build": {
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "libs/media/ng-package.json"
+        "project": "libs/media/ng-package.json",
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "production": {
@@ -47,6 +49,5 @@
     "lint": {
       "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": ["component", "npm"]
+  }
 }
