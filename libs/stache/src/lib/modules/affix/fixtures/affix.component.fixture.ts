@@ -5,6 +5,7 @@ import { StacheAffixComponent } from '../affix.component';
 @Component({
   selector: 'stache-test-component',
   templateUrl: './affix.component.fixture.html',
+  standalone: false,
 })
 export class AffixFixtureComponent {
   @ViewChild(StacheAffixComponent, {

@@ -11,6 +11,7 @@ import { StacheWindowRef } from '../shared/window-ref';
   selector: 'stache-table-of-contents',
   templateUrl: './table-of-contents.component.html',
   styleUrls: ['./table-of-contents.component.scss'],
+  standalone: false,
 })
 export class StacheTableOfContentsComponent implements OnDestroy {
   @Input()

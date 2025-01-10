@@ -8,6 +8,7 @@ import { StacheLayout } from './layout';
 @Component({
   selector: 'stache-layout-sidebar',
   templateUrl: './layout-sidebar.component.html',
+  standalone: false,
 })
 export class StacheLayoutSidebarComponent implements StacheLayout {
   @Input()

@@ -1,38 +1,9 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "affected": {
-    "defaultBase": "main"
-  },
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx-cloud",
-      "options": {
-        "cacheableOperations": ["build", "lint", "test", "posttest", "e2e"],
-        "accessToken": "Mzc2MGM2NDAtNTc5OS00NjA0LTlkODQtOGVmMWFmMWVjNDBhfHJlYWQtd3JpdGU="
-      }
-    },
-    "local": {
-      "runner": "@nx/workspace/tasks-runners/default",
-      "options": {
-        "cacheableOperations": ["build", "lint", "test", "posttest", "e2e"]
-      }
-    }
-  },
-  "targetDefaults": {
-    "build": {
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
-    },
-    "lint": {
-      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
-    },
-    "test": {
-      "inputs": ["default", "^default", "{workspaceRoot}/karma.conf.js"]
-    }
-  },
   "cli": {
     "packageManager": "npm"
   },
+  "defaultProject": "playground",
   "generators": {
     "@nx/angular:application": {
       "style": "scss",
@@ -49,17 +20,82 @@
       "style": "scss"
     }
   },
-  "defaultProject": "playground",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["buildInputs", "^buildInputs"],
+      "cache": true
+    },
+    "test": {
+      "inputs": ["testInputs", "^buildInputs"],
+      "cache": true
+    },
+    "posttest": {
+      "dependsOn": [
+        {
+          "target": "test"
+        }
+      ],
+      "cache": true
+    },
+    "@nx/jest:jest": {
+      "inputs": ["testInputs", "^buildInputs"],
+      "cache": true,
+      "options": {
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true,
+          "quiet": true,
+          "runInBand": true
+        }
+      }
+    },
+    "@nx/eslint:lint": {
+      "inputs": ["lintInputs"],
+      "cache": true
+    },
+    "@nx/angular:package": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["buildInputs", "^buildInputs"]
+    }
+  },
   "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
-    "sharedGlobals": [
-      "{workspaceRoot}/.github/workflows/**",
-      "{workspaceRoot}/config/**",
-      "{workspaceRoot}/scripts/**",
-      "{workspaceRoot}/nx.json",
-      "{workspaceRoot}/tsconfig.base.json",
-      "{workspaceRoot}/tsconfig.no-strict.json"
+    "buildInputs": [
+      "{projectRoot}/**/*",
+      "{workspaceRoot}/scripts/postbuild-{projectName}.ts",
+      "{workspaceRoot}/scripts/utils/**",
+      "!{projectRoot}/**/*.spec.[jt]s",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/**/fixtures/**/*",
+      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/eslint.config.js",
+      "!{projectRoot}/jest.config.[jt]s",
+      "!{projectRoot}/karma.conf.js",
+      "!{projectRoot}/src/test-setup.[jt]s",
+      "!{projectRoot}/tsconfig.spec.json"
     ],
-    "production": ["default"]
-  }
+    "lintInputs": [
+      "{projectRoot}/**/*",
+      "{workspaceRoot}/.eslint*",
+      "{workspaceRoot}/eslint-*"
+    ],
+    "testInputs": [
+      "{projectRoot}/**/*",
+      "{workspaceRoot}/.github/workflows/ci.yml",
+      "{workspaceRoot}/config/**",
+      "{workspaceRoot}/jest.config.json",
+      "{workspaceRoot}/karma.conf.js",
+      "{workspaceRoot}/scripts/posttest-{projectName}.ts",
+      "{workspaceRoot}/scripts/utils/**",
+      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/eslint.config.js"
+    ]
+  },
+  "useInferencePlugins": false,
+  "defaultBase": "main",
+  "useLegacyCache": true
 }

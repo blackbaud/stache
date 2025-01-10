@@ -6,6 +6,7 @@ import { StacheWindowRef } from '../shared/window-ref';
 
 @Directive({
   selector: '[stacheGoogleAnalytics]',
+  standalone: false,
 })
 export class StacheGoogleAnalyticsDirective implements OnInit {
   private tagManagerContainerId = 'GTM-W56QP9';

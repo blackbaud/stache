@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'sky-test-component',
   templateUrl: './code-block.component.fixture.html',
+  standalone: false,
 })
 export class SkyCodeBlockTestComponent {
   public code: string | undefined;

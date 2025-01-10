@@ -10,6 +10,7 @@ import {
   templateUrl: './blockquote.component.html',
   styleUrls: ['./blockquote.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class StacheBlockquoteComponent implements OnInit {
   @Input()

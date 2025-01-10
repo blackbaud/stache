@@ -8,6 +8,7 @@ import { StacheLayout } from './layout';
 @Component({
   selector: 'stache-layout-container',
   templateUrl: './layout-container.component.html',
+  standalone: false,
 })
 export class StacheLayoutContainerComponent implements StacheLayout {
   @Input()

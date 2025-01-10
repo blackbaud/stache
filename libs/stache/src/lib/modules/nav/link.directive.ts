@@ -16,6 +16,7 @@ import { StacheNavService } from './nav.service';
 
 @Directive({
   selector: '[stacheRouterLink]',
+  standalone: false,
 })
 export class StacheRouterLinkDirective implements OnChanges, AfterViewInit {
   @Input()

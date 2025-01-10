@@ -5,5 +5,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   templateUrl: './tutorial-heading.component.html',
   styleUrls: ['./tutorial-heading.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class StacheTutorialHeadingComponent {}

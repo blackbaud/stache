@@ -26,7 +26,8 @@
             "prefix": "sky",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "@angular-eslint/prefer-standalone": "warn"
       }
     },
     {

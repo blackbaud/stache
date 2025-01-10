@@ -6,6 +6,7 @@ import { StacheNavLink } from '@blackbaud/skyux-lib-stache';
   templateUrl: './stache-playground.component.html',
   styleUrls: ['./stache-playground.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class StachePlaygroundComponent {
   public actionButtonRoutes: StacheNavLink[] = [
