@@ -1,5 +1,16 @@
 # Changelog
 
+## [12.0.0-alpha.0](https://github.com/blackbaud/stache/compare/11.0.0...12.0.0-alpha.0) (2025-01-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* Added support for Angular 19 and removed support for Angular 18
+
+### Features
+
+* add support for Angular 19 ([#103](https://github.com/blackbaud/stache/issues/103)) ([ce8d44f](https://github.com/blackbaud/stache/commit/ce8d44f8f9243e445c9565ec9af6d24cd424f4d5))
+
 ## [11.0.0](https://github.com/blackbaud/stache/compare/11.0.0-alpha.1...11.0.0) (2024-09-11)
 
 
