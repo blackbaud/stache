@@ -78,7 +78,11 @@
       "!{projectRoot}/src/test-setup.[jt]s",
       "!{projectRoot}/tsconfig.spec.json"
     ],
-    "lintInputs": ["{projectRoot}/**/*", "{workspaceRoot}/.eslint*", "{workspaceRoot}/eslint-*"],
+    "lintInputs": [
+      "{projectRoot}/**/*",
+      "{workspaceRoot}/.eslint*",
+      "{workspaceRoot}/eslint-*"
+    ],
     "testInputs": [
       "{projectRoot}/**/*",
       "{workspaceRoot}/.github/workflows/ci.yml",
