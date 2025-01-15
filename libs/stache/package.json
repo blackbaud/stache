@@ -8,10 +8,6 @@
     "stache"
   ],
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/blackbaud/stache.git"
-  },
   "bugs": {
     "url": "https://github.com/blackbaud/stache/issues"
   },
@@ -43,6 +39,6 @@
   },
   "dependencies": {
     "lodash.get": "4.4.2",
-    "tslib": "^2.6.3"
+    "tslib": "^2.8.1"
   }
 }
