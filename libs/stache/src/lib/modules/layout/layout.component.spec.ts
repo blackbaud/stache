@@ -171,4 +171,17 @@ describe('StacheLayoutComponent', () => {
     // The default layout is 'sidebar'.
     expect(wrapper.querySelector('.stache-layout-sidebar')).toExist();
   });
+
+  it('should remove margins for "layout-no-margins" layout', () => {
+    fixture.componentRef.setInput('layoutType', 'sidebar-no-margins');
+    fixture.detectChanges();
+
+    const wrapper = getWrapperEl();
+    expect(wrapper).not.toHaveClass('stache-max-width-container');
+
+    fixture.componentRef.setInput('layoutType', 'sidebar');
+    fixture.detectChanges();
+
+    expect(wrapper).toHaveClass('stache-max-width-container');
+  });
 });

@@ -6,6 +6,9 @@ import {
   Input,
   OnDestroy,
   OnInit,
+  ViewEncapsulation,
+  booleanAttribute,
+  input,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SkyAppConfig } from '@skyux/config';
@@ -15,6 +18,7 @@ import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
 import { StacheJsonDataService } from '../json-data/json-data.service';
+import { StacheLayoutType } from '../layout/layout-type';
 import { StacheNavLink } from '../nav/nav-link';
 import { StacheNavService } from '../nav/nav.service';
 import { StachePageAnchorService } from '../page-anchor/page-anchor.service';
@@ -25,6 +29,7 @@ import { StacheWindowRef } from '../shared/window-ref';
 import { StacheTitleService } from './title.service';
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'stache',
   templateUrl: './wrapper.component.html',
@@ -44,7 +49,7 @@ export class StacheWrapperComponent
   public navTitle: string;
 
   @Input()
-  public layout = 'sidebar';
+  public layout: StacheLayoutType = 'sidebar';
 
   @Input()
   public sidebarRoutes: StacheNavLink[];
@@ -52,8 +57,7 @@ export class StacheWrapperComponent
   @Input()
   public breadcrumbsRoutes: StacheNavLink[];
 
-  @Input()
-  public showBreadcrumbs = true;
+  public showBreadcrumbs = input(true, { transform: booleanAttribute });
 
   @Input()
   public showEditButton: boolean = this.checkEditButtonUrl();
