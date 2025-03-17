@@ -13,6 +13,7 @@ import { StacheNavLink } from '../nav/nav-link';
 import { StacheWindowRef } from '../shared/window-ref';
 
 import { StacheLayout } from './layout';
+import { StacheLayoutType } from './layout-type';
 
 const DEFAULT_LAYOUT = 'sidebar';
 
@@ -27,7 +28,7 @@ export class StacheLayoutComponent implements OnInit, OnChanges, StacheLayout {
   public pageTitle: string | undefined;
 
   @Input()
-  public set layoutType(value: string | undefined) {
+  public set layoutType(value: StacheLayoutType | undefined) {
     this.#_layoutType = value || DEFAULT_LAYOUT;
     this.#updateTemplateRef();
   }
@@ -120,6 +121,7 @@ export class StacheLayoutComponent implements OnInit, OnChanges, StacheLayout {
         this.templateRef = this.blankTemplateRef;
         break;
       case 'sidebar':
+      case 'sidebar-no-margins':
         this.templateRef = this.sidebarTemplateRef;
         break;
       default:
