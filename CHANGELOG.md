@@ -1,5 +1,18 @@
 # Changelog
 
+## [12.0.0-alpha.1](https://github.com/blackbaud/stache/compare/12.0.0-alpha.0...12.0.0-alpha.1) (2025-03-17)
+
+
+### Features
+
+* **stache:** add `sidebar-no-margin` layout type ([#106](https://github.com/blackbaud/stache/issues/106)) ([309eaa0](https://github.com/blackbaud/stache/commit/309eaa0db50676e1f7fa081210ce95747f09e1e7))
+
+
+### Bug Fixes
+
+* **stache:** re-implement global margin and line-height styles ([#109](https://github.com/blackbaud/stache/issues/109)) ([3185c83](https://github.com/blackbaud/stache/commit/3185c837cd6624dadfff244041a4d518b60a2d2b))
+* **stache:** use correct selector in stylesheet ([#108](https://github.com/blackbaud/stache/issues/108)) ([994cee8](https://github.com/blackbaud/stache/commit/994cee8743c356aef61234419034897b9641d1cb))
+
 ## [12.0.0-alpha.0](https://github.com/blackbaud/stache/compare/11.0.0...12.0.0-alpha.0) (2025-01-10)
 
 
