@@ -7,8 +7,6 @@ import {
   OnDestroy,
   OnInit,
   ViewEncapsulation,
-  booleanAttribute,
-  input,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SkyAppConfig } from '@skyux/config';
@@ -57,7 +55,8 @@ export class StacheWrapperComponent
   @Input()
   public breadcrumbsRoutes: StacheNavLink[];
 
-  public showBreadcrumbs = input(true, { transform: booleanAttribute });
+  @Input()
+  public showBreadcrumbs = true;
 
   @Input()
   public showEditButton: boolean = this.checkEditButtonUrl();

@@ -228,12 +228,6 @@ describe('StacheWrapperComponent', () => {
     }
   }
 
-  function getBreadcrumbsEl(): HTMLElement | null {
-    return (fixture.nativeElement as HTMLElement).querySelector<HTMLElement>(
-      'stache-breadcrumbs',
-    );
-  }
-
   beforeEach(() => {
     mockActivatedRoute = new MockActivatedRoute();
     mockNavService = new MockNavService();
@@ -305,15 +299,9 @@ describe('StacheWrapperComponent', () => {
   });
 
   it('should have a showBreadcrumbs input', () => {
+    component.showBreadcrumbs = false;
     fixture.detectChanges();
-
-    // Should show breadcrumbs by default.
-    expect(getBreadcrumbsEl()).not.toBeNull();
-
-    fixture.componentRef.setInput('showBreadcrumbs', false);
-    fixture.detectChanges();
-
-    expect(getBreadcrumbsEl()).toBeNull();
+    expect(component.showBreadcrumbs).toBe(false);
   });
 
   it('should have a showEditButton input', () => {
@@ -332,6 +320,11 @@ describe('StacheWrapperComponent', () => {
     component.showBackToTop = false;
     fixture.detectChanges();
     expect(component.showBackToTop).toBe(false);
+  });
+
+  it('should set the input, showBreadcrumbs, to true by default', () => {
+    fixture.detectChanges();
+    expect(component.showBreadcrumbs).toBe(true);
   });
 
   it('should set the showEditButton based on the config option if set', () => {
