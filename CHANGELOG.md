@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.0.0-alpha.2](https://github.com/blackbaud/stache/compare/12.0.0-alpha.1...12.0.0-alpha.2) (2025-04-01)
+
+
+### Bug Fixes
+
+* **stache:** set background color for wrapper component ([#110](https://github.com/blackbaud/stache/issues/110)) ([ef2871d](https://github.com/blackbaud/stache/commit/ef2871dc9e57222b66c74865d02f26c0c91d9f39))
+
 ## [12.0.0-alpha.1](https://github.com/blackbaud/stache/compare/12.0.0-alpha.0...12.0.0-alpha.1) (2025-03-17)
 
 
