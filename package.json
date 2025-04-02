@@ -119,7 +119,7 @@
     "@angular-eslint/eslint-plugin": "19.3.0",
     "@angular-eslint/eslint-plugin-template": "19.3.0",
     "@angular-eslint/template-parser": "19.3.0",
-    "@angular/cli": "19.2.1",
+    "@angular/cli": "19.2.6",
     "@angular/compiler-cli": "19.2.4",
     "@angular/language-service": "19.2.4",
     "@istanbuljs/nyc-config-typescript": "1.0.2",
@@ -131,7 +131,7 @@
     "@ryansonshine/cz-conventional-changelog": "3.3.4",
     "@skyux-sdk/testing": "12.0.0",
     "@skyux/dev-infra-private": "github:blackbaud/skyux-dev-infra-private-builds#12.0.0-alpha.0",
-    "@trivago/prettier-plugin-sort-imports": "5.2.1",
+    "@trivago/prettier-plugin-sort-imports": "5.2.2",
     "@types/cross-spawn": "6.0.6",
     "@types/fs-extra": "11.0.4",
     "@types/jasmine": "5.1.5",
@@ -159,6 +159,7 @@
     "nx": "20.7.1",
     "nyc": "15.1.0",
     "prettier": "3.4.2",
+    "ts-node": "10.9.2",
     "typescript": "5.7.3"
   },
   "overrides": {
