@@ -1,5 +1,12 @@
 # Changelog
 
+## [11.0.1](https://github.com/blackbaud/stache/compare/11.0.0...11.0.1) (2025-04-18)
+
+
+### Bug Fixes
+
+* add support for `prism@1.30.0` to address a security vulnerability ([#114](https://github.com/blackbaud/stache/issues/114)) ([36197e5](https://github.com/blackbaud/stache/commit/36197e5938b20df400c11def4ff7ba8f784a6b3a))
+
 ## [12.0.0](https://github.com/blackbaud/stache/compare/12.0.0-alpha.2...12.0.0) (2025-04-02)
 
 
