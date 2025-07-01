@@ -96,6 +96,6 @@
     ]
   },
   "useInferencePlugins": false,
-  "defaultBase": "main",
+  "defaultBase": "12.x.x",
   "useLegacyCache": true
 }
