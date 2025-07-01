@@ -15,17 +15,18 @@
       [attr.aria-expanded]="sidebarOpen"
       [attr.title]="'stache_sidebar_toggle_button' | skyLibResources"
     >
-      <i *ngIf="sidebarOpen" class="fa fa-chevron-left" aria-hidden="true"></i>
-      <i
-        *ngIf="!sidebarOpen"
-        class="fa fa-chevron-right"
-        aria-hidden="true"
-      ></i>
+      @if (sidebarOpen) {
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+      }
+      @if (!sidebarOpen) {
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      }
     </button>
   </div>
 
   <div class="stache-sidebar-content" [id]="elementId">
-    <stache-sidebar *ngIf="sidebarOpen" [routes]="sidebarRoutes">
-    </stache-sidebar>
+    @if (sidebarOpen) {
+      <stache-sidebar [routes]="sidebarRoutes"> </stache-sidebar>
+    }
   </div>
 </section>

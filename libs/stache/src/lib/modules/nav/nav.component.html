@@ -1,24 +1,28 @@
-<nav *ngIf="filteredRoutes?.length" class="stache-nav" [ngClass]="className">
-  <ol class="stache-nav-list">
-    <li
-      class="stache-nav-list-item"
-      *ngFor="let route of filteredRoutes"
-      [attr.aria-current]="route.isCurrent ? 'page' : false"
-      [ngClass]="{ active: route.isActive, current: route.isCurrent }"
-    >
-      <a
-        class="stache-nav-anchor"
-        stacheRouterLink="{{ route.path }}"
-        fragment="{{ route.fragment }}"
-        queryParamsHandling="merge"
-        >{{ route.name }}</a
-      >
-      <stache-nav
-        *ngIf="route.children"
-        navType="sidebar stache-nav-sub"
-        [routes]="route.children"
-      >
-      </stache-nav>
-    </li>
-  </ol>
-</nav>
+@if (filteredRoutes?.length) {
+  <nav class="stache-nav" [ngClass]="className">
+    <ol class="stache-nav-list">
+      @for (route of filteredRoutes; track $index) {
+        <li
+          class="stache-nav-list-item"
+          [attr.aria-current]="route.isCurrent ? 'page' : false"
+          [ngClass]="{ active: route.isActive, current: route.isCurrent }"
+        >
+          <a
+            class="stache-nav-anchor"
+            stacheRouterLink="{{ route.path }}"
+            fragment="{{ route.fragment }}"
+            queryParamsHandling="merge"
+            >{{ route.name }}</a
+          >
+          @if (route.children) {
+            <stache-nav
+              navType="sidebar stache-nav-sub"
+              [routes]="route.children"
+            >
+            </stache-nav>
+          }
+        </li>
+      }
+    </ol>
+  </nav>
+}

@@ -3,6 +3,7 @@
     {
       "files": ["*.ts"],
       "rules": {
+        "@angular-eslint/prefer-inject": "warn",
         "@angular-eslint/prefer-standalone": "warn",
         "@typescript-eslint/ban-types": "warn",
         "@typescript-eslint/explicit-function-return-type": "warn",

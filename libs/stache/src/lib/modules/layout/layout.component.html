@@ -48,10 +48,11 @@
   </stache-layout-sidebar>
 </ng-template>
 
-<div
-  *ngIf="templateRef"
-  class="stache-layout-wrapper"
-  [class.stache-max-width-container]="layoutType !== 'sidebar-no-margins'"
->
-  <ng-template [ngTemplateOutlet]="templateRef"> </ng-template>
-</div>
+@if (templateRef) {
+  <div
+    class="stache-layout-wrapper"
+    [class.stache-max-width-container]="layoutType !== 'sidebar-no-margins'"
+  >
+    <ng-template [ngTemplateOutlet]="templateRef"> </ng-template>
+  </div>
+}

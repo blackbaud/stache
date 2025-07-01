@@ -1,41 +1,41 @@
-<div class="stache-action-buttons" *ngIf="routes?.length">
-  <div *ngIf="showSearch" class="stache-action-buttons-search-container">
-    <sky-search
-      expandMode="fit"
-      [searchText]="searchText"
-      (searchApply)="searchApplied($event)"
-      (keyup)="onKeyUp($event)"
-    >
-    </sky-search>
-  </div>
-  <sky-row>
-    <nav class="stache-action-buttons-nav-container">
-      <sky-column
-        [screenSmall]="6"
-        [screenMedium]="4"
-        [screenLarge]="3"
-        *ngFor="let route of filteredRoutes"
-      >
-        <a
-          stacheRouterLink="{{ route.path }}"
-          fragment="{{ route.fragment }}"
-          class="stache-action-button-override sky-action-button sky-btn-default sky-rounded-corners"
+@if (routes?.length) {
+  <div class="stache-action-buttons">
+    @if (showSearch) {
+      <div class="stache-action-buttons-search-container">
+        <sky-search
+          expandMode="fit"
+          [searchText]="searchText"
+          (searchApply)="searchApplied($event)"
+          (keyup)="onKeyUp($event)"
         >
-          <div>
-            <sky-action-button-icon
-              *ngIf="route.icon"
-              iconType="{{ route.icon }}"
+        </sky-search>
+      </div>
+    }
+    <sky-row>
+      <nav class="stache-action-buttons-nav-container">
+        @for (route of filteredRoutes; track $index) {
+          <sky-column [screenSmall]="6" [screenMedium]="4" [screenLarge]="3">
+            <a
+              stacheRouterLink="{{ route.path }}"
+              fragment="{{ route.fragment }}"
+              class="stache-action-button-override sky-action-button sky-btn-default sky-rounded-corners"
             >
-            </sky-action-button-icon>
-            <sky-action-button-header>
-              {{ route.name }}
-            </sky-action-button-header>
-          </div>
-          <sky-action-button-details>
-            {{ route.summary }}
-          </sky-action-button-details>
-        </a>
-      </sky-column>
-    </nav>
-  </sky-row>
-</div>
+              <div>
+                @if (route.icon) {
+                  <sky-action-button-icon iconType="{{ route.icon }}">
+                  </sky-action-button-icon>
+                }
+                <sky-action-button-header>
+                  {{ route.name }}
+                </sky-action-button-header>
+              </div>
+              <sky-action-button-details>
+                {{ route.summary }}
+              </sky-action-button-details>
+            </a>
+          </sky-column>
+        }
+      </nav>
+    </sky-row>
+  </div>
+}
