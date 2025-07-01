@@ -30,6 +30,6 @@ export default function ngAdd(): Rule {
   return async (_tree, context) => {
     context.addTask(new NodePackageInstallTask());
 
-    return chain([installEssentialSkyUxPackages('^12.0.0')]);
+    return chain([installEssentialSkyUxPackages('^13.0.0-alpha.0')]);
   };
 }

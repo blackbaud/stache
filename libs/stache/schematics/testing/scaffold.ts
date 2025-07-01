@@ -2,6 +2,8 @@ import {
   SchematicTestRunner,
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
+import { VERSION } from '@angular/cli';
+import { Schema } from '@schematics/angular/ng-new/schema';
 
 /**
  * Creates a new Angular CLI application.
@@ -10,15 +12,17 @@ export async function createTestApp(
   runner: SchematicTestRunner,
   appOptions: {
     projectName: string;
+    options?: Partial<Schema>;
   },
 ): Promise<UnitTestTree> {
-  return runner.runExternalSchematic('@schematics/angular', 'ng-new', {
+  return await runner.runExternalSchematic('@schematics/angular', 'ng-new', {
     directory: '/',
     name: appOptions.projectName,
     routing: true,
     strict: true,
     style: 'scss',
-    version: '17',
+    version: VERSION.major,
+    ...appOptions.options,
   });
 }
 
@@ -29,6 +33,7 @@ export async function createTestLibrary(
   runner: SchematicTestRunner,
   libOptions: {
     projectName: string;
+    options?: Partial<Schema>;
   },
 ): Promise<UnitTestTree> {
   const workspaceTree = await runner.runExternalSchematic(
@@ -39,7 +44,8 @@ export async function createTestLibrary(
       name: `${libOptions.projectName}-workspace`,
       createApplication: false,
       strict: true,
-      version: '16',
+      version: VERSION.major,
+      ...libOptions.options,
     },
   );
 
