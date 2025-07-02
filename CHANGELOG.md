@@ -1,5 +1,16 @@
 # Changelog
 
+## [13.0.0-alpha.0](https://github.com/blackbaud/stache/compare/12.0.0...13.0.0-alpha.0) (2025-07-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* add support for Angular 20 ([#117](https://github.com/blackbaud/stache/issues/117))
+
+### Features
+
+* add support for Angular 20 ([#117](https://github.com/blackbaud/stache/issues/117)) ([cda620e](https://github.com/blackbaud/stache/commit/cda620e32204bd50b67a03ec3115f0ef46528695))
+
 ## [12.0.0](https://github.com/blackbaud/stache/compare/12.0.0-alpha.2...12.0.0) (2025-04-02)
 
 
