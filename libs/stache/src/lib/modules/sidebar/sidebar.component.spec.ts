@@ -6,9 +6,10 @@ import {
 } from '@angular/core/testing';
 import { expect, expectAsync } from '@skyux-sdk/testing';
 import { SkyAppConfig } from '@skyux/config';
-import { SkyMediaBreakpoints, SkyMediaQueryService } from '@skyux/core';
-
-import { BehaviorSubject, Subscription } from 'rxjs';
+import {
+  SkyMediaQueryTestingController,
+  provideSkyMediaQueryTesting,
+} from '@skyux/core/testing';
 
 import { SidebarFixtureComponent } from './fixtures/sidebar.component.fixture';
 import { SidebarFixtureModule } from './fixtures/sidebar.module.fixture';
@@ -16,7 +17,7 @@ import { SidebarFixtureModule } from './fixtures/sidebar.module.fixture';
 describe('Sidebar', () => {
   let component: SidebarFixtureComponent;
   let fixture: ComponentFixture<SidebarFixtureComponent>;
-  let mediaQueryService: MockMediaQueryService;
+  let mediaQueryController: SkyMediaQueryTestingController;
 
   const mockConfig = {
     runtime: {
@@ -28,19 +29,6 @@ describe('Sidebar', () => {
     },
     skyux: {},
   } as unknown as Partial<SkyAppConfig>;
-
-  class MockMediaQueryService {
-    public current = SkyMediaBreakpoints.md;
-    public currentSubject = new BehaviorSubject<SkyMediaBreakpoints>(
-      this.current,
-    );
-
-    public subscribe(listener: (_: SkyMediaBreakpoints) => void): Subscription {
-      return this.currentSubject.subscribe((value) => {
-        listener(value);
-      });
-    }
-  }
 
   function detectChanges(): void {
     fixture.detectChanges();
@@ -81,19 +69,18 @@ describe('Sidebar', () => {
           provide: SkyAppConfig,
           useValue: mockConfig,
         },
-        {
-          provide: SkyMediaQueryService,
-          useClass: MockMediaQueryService,
-        },
+        provideSkyMediaQueryTesting(),
       ],
     });
 
     fixture = TestBed.createComponent(SidebarFixtureComponent);
     component = fixture.componentInstance;
-    mediaQueryService = TestBed.get(SkyMediaQueryService);
+    mediaQueryController = TestBed.inject(SkyMediaQueryTestingController);
   });
 
   it('should set defaults', fakeAsync(() => {
+    mediaQueryController.setBreakpoint('lg');
+
     detectChanges();
 
     const sidebar = component.sidebarWrapperComponent;
@@ -105,6 +92,8 @@ describe('Sidebar', () => {
   }));
 
   it('should display navigation links', fakeAsync(() => {
+    mediaQueryController.setBreakpoint('lg');
+
     component.routes = [
       {
         name: 'Header',
@@ -124,6 +113,8 @@ describe('Sidebar', () => {
   }));
 
   it('should support array route paths', fakeAsync(() => {
+    mediaQueryController.setBreakpoint('lg');
+
     component.routes = [
       {
         name: 'Header',
@@ -140,6 +131,8 @@ describe('Sidebar', () => {
   }));
 
   it('should add a / to a heading route when one is not present', fakeAsync(() => {
+    mediaQueryController.setBreakpoint('lg');
+
     component.routes = [
       {
         name: 'Header',
@@ -158,6 +151,8 @@ describe('Sidebar', () => {
   }));
 
   it('should not add a / to a heading route when one is present', fakeAsync(() => {
+    mediaQueryController.setBreakpoint('lg');
+
     component.routes = [
       {
         name: 'Header',
@@ -176,6 +171,8 @@ describe('Sidebar', () => {
   }));
 
   it('should allow an external heading route', fakeAsync(() => {
+    mediaQueryController.setBreakpoint('lg');
+
     component.routes = [
       {
         name: 'Header',
@@ -194,6 +191,8 @@ describe('Sidebar', () => {
   }));
 
   it('should open and close the sidebar', fakeAsync(() => {
+    mediaQueryController.setBreakpoint('lg');
+
     detectChanges();
 
     verifyOpened();
@@ -206,6 +205,8 @@ describe('Sidebar', () => {
   }));
 
   it('should add a CSS class to the body', fakeAsync(() => {
+    mediaQueryController.setBreakpoint('lg');
+
     detectChanges();
 
     expect(
@@ -214,6 +215,8 @@ describe('Sidebar', () => {
   }));
 
   it('should remove the CSS class from the body on destroy', fakeAsync(() => {
+    mediaQueryController.setBreakpoint('lg');
+
     detectChanges();
 
     expect(
@@ -228,16 +231,21 @@ describe('Sidebar', () => {
   }));
 
   it('should be accessible', async () => {
+    mediaQueryController.setBreakpoint('lg');
+
     fixture.detectChanges();
+
     await expectAsync(fixture.debugElement.nativeElement).toBeAccessible();
   });
 
   it('should collapse the sidebar on small screens', fakeAsync(() => {
+    mediaQueryController.setBreakpoint('lg');
+
     detectChanges();
 
     verifyOpened();
 
-    mediaQueryService.currentSubject.next(SkyMediaBreakpoints.xs);
+    mediaQueryController.setBreakpoint('xs');
 
     detectChanges();
 
