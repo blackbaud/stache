@@ -87,7 +87,7 @@ export class StacheWrapperComponent
 
   #_showFooter = this.checkFooterData();
 
-  public constructor(
+  constructor(
     private config: SkyAppConfig,
     private dataService: StacheJsonDataService,
     private pageAnchorService: StachePageAnchorService,
@@ -113,12 +113,12 @@ export class StacheWrapperComponent
     }
   }
 
-  public ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     const preferredDocumentTitle = this.getPreferredDocumentTitle();
     this.titleService.setTitle(preferredDocumentTitle);
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }

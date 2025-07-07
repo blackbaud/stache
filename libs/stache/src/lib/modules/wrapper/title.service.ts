@@ -9,7 +9,7 @@ export class StacheTitleService {
     private configService: SkyAppConfig,
   ) {}
 
-  public setTitle(...parts: string[]) {
+  public setTitle(...parts: string[]): void {
     let windowTitle = this.configService.skyux.app.title;
 
     if (parts && parts.length > 0) {

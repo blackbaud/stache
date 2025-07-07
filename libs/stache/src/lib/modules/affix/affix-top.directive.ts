@@ -16,7 +16,7 @@ const AFFIX_CLASS_NAME = 'stache-affix-top';
   standalone: false,
 })
 export class StacheAffixTopDirective implements AfterViewInit {
-  isAffixed = false;
+  public isAffixed = false;
 
   #footerWrapper: HTMLElement | undefined;
   #omnibarHeight = 0;

@@ -418,7 +418,7 @@ describe('StacheRouteService', () => {
     expect(activeRoutes[0].children?.[0].children?.[6].order).toBe(999);
   });
 
-  it('should create without routes', async () => {
+  it('should create without routes', () => {
     router = TestBed.inject(Router);
     routeService = new StacheRouteService(router as Router);
     expect(routeService).toBeTruthy();

@@ -40,10 +40,7 @@ export class StacheAffixComponent implements AfterViewInit, OnDestroy {
   #windowSubscription: Subscription;
   #changeDetector: ChangeDetectorRef;
 
-  public constructor(
-    windowRef: StacheWindowRef,
-    changeDetector: ChangeDetectorRef,
-  ) {
+  constructor(windowRef: StacheWindowRef, changeDetector: ChangeDetectorRef) {
     this.#windowRef = windowRef;
     this.#changeDetector = changeDetector;
     this.#windowSubscription = this.#windowRef.onResizeStream.subscribe(() => {

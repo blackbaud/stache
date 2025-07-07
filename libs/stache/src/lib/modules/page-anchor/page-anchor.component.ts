@@ -48,7 +48,7 @@ export class StachePageAnchorComponent
   private textContent = '';
   private ngUnsubscribe: Subject<void> = new Subject();
 
-  public constructor(
+  constructor(
     private elementRef: ElementRef,
     private anchorService: StachePageAnchorService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -59,7 +59,7 @@ export class StachePageAnchorComponent
     this.anchorService.scrollToAnchor(this.fragment);
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.anchorService.refreshRequestedStream
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(() => {
@@ -74,7 +74,7 @@ export class StachePageAnchorComponent
     this.changeDetectorRef.detectChanges();
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
     this.anchorStream.complete();
@@ -98,14 +98,14 @@ export class StachePageAnchorComponent
     }
   }
 
-  private setValues() {
+  private setValues(): void {
     const element = this.elementRef.nativeElement;
     this.name = this.getName(element);
     this.fragment = this.anchorId || this.getFragment(this.name);
     this.offsetTop = this.getOffset(element);
   }
 
-  private updatePageAnchor() {
+  private updatePageAnchor(): void {
     this.setValues();
 
     this.anchorStream.next({
@@ -117,7 +117,7 @@ export class StachePageAnchorComponent
     this.changeDetectorRef.detectChanges();
   }
 
-  private getOffset(element: any) {
+  private getOffset(element: any): number {
     let offset = element.offsetTop;
     let el = element;
 

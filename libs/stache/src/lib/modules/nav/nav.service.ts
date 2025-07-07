@@ -35,9 +35,9 @@ export class StacheNavService {
     }
 
     if (Array.isArray(route.path)) {
-      this.#router.navigate(route.path, extras);
+      void this.#router.navigate(route.path, extras);
     } else {
-      this.#router.navigate([route.path], extras);
+      void this.#router.navigate([route.path], extras);
     }
   }
 

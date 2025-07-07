@@ -27,7 +27,7 @@ export class StachePageAnchorService implements OnDestroy {
       });
   }
 
-  public addAnchor(anchorStream: BehaviorSubject<StacheNavLink>) {
+  public addAnchor(anchorStream: BehaviorSubject<StacheNavLink>): void {
     anchorStream.pipe(takeUntil(this.ngUnsubscribe)).subscribe({
       next: () => {
         this.updateAnchorStream();
@@ -41,12 +41,12 @@ export class StachePageAnchorService implements OnDestroy {
     this.updateAnchorStream();
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
 
-  public refreshAnchors() {
+  public refreshAnchors(): void {
     this.refreshRequestedStream.next();
   }
 
@@ -60,7 +60,7 @@ export class StachePageAnchorService implements OnDestroy {
     }
   }
 
-  private removeAnchor(removedAnchor: StacheNavLink) {
+  private removeAnchor(removedAnchor: StacheNavLink): void {
     this.pageAnchors = this.pageAnchors.filter(
       (anchor: BehaviorSubject<StacheNavLink>) => {
         return anchor.getValue().name !== removedAnchor.name;
@@ -68,7 +68,7 @@ export class StachePageAnchorService implements OnDestroy {
     );
   }
 
-  private updateAnchorStream() {
+  private updateAnchorStream(): void {
     this.pageAnchors.sort(this.sortPageAnchors);
     this.pageAnchorsStream.next(
       this.pageAnchors.map((anchor) => anchor.getValue()),
@@ -78,7 +78,7 @@ export class StachePageAnchorService implements OnDestroy {
   private sortPageAnchors(
     anchorA: BehaviorSubject<StacheNavLink>,
     anchorB: BehaviorSubject<StacheNavLink>,
-  ) {
+  ): number {
     return anchorA.getValue().offsetTop - anchorB.getValue().offsetTop;
   }
 }

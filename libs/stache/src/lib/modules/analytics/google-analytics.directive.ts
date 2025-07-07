@@ -14,7 +14,7 @@ export class StacheGoogleAnalyticsDirective implements OnInit {
   private isEnabled = true;
   private appName: string;
 
-  public constructor(
+  constructor(
     private windowRef: StacheWindowRef,
     private configService: SkyAppConfig,
     private router: Router,
@@ -72,7 +72,7 @@ export class StacheGoogleAnalyticsDirective implements OnInit {
     });
   }
 
-  private updateDefaultConfigs() {
+  private updateDefaultConfigs(): void {
     // TODO: the config service should handle defaults!
     const appSettings = this.configService.skyux.appSettings || {};
     appSettings.stache = appSettings.stache || {};

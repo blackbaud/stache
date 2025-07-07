@@ -1,56 +1,57 @@
-export * from './lib/modules/action-buttons/action-buttons.module';
+export { StacheActionButtonsModule } from './lib/modules/action-buttons/action-buttons.module';
 
-export * from './lib/modules/affix/affix.module';
+export { StacheAffixModule } from './lib/modules/affix/affix.module';
 
-export * from './lib/modules/analytics/analytics.module';
+export { StacheAnalyticsModule } from './lib/modules/analytics/analytics.module';
 
-export * from './lib/modules/auth/auth.service';
+export { StacheAuthService } from './lib/modules/auth/auth.service';
 
-export * from './lib/modules/back-to-top/back-to-top.module';
+export { StacheBackToTopModule } from './lib/modules/back-to-top/back-to-top.module';
 
-export * from './lib/modules/blockquote/blockquote.module';
+export { StacheBlockquoteModule } from './lib/modules/blockquote/blockquote.module';
 
-export * from './lib/modules/breadcrumbs/breadcrumbs.module';
+export { StacheBreadcrumbsModule } from './lib/modules/breadcrumbs/breadcrumbs.module';
 
-export * from './lib/modules/edit-button/edit-button.module';
+export { StacheEditButtonModule } from './lib/modules/edit-button/edit-button.module';
 
-export * from './lib/modules/footer/footer.module';
+export { StacheFooterModule } from './lib/modules/footer/footer.module';
 
-export * from './lib/modules/hide-from-search/hide-from-search.module';
+export { StacheHideFromSearchModule } from './lib/modules/hide-from-search/hide-from-search.module';
 
-export * from './lib/modules/json-data/json-data-service-config-token';
-export * from './lib/modules/json-data/json-data.service';
+export { STACHE_JSON_DATA_SERVICE_CONFIG } from './lib/modules/json-data/json-data-service-config-token';
+export { StacheJsonDataService } from './lib/modules/json-data/json-data.service';
 
-export * from './lib/modules/layout/layout.module';
+export { StacheLayoutModule } from './lib/modules/layout/layout.module';
 
-export * from './lib/modules/nav/nav-link';
-export * from './lib/modules/nav/nav.module';
+export { StacheNavLink } from './lib/modules/nav/nav-link';
+export { StacheNavModule } from './lib/modules/nav/nav.module';
 
-export * from './lib/modules/page-anchor/page-anchor.module';
+export { StachePageAnchorModule } from './lib/modules/page-anchor/page-anchor.module';
 
-export * from './lib/modules/page-header/page-header.module';
+export { StachePageHeaderModule } from './lib/modules/page-header/page-header.module';
 
-export * from './lib/modules/page-summary/page-summary.module';
+export { StachePageSummaryModule } from './lib/modules/page-summary/page-summary.module';
 
-export * from './lib/modules/router/route-options';
-export * from './lib/modules/router/route.service';
-export * from './lib/modules/router/router.module';
+export {
+  STACHE_ROUTE_OPTIONS,
+  StacheRouteOptions,
+} from './lib/modules/router/route-options';
+export { StacheRouteService } from './lib/modules/router/route.service';
+export { StacheRouterModule } from './lib/modules/router/router.module';
 
-export * from './lib/modules/sidebar/sidebar.module';
+export { StacheSidebarModule } from './lib/modules/sidebar/sidebar.module';
 
-export * from './lib/modules/table-of-contents/table-of-contents.module';
+export { StacheTableOfContentsModule } from './lib/modules/table-of-contents/table-of-contents.module';
 
-export * from './lib/modules/tutorial/tutorial.module';
-export * from './lib/modules/tutorial-step/tutorial-step.module';
+export { StacheTutorialStepModule } from './lib/modules/tutorial-step/tutorial-step.module';
+export { StacheTutorialModule } from './lib/modules/tutorial/tutorial.module';
 
-export * from './lib/modules/wrapper/wrapper.module';
+export { StacheWrapperModule } from './lib/modules/wrapper/wrapper.module';
 
-export * from './lib/stache.module';
+export { StacheModule } from './lib/stache.module';
 
 // Components and directives must be exported to support Angular's "partial" Ivy compiler.
 // Obscure names are used to indicate types are not part of the public API.
-export { StacheRouterLinkDirective as λ1 } from './lib/modules/nav/link.directive';
-export { StacheNavComponent as λ2 } from './lib/modules/nav/nav.component';
 export { StacheActionButtonsComponent as λ3 } from './lib/modules/action-buttons/action-buttons.component';
 export { StacheAffixTopDirective as λ4 } from './lib/modules/affix/affix-top.directive';
 export { StacheAffixComponent as λ5 } from './lib/modules/affix/affix.component';
@@ -61,20 +62,22 @@ export { StacheBreadcrumbsComponent as λ9 } from './lib/modules/breadcrumbs/bre
 export { StacheEditButtonComponent as λ10 } from './lib/modules/edit-button/edit-button.component';
 export { StacheFooterComponent as λ11 } from './lib/modules/footer/footer.component';
 export { StacheHideFromSearchComponent as λ12 } from './lib/modules/hide-from-search/hide-from-search.component';
-export { StacheSidebarComponent as λ14 } from './lib/modules/sidebar/sidebar.component';
-export { StacheSidebarWrapperComponent as λ15 } from './lib/modules/sidebar/sidebar-wrapper.component';
-export { StacheTableOfContentsComponent as λ16 } from './lib/modules/table-of-contents/table-of-contents.component';
-export { StacheTableOfContentsWrapperComponent as λ17 } from './lib/modules/table-of-contents/table-of-contents-wrapper.component';
+export { StacheContainerComponent as λ31 } from './lib/modules/layout/container.component';
+export { StacheLayoutComponent as λ22 } from './lib/modules/layout/layout.component';
+export { StacheRouterLinkDirective as λ1 } from './lib/modules/nav/link.directive';
+export { StacheNavComponent as λ2 } from './lib/modules/nav/nav.component';
+export { StachePageAnchorComponent as λ20 } from './lib/modules/page-anchor/page-anchor.component';
 export { StachePageHeaderComponent as λ18 } from './lib/modules/page-header/page-header.component';
 export { StachePageTitleComponent as λ19 } from './lib/modules/page-header/page-title.component';
-export { StachePageAnchorComponent as λ20 } from './lib/modules/page-anchor/page-anchor.component';
 export { StachePageSummaryComponent as λ21 } from './lib/modules/page-summary/page-summary.component';
-export { StacheLayoutComponent as λ22 } from './lib/modules/layout/layout.component';
-export { StacheTutorialStepComponent as λ24 } from './lib/modules/tutorial-step/tutorial-step.component';
+export { StacheSidebarWrapperComponent as λ15 } from './lib/modules/sidebar/sidebar-wrapper.component';
+export { StacheSidebarComponent as λ14 } from './lib/modules/sidebar/sidebar.component';
+export { StacheTableOfContentsWrapperComponent as λ17 } from './lib/modules/table-of-contents/table-of-contents-wrapper.component';
+export { StacheTableOfContentsComponent as λ16 } from './lib/modules/table-of-contents/table-of-contents.component';
 export { StacheTutorialStepBodyComponent as λ25 } from './lib/modules/tutorial-step/tutorial-step-body.component';
 export { StacheTutorialStepHeadingComponent as λ26 } from './lib/modules/tutorial-step/tutorial-step-heading.component';
+export { StacheTutorialStepComponent as λ24 } from './lib/modules/tutorial-step/tutorial-step.component';
 export { StacheTutorialHeadingComponent as λ27 } from './lib/modules/tutorial/tutorial-heading.component';
 export { StacheTutorialSummaryComponent as λ28 } from './lib/modules/tutorial/tutorial-summary.component';
 export { StacheTutorialComponent as λ29 } from './lib/modules/tutorial/tutorial.component';
 export { StacheWrapperComponent as λ30 } from './lib/modules/wrapper/wrapper.component';
-export { StacheContainerComponent as λ31 } from './lib/modules/layout/container.component';

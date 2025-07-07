@@ -7,8 +7,8 @@ import { StacheHideFromSearchModule } from './hide-from-search.module';
 describe('StacheHideFromSearchComponent', () => {
   let fixture: ComponentFixture<StacheHideFromSearchComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [StacheHideFromSearchModule],
     }).compileComponents();
 

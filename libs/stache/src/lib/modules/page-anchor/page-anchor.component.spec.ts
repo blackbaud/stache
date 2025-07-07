@@ -57,12 +57,12 @@ describe('StachePageAnchorComponent', () => {
     public getActiveUrl = (): any => '/';
   }
 
-  beforeEach(() => {
+  beforeEach(async () => {
     mockWindowService = new MockWindowService();
     mockAnchorService = new MockAnchorService();
     mockRouteService = new MockRouteService();
 
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       declarations: [StachePageAnchorTestComponent],
       imports: [RouterTestingModule, StachePageAnchorModule],
       providers: [

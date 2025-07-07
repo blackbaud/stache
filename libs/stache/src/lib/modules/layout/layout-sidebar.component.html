@@ -1,14 +1,13 @@
-<stache-sidebar-wrapper stacheAffixTop [sidebarRoutes]="sidebarRoutes">
-</stache-sidebar-wrapper>
+<stache-sidebar-wrapper stacheAffixTop [sidebarRoutes]="sidebarRoutes" />
 
 <stache-layout-blank identifier="sidebar">
   <stache-container>
     @if (showBreadcrumbs) {
-      <stache-breadcrumbs [routes]="breadcrumbsRoutes"> </stache-breadcrumbs>
+      <stache-breadcrumbs [routes]="breadcrumbsRoutes" />
     }
 
     @if (showEditButton) {
-      <stache-edit-button> </stache-edit-button>
+      <stache-edit-button />
     }
 
     @if (pageTitle) {
@@ -19,18 +18,17 @@
       </stache-page-header>
     }
 
-    <ng-content select="[stachePageSummary]"></ng-content>
-    <ng-content select="stache-page-summary"></ng-content>
+    <ng-content select="[stachePageSummary]" />
+    <ng-content select="stache-page-summary" />
 
     @if (showTableOfContents) {
-      <stache-table-of-contents-wrapper [tocRoutes]="inPageRoutes">
-      </stache-table-of-contents-wrapper>
+      <stache-table-of-contents-wrapper [tocRoutes]="inPageRoutes" />
     }
 
-    <ng-content></ng-content>
+    <ng-content />
   </stache-container>
 </stache-layout-blank>
 
 @if (showBackToTop) {
-  <stache-back-to-top> </stache-back-to-top>
+  <stache-back-to-top />
 }

@@ -9,17 +9,16 @@
         >
           <a
             class="stache-nav-anchor"
-            stacheRouterLink="{{ route.path }}"
-            fragment="{{ route.fragment }}"
             queryParamsHandling="merge"
+            [stacheRouterLink]="route.path"
+            [fragment]="route.fragment"
             >{{ route.name }}</a
           >
           @if (route.children) {
             <stache-nav
               navType="sidebar stache-nav-sub"
               [routes]="route.children"
-            >
-            </stache-nav>
+            />
           }
         </li>
       }

@@ -1,17 +1,16 @@
 <ng-template #content>
-  <ng-content></ng-content>
+  <ng-content />
 </ng-template>
 
 <ng-template #contentSummary>
-  <ng-content select="[stachePageSummary]"></ng-content>
-  <ng-content select="stache-page-summary"></ng-content>
+  <ng-content select="[stachePageSummary]" />
+  <ng-content select="stache-page-summary" />
 </ng-template>
 
 <ng-template #blankLayout>
   <stache-layout-blank>
-    <ng-template stachePageSummary [ngTemplateOutlet]="contentSummary">
-    </ng-template>
-    <ng-template [ngTemplateOutlet]="content"> </ng-template>
+    <ng-template stachePageSummary [ngTemplateOutlet]="contentSummary" />
+    <ng-template [ngTemplateOutlet]="content" />
   </stache-layout-blank>
 </ng-template>
 
@@ -25,9 +24,8 @@
     [inPageRoutes]="inPageRoutes"
     [breadcrumbsRoutes]="breadcrumbsRoutes"
   >
-    <ng-template stachePageSummary [ngTemplateOutlet]="contentSummary">
-    </ng-template>
-    <ng-template [ngTemplateOutlet]="content"> </ng-template>
+    <ng-template stachePageSummary [ngTemplateOutlet]="contentSummary" />
+    <ng-template [ngTemplateOutlet]="content" />
   </stache-layout-container>
 </ng-template>
 
@@ -42,9 +40,8 @@
     [inPageRoutes]="inPageRoutes"
     [breadcrumbsRoutes]="breadcrumbsRoutes"
   >
-    <ng-template stachePageSummary [ngTemplateOutlet]="contentSummary">
-    </ng-template>
-    <ng-template [ngTemplateOutlet]="content"> </ng-template>
+    <ng-template stachePageSummary [ngTemplateOutlet]="contentSummary" />
+    <ng-template [ngTemplateOutlet]="content" />
   </stache-layout-sidebar>
 </ng-template>
 
@@ -53,6 +50,6 @@
     class="stache-layout-wrapper"
     [class.stache-max-width-container]="layoutType !== 'sidebar-no-margins'"
   >
-    <ng-template [ngTemplateOutlet]="templateRef"> </ng-template>
+    <ng-template [ngTemplateOutlet]="templateRef" />
   </div>
 }

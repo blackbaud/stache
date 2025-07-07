@@ -215,7 +215,7 @@ describe('StacheWrapperComponent', () => {
 
     public scrollEventStream = observableOf(true);
 
-    get onResize() {
+    public get onResize(): Observable<unknown> {
       return observableOf({});
     }
 
@@ -228,7 +228,7 @@ describe('StacheWrapperComponent', () => {
     }
   }
 
-  beforeEach(() => {
+  beforeEach(async () => {
     mockActivatedRoute = new MockActivatedRoute();
     mockNavService = new MockNavService();
     mockConfigService = new MockConfigService();
@@ -237,7 +237,7 @@ describe('StacheWrapperComponent', () => {
     mockWindowService = new MockWindowService({});
     mockOmnibarService = new MockOmbibarService();
 
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
         StachePageAnchorModule,
@@ -327,22 +327,20 @@ describe('StacheWrapperComponent', () => {
     expect(component.showBreadcrumbs).toBe(true);
   });
 
-  it('should set the showEditButton based on the config option if set', () => {
+  it('should set the showEditButton based on the config option if set', async () => {
     fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      expect(component.showEditButton).toBe(true);
-    });
+    await fixture.whenStable();
+    expect(component.showEditButton).toBe(true);
   });
 
-  it('should set the showEditButton to false by default', waitForAsync(() => {
+  it('should set the showEditButton to false by default', async () => {
     mockConfigService.skyux.appSettings.stache.editButton = undefined;
     fixture = TestBed.createComponent(StacheWrapperComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      expect(component.showEditButton).toBe(false);
-    });
-  }));
+    await fixture.whenStable();
+    expect(component.showEditButton).toBe(false);
+  });
 
   it('should set the input, layout, to "sidebar" by default', () => {
     fixture.detectChanges();
