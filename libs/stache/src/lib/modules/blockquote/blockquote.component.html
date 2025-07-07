@@ -3,12 +3,12 @@
     <i class="fa fa-quote-left" aria-hidden="true"></i>
   </div>
   <blockquote class="stache-blockquote-content">
-    <ng-content></ng-content>
+    <ng-content />
     @if (author) {
       <div class="stache-blockquote-source">
         &mdash;
         @if (quoteSource) {
-          <a href="{{ quoteSource }}">
+          <a [href]="quoteSource">
             <span>{{ author }}</span>
           </a>
         }

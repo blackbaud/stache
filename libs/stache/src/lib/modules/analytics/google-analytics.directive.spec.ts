@@ -57,12 +57,12 @@ describe('StacheGoogleAnalyticsDirective', () => {
     public events = observableOf(new NavigationEnd(0, '', ''));
   }
 
-  beforeEach(() => {
+  beforeEach(async () => {
     mockWindowService = new MockWindowService();
     mockConfigService = new MockConfigService();
     mockRouter = new MockRouter();
 
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       declarations: [StacheGoogleAnalyticsTestComponent],
       imports: [StacheAnalyticsModule],
       providers: [

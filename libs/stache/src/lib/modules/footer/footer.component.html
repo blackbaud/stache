@@ -3,7 +3,7 @@
     <h1 class="stache-footer-heading">
       {{ siteName }}
     </h1>
-    <stache-nav navType="footer" [routes]="footerLinks"> </stache-nav>
+    <stache-nav navType="footer" [routes]="footerLinks" />
     @if (copyrightLabel) {
       <p class="stache-footer-copyright-label">
         &copy; {{ copyrightDate | date: 'yyyy' }} {{ copyrightLabel }}

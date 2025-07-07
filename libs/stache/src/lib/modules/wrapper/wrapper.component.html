@@ -10,10 +10,10 @@
     [inPageRoutes]="inPageRoutes"
     [breadcrumbsRoutes]="breadcrumbsRoutes"
   >
-    <ng-content stachePageSummary select="stache-page-summary"></ng-content>
-    <ng-content></ng-content>
+    <ng-content stachePageSummary select="stache-page-summary" />
+    <ng-content />
   </stache-layout>
   @if (showFooter) {
-    <stache-footer> </stache-footer>
+    <stache-footer />
   }
 </div>

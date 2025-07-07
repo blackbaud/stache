@@ -6,7 +6,7 @@ import {
 } from '@schematics/angular/utility/dependencies';
 
 function installEssentialSkyUxPackages(skyuxVersion: string): Rule {
-  return async (tree) => {
+  return (tree) => {
     const packageNames = [
       '@skyux/config',
       '@skyux/core',
@@ -27,7 +27,7 @@ function installEssentialSkyUxPackages(skyuxVersion: string): Rule {
 }
 
 export default function ngAdd(): Rule {
-  return async (_tree, context) => {
+  return (_tree, context) => {
     context.addTask(new NodePackageInstallTask());
 
     return chain([installEssentialSkyUxPackages('^13.0.0-alpha.0')]);

@@ -7,8 +7,7 @@
           [searchText]="searchText"
           (searchApply)="searchApplied($event)"
           (keyup)="onKeyUp($event)"
-        >
-        </sky-search>
+        />
       </div>
     }
     <sky-row>
@@ -16,14 +15,13 @@
         @for (route of filteredRoutes; track $index) {
           <sky-column [screenSmall]="6" [screenMedium]="4" [screenLarge]="3">
             <a
-              stacheRouterLink="{{ route.path }}"
-              fragment="{{ route.fragment }}"
               class="stache-action-button-override sky-action-button sky-btn-default sky-rounded-corners"
+              [stacheRouterLink]="route.path"
+              [fragment]="route.fragment"
             >
               <div>
                 @if (route.icon) {
-                  <sky-action-button-icon iconType="{{ route.icon }}">
-                  </sky-action-button-icon>
+                  <sky-action-button-icon [iconType]="route.icon" />
                 }
                 <sky-action-button-header>
                   {{ route.name }}

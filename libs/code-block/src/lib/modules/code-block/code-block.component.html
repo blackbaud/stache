@@ -15,18 +15,17 @@
       </div>
       @if (!hideCopyToClipboard) {
         <sky-copy-to-clipboard
-          [copyTarget]="skyCodeOutput"
-          buttonText="{{ 'sky_copy_to_clipboard_button' | skyLibResources }}"
-          buttonClickedText="{{
+          [buttonText]="'sky_copy_to_clipboard_button' | skyLibResources"
+          [buttonClickedText]="
             'sky_copy_to_clipboard_button_success' | skyLibResources
-          }}"
-        >
-        </sky-copy-to-clipboard>
+          "
+          [copyTarget]="skyCodeOutput"
+        />
       }
     </div>
   }
   <div #codeFromContent class="sky-code-input">
-    <ng-content></ng-content>
+    <ng-content />
   </div>
   <div>
     <pre #skyCodeOutput class="sky-code-output"><code

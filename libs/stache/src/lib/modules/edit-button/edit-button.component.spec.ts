@@ -59,14 +59,13 @@ describe('StacheEditButtonComponent', () => {
     expect(component.editButtonText).toBe('Edit');
   });
 
-  it('should update the editButtonText based on the config', () => {
+  it('should update the editButtonText based on the config', async () => {
     mockConfigService.skyux.appSettings.stache.editButton.text = 'Edit Test';
     fixture = TestBed.createComponent(StacheEditButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      expect(component['editButtonText']).toBe('Edit Test');
-    });
+    await fixture.whenStable();
+    expect(component['editButtonText']).toBe('Edit Test');
   });
 
   it('should set the url for a gitHub repo', () => {
