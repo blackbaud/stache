@@ -16,7 +16,9 @@
       @if (!hideCopyToClipboard) {
         <sky-copy-to-clipboard
           [buttonText]="'sky_copy_to_clipboard_button' | skyLibResources"
-          [buttonClickedText]="'sky_copy_to_clipboard_button_success' | skyLibResources"
+          [buttonClickedText]="
+            'sky_copy_to_clipboard_button_success' | skyLibResources
+          "
           [copyTarget]="skyCodeOutput"
         />
       }
