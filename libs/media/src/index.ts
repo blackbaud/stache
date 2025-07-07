@@ -1,6 +1,6 @@
-export * from './lib/modules/hero/hero.module';
-export * from './lib/modules/image/image.module';
-export * from './lib/modules/video/video.module';
+export { SkyHeroModule } from './lib/modules/hero/hero.module';
+export { SkyImageModule } from './lib/modules/image/image.module';
+export { SkyVideoModule } from './lib/modules/video/video.module';
 
 // Components and directives must be exported to support Angular's "partial" Ivy compiler.
 // Obscure names are used to indicate types are not part of the public API.

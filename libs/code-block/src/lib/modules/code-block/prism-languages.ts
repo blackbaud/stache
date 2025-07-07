@@ -150,7 +150,7 @@ import 'prismjs/components/prism-xojo.min';
 import 'prismjs/components/prism-xquery.min';
 import 'prismjs/components/prism-yaml.min';
 
-export const prismLanguages: { [_: string]: string } = {
+export const prismLanguages: Record<string, string> = {
   properties: '.properties',
   asm6502: '6502 Assembly',
   abap: 'ABAP',

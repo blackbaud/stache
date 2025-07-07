@@ -1,7 +1,6 @@
 <button
   type="button"
   class="sky-btn sky-btn-default"
-  (click)="copyToClipboard()"
   [attr.title]="
     title ? title : ('sky_copy_to_clipboard_button_title' | skyLibResources)
   "
@@ -13,6 +12,7 @@
       : undefined
   "
   [attr.aria-labelledby]="ariaLabelledBy ? ariaLabelledBy : undefined"
+  (click)="copyToClipboard()"
 >
   @if (!buttonActive) {
     <i aria-hidden="true" class="fa fa-clipboard"></i>

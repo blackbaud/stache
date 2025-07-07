@@ -1,5 +1,5 @@
-export * from './lib/modules/clipboard/clipboard.module';
-export * from './lib/modules/clipboard/clipboard.service';
+export { SkyClipboardModule } from './lib/modules/clipboard/clipboard.module';
+export { SkyCopyToClipboardService } from './lib/modules/clipboard/clipboard.service';
 
 // Components and directives must be exported to support Angular's "partial" Ivy compiler.
 // Obscure names are used to indicate types are not part of the public API.
