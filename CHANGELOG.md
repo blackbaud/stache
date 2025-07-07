@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.0.0-alpha.1](https://github.com/blackbaud/stache/compare/13.0.0-alpha.0...13.0.0-alpha.1) (2025-07-07)
+
+
+### Bug Fixes
+
+* update various dependencies; ESLint flat config ([#119](https://github.com/blackbaud/stache/issues/119)) ([03b56ed](https://github.com/blackbaud/stache/commit/03b56edb802e98c6547007c5138c30e86e0ba1a9))
+
 ## [13.0.0-alpha.0](https://github.com/blackbaud/stache/compare/12.0.0...13.0.0-alpha.0) (2025-07-02)
 
 
