@@ -65,15 +65,19 @@ export class StacheGoogleAnalyticsDirective implements OnInit {
    * subscribe to our router events and track SPA page views.
    */
   public initGoogleAnalytics(): void {
-    this.windowRef.nativeWindow.eval(`
-      (function(i,r) {
-        i['GoogleAnalyticsObject']=r;
-        i[r]=i[r]||function() {
-          (i[r].q=i[r].q||[]).push(arguments)},
-          i[r].l=1*new Date();
-      })(window,'ga');
-    `);
-    this.windowRef.nativeWindow.ga('create', this.analyticsClientId, 'auto');
+    const win = this.windowRef.nativeWindow;
+
+    win['GoogleAnalyticsObject'] = 'ga';
+
+    win.ga =
+      win.ga ||
+      function () {
+        (win.ga.q = win.ga.q || []).push(arguments);
+      };
+
+    win.ga.l = new Date().getTime();
+
+    win.ga('create', this.analyticsClientId, 'auto');
   }
 
   public bindPageViewsToRouter(): void {
