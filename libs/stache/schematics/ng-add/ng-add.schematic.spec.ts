@@ -121,14 +121,16 @@ describe('ng-add.schematic', () => {
     const skyuxConfig = JSON.parse(updatedTree.readText('/skyuxconfig.json'));
 
     expect(skyuxConfig.host.csp.directives['connect-src']).toEqual([
-      'www.google-analytics.com', 
-      'other-url.com'
+      'www.google-analytics.com',
+      'other-url.com',
     ]);
   });
 
   it('should throw an error when skyuxconfig.json contains invalid JSON', async () => {
     tree.create('/skyuxconfig.json', '{ invalid json }');
 
-    await expectAsync(runSchematic()).toBeRejectedWithError('Failed to parse skyuxconfig.json.');
+    await expectAsync(runSchematic()).toBeRejectedWithError(
+      'Failed to parse skyuxconfig.json.',
+    );
   });
 });
