@@ -5,6 +5,10 @@ import {
   addPackageJsonDependency,
 } from '@schematics/angular/utility/dependencies';
 
+import { JSONFile } from '../utility/json-file';
+
+const GOOGLE_ANALYTICS_URL = 'www.google-analytics.com';
+
 function installEssentialSkyUxPackages(skyuxVersion: string): Rule {
   return async (tree) => {
     const packageNames = [
@@ -42,20 +46,16 @@ function tryConfigureCsp(): Rule {
     }
 
     try {
-      const skyuxConfig = JSON.parse(tree.readText(skyuxConfigPath));
+      const skyuxConfig = new JSONFile(tree, skyuxConfigPath);
+      const connectSrcJsonPath = ['host', 'csp', 'directives', 'connect-src'];
+      const connectSrc: string[] =
+        (skyuxConfig.get(connectSrcJsonPath) as string[] | undefined) ?? [];
 
-      skyuxConfig.host ??= {};
-      skyuxConfig.host.csp ??= {};
-      skyuxConfig.host.csp.directives ??= {};
-      skyuxConfig.host.csp.directives['connect-src'] ??= [];
-
-      const gaUrl = 'www.google-analytics.com';
-
-      if (!skyuxConfig.host.csp.directives['connect-src'].includes(gaUrl)) {
-        skyuxConfig.host.csp.directives['connect-src'].push(gaUrl);
+      if (!connectSrc.includes(GOOGLE_ANALYTICS_URL)) {
+        connectSrc.push(GOOGLE_ANALYTICS_URL);
       }
 
-      tree.overwrite(skyuxConfigPath, JSON.stringify(skyuxConfig));
+      skyuxConfig.modify(connectSrcJsonPath, connectSrc);
     } catch (err) {
       throw new Error('Failed to parse skyuxconfig.json.', { cause: err });
     }
