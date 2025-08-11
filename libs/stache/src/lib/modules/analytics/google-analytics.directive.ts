@@ -67,8 +67,8 @@ export class StacheGoogleAnalyticsDirective implements OnInit {
 
     win.ga =
       win.ga ||
-      function () {
-        (win.ga.q = win.ga.q || []).push(arguments);
+      function (...args: unknown[]): void {
+        (win.ga.q = win.ga.q || []).push(args);
       };
 
     win.ga.l = new Date().getTime();
