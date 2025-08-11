@@ -22,22 +22,21 @@ describe('StacheGoogleAnalyticsDirective', () => {
 
   class MockWindowService {
     public nativeWindow = {
-      eval: function () {
-        this.ga = () => true;
-      },
       ga: false,
       dataLayer: undefined,
       document: {
         getElementById: jasmine
           .createSpy('getElementById')
-          .and.callFake(function (id: any) {
+          .and.callFake(function () {
             return false;
           }),
         createElement: jasmine
           .createSpy('createElement')
-          .and.callFake(function (tag: string) {
+          .and.callFake(function () {
             const element = {
               textContent: '',
+              src: '',
+              async: false,
               setAttribute: jasmine.createSpy('setAttribute'),
             };
             return element;
@@ -195,7 +194,8 @@ describe('StacheGoogleAnalyticsDirective', () => {
       StacheGoogleAnalyticsDirective,
     );
     const mockScript = {
-      textContent: '',
+      src: '',
+      async: false,
       setAttribute: jasmine.createSpy('setAttribute'),
     };
     mockWindowService.nativeWindow.document.createElement.and.returnValue(
@@ -207,9 +207,15 @@ describe('StacheGoogleAnalyticsDirective', () => {
     expect(
       mockWindowService.nativeWindow.document.createElement,
     ).toHaveBeenCalledWith('script');
-    expect(mockScript.textContent).toContain('GTM-W56QP9');
-    expect(mockScript.textContent).toContain('gtm.start');
-    expect(mockScript.textContent).toContain('querySelector');
+    expect(mockScript.src).toContain('GTM-W56QP9');
+    expect(mockScript.src).toContain('googletagmanager.com/gtm.js');
+    expect(mockScript.async).toBe(true);
+    expect(mockWindowService.nativeWindow.dataLayer).toBeDefined();
+    expect(mockWindowService.nativeWindow.dataLayer.length).toBe(1);
+    expect(
+      mockWindowService.nativeWindow.dataLayer[0]['gtm.start'],
+    ).toBeDefined();
+    expect(mockWindowService.nativeWindow.dataLayer[0].event).toBe('gtm.js');
     expect(
       mockWindowService.nativeWindow.document.head.appendChild,
     ).toHaveBeenCalledWith(mockScript);
@@ -237,7 +243,8 @@ describe('StacheGoogleAnalyticsDirective', () => {
       StacheGoogleAnalyticsDirective,
     );
     const mockScript = {
-      textContent: '',
+      src: '',
+      async: false,
       setAttribute: jasmine.createSpy('setAttribute'),
     };
     mockWindowService.nativeWindow.document.createElement.and.returnValue(
@@ -257,7 +264,8 @@ describe('StacheGoogleAnalyticsDirective', () => {
       StacheGoogleAnalyticsDirective,
     );
     const mockScript = {
-      textContent: '',
+      src: '',
+      async: false,
       setAttribute: jasmine.createSpy('setAttribute'),
     };
     mockWindowService.nativeWindow.document.createElement.and.returnValue(
@@ -272,7 +280,7 @@ describe('StacheGoogleAnalyticsDirective', () => {
     );
   });
 
-  it('should use custom tagManagerContainerId in script content', () => {
+  it('should use custom tagManagerContainerId in script src', () => {
     const directiveInstance = directiveElement.injector.get(
       StacheGoogleAnalyticsDirective,
     );
@@ -286,7 +294,8 @@ describe('StacheGoogleAnalyticsDirective', () => {
     directiveInstance.updateDefaultConfigs();
 
     const mockScript = {
-      textContent: '',
+      src: '',
+      async: false,
       setAttribute: jasmine.createSpy('setAttribute'),
     };
     mockWindowService.nativeWindow.document.createElement.and.returnValue(
@@ -295,7 +304,7 @@ describe('StacheGoogleAnalyticsDirective', () => {
 
     directiveInstance.addGoogleTagManagerScript();
 
-    expect(mockScript.textContent).toContain('GTM-CUSTOM');
+    expect(mockScript.src).toContain('GTM-CUSTOM');
   });
 
   it('should call initGoogleAnalytics and bindPageViewsToRouter when conditions are met', () => {

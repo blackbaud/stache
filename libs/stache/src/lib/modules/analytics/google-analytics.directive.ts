@@ -37,20 +37,21 @@ export class StacheGoogleAnalyticsDirective implements OnInit {
 
   public addGoogleTagManagerScript(): void {
     const doc = this.windowRef.nativeWindow.document;
+    const win = this.windowRef.nativeWindow;
+
+    win.dataLayer = win.dataLayer || [];
+    win.dataLayer.push({
+      'gtm.start': new Date().getTime(),
+      event: 'gtm.js',
+    });
+
     const script = doc.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtm.js?id=${this.tagManagerContainerId}`;
 
     if (this.#nonce) {
       script.setAttribute('nonce', this.#nonce);
     }
-
-    script.textContent = `
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;var n=d.querySelector('[nonce]');
-      n&&j.setAttribute('nonce',n.nonce||n.getAttribute('nonce'));f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','${this.tagManagerContainerId}');
-    `;
 
     doc.head.appendChild(script);
   }
@@ -88,7 +89,7 @@ export class StacheGoogleAnalyticsDirective implements OnInit {
     });
   }
 
-  private updateDefaultConfigs() {
+  private updateDefaultConfigs(): void {
     // TODO: the config service should handle defaults!
     const appSettings = this.configService.skyux.appSettings || {};
     appSettings.stache = appSettings.stache || {};
