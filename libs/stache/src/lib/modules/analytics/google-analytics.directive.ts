@@ -39,19 +39,15 @@ export class StacheGoogleAnalyticsDirective implements OnInit {
     const doc = this.windowRef.nativeWindow.document;
     const script = doc.createElement('script');
 
+    const win = this.windowRef.nativeWindow;
+    win.dataLayer ||= [];
+    win.dataLayer.push({ 'gtm.start': new Date().getTime(), event:'gtm.js' });
+
     if (this.#nonce) {
       script.setAttribute('nonce', this.#nonce);
     }
-
-    script.textContent = `
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;var n=d.querySelector('[nonce]');
-      n&&j.setAttribute('nonce',n.nonce||n.getAttribute('nonce'));f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','${this.tagManagerContainerId}');
-    `;
-
+    script.setAttribute('async', 'async');
+    script.setAttribute('src', `https://www.googletagmanager.com/gtm.js?id=${this.tagManagerContainerId}`);
     doc.head.appendChild(script);
   }
 
