@@ -41,13 +41,16 @@ export class StacheGoogleAnalyticsDirective implements OnInit {
 
     const win = this.windowRef.nativeWindow;
     win.dataLayer ||= [];
-    win.dataLayer.push({ 'gtm.start': new Date().getTime(), event:'gtm.js' });
+    win.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
 
     if (this.#nonce) {
       script.setAttribute('nonce', this.#nonce);
     }
     script.setAttribute('async', 'async');
-    script.setAttribute('src', `https://www.googletagmanager.com/gtm.js?id=${this.tagManagerContainerId}`);
+    script.setAttribute(
+      'src',
+      `https://www.googletagmanager.com/gtm.js?id=${this.tagManagerContainerId}`,
+    );
     doc.head.appendChild(script);
   }
 

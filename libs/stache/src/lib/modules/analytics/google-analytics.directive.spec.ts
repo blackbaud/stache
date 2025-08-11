@@ -22,9 +22,6 @@ describe('StacheGoogleAnalyticsDirective', () => {
 
   class MockWindowService {
     public nativeWindow = {
-      eval: function () {
-        this.ga = () => true;
-      },
       ga: false,
       dataLayer: undefined,
       document: {
@@ -207,9 +204,13 @@ describe('StacheGoogleAnalyticsDirective', () => {
     expect(
       mockWindowService.nativeWindow.document.createElement,
     ).toHaveBeenCalledWith('script');
-    expect(mockScript.textContent).toContain('GTM-W56QP9');
-    expect(mockScript.textContent).toContain('gtm.start');
-    expect(mockScript.textContent).toContain('querySelector');
+    expect(mockScript.setAttribute).toHaveBeenCalledWith(
+      'src',
+      'https://www.googletagmanager.com/gtm.js?id=GTM-W56QP9',
+    );
+    expect(mockWindowService.nativeWindow.dataLayer).toEqual([
+      { 'gtm.start': jasmine.any(Number), event: 'gtm.js' },
+    ]);
     expect(
       mockWindowService.nativeWindow.document.head.appendChild,
     ).toHaveBeenCalledWith(mockScript);
@@ -295,7 +296,10 @@ describe('StacheGoogleAnalyticsDirective', () => {
 
     directiveInstance.addGoogleTagManagerScript();
 
-    expect(mockScript.textContent).toContain('GTM-CUSTOM');
+    expect(mockScript.setAttribute).toHaveBeenCalledWith(
+      'src',
+      'https://www.googletagmanager.com/gtm.js?id=GTM-CUSTOM',
+    );
   });
 
   it('should call initGoogleAnalytics and bindPageViewsToRouter when conditions are met', () => {
