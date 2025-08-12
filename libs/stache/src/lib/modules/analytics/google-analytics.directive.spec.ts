@@ -224,9 +224,10 @@ describe('StacheGoogleAnalyticsDirective', () => {
     ).toHaveBeenCalledWith(mockScript);
   });
 
-  it('should set nonce attribute on script if CSP_NONCE is provided', () => {
+  it('should set nonce attribute on script if CSP_NONCE is provided', async () => {
     TestBed.resetTestingModule();
-    TestBed.configureTestingModule({
+
+    await TestBed.configureTestingModule({
       declarations: [StacheGoogleAnalyticsTestComponent],
       imports: [StacheAnalyticsModule],
       providers: [
