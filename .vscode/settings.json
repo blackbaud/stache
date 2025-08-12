@@ -11,6 +11,7 @@
     "packagr",
     "prismjs",
     "skyux",
+    "skyuxconfig",
     "Stache"
   ]
 }
