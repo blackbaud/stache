@@ -1,5 +1,13 @@
 # Changelog
 
+## [12.0.1](https://github.com/blackbaud/stache/compare/12.0.0...12.0.1) (2025-08-12)
+
+
+### Bug Fixes
+
+* **stache:** fix the `ng add` schematic to configure CSP directives for Google Analytics ([#125](https://github.com/blackbaud/stache/issues/125)) ([51d527e](https://github.com/blackbaud/stache/commit/51d527ebee76753e0722c087afb19f258e10057e))
+* **stache:** respect strict CSP when injecting Google Analytics tag manager ([#121](https://github.com/blackbaud/stache/issues/121)) ([519c157](https://github.com/blackbaud/stache/commit/519c157e2a489977ae094c21e429926732c039f8))
+
 ## [12.0.0](https://github.com/blackbaud/stache/compare/12.0.0-alpha.2...12.0.0) (2025-04-02)
 
 
