@@ -38,6 +38,7 @@
     "@skyux/lookup": "^13.0.0-alpha.0"
   },
   "dependencies": {
+    "jsonc-parser": "3.3.1",
     "lodash.get": "4.4.2",
     "tslib": "^2.8.1"
   }

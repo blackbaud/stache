@@ -2,7 +2,12 @@
   "extends": "@istanbuljs/nyc-config-typescript",
   "extension": ".ts",
   "include": ["schematics/**/*.ts"],
-  "exclude": ["**/*.spec.ts", "**/noop/**", "**/testing/**"],
+  "exclude": [
+    "**/*.spec.ts",
+    "**/noop/**",
+    "**/testing/**",
+    "**/utility/json-file.ts"
+  ],
   "all": true,
   "check-coverage": true,
   "branches": 100,
