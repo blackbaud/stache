@@ -1,4 +1,4 @@
-import { Directive, OnInit } from '@angular/core';
+import { CSP_NONCE, Directive, OnInit, inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { SkyAppConfig } from '@skyux/config';
 
@@ -9,6 +9,8 @@ import { StacheWindowRef } from '../shared/window-ref';
   standalone: false,
 })
 export class StacheGoogleAnalyticsDirective implements OnInit {
+  readonly #nonce = inject(CSP_NONCE, { optional: true });
+
   private tagManagerContainerId = 'GTM-W56QP9';
   private analyticsClientId = 'UA-2418840-1';
   private isEnabled = true;
@@ -34,13 +36,29 @@ export class StacheGoogleAnalyticsDirective implements OnInit {
   }
 
   public addGoogleTagManagerScript(): void {
-    this.windowRef.nativeWindow.eval(`
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','${this.tagManagerContainerId}');
-    `);
+    const win = this.windowRef.nativeWindow as {
+      dataLayer?: unknown[];
+      document: Document;
+    };
+
+    win.dataLayer ??= [];
+    win.dataLayer.push({
+      'gtm.start': new Date().getTime(),
+      event: 'gtm.js',
+    });
+
+    const script = win.document.createElement('script');
+    script.setAttribute('async', 'async');
+    script.setAttribute(
+      'src',
+      `https://www.googletagmanager.com/gtm.js?id=${this.tagManagerContainerId}`,
+    );
+
+    if (this.#nonce) {
+      script.setAttribute('nonce', this.#nonce);
+    }
+
+    win.document.head.appendChild(script);
   }
 
   /**
@@ -49,15 +67,19 @@ export class StacheGoogleAnalyticsDirective implements OnInit {
    * subscribe to our router events and track SPA page views.
    */
   public initGoogleAnalytics(): void {
-    this.windowRef.nativeWindow.eval(`
-      (function(i,r) {
-        i['GoogleAnalyticsObject']=r;
-        i[r]=i[r]||function() {
-          (i[r].q=i[r].q||[]).push(arguments)},
-          i[r].l=1*new Date();
-      })(window,'ga');
-    `);
-    this.windowRef.nativeWindow.ga('create', this.analyticsClientId, 'auto');
+    const win = this.windowRef.nativeWindow;
+
+    win['GoogleAnalyticsObject'] = 'ga';
+
+    win.ga =
+      win.ga ||
+      function (...args: unknown[]): void {
+        (win.ga.q = win.ga.q || []).push(args);
+      };
+
+    win.ga.l = new Date().getTime();
+
+    win.ga('create', this.analyticsClientId, 'auto');
   }
 
   public bindPageViewsToRouter(): void {
