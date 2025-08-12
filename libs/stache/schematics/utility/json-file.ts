@@ -31,7 +31,7 @@ export type JSONPath = (string | number)[];
 
 /** @private */
 export class JSONFile {
-  content: string;
+  public content: string;
   private eol: string;
 
   constructor(
@@ -64,7 +64,7 @@ export class JSONFile {
     return this._jsonAst;
   }
 
-  get(jsonPath: JSONPath): unknown {
+  public get(jsonPath: JSONPath): unknown {
     const jsonAstNode = this.JsonAst;
     if (!jsonAstNode) {
       return undefined;
@@ -79,7 +79,7 @@ export class JSONFile {
     return node === undefined ? undefined : getNodeValue(node);
   }
 
-  modify(
+  public modify(
     jsonPath: JSONPath,
     value: JsonValue | undefined,
     insertInOrder?: InsertionIndex | false,
@@ -115,7 +115,7 @@ export class JSONFile {
     }
   }
 
-  remove(jsonPath: JSONPath): void {
+  public remove(jsonPath: JSONPath): void {
     if (this.get(jsonPath) !== undefined) {
       this.modify(jsonPath, undefined);
     }
