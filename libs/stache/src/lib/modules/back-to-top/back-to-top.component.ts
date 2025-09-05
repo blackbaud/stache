@@ -33,6 +33,7 @@ export class StacheBackToTopComponent {
   @HostListener('window:scroll')
   public onWindowScroll(): void {
     this.isHidden = this.#windowRef.nativeWindow.pageYOffset < this.offset;
+    console.log(this.isHidden);
   }
 
   public scrollToTop(): void {

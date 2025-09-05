@@ -26,16 +26,17 @@
     }
   },
   "peerDependencies": {
-    "@angular/cli": "^20.0.4",
-    "@angular/common": "^20.0.5",
-    "@angular/core": "^20.0.5",
-    "@angular/platform-browser": "^20.0.5",
-    "@angular/router": "^20.0.5",
-    "@skyux/config": "^13.0.0-alpha.0",
-    "@skyux/core": "^13.0.0-alpha.0",
-    "@skyux/i18n": "^13.0.0-alpha.0",
-    "@skyux/layout": "^13.0.0-alpha.0",
-    "@skyux/lookup": "^13.0.0-alpha.0"
+    "@angular/cli": "^20.2.2",
+    "@angular/common": "^20.2.4",
+    "@angular/core": "^20.2.4",
+    "@angular/platform-browser": "^20.2.4",
+    "@angular/router": "^20.2.4",
+    "@skyux/config": "^13.0.0-alpha.9",
+    "@skyux/core": "^13.0.0-alpha.9",
+    "@skyux/i18n": "^13.0.0-alpha.9",
+    "@skyux/icon": "^13.0.0-alpha.9",
+    "@skyux/layout": "^13.0.0-alpha.9",
+    "@skyux/lookup": "^13.0.0-alpha.9"
   },
   "dependencies": {
     "jsonc-parser": "3.3.1",
