@@ -14,17 +14,17 @@ export class ComponentsPlaygroundComponent {
       path: 'components/code-block/code-block',
     },
     {
-      icon: 'photo',
+      icon: 'window-header-horizontal',
       name: 'Hero',
       path: 'components/media/hero',
     },
     {
-      icon: 'photo',
+      icon: 'shapes',
       name: 'Image',
       path: 'components/media/image',
     },
     {
-      icon: 'video-camera',
+      icon: 'video',
       name: 'Video',
       path: 'components/media/video',
     },

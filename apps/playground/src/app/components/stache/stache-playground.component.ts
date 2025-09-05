@@ -11,17 +11,17 @@ import { StacheNavLink } from '@blackbaud/skyux-lib-stache';
 export class StachePlaygroundComponent {
   public actionButtonRoutes: StacheNavLink[] = [
     {
-      icon: 'thumbs-up',
+      icon: 'thumb-like',
       name: 'Action button 1',
       path: '/foobar-1',
     },
     {
-      icon: 'thumbs-down',
+      icon: 'thumb-dislike',
       name: 'Action button 2',
       path: '/foobar-2',
     },
     {
-      icon: 'file',
+      icon: 'document',
       name: 'Action button 3',
       path: '/foobar-3',
     },

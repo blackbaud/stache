@@ -68,7 +68,7 @@ describe('StacheActionButtonsComponent', () => {
     component.routes = [
       {
         name: 'Test',
-        icon: 'fa-circle',
+        icon: 'edit',
         summary: '',
         path: [],
       },
@@ -86,7 +86,7 @@ describe('StacheActionButtonsComponent', () => {
     component.routes = [
       {
         name: 'Test',
-        icon: 'fa-circle',
+        icon: 'edit',
         summary: '',
         path: [],
       },
