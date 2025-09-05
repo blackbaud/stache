@@ -16,7 +16,8 @@
     "@angular/common": "^20.2.4",
     "@angular/core": "^20.2.4",
     "@skyux/core": "^13.0.0-alpha.9",
-    "@skyux/i18n": "^13.0.0-alpha.9"
+    "@skyux/i18n": "^13.0.0-alpha.9",
+    "@skyux/icon": "^13.0.0-alpha.9"
   },
   "dependencies": {
     "tslib": "^2.8.1"
