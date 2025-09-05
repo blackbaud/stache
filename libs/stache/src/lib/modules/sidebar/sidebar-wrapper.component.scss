@@ -38,7 +38,9 @@
     margin-left: vars.$stache-sidebar-column-width * -1;
 
     .stache-sidebar-buttons {
-      right: -36px;
+      right: calc(
+        -36px - calc(calc(vars.$stache-container-padding - 36px) / 2)
+      );
       top: 20px;
     }
   }
@@ -47,4 +49,11 @@
     position: fixed !important;
     left: auto;
   }
+}
+
+// Adjust default sidecar button to be same 36px as modern.
+.stache-sidebar-button:not(.sky-theme-modern *) {
+  padding-left: 7px;
+  padding-right: 7px;
+  line-height: 1;
 }
