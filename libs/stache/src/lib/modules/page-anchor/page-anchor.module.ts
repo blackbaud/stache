@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { SkyIconModule } from '@skyux/icon';
 
 import { StacheWindowRef } from '../shared/window-ref';
 
@@ -9,7 +10,7 @@ import { StachePageAnchorService } from './page-anchor.service';
 
 @NgModule({
   declarations: [StachePageAnchorComponent],
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, SkyIconModule],
   providers: [StachePageAnchorService, StacheWindowRef],
   exports: [StachePageAnchorComponent],
 })
