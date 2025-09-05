@@ -1,0 +1,12 @@
+{
+  "configurations": [
+    {
+      "type": "chrome",
+      "name": "Launch Chrome To Playground W/ Debug",
+      "request": "launch",
+      "url": "http://localhost:4201",
+      "preLaunchTask": "Start playground",
+      "postDebugTask": "Terminate All Tasks"
+    }
+  ]
+}
