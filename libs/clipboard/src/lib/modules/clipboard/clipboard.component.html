@@ -15,10 +15,10 @@
   (click)="copyToClipboard()"
 >
   @if (!buttonActive) {
-    <i aria-hidden="true" class="fa fa-clipboard"></i>
+    <sky-icon iconName="clipboard-multiple" />
   }
   @if (buttonActive) {
-    <i aria-hidden="true" class="fa fa-check"></i>
+    <sky-icon iconName="checkmark" />
   }
   @if (!buttonActive || (buttonActive && !buttonClickedText)) {
     <span>
