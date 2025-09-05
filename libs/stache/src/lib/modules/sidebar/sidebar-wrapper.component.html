@@ -9,17 +9,17 @@
   <div class="stache-sidebar-buttons">
     <button
       type="button"
-      class="sky-btn sky-btn-default stache-sidebar-button"
+      class="sky-btn sky-btn-default sky-btn-icon stache-sidebar-button"
       [attr.aria-controls]="elementId"
       [attr.aria-expanded]="sidebarOpen"
       [attr.title]="'stache_sidebar_toggle_button' | skyLibResources"
       (click)="toggleSidebar()"
     >
       @if (sidebarOpen) {
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        <sky-icon iconName="chevron-left" />
       }
       @if (!sidebarOpen) {
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        <sky-icon iconName="chevron-right" />
       }
     </button>
   </div>
