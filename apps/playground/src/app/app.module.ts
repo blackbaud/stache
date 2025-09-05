@@ -25,7 +25,10 @@ import { SkyThemeSelectorComponent } from './shared/theme-selector/theme-selecto
     {
       provide: SkyAppConfig,
       useValue: {
-        skyux: { app: { title: 'Stache Playground' } },
+        skyux: {
+          app: { title: 'Stache Playground' },
+          appSettings: { stache: { editButton: { url: '/edit' } } },
+        },
         runtime: { app: { base: '/' } },
       },
     },
