@@ -1,1 +1,19 @@
-<router-outlet></router-outlet>
+<div id="controls">
+  <div>
+    @if (!isHome()) {
+      <button
+        class="sky-btn sky-btn-primary"
+        id="home-btn"
+        routerLink="/"
+        type="button"
+      >
+        Go home
+      </button>
+    }
+  </div>
+  <sky-theme-selector />
+</div>
+
+<div id="content">
+  <router-outlet />
+</div>

@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { DesignPlaygroundModule } from './design/design.module';
 import { HomeComponent } from './home.component';
 import { NotFoundComponent } from './not-found.component';
+import { SkyThemeSelectorComponent } from './shared/theme-selector/theme-selector.component';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, NotFoundComponent],
@@ -16,6 +17,7 @@ import { NotFoundComponent } from './not-found.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     DesignPlaygroundModule,
+    SkyThemeSelectorComponent,
     StacheModule,
   ],
   providers: [
