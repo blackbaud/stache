@@ -37,7 +37,6 @@ const PREVIOUS_SETTINGS_KEY =
   'skyux-playground-theme-mode-spacing-selector-settings';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'sky-theme-selector',
   imports: [FormsModule, SkyCheckboxModule, SkyIdModule, SkyInputBoxModule],
   templateUrl: './theme-selector.component.html',
