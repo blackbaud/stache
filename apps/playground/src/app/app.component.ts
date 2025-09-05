@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component, Renderer2 } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
+import { Router } from '@angular/router';
 import {
+  SkyAppViewportService,
   SkyTheme,
   SkyThemeMode,
   SkyThemeService,
@@ -10,12 +12,27 @@ import {
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
+  host: {
+    '[style.--playground-controls-height]': 'height + "px"',
+  },
 })
 export class AppComponent {
-  constructor(themeSvc: SkyThemeService, renderer: Renderer2) {
-    themeSvc.init(
+  public height = 80;
+
+  constructor(
+    private router: Router,
+    renderer: Renderer2,
+    themeService: SkyThemeService,
+    viewportService: SkyAppViewportService,
+  ) {
+    viewportService.reserveSpace({
+      id: 'playground-controls',
+      position: 'top',
+      size: this.height,
+    });
+
+    themeService.init(
       document.body,
       renderer,
       new SkyThemeSettings(
@@ -23,5 +40,9 @@ export class AppComponent {
         SkyThemeMode.presets.light,
       ),
     );
+  }
+
+  public isHome(): boolean {
+    return this.router.url === '/';
   }
 }
