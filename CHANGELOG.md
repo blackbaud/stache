@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.0.2](https://github.com/blackbaud/stache/compare/12.0.1...12.0.2) (2025-09-08)
+
+
+### Bug Fixes
+
+* **stache:** fix StacheTitleService to allow undefined app title ([#139](https://github.com/blackbaud/stache/issues/139)) ([346e33c](https://github.com/blackbaud/stache/commit/346e33c233d32ba9593e673f8870b05b852fc4fe))
+
 ## [12.0.1](https://github.com/blackbaud/stache/compare/12.0.0...12.0.1) (2025-08-12)
 
 
