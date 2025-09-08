@@ -1,41 +1,58 @@
+import { TestBed } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
-import { SkyAppConfig } from '@skyux/config';
+import { RuntimeConfig, SkyAppConfig, SkyuxConfig } from '@skyux/config';
 
 import { StacheTitleService } from './title.service';
 
-class MockSkyAppConfig {
-  public skyux = {
-    app: {
-      title: 'My Title',
-    },
-  };
-
-  public runtime = {};
-}
-
-class MockTitle extends Title {
-  constructor() {
-    super({});
-  }
-}
-
 describe('StacheTitleService', () => {
-  let titleService: StacheTitleService;
-  let ngTitle: MockTitle;
+  function setup(options: { skyuxConfig: SkyuxConfig }): {
+    stacheTitleSvc: StacheTitleService;
+    title: Title;
+  } {
+    TestBed.configureTestingModule({
+      providers: [
+        StacheTitleService,
+        {
+          provide: SkyAppConfig,
+          useValue: {
+            skyux: options.skyuxConfig,
+            runtime: {} as RuntimeConfig,
+          } satisfies SkyAppConfig,
+        },
+      ],
+    });
 
-  beforeEach(() => {
-    const appConfig = new MockSkyAppConfig() as SkyAppConfig;
-    ngTitle = new MockTitle();
-    titleService = new StacheTitleService(ngTitle as Title, appConfig);
-  });
+    return {
+      stacheTitleSvc: TestBed.inject(StacheTitleService),
+      title: TestBed.inject(Title),
+    };
+  }
 
   it('should set the window title with the config app title', () => {
-    titleService.setTitle();
-    expect(ngTitle.getTitle()).toBe('My Title');
+    const { stacheTitleSvc, title } = setup({
+      skyuxConfig: { app: { title: 'My Title' } },
+    });
+
+    stacheTitleSvc.setTitle();
+
+    expect(title.getTitle()).toBe('My Title');
   });
 
   it('should set the window title with the config app title and a provided value', () => {
-    titleService.setTitle('My Page');
-    expect(ngTitle.getTitle()).toBe('My Page - My Title');
+    const { stacheTitleSvc, title } = setup({
+      skyuxConfig: { app: { title: 'My Title' } },
+    });
+
+    stacheTitleSvc.setTitle('My Page');
+
+    expect(title.getTitle()).toBe('My Page - My Title');
+  });
+
+  it('should handle undefined skyuxconfig app title', () => {
+    const { stacheTitleSvc, title } = setup({ skyuxConfig: { app: {} } });
+
+    stacheTitleSvc.setTitle();
+
+    expect(title.getTitle()).toEqual('Blackbaud');
   });
 });
