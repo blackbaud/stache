@@ -3,7 +3,10 @@
 .stache-blockquote {
   border-left: var(--sky-border-width-accent, 4px) solid
     var(--sky-color-border-info, vars.$stache-background-color-primary-dark);
-  font-size: calc(vars.$stache-font-size-base * 1.12);
+  font-size: var(
+    --sky-font-size-body-l,
+    calc(vars.$stache-font-size-base * 1.12)
+  );
   color: var(
     --sky-color-text-deemphasized,
     vars.$stache-text-color-deemphasized
