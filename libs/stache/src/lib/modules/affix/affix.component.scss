@@ -12,11 +12,3 @@
     max-width: inherit;
   }
 }
-
-::ng-deep .stache-viewport-adjusted {
-  .stache-affix-top {
-    @media (min-width: vars.$stache-screen-sm-min) {
-      margin-top: vars.$stache-omnibar-height;
-    }
-  }
-}
