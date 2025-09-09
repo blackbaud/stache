@@ -11,7 +11,6 @@ import {
   SkyVideoModule,
 } from '@blackbaud/skyux-lib-media';
 import { StacheModule, StacheRouterModule } from '@blackbaud/skyux-lib-stache';
-import { SkyAlertModule } from '@skyux/indicators';
 
 import { CodeBlockPlaygroundComponent } from './code-block/code-block-playground.component';
 import { ComponentsPlaygroundComponent } from './components.component';
@@ -96,7 +95,6 @@ class ComponentsPlaygroundRoutingModule {}
   imports: [
     ComponentsPlaygroundRoutingModule,
     CommonModule,
-    SkyAlertModule,
     SkyCodeBlockModule,
     SkyCodeModule,
     SkyHeroModule,

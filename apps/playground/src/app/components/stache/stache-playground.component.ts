@@ -41,4 +41,21 @@ export class StachePlaygroundComponent {
       path: '/foo/bar',
     },
   ];
+
+  public sidebarRoutes: StacheNavLink[] = [
+    {
+      name: 'Home',
+      path: '/',
+      children: [
+        {
+          name: 'Foobar 1',
+          path: '/foobar-1',
+        },
+        {
+          name: 'Foobar 2',
+          path: '/foobar-2',
+        },
+      ],
+    },
+  ];
 }

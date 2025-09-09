@@ -8,6 +8,7 @@
   [showEditButton]="true"
   [showFooter]="true"
   [showTableOfContents]="true"
+  [sidebarRoutes]="sidebarRoutes"
 >
   <stache-page-summary>
     <p>
@@ -42,51 +43,4 @@
     thousands be that work examination why world purpose support
     it.</stache-blockquote
   >
-  <stache-page-anchor>Tutorial</stache-page-anchor>
-  <stache-tutorial>
-    <stache-tutorial-heading> Demo Tutorial </stache-tutorial-heading>
-    <stache-tutorial-summary>
-      Summary information about this demo tutorial.
-    </stache-tutorial-summary>
-
-    <stache-tutorial-step>
-      <stache-tutorial-step-heading>
-        This is our first demo step.
-      </stache-tutorial-step-heading>
-      <stache-tutorial-step-body>
-        <p>This is tutorial information about this first step.</p>
-        <sky-alert alertType="info" class="sky-margin-stacked-lg">
-          You can include other components and columns inside of these steps.
-        </sky-alert>
-      </stache-tutorial-step-body>
-    </stache-tutorial-step>
-
-    <sky-alert alertType="info" class="sky-margin-stacked-lg">
-      You can include other components and columns outside of these steps too.
-    </sky-alert>
-
-    <stache-tutorial-step showNumber="false">
-      <stache-tutorial-step-heading>
-        Informational card without a step
-      </stache-tutorial-step-heading>
-      <stache-tutorial-step-body>
-        We remove this step number and get a blank card.
-      </stache-tutorial-step-body>
-    </stache-tutorial-step>
-
-    <stache-tutorial-step>
-      <stache-tutorial-step-heading>
-        Steps resume
-      </stache-tutorial-step-heading>
-      <stache-tutorial-step-body>
-        This step resumes the numbering at the appropriate step number.
-      </stache-tutorial-step-body>
-    </stache-tutorial-step>
-
-    <stache-tutorial-step>
-      <stache-tutorial-step-body>
-        I'm a step without a title.
-      </stache-tutorial-step-body>
-    </stache-tutorial-step>
-  </stache-tutorial>
 </stache>
