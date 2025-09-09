@@ -6,7 +6,7 @@ import { StacheAnalyticsModule } from '../analytics/analytics.module';
 import { StacheFooterModule } from '../footer/footer.module';
 import { StacheLayoutModule } from '../layout/layout.module';
 import { StachePageAnchorModule } from '../page-anchor/page-anchor.module';
-import { StacheOmnibarAdapterService } from '../shared/omnibar-adapter.service';
+import { StacheViewportAdapterService } from '../shared/viewport-adapter.service';
 import { StacheWindowRef } from '../shared/window-ref';
 
 import { StacheTitleService } from './title.service';
@@ -23,6 +23,10 @@ import { StacheWrapperComponent } from './wrapper.component';
   ],
   declarations: [StacheWrapperComponent],
   exports: [StacheWrapperComponent],
-  providers: [StacheOmnibarAdapterService, StacheTitleService, StacheWindowRef],
+  providers: [
+    StacheViewportAdapterService,
+    StacheTitleService,
+    StacheWindowRef,
+  ],
 })
 export class StacheWrapperModule {}

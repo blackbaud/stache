@@ -27,7 +27,26 @@ import { SkyThemeSelectorComponent } from './shared/theme-selector/theme-selecto
       useValue: {
         skyux: {
           app: { title: 'Stache Playground' },
-          appSettings: { stache: { editButton: { url: '/edit' } } },
+          appSettings: {
+            stache: {
+              editButton: { url: '/edit' },
+              footer: {
+                copyrightLabel: 'My Company, Inc.',
+                nav: {
+                  items: [
+                    {
+                      title: 'Privacy Policy',
+                      route: '/privacy-policy',
+                    },
+                    {
+                      title: 'Terms of Use',
+                      route: '/terms-of-use',
+                    },
+                  ],
+                },
+              },
+            },
+          },
         },
         runtime: { app: { base: '/' } },
       },

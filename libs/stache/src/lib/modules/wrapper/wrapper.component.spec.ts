@@ -15,7 +15,7 @@ import { StacheNavService } from '../nav/nav.service';
 import { StachePageAnchorModule } from '../page-anchor/page-anchor.module';
 import { StachePageAnchorService } from '../page-anchor/page-anchor.service';
 import { StacheRouteService } from '../router/route.service';
-import { StacheOmnibarAdapterService } from '../shared/omnibar-adapter.service';
+import { StacheViewportAdapterService } from '../shared/viewport-adapter.service';
 import { StacheWindowRef } from '../shared/window-ref';
 
 import { StacheWrapperTestComponent } from './fixtures/wrapper.component.fixture';
@@ -32,7 +32,7 @@ describe('StacheWrapperComponent', () => {
   let mockJsonDataService: any;
   let mockTitleService: any;
   let mockWindowService: any;
-  let mockOmnibarService: any;
+  let mockViewportService: any;
   let mockTextContent = '';
 
   class MockActivatedRoute {
@@ -56,8 +56,8 @@ describe('StacheWrapperComponent', () => {
     }
   }
 
-  class MockOmbibarService {
-    public checkForOmnibar() {
+  class MockViewportService {
+    public checkForViewportAdjustment() {
       /* */
     }
     public getHeight() {
@@ -235,7 +235,7 @@ describe('StacheWrapperComponent', () => {
     mockJsonDataService = new MockJsonDataService();
     mockTitleService = new MockTitleService();
     mockWindowService = new MockWindowService({});
-    mockOmnibarService = new MockOmbibarService();
+    mockViewportService = new MockViewportService();
 
     await TestBed.configureTestingModule({
       imports: [
@@ -251,7 +251,10 @@ describe('StacheWrapperComponent', () => {
         StacheRouteService,
         { provide: StachePageAnchorService, useClass: MockAnchorService },
         { provide: StacheNavService, useValue: mockNavService },
-        { provide: StacheOmnibarAdapterService, useValue: mockOmnibarService },
+        {
+          provide: StacheViewportAdapterService,
+          useValue: mockViewportService,
+        },
         { provide: StacheJsonDataService, useValue: mockJsonDataService },
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
         { provide: StacheTitleService, useValue: mockTitleService },
@@ -418,10 +421,10 @@ describe('StacheWrapperComponent', () => {
     expect(component.jsonData).toEqual(jasmine.any(Object));
   });
 
-  it('should detect the omnibar if it exists on init', () => {
-    spyOn(mockOmnibarService, 'checkForOmnibar').and.callThrough();
+  it('should detect the viewport adjustment if it exists on init', () => {
+    spyOn(mockViewportService, 'checkForViewportAdjustment').and.callThrough();
     component.ngOnInit();
-    expect(mockOmnibarService.checkForOmnibar).toHaveBeenCalled();
+    expect(mockViewportService.checkForViewportAdjustment).toHaveBeenCalled();
   });
 
   it('should update inPageRoutes from stachePageAnchors after content is rendered', () => {
