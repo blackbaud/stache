@@ -5,6 +5,9 @@ import { booleanConverter } from '../shared/input-converter';
 
 const SEARCH_KEYS: (keyof StacheNavLink)[] = ['name', 'summary'];
 
+/**
+ * @deprecated Use SKY UX action buttons instead: https://developer.blackbaud.com/skyux/components/action-button
+ */
 @Component({
   selector: 'stache-action-buttons',
   templateUrl: './action-buttons.component.html',
