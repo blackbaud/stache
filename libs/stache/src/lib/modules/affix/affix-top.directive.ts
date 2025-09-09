@@ -121,6 +121,7 @@ export class StacheAffixTopDirective
     if (this.isAffixed) {
       this.isAffixed = false;
       this.#renderer.setStyle(this.#element, 'position', 'static');
+      this.#renderer.removeStyle(this.#element, 'top');
       this.#renderer.removeClass(this.#element, AFFIX_CLASS_NAME);
     }
   }

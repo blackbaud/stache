@@ -108,7 +108,7 @@ describe('StacheAffixTopDirective', () => {
     expect(element).toHaveCssClass(className);
   }));
 
-  it("should add or remove stache-affix-top class to a component's first child", fakeAsync(() => {
+  it("should add or remove stache-affix-top class and style properties to a component's first child", fakeAsync(() => {
     detectChanges();
 
     window.scrollTo(0, 500);
@@ -119,6 +119,8 @@ describe('StacheAffixTopDirective', () => {
     let element = getDirectiveElements()[1].nativeElement.children[0];
 
     expect(element).toHaveCssClass(className);
+    expect(element.style.top).toBe('var(--sky-viewport-top)');
+    expect(element.style.position).toBe('fixed');
 
     window.scrollTo(0, 0);
     SkyAppTestUtility.fireDomEvent(window, 'scroll');
@@ -127,6 +129,8 @@ describe('StacheAffixTopDirective', () => {
     element = getDirectiveElements()[1].nativeElement.children[0];
 
     expect(element).not.toHaveCssClass(className);
+    expect(element.style.top).toBe('');
+    expect(element.style.position).toBe('static');
   }));
 
   it('should not attempt to reset the element if it already has', fakeAsync(() => {

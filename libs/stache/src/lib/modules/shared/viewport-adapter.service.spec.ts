@@ -1,4 +1,5 @@
 import { RendererFactory2 } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 
 import { StacheViewportAdapterService } from './viewport-adapter.service';
 import { StacheWindowRef } from './window-ref';
@@ -38,7 +39,7 @@ describe('StacheViewportAdapterService', () => {
   let mockWindowService: MockWindowService;
   let mockRendererFactory: MockRendererFactory;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     mockEnabled = false;
     mockWindowService = new MockWindowService();
     mockRendererFactory = new MockRendererFactory();
@@ -49,65 +50,66 @@ describe('StacheViewportAdapterService', () => {
         },
       } as unknown as CSSStyleDeclaration;
     });
+
+    await TestBed.configureTestingModule({
+      providers: [
+        { provide: StacheWindowRef, useValue: mockWindowService },
+        { provide: RendererFactory2, useValue: mockRendererFactory },
+      ],
+    });
   });
 
-  it('should return 0 for the adjustment height if it does not exist', () => {
-    omnibarService = new StacheViewportAdapterService(
-      mockWindowService as StacheWindowRef,
-      mockRendererFactory as RendererFactory2,
-    );
-    const testHeight = omnibarService.getHeight();
-    expect(testHeight).toBe(0);
+  it('should return 0 for the adjustment height if it does not exist', async () => {
+    await TestBed.runInInjectionContext(() => {
+      omnibarService = new StacheViewportAdapterService();
+      const testHeight = omnibarService.getHeight();
+      expect(testHeight).toBe(0);
+    });
   });
 
-  it('should return the expected height of the viewport adjustment if it does exist', () => {
-    mockEnabled = true;
-    omnibarService = new StacheViewportAdapterService(
-      mockWindowService as StacheWindowRef,
-      mockRendererFactory as RendererFactory2,
-    );
-    const testHeight = omnibarService.getHeight();
-    expect(testHeight).toBe(50);
+  it('should return the expected height of the viewport adjustment if it does exist', async () => {
+    await TestBed.runInInjectionContext(() => {
+      mockEnabled = true;
+      omnibarService = new StacheViewportAdapterService();
+      const testHeight = omnibarService.getHeight();
+      expect(testHeight).toBe(50);
+    });
   });
 
-  it('should add the class stache-viewport-adjusted to the body if a viewport adjustment exists', () => {
-    mockEnabled = true;
-    omnibarService = new StacheViewportAdapterService(
-      mockWindowService as StacheWindowRef,
-      mockRendererFactory as RendererFactory2,
-    );
-    omnibarService.checkForViewportAdjustment();
-    expect(mockWindowService.nativeWindow.document.body.classList).toContain(
-      className,
-    );
+  it('should add the class stache-viewport-adjusted to the body if a viewport adjustment exists', async () => {
+    await TestBed.runInInjectionContext(() => {
+      mockEnabled = true;
+      omnibarService = new StacheViewportAdapterService();
+      omnibarService.checkForViewportAdjustment();
+      expect(mockWindowService.nativeWindow.document.body.classList).toContain(
+        className,
+      );
+    });
   });
 
-  it('should not add the class stache-viewport-adjusted to the body if no viewport adjustment exists', () => {
-    mockEnabled = false;
-    omnibarService = new StacheViewportAdapterService(
-      mockWindowService as StacheWindowRef,
-      mockRendererFactory as RendererFactory2,
-    );
-    omnibarService.checkForViewportAdjustment();
-    expect(
-      mockWindowService.nativeWindow.document.body.classList,
-    ).not.toContain(className);
+  it('should not add the class stache-viewport-adjusted to the body if no viewport adjustment exists', async () => {
+    await TestBed.runInInjectionContext(() => {
+      mockEnabled = false;
+      omnibarService = new StacheViewportAdapterService();
+      omnibarService.checkForViewportAdjustment();
+      expect(
+        mockWindowService.nativeWindow.document.body.classList,
+      ).not.toContain(className);
+    });
   });
 
-  it('should return false if a viewport adjustment does not exist', () => {
-    omnibarService = new StacheViewportAdapterService(
-      mockWindowService as StacheWindowRef,
-      mockRendererFactory as RendererFactory2,
-    );
-    expect(omnibarService.viewportAdjusted()).toBe(false);
+  it('should return false if a viewport adjustment does not exist', async () => {
+    await TestBed.runInInjectionContext(() => {
+      omnibarService = new StacheViewportAdapterService();
+      expect(omnibarService.viewportAdjusted()).toBe(false);
+    });
   });
 
-  it('should return true if a viewport adjustment exists', () => {
-    mockEnabled = true;
-    omnibarService = new StacheViewportAdapterService(
-      mockWindowService as StacheWindowRef,
-      mockRendererFactory as RendererFactory2,
-    );
-    expect(omnibarService.viewportAdjusted()).toBe(true);
+  it('should return true if a viewport adjustment exists', async () => {
+    await TestBed.runInInjectionContext(() => {
+      mockEnabled = true;
+      omnibarService = new StacheViewportAdapterService();
+      expect(omnibarService.viewportAdjusted()).toBe(true);
+    });
   });
 });
