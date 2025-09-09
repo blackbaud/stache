@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { StacheNavLink } from '../nav/nav-link';
-import { StacheOmnibarAdapterService } from '../shared/omnibar-adapter.service';
+import { StacheViewportAdapterService } from '../shared/viewport-adapter.service';
 import { StacheWindowRef } from '../shared/window-ref';
 
 @Component({
@@ -19,16 +19,16 @@ export class StacheTableOfContentsComponent implements OnDestroy {
 
   #documentBottom: number | undefined;
   #ngUnsubscribe = new Subject<void>();
-  #omnibarSvc: StacheOmnibarAdapterService;
+  #viewportService: StacheViewportAdapterService;
   #viewTop = 0;
   #windowRef: StacheWindowRef;
 
   constructor(
     windowRef: StacheWindowRef,
-    omnibarSvc: StacheOmnibarAdapterService,
+    viewportSvc: StacheViewportAdapterService,
   ) {
     this.#windowRef = windowRef;
-    this.#omnibarSvc = omnibarSvc;
+    this.#viewportService = viewportSvc;
     this.#windowRef.scrollEventStream
       .pipe(takeUntil(this.#ngUnsubscribe))
       .subscribe(() => {
@@ -54,7 +54,8 @@ export class StacheTableOfContentsComponent implements OnDestroy {
 
   #trackViewTop(): void {
     this.#viewTop =
-      this.#windowRef.nativeWindow.pageYOffset + this.#omnibarSvc.getHeight();
+      this.#windowRef.nativeWindow.pageYOffset +
+      this.#viewportService.getHeight();
     this.#documentBottom = Math.round(
       this.#windowRef.nativeWindow.document.documentElement.getBoundingClientRect()
         .bottom,

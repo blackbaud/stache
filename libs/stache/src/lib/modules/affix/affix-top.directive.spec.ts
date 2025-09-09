@@ -10,7 +10,7 @@ import { By } from '@angular/platform-browser';
 import { expect } from '@skyux-sdk/testing';
 import { SkyAppTestUtility } from '@skyux-sdk/testing';
 
-import { StacheOmnibarAdapterService } from '../shared/omnibar-adapter.service';
+import { StacheViewportAdapterService } from '../shared/viewport-adapter.service';
 
 import { StacheAffixTopDirective } from './affix-top.directive';
 import { AffixTopFixtureComponent } from './fixtures/affix-top.component.fixture';
@@ -19,7 +19,7 @@ import { AffixFixtureModule } from './fixtures/affix.module.fixture';
 describe('StacheAffixTopDirective', () => {
   const className = 'stache-affix-top';
 
-  let omnibarAdapterService: StacheOmnibarAdapterService;
+  let viewportAdapterService: StacheViewportAdapterService;
   let fixture: ComponentFixture<AffixTopFixtureComponent>;
 
   function detectChanges(): void {
@@ -40,9 +40,9 @@ describe('StacheAffixTopDirective', () => {
   });
 
   beforeEach(inject(
-    [StacheOmnibarAdapterService],
-    (_omnibarAdapterService: StacheOmnibarAdapterService) => {
-      omnibarAdapterService = _omnibarAdapterService;
+    [StacheViewportAdapterService],
+    (_viewportAdapterService: StacheViewportAdapterService) => {
+      viewportAdapterService = _viewportAdapterService;
     },
   ));
 
@@ -86,7 +86,7 @@ describe('StacheAffixTopDirective', () => {
     expect(element).not.toHaveCssClass(className);
   }));
 
-  it('should take the omnibar height into consideration in the offset to window ratio', fakeAsync(() => {
+  it('should take the viewport adjustment height into consideration in the offset to window ratio', fakeAsync(() => {
     detectChanges();
 
     const element = getDirectiveElements()[0].nativeElement;
@@ -99,7 +99,7 @@ describe('StacheAffixTopDirective', () => {
 
     expect(element).not.toHaveCssClass(className);
 
-    spyOn(omnibarAdapterService, 'getHeight').and.returnValue(50);
+    spyOn(viewportAdapterService, 'getHeight').and.returnValue(50);
 
     SkyAppTestUtility.fireDomEvent(window, 'scroll');
 
@@ -108,7 +108,7 @@ describe('StacheAffixTopDirective', () => {
     expect(element).toHaveCssClass(className);
   }));
 
-  it("should add or remove stache-affix-top class to a component's first child", fakeAsync(() => {
+  it("should add or remove stache-affix-top class and style properties to a component's first child", fakeAsync(() => {
     detectChanges();
 
     window.scrollTo(0, 500);
@@ -119,6 +119,8 @@ describe('StacheAffixTopDirective', () => {
     let element = getDirectiveElements()[1].nativeElement.children[0];
 
     expect(element).toHaveCssClass(className);
+    expect(element.style.top).toBe('var(--sky-viewport-top)');
+    expect(element.style.position).toBe('fixed');
 
     window.scrollTo(0, 0);
     SkyAppTestUtility.fireDomEvent(window, 'scroll');
@@ -127,6 +129,8 @@ describe('StacheAffixTopDirective', () => {
     element = getDirectiveElements()[1].nativeElement.children[0];
 
     expect(element).not.toHaveCssClass(className);
+    expect(element.style.top).toBe('');
+    expect(element.style.position).toBe('static');
   }));
 
   it('should not attempt to reset the element if it already has', fakeAsync(() => {
@@ -149,7 +153,7 @@ describe('StacheAffixTopDirective', () => {
     expect(element).not.toHaveCssClass(className);
   }));
 
-  it('should set the maxHeight of the element based on footer offset - window pageYOffset - omnibar height', fakeAsync(() => {
+  it('should set the maxHeight of the element based on footer offset - window pageYOffset - viewport adjustment height', fakeAsync(() => {
     // Create a mock footer.
     const footer = document.createElement('div');
     footer.className = 'stache-footer-wrapper';
@@ -167,13 +171,15 @@ describe('StacheAffixTopDirective', () => {
     window.resizeTo(1200, 800);
     window.scrollBy(0, 350);
 
-    spyOn(omnibarAdapterService, 'getHeight').and.returnValue(50);
+    spyOn(viewportAdapterService, 'getHeight').and.returnValue(50);
 
     SkyAppTestUtility.fireDomEvent(window, 'scroll');
 
     detectChanges();
 
-    expect(element.style.height).toEqual('50px');
+    expect(element.style.height).toEqual(
+      'calc(100px - var(--sky-viewport-top))',
+    );
 
     footer.remove();
   }));
