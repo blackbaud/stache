@@ -1,13 +1,17 @@
 @use '../../styles/_variables' as vars;
 
 .stache-sidebar-wrapper {
-  background-color: #fff;
+  background-color: var(--sky-color-background-container-base, #fff);
   position: absolute !important;
   z-index: vars.$stache-sidebar-z-index;
   left: 0;
   top: 0;
   bottom: 0;
-  border-right: 1px solid vars.$stache-border-color-neutral-medium;
+  border-right: var(--sky-border-width-separator-light, 1px) solid
+    var(
+      --sky-color-border-separator-light,
+      vars.$stache-border-color-neutral-medium
+    );
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
 
   .stache-sidebar-buttons {

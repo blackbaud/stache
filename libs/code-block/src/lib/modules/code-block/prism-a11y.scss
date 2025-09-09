@@ -4,8 +4,7 @@
  */
 ::ng-deep code[class*='language-'],
 pre[class*='language-'] {
-  color: black;
-  text-shadow: 0 1px white;
+  text-shadow: 0 1px var(--sky-color-text-inverse);
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   text-align: left;
   white-space: pre;

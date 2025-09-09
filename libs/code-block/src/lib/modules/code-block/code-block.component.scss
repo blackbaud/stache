@@ -7,18 +7,27 @@
 }
 
 .sky-code-output {
-  @include mixins.sky-border('dark', 'top', 'right', 'bottom', 'left');
+  border: var(--sky-border-width-container-base, 1px) solid
+    var(
+      --sky-color-border-container-base,
+      vars.$sky-border-color-neutral-medium
+    );
   margin-top: 0;
   padding: vars.$sky-space-xl;
-  background-color: #fff;
+  background-color: var(--sky-color-background-container-base, #fff);
   overflow-x: auto;
   margin-bottom: vars.$sky-space-md * 2;
 }
 
 .sky-code-block-header {
   height: 45px;
-  @include mixins.sky-border('dark', 'top', 'right', 'left');
-  background-color: #fff;
+  border: var(--sky-border-width-container-base, 1px) solid
+    var(
+      --sky-color-border-container-base,
+      vars.$sky-border-color-neutral-medium
+    );
+  border-bottom: none;
+  background-color: var(--sky-color-background-container-base, #fff);
   display: flex;
   justify-content: space-between;
   align-items: center;

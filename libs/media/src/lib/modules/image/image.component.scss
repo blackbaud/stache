@@ -14,11 +14,19 @@
 }
 
 .sky-image-border {
-  border: 1px solid vars.$sky-border-color-neutral-medium;
+  border: var(--sky-border-width-container-base, 1px) solid
+    var(
+      --sky-color-border-container-base,
+      vars.$sky-border-color-neutral-medium
+    );
 }
 
 .sky-image-caption {
-  border-top: 5px solid vars.$sky-border-color-neutral-medium;
+  border-top: var(--sky-border-width-accent, 5px) solid
+    var(
+      --sky-color-border-container-base,
+      vars.$sky-border-color-neutral-medium
+    );
   display: table-caption;
   caption-side: bottom;
   margin: vars.$sky-margin-stacked-default 0;
@@ -26,17 +34,26 @@
 }
 
 .sky-image-caption-success {
-  border-color: vars.$sky-highlight-color-success;
+  border-color: var(
+    --sky-color-border-success,
+    vars.$sky-highlight-color-success
+  );
 }
 
 .sky-image-caption-danger {
-  border-color: vars.$sky-highlight-color-danger;
+  border-color: var(
+    --sky-color-border-danger,
+    vars.$sky-highlight-color-danger
+  );
 }
 
 .sky-image-caption-warning {
-  border-color: vars.$sky-highlight-color-warning;
+  border-color: var(
+    --sky-color-border-warning,
+    vars.$sky-highlight-color-warning
+  );
 }
 
 .sky-image-caption-info {
-  border-color: vars.$sky-highlight-color-info;
+  border-color: var(--sky-color-border-info, vars.$sky-highlight-color-info);
 }

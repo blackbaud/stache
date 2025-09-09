@@ -1,23 +1,43 @@
 @import 'node_modules/@skyux/theme/scss/variables';
 
-$stache-text-color-default: $sky-text-color-default !default;
-$stache-text-color-deemphasized: $sky-text-color-deemphasized !default;
-$stache-text-color-on-dark: $sky-text-color-on-dark !default;
-$stache-text-color-action-primary: $sky-text-color-action-primary !default;
-$stache-background-color-primary-dark: $sky-background-color-primary-dark !default;
-$stache-background-color-neutral-light: $sky-background-color-neutral-light !default;
-$stache-background-color-danger: $sky-background-color-danger !default;
-$stache-background-color-danger-dark: $sky-background-color-danger-dark !default;
-$stache-background-color-selected: $sky-background-color-selected !default;
-$stache-border-color-neutral-light: $sky-border-color-neutral-light !default;
-$stache-border-color-neutral-medium: $sky-border-color-neutral-medium !default;
-$stache-text-color-icon-borderless: $sky-text-color-icon-borderless !default;
+$stache-text-color-default: var(--sky-text-color-default) !default;
+$stache-text-color-deemphasized: var(--sky-text-color-deemphasized) !default;
+$stache-text-color-on-dark: var(--sky-text-color-on-dark) !default;
+$stache-text-color-action-primary: var(
+  --sky-text-color-action-primary
+) !default;
+$stache-background-color-primary-dark: var(
+  --sky-background-color-primary-dark
+) !default;
+$stache-background-color-neutral-light: var(
+  --sky-background-color-neutral-light
+) !default;
+$stache-background-color-danger: var(--sky-background-color-danger) !default;
+$stache-background-color-danger-dark: var(
+  --sky-background-color-danger-dark
+) !default;
+$stache-background-color-selected: var(
+  --sky-background-color-selected
+) !default;
+$stache-border-color-neutral-light: var(
+  --sky-color-border-separator-light,
+  $sky-border-color-neutral-light
+) !default;
+$stache-border-color-neutral-medium: var(
+  --sky-border-color-neutral-medium
+) !default;
+$stache-text-color-icon-borderless: var(
+  --sky-color-icon-deemphasized,
+  $sky-text-color-icon-borderless
+) !default;
 
-$stache-line-height-base: 1.428571429 !default;
-$stache-line-height-headings: 1.1 !default;
-$stache-font-size-base: 15px !default;
+$stache-line-height-base: var(
+  --sky-font-line_height-body-m,
+  1.428571429
+) !default;
+$stache-font-size-base: var(--sky-font-size-body-m, 15px) !default;
 
-$stache-border-radius: 3px !default;
+$stache-border-radius: var(--sky-border-radius-s, 3px) !default;
 
 $stache-padding: 10px !default;
 $stache-padding-double: $stache-padding * 2;
@@ -38,7 +58,7 @@ $stache-screen-md-max: $stache-screen-lg-min - 1 !default;
 
 $stache-container-max-width: 1600px;
 
-$stache-omnibar-height: 50px !default;
+$stache-omnibar-height: var(--sky-viewport-height) !default;
 
 $stache-container-padding: 45px !default;
 

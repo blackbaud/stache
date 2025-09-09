@@ -15,8 +15,12 @@
 }
 
 .stache-tutorial-step {
-  border: 1px solid vars.$stache-border-color-neutral-medium;
-  background-color: #fff;
+  border: var(--sky-border-width-container-base, 1px) solid
+    var(
+      --sky-color-border-container-base,
+      vars.$stache-border-color-neutral-medium
+    );
+  background-color: var(--sky-color-background-container-base, #fff);
   position: relative;
   margin-top: 8px;
   margin-bottom: 8px;
@@ -32,14 +36,18 @@
   &:after {
     height: 34px;
     width: 31px;
-    font-size: 16px;
+    font-size: var(--sky-font-size-input-label, 16px);
     line-height: 34px;
     left: -31px;
     top: 11px;
-    background-color: vars.$stache-background-color-primary-dark;
-    border-radius: 34px 0 0 34px;
-    font-weight: 100;
-    color: vars.$stache-text-color-on-dark;
+    background-color: var(
+      --sky-color-background-icon_matte-action-heavy,
+      vars.$stache-background-color-primary-dark
+    );
+    border-radius: var(--sky-border-radius-round, 34px) 0 0
+      var(--sky-border-radius-round, 34px);
+    font-weight: var(--sky-font-style-input-label, 100);
+    color: var(--sky-color-text-inverse, vars.$stache-text-color-on-dark);
     counter-increment: myCounter;
     content: counter(myCounter);
     position: absolute;
@@ -50,10 +58,11 @@
       height: 58px;
       width: 58px;
       line-height: 58px;
-      font-size: 30px;
+      font-size: var(--sky-font-size-heading-1, 30px);
+      font-weight: var(--sky-font-style-heading-1, 100);
       left: -15px;
       top: -15px;
-      border-radius: 50%;
+      border-radius: var(--sky-border-radius-round, 50%);
     }
   }
 }

@@ -7,7 +7,10 @@
 
 .stache-layout-blank {
   padding: 0;
-  background-color: vars.$stache-background-color-neutral-light;
+  background-color: var(
+    --sky-background-color-page,
+    vars.$stache-background-color-neutral-light
+  );
 
   ::ng-deep .stache-tutorial {
     border: none;

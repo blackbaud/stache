@@ -7,8 +7,15 @@
   width: 100%;
   padding: 0 (vars.$stache-padding-double) (vars.$stache-padding * 4)
     (vars.$stache-padding * 3);
-  background: vars.$stache-background-color-neutral-light;
-  border: 1px solid vars.$stache-border-color-neutral-medium;
+  background: var(
+    --sky-color-background-page,
+    vars.$stache-background-color-neutral-light
+  );
+  border: var(--sky-border-width-container-base, 1px) solid
+    var(
+      --sky-color-border-container-base,
+      vars.$stache-border-color-neutral-medium
+    );
 
   @media (min-width: vars.$stache-screen-sm-min) {
     margin: 0 auto;
