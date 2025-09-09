@@ -1,4 +1,4 @@
-import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { Injectable, RendererFactory2, inject } from '@angular/core';
 
 import { StacheWindowRef } from './window-ref';
 
@@ -6,13 +6,8 @@ const HAS_VIEWPORT_ADJUSTMENT_CLASS_NAME = 'stache-viewport-adjusted';
 
 @Injectable()
 export class StacheViewportAdapterService {
-  #renderer: Renderer2;
-  #windowRef: StacheWindowRef;
-
-  constructor(windowRef: StacheWindowRef, rendererFactory: RendererFactory2) {
-    this.#windowRef = windowRef;
-    this.#renderer = rendererFactory.createRenderer(undefined, null);
-  }
+  #windowRef = inject(StacheWindowRef);
+  #renderer = inject(RendererFactory2).createRenderer(undefined, null);
 
   public checkForViewportAdjustment(): void {
     if (this.viewportAdjusted()) {

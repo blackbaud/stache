@@ -56,6 +56,8 @@ export class StacheAffixTopDirective
     }
   }
 
+  // This ensures that an element that should be affixed to the top on initial load is affixed.
+  // In the AfterContentInit lifecycle hook to allow content to load if that affects positioning.
   public ngAfterContentInit(): void {
     this.onWindowScroll();
   }
