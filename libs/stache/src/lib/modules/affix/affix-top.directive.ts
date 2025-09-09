@@ -1,4 +1,5 @@
 import {
+  AfterContentInit,
   AfterViewInit,
   Directive,
   ElementRef,
@@ -15,7 +16,9 @@ const AFFIX_CLASS_NAME = 'stache-affix-top';
   selector: '[stacheAffixTop]',
   standalone: false,
 })
-export class StacheAffixTopDirective implements AfterViewInit {
+export class StacheAffixTopDirective
+  implements AfterContentInit, AfterViewInit
+{
   public isAffixed = false;
 
   #footerWrapper: HTMLElement | undefined;
@@ -51,6 +54,9 @@ export class StacheAffixTopDirective implements AfterViewInit {
     } else {
       this.#element = nativeElement;
     }
+  }
+
+  public ngAfterContentInit(): void {
     this.onWindowScroll();
   }
 
@@ -62,7 +68,6 @@ export class StacheAffixTopDirective implements AfterViewInit {
     if (this.#element && !this.isAffixed) {
       this.#offsetTop = this.#getOffset(this.#element);
     }
-    console.log(this.#viewportAdjustmentHeight);
 
     const windowIsScrolledBeyondElement =
       this.#offsetTop - this.#viewportAdjustmentHeight <=

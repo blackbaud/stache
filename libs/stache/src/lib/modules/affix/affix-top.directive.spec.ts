@@ -173,7 +173,9 @@ describe('StacheAffixTopDirective', () => {
 
     detectChanges();
 
-    expect(element.style.height).toEqual('50px');
+    expect(element.style.height).toEqual(
+      'calc(100px - var(--sky-viewport-top))',
+    );
 
     footer.remove();
   }));

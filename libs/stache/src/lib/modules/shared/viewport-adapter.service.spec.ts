@@ -1,11 +1,9 @@
 import { RendererFactory2 } from '@angular/core';
 
-import { StacheViewportAdapterService } from './omnibar-adapter.service';
+import { StacheViewportAdapterService } from './viewport-adapter.service';
 import { StacheWindowRef } from './window-ref';
 
 let mockEnabled = false;
-
-let mockElement: HTMLElement;
 
 class MockRenderer {
   public data: unknown;
@@ -19,13 +17,7 @@ class MockWindowService {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public nativeWindow: any = {
     document: {
-      querySelector() {
-        if (mockEnabled) {
-          mockElement = document.createElement('div');
-          return mockElement;
-        }
-        return undefined;
-      },
+      documentElement: {},
       body: {
         classList: [],
       },
@@ -50,9 +42,16 @@ describe('StacheViewportAdapterService', () => {
     mockEnabled = false;
     mockWindowService = new MockWindowService();
     mockRendererFactory = new MockRendererFactory();
+    spyOn(window, 'getComputedStyle').and.callFake(() => {
+      return {
+        getPropertyValue(): string {
+          return mockEnabled ? '50px' : undefined;
+        },
+      } as unknown as CSSStyleDeclaration;
+    });
   });
 
-  it('should return 0 for the height of the omnibar if it does not exist', () => {
+  it('should return 0 for the adjustment height if it does not exist', () => {
     omnibarService = new StacheViewportAdapterService(
       mockWindowService as StacheWindowRef,
       mockRendererFactory as RendererFactory2,
@@ -61,7 +60,7 @@ describe('StacheViewportAdapterService', () => {
     expect(testHeight).toBe(0);
   });
 
-  it('should return the expected height of the omnibar if it does exist', () => {
+  it('should return the expected height of the viewport adjustment if it does exist', () => {
     mockEnabled = true;
     omnibarService = new StacheViewportAdapterService(
       mockWindowService as StacheWindowRef,
@@ -71,7 +70,7 @@ describe('StacheViewportAdapterService', () => {
     expect(testHeight).toBe(50);
   });
 
-  it('should add the class stache-viewport-adjusted to the body if omnibar exists', () => {
+  it('should add the class stache-viewport-adjusted to the body if a viewport adjustment exists', () => {
     mockEnabled = true;
     omnibarService = new StacheViewportAdapterService(
       mockWindowService as StacheWindowRef,
@@ -83,7 +82,7 @@ describe('StacheViewportAdapterService', () => {
     );
   });
 
-  it('should not add the class stache-viewport-adjusted to the body if omnibar exists', () => {
+  it('should not add the class stache-viewport-adjusted to the body if no viewport adjustment exists', () => {
     mockEnabled = false;
     omnibarService = new StacheViewportAdapterService(
       mockWindowService as StacheWindowRef,
@@ -95,7 +94,7 @@ describe('StacheViewportAdapterService', () => {
     ).not.toContain(className);
   });
 
-  it('should return false if the omnibar does not exist', () => {
+  it('should return false if a viewport adjustment does not exist', () => {
     omnibarService = new StacheViewportAdapterService(
       mockWindowService as StacheWindowRef,
       mockRendererFactory as RendererFactory2,
@@ -103,7 +102,7 @@ describe('StacheViewportAdapterService', () => {
     expect(omnibarService.viewportAdjusted()).toBe(false);
   });
 
-  it('should return true if the omnibar exists', () => {
+  it('should return true if a viewport adjustment exists', () => {
     mockEnabled = true;
     omnibarService = new StacheViewportAdapterService(
       mockWindowService as StacheWindowRef,
