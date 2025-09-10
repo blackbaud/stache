@@ -35,12 +35,6 @@ stache {
   position: absolute;
 }
 
-.stache-omnibar-enabled {
-  .stache-affix-top {
-    margin-top: $stache-omnibar-height;
-  }
-}
-
 .stache-max-width-container {
   max-width: $stache-container-max-width;
   margin: 0 auto;

@@ -21,7 +21,7 @@ import { StacheNavLink } from '../nav/nav-link';
 import { StacheNavService } from '../nav/nav.service';
 import { StachePageAnchorService } from '../page-anchor/page-anchor.service';
 import { booleanConverter } from '../shared/input-converter';
-import { StacheOmnibarAdapterService } from '../shared/omnibar-adapter.service';
+import { StacheViewportAdapterService } from '../shared/viewport-adapter.service';
 import { StacheWindowRef } from '../shared/window-ref';
 
 import { StacheTitleService } from './title.service';
@@ -96,11 +96,11 @@ export class StacheWrapperComponent
     private navService: StacheNavService,
     private windowRef: StacheWindowRef,
     private changeDetectorRef: ChangeDetectorRef,
-    private omnibarService: StacheOmnibarAdapterService,
+    private viewportService: StacheViewportAdapterService,
   ) {}
 
   public ngOnInit(): void {
-    this.omnibarService.checkForOmnibar();
+    this.viewportService.checkForViewportAdjustment();
     this.jsonData = this.dataService.getAll();
     if (!this.inPageRoutes) {
       this.pageAnchorService.pageAnchorsStream

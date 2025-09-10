@@ -1,4 +1,5 @@
 import {
+  AfterContentInit,
   AfterViewInit,
   Directive,
   ElementRef,
@@ -6,7 +7,7 @@ import {
   Renderer2,
 } from '@angular/core';
 
-import { StacheOmnibarAdapterService } from '../shared/omnibar-adapter.service';
+import { StacheViewportAdapterService } from '../shared/viewport-adapter.service';
 import { StacheWindowRef } from '../shared/window-ref';
 
 const AFFIX_CLASS_NAME = 'stache-affix-top';
@@ -15,28 +16,30 @@ const AFFIX_CLASS_NAME = 'stache-affix-top';
   selector: '[stacheAffixTop]',
   standalone: false,
 })
-export class StacheAffixTopDirective implements AfterViewInit {
+export class StacheAffixTopDirective
+  implements AfterContentInit, AfterViewInit
+{
   public isAffixed = false;
 
   #footerWrapper: HTMLElement | undefined;
-  #omnibarHeight = 0;
+  #viewportAdjustmentHeight = 0;
   #offsetTop = 0;
   #element: HTMLElement | undefined;
 
   #renderer: Renderer2;
   #elementRef: ElementRef;
-  #omnibarSvc: StacheOmnibarAdapterService;
+  #viewportSvc: StacheViewportAdapterService;
   #windowRef: StacheWindowRef;
 
   constructor(
     renderer: Renderer2,
     elementRef: ElementRef,
-    omnibarSvc: StacheOmnibarAdapterService,
+    viewportService: StacheViewportAdapterService,
     windowRef: StacheWindowRef,
   ) {
     this.#renderer = renderer;
     this.#elementRef = elementRef;
-    this.#omnibarSvc = omnibarSvc;
+    this.#viewportSvc = viewportService;
     this.#windowRef = windowRef;
   }
 
@@ -53,9 +56,15 @@ export class StacheAffixTopDirective implements AfterViewInit {
     }
   }
 
+  // This ensures that an element that should be affixed to the top on initial load is affixed.
+  // In the AfterContentInit lifecycle hook to allow content to load if that affects positioning.
+  public ngAfterContentInit(): void {
+    this.onWindowScroll();
+  }
+
   @HostListener('window:scroll')
   public onWindowScroll(): void {
-    this.#omnibarHeight = this.#omnibarSvc.getHeight();
+    this.#viewportAdjustmentHeight = this.#viewportSvc.getHeight();
     this.#setMaxHeight();
 
     if (this.#element && !this.isAffixed) {
@@ -63,7 +72,7 @@ export class StacheAffixTopDirective implements AfterViewInit {
     }
 
     const windowIsScrolledBeyondElement =
-      this.#offsetTop - this.#omnibarHeight <=
+      this.#offsetTop - this.#viewportAdjustmentHeight <=
       this.#windowRef.nativeWindow.pageYOffset;
 
     if (windowIsScrolledBeyondElement) {
@@ -102,7 +111,7 @@ export class StacheAffixTopDirective implements AfterViewInit {
     if (!this.isAffixed && this.#element) {
       this.isAffixed = true;
       this.#renderer.setStyle(this.#element, 'position', 'fixed');
-      this.#renderer.setStyle(this.#element, 'top', '0px');
+      this.#renderer.setStyle(this.#element, 'top', 'var(--sky-viewport-top)');
       this.#renderer.setStyle(this.#element, 'width', 'inherit');
       this.#renderer.addClass(this.#element, AFFIX_CLASS_NAME);
     }
@@ -112,19 +121,19 @@ export class StacheAffixTopDirective implements AfterViewInit {
     if (this.isAffixed) {
       this.isAffixed = false;
       this.#renderer.setStyle(this.#element, 'position', 'static');
+      this.#renderer.removeStyle(this.#element, 'top');
       this.#renderer.removeClass(this.#element, AFFIX_CLASS_NAME);
     }
   }
 
   #setMaxHeight(): void {
-    let maxHeight = `calc(100% - ${this.#omnibarHeight}px)`;
+    let maxHeight = `calc(100% - var(--sky-viewport-top))`;
 
     if (this.#footerWrapper && this.#footerIsVisible()) {
-      maxHeight = `${
+      maxHeight = `calc(${
         this.#getOffset(this.#footerWrapper) -
-        this.#windowRef.nativeWindow.pageYOffset -
-        this.#omnibarHeight
-      }px`;
+        this.#windowRef.nativeWindow.pageYOffset
+      }px - var(--sky-viewport-top))`;
     }
 
     /* istanbul ignore else */
