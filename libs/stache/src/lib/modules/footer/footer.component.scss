@@ -23,6 +23,7 @@
   margin: vars.$stache-margin 0;
   font-size: var(--sky-font-size-heading-3, 1.1em);
   font-weight: var(--sky-font-style-heading-3, bold);
+  line-height: var(--sky-font-line_height-heading-3, 1.1);
 }
 
 .stache-footer-copyright-label {
@@ -31,4 +32,9 @@
     vars.$stache-text-color-deemphasized
   );
   font-size: var(--sky-font-size-body-s, 85%);
+  line-height: var(
+    --sky-font-line_height-body-s,
+    vars.$stache-line-height-base
+  );
+  font-weight: var(--sky-font-style-body-s, 400);
 }

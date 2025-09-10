@@ -1,13 +1,16 @@
 @use '../../styles/_variables' as vars;
 
 .stache-tutorial-summary {
-  font-weight: var(--sky-font-style-display-3, 300);
-  line-height: var(--sky-font-line_height-display-3, 1.4);
+  font-weight: var(--sky-font-style-emphasized, 300);
+  line-height: var(--sky-font-line_height-body-m, 1.4);
+  font-size: var(--sky-font-size-body-m, vars.$stache-font-size-base);
   text-align: center;
   margin: 0 0 20px;
 
   @media (min-width: vars.$stache-screen-sm-min) {
     font-size: var(--sky-font-size-display-3, 19.5px);
+    font-weight: var(--sky-font-style-display-3, 300);
+    line-height: var(--sky-font-line_height-display-3, 1.4);
   }
 
   &,

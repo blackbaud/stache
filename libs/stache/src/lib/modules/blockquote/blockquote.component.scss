@@ -7,6 +7,7 @@
     --sky-font-size-body-l,
     calc(vars.$stache-font-size-base * 1.12)
   );
+  font-weight: var(--sky-font-style-body-l, 400);
   color: var(
     --sky-color-text-deemphasized,
     vars.$stache-text-color-deemphasized
@@ -15,7 +16,7 @@
   padding-bottom: vars.$stache-padding-double;
   margin-bottom: vars.$stache-margin;
   line-height: var(
-    --sky-font-line_height-body-m,
+    --sky-font-line_height-body-l,
     vars.$stache-line-height-base
   );
   display: inline-flex;
@@ -33,8 +34,12 @@
 
     .stache-blockquote-source {
       padding-top: vars.$stache-padding;
-      font-weight: lighter;
-      font-size: var(--sky-font-size-body-m, vars.$stache-font-size-base);
+      font-weight: var(--sky-font-style-input-label, lighter);
+      font-size: var(--sky-font-size-input-label, vars.$stache-font-size-base);
+      line-height: var(
+        --sky-font-line_height-input-label,
+        vars.$stache-line-height-base
+      );
     }
   }
 }
