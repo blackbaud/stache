@@ -1,5 +1,29 @@
 # Changelog
 
+## [13.0.0-alpha.3](https://github.com/blackbaud/stache/compare/13.0.0-alpha.2...13.0.0-alpha.3) (2025-09-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **stache:** action button icons are now passed to the updated internal `iconName` input ([#138](https://github.com/blackbaud/stache/issues/138))
+
+### Features
+
+* styles updated to respect v2 modern SKY UX styles ([#144](https://github.com/blackbaud/stache/issues/144)) ([66934b7](https://github.com/blackbaud/stache/commit/66934b7530cd08025e8847ee7fa8299a3b6dede2))
+
+
+### Bug Fixes
+
+* **clipboard:** copy to clipboard component uses `sky-icon` ([#133](https://github.com/blackbaud/stache/issues/133)) ([f1159cd](https://github.com/blackbaud/stache/commit/f1159cd741b466150075af0c42ab453794bbb5fc))
+* **stache:** action button icons are now passed to the updated internal `iconName` input ([#138](https://github.com/blackbaud/stache/issues/138)) ([50fbc6d](https://github.com/blackbaud/stache/commit/50fbc6dfb04a718f94fa56cb81c02cf0f91eeadf))
+* **stache:** affixed elements utilize the SKY viewport service to determine viewport adjustment instead of a hardcoded height ([#143](https://github.com/blackbaud/stache/issues/143)) ([6a2b287](https://github.com/blackbaud/stache/commit/6a2b287400d6c98acc5b8a6f20874250468dae5d))
+* **stache:** back to top uses `sky-icon` and correct button class ([#131](https://github.com/blackbaud/stache/issues/131)) ([3310565](https://github.com/blackbaud/stache/commit/331056515e0fb27756395a1161aed08b07040472))
+* **stache:** blockquote component uses `sky-icon` ([#137](https://github.com/blackbaud/stache/issues/137)) ([1e847dd](https://github.com/blackbaud/stache/commit/1e847dd0a38659f30ae157cbb9d87bbefe07f3b5))
+* **stache:** edit button uses `sky-icon` ([#135](https://github.com/blackbaud/stache/issues/135)) ([631fd36](https://github.com/blackbaud/stache/commit/631fd3611c14e3783c84719070516ba284cd77bc))
+* **stache:** fix StacheTitleService to allow undefined app title ([#139](https://github.com/blackbaud/stache/issues/139)) ([#141](https://github.com/blackbaud/stache/issues/141)) ([c8400ae](https://github.com/blackbaud/stache/commit/c8400aedd20a6a470fdf5d234d5ed9e5563be953))
+* **stache:** page anchor links use `sky-icon` ([#136](https://github.com/blackbaud/stache/issues/136)) ([f8b2228](https://github.com/blackbaud/stache/commit/f8b2228618729fdc33f657465aae6cf0ba991e76))
+* **stache:** sidebar expand and collapse buttons use `sky-icon` and position onscreen ([#134](https://github.com/blackbaud/stache/issues/134)) ([e7e3e54](https://github.com/blackbaud/stache/commit/e7e3e54958dba5870e2568bc0dcf051d04a0ae30))
+
 ## [12.0.2](https://github.com/blackbaud/stache/compare/12.0.1...12.0.2) (2025-09-08)
 
 
