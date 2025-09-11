@@ -49,9 +49,9 @@
 
 .stache-table-of-contents-heading {
   margin-top: vars.$stache-padding-double;
-  font-size: var(--sky-font-size-display-1, 1.5em);
-  font-weight: var(--sky-font-style-display-1, 300);
-  line-height: var(--sky-font-line_height-display-1, 1.1);
+  font-size: var(--sky-font-size-heading-2, 1.5em);
+  font-weight: var(--sky-font-style-heading-2, 300);
+  line-height: var(--sky-font-line_height-heading-2, 1.1);
   padding-left: 8px;
 
   @media (max-width: vars.$stache-screen-lg-min) {
