@@ -1,7 +1,7 @@
 @use '../../styles/_variables' as vars;
 
 .stache-table-of-contents-wrapper {
-  background-color: white;
+  background-color: var(--sky-color-background-container-base, white);
 
   @media (max-width: vars.$stache-screen-lg-min) {
     padding: vars.$stache-padding-double 0px;
@@ -16,7 +16,8 @@
 
   .stache-table-of-contents-content {
     @media (max-width: vars.$stache-screen-lg-min) {
-      border-left: 4px solid vars.$stache-background-color-primary-dark;
+      border-left: var(--sky-border-width-accent, 4px) solid
+        var(--sky-color-border-info, vars.$stache-background-color-primary-dark);
     }
 
     width: vars.$stache-sidebar-column-width;

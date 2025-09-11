@@ -19,11 +19,20 @@
     }
 
     h2 {
-      font-size: 1.4em;
-      line-height: vars.$stache-line-height-base;
+      font-size: var(--sky-font-size-display-2, 1.4em);
+      font-weight: var(--sky-font-style-display-2, 600);
+      line-height: var(
+        --sky-font-line_height-display-2,
+        vars.$stache-line-height-base
+      );
 
       @media (min-width: vars.$stache-screen-sm-min) {
-        font-size: 28px;
+        font-size: var(--sky-font-size-display-1, 28px);
+        font-weight: var(--sky-font-style-display-1, 600);
+        line-height: var(
+          --sky-font-line_height-display-1,
+          vars.$stache-line-height-base
+        );
       }
     }
   }

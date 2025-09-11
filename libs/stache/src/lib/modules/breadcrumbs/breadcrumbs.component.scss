@@ -6,8 +6,15 @@
 
 ::ng-deep .stache-breadcrumbs {
   .stache-nav-breadcrumbs {
-    color: vars.$stache-text-color-deemphasized;
-    background-color: vars.$stache-background-color-neutral-light;
+    color: var(
+      --sky-color-text-deemphasized,
+      vars.$stache-text-color-deemphasized
+    );
+    // NOTE: Using this token isn't ideal. But it is the best possible at the moment until we can add tokens for Stache concepts with the page background being white.
+    background-color: var(
+      --sky-color-background-page,
+      vars.$stache-background-color-neutral-light
+    );
     padding: vars.$stache-padding;
 
     .stache-nav-list {
@@ -23,13 +30,19 @@
         &:before {
           content: '/';
           margin-right: vars.$stache-margin * 0.5;
-          color: vars.$stache-text-color-deemphasized;
+          color: var(
+            --sky-color-text-deemphasized,
+            vars.$stache-text-color-deemphasized
+          );
         }
       }
 
       &:last-child {
         > .stache-nav-anchor {
-          color: vars.$stache-text-color-deemphasized;
+          color: var(
+            --sky-color-text-deemphasized,
+            vars.$stache-text-color-deemphasized
+          );
 
           &:hover {
             cursor: default;

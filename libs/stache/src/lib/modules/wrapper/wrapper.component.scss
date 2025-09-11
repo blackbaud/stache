@@ -2,8 +2,8 @@
 
 stache {
   display: block;
-  background-color: #fff;
-  line-height: $stache-line-height-base;
+  background-color: var(--sky-color-background-container-base, #fff);
+  line-height: var(--sky-font-line_height-body-m, $stache-line-height-base);
 
   p,
   blockquote,

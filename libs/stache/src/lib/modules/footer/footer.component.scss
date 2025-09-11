@@ -1,12 +1,17 @@
 @use '../../styles/_variables' as vars;
 
 .stache-footer-wrapper {
-  background-color: vars.$stache-background-color-neutral-light;
+  // NOTE: Using this token isn't ideal. But it is the best possible at the moment until we can add tokens for Stache concepts with the page background being white.
+  background-color: var(
+    --sky-color-background-page,
+    vars.$stache-background-color-neutral-light
+  );
   position: relative;
   z-index: vars.$stache-footer-z-index;
 
+  // NOTE: Only needed for default. Remove when default theme support is removed.
   ::ng-deep .stache-nav-anchor {
-    color: #007399;
+    color: var(--sky-color-text-action, #007399);
   }
 
   .stache-footer-content {
@@ -16,11 +21,20 @@
 
 .stache-footer-heading {
   margin: vars.$stache-margin 0;
-  font-size: 1.1em;
-  font-weight: bold;
+  font-size: var(--sky-font-size-heading-3, 1.1em);
+  font-weight: var(--sky-font-style-heading-3, bold);
+  line-height: var(--sky-font-line_height-heading-3, 1.1);
 }
 
 .stache-footer-copyright-label {
-  color: vars.$stache-text-color-deemphasized;
-  font-size: 85%;
+  color: var(
+    --sky-color-text-deemphasized,
+    vars.$stache-text-color-deemphasized
+  );
+  font-size: var(--sky-font-size-body-s, 85%);
+  line-height: var(
+    --sky-font-line_height-body-s,
+    vars.$stache-line-height-base
+  );
+  font-weight: var(--sky-font-style-body-s, 400);
 }

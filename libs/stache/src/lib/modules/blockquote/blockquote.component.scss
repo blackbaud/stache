@@ -1,18 +1,32 @@
 @use '../../styles/_variables' as vars;
 
 .stache-blockquote {
-  border-left: 4px solid vars.$stache-background-color-primary-dark;
-  font-size: vars.$stache-font-size-base * 1.12;
-  color: vars.$stache-text-color-deemphasized;
+  border-left: var(--sky-border-width-accent, 4px) solid
+    var(--sky-color-border-info, vars.$stache-background-color-primary-dark);
+  font-size: var(
+    --sky-font-size-body-l,
+    calc(vars.$stache-font-size-base * 1.12)
+  );
+  font-weight: var(--sky-font-style-body-l, 400);
+  color: var(
+    --sky-color-text-deemphasized,
+    vars.$stache-text-color-deemphasized
+  );
   padding: 15px 20px;
   padding-bottom: vars.$stache-padding-double;
   margin-bottom: vars.$stache-margin;
-  line-height: vars.$stache-line-height-base;
+  line-height: var(
+    --sky-font-line_height-body-l,
+    vars.$stache-line-height-base
+  );
   display: inline-flex;
 
   .stache-blockquote-icon {
     padding-right: vars.$stache-padding;
-    color: vars.$stache-border-color-neutral-medium;
+    color: var(
+      --sky-color-icon-deemphasized,
+      vars.$stache-border-color-neutral-medium
+    );
   }
 
   .stache-blockquote-content {
@@ -20,8 +34,12 @@
 
     .stache-blockquote-source {
       padding-top: vars.$stache-padding;
-      font-weight: lighter;
-      font-size: vars.$stache-font-size-base;
+      font-weight: var(--sky-font-style-input-label, lighter);
+      font-size: var(--sky-font-size-input-label, vars.$stache-font-size-base);
+      line-height: var(
+        --sky-font-line_height-input-label,
+        vars.$stache-line-height-base
+      );
     }
   }
 }

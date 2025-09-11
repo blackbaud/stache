@@ -4,7 +4,8 @@
   padding-top: 2em;
   margin: 0 0 1em;
   padding-bottom: 0.6em;
-  border-bottom: 1px solid $stache-border-color-neutral-light;
+  border-bottom: var(--sky-border-width-separator-light, 1px) solid
+    var(--sky-color-border-separator-light, $sky-border-color-neutral-light);
 
   &:hover {
     .stache-page-anchor-icon {
@@ -21,11 +22,11 @@
 .stache-page-anchor-heading {
   margin: 0;
   display: inline-block;
-  color: $stache-text-color-default;
+  color: var(--sky-color-text-heading, $stache-text-color-default);
 }
 
 .stache-page-anchor-icon {
-  color: #0974a1;
+  color: var(--sky-color-icon-action, #0974a1);
   opacity: 0;
   transition: opacity 300ms;
 }

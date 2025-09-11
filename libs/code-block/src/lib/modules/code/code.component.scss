@@ -1,18 +1,32 @@
 @use 'node_modules/@skyux/theme/scss/mixins' as mixins;
 @use 'node_modules/@skyux/theme/scss/variables' as vars;
+@use 'sass:color';
 
 .sky-code {
-  @include mixins.sky-border('dark', 'top', 'right', 'bottom', 'left');
+  border: var(--sky-border-width-container-base, 1px) solid
+    var(
+      --sky-color-border-container-base,
+      vars.$sky-border-color-neutral-medium
+    );
   overflow-wrap: break-word;
   font-family: 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace;
   font-size: 90%;
-  color: darken(vars.$sky-background-color-danger-dark, 5%);
+  color: var(
+    --sky-color-text-danger,
+    color.adjust(vars.$sky-background-color-danger-dark, $lightness: -5%)
+  );
   padding: 0 4px;
-  background-color: vars.$sky-background-color-selected;
+  background-color: var(
+    --sky-color-container-dimmed,
+    vars.$sky-background-color-selected
+  );
 
   ::ng-deep {
     a {
-      color: vars.$sky-background-color-danger-dark;
+      color: var(
+        --sky-color-text-danger,
+        vars.$sky-background-color-danger-dark
+      );
       text-decoration: underline;
     }
   }
