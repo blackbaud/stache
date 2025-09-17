@@ -13,8 +13,8 @@
   },
   "homepage": "https://github.com/blackbaud/stache#readme",
   "peerDependencies": {
-    "@angular/common": "^20.2.4",
-    "@angular/core": "^20.2.4",
+    "@angular/common": "^20.3.0",
+    "@angular/core": "^20.3.0",
     "@skyux/core": "^13.0.0-alpha.9",
     "@skyux/i18n": "^13.0.0-alpha.9",
     "@skyux/icon": "^13.0.0-alpha.9"
