@@ -9,7 +9,7 @@ on:
       - '[0-9]+.x.x'
 env:
   # Set to 'alpha', 'beta', or 'rc' to create a prerelease.
-  PRERELEASE: 'beta'
+  PRERELEASE: 'false'
   MAJOR_VERSION: 13
 jobs:
   release:
@@ -60,7 +60,8 @@ jobs:
           pull-request-title-pattern: 'chore: release ${version}'
           labels: 'autorelease ${{ github.ref_name }}: pending'
           release-labels: 'autorelease ${{ github.ref_name }}: tagged'
-          release-as: '${{ steps.next-release.outputs.next-release }}'
+          # release-as: '${{ steps.next-release.outputs.next-release }}'
+          release-as: '13.0.0'
           prerelease: ${{ env.PRERELEASE != 'false' }}
           draft-pull-request: true
           include-v-in-tag: false
