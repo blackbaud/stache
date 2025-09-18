@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.0.0](https://github.com/blackbaud/stache/compare/13.0.0-beta.0...13.0.0) (2025-09-18)
+
+
+### Features
+
+* release 13.0.0 ([#147](https://github.com/blackbaud/stache/issues/147)) ([78154ac](https://github.com/blackbaud/stache/commit/78154aca0d8cf462c9fea7ab5c29805a1b686e1b))
+
 ## [13.0.0-beta.0](https://github.com/blackbaud/stache/compare/13.0.0-alpha.3...13.0.0-beta.0) (2025-09-17)
 
 
