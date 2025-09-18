@@ -31,12 +31,12 @@
     "@angular/core": "^20.3.0",
     "@angular/platform-browser": "^20.3.0",
     "@angular/router": "^20.3.0",
-    "@skyux/config": "^13.0.0-alpha.9",
-    "@skyux/core": "^13.0.0-alpha.9",
-    "@skyux/i18n": "^13.0.0-alpha.9",
-    "@skyux/icon": "^13.0.0-alpha.9",
-    "@skyux/layout": "^13.0.0-alpha.9",
-    "@skyux/lookup": "^13.0.0-alpha.9"
+    "@skyux/config": "^13.0.0",
+    "@skyux/core": "^13.0.0",
+    "@skyux/i18n": "^13.0.0",
+    "@skyux/icon": "^13.0.0",
+    "@skyux/layout": "^13.0.0",
+    "@skyux/lookup": "^13.0.0"
   },
   "dependencies": {
     "jsonc-parser": "3.3.1",
