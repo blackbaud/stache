@@ -44,9 +44,6 @@ export class StacheAffixTopDirective
   }
 
   public ngAfterViewInit(): void {
-    this.#footerWrapper = this.#windowRef.nativeWindow.document.querySelector(
-      '.stache-footer-wrapper',
-    );
     const nativeElement = this.#elementRef.nativeElement;
 
     if (this.#isComponent(nativeElement) && nativeElement.children[0]) {
@@ -65,6 +62,9 @@ export class StacheAffixTopDirective
   @HostListener('window:scroll')
   public onWindowScroll(): void {
     this.#viewportAdjustmentHeight = this.#viewportSvc.getHeight();
+    this.#footerWrapper = this.#windowRef.nativeWindow.document.querySelector(
+      '.stache-footer-wrapper',
+    );
     this.#setMaxHeight();
 
     if (this.#element && !this.isAffixed) {
@@ -72,7 +72,7 @@ export class StacheAffixTopDirective
     }
 
     const windowIsScrolledBeyondElement =
-      this.#offsetTop - this.#viewportAdjustmentHeight <=
+      this.#offsetTop - this.#viewportAdjustmentHeight <
       this.#windowRef.nativeWindow.pageYOffset;
 
     if (windowIsScrolledBeyondElement) {
