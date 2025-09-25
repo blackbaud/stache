@@ -106,6 +106,13 @@ describe('StacheAffixTopDirective', () => {
     detectChanges();
 
     expect(element).toHaveCssClass(className);
+
+    window.scrollTo(0, 0);
+    SkyAppTestUtility.fireDomEvent(window, 'scroll');
+
+    detectChanges();
+
+    expect(element).not.toHaveCssClass(className);
   }));
 
   it("should add or remove stache-affix-top class and style properties to a component's first child", fakeAsync(() => {
