@@ -67,8 +67,12 @@ export class StacheAffixTopDirective
     );
     this.#setMaxHeight();
 
-    if (this.#element && !this.isAffixed) {
-      this.#offsetTop = this.#getOffset(this.#element);
+    if (this.#element) {
+      if (!this.isAffixed) {
+        this.#offsetTop = this.#getOffset(this.#element);
+      } else {
+        this.#offsetTop = this.#element.offsetTop;
+      }
     }
 
     const windowIsScrolledBeyondElement =
