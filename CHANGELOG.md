@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.0.1](https://github.com/blackbaud/stache/compare/13.0.0...13.0.1) (2025-09-25)
+
+
+### Bug Fixes
+
+* **stache:** affix resets at top scroll and accounts for footer change ([#149](https://github.com/blackbaud/stache/issues/149)) ([47f128f](https://github.com/blackbaud/stache/commit/47f128f073a3197fe840fb7fe1247885c4b30ff4))
+
 ## [13.0.0](https://github.com/blackbaud/stache/compare/13.0.0-beta.0...13.0.0) (2025-09-18)
 
 
