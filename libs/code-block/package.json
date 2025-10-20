@@ -12,6 +12,11 @@
     "url": "https://github.com/blackbaud/stache/issues"
   },
   "homepage": "https://github.com/blackbaud/stache#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/blackbaud/stache",
+    "directory": "libs/code-block"
+  },
   "peerDependencies": {
     "@angular/common": "^20.3.0",
     "@angular/core": "^20.3.0",
