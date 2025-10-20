@@ -1,0 +1,37 @@
+{
+  "//": "Configuration for https://github.com/absolute-version/commit-and-tag-version",
+  "releaseAs": null,
+  "prerelease": null,
+  "preset": "angular",
+  "header": "# Changelog\n\n",
+  "issuePrefixes": [
+    "AB#"
+  ],
+  "issueUrlFormat": "https://dev.azure.com/blackbaud/Products/_workitems/edit/{{id}}",
+  "releaseCommitMessageFormat": "chore: release {{currentTag}}",
+  "scripts": {
+    "prebump": "npx skyux-dev release-version"
+  },
+  "skip": {
+    "tag": true
+  },
+  "tagPrefix": "",
+  "types": [
+    {
+      "type": "feat",
+      "section": "Features"
+    },
+    {
+      "type": "fix",
+      "section": "Bug Fixes"
+    },
+    {
+      "type": "deprecation",
+      "section": "Deprecations"
+    },
+    {
+      "type": "revert",
+      "section": "Reverts"
+    }
+  ]
+}
