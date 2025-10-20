@@ -12,6 +12,11 @@
     "url": "https://github.com/blackbaud/stache/issues"
   },
   "homepage": "https://github.com/blackbaud/stache#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/blackbaud/stache",
+    "directory": "libs/stache"
+  },
   "schematics": "./collection.json",
   "ng-add": {
     "save": "dependencies"
