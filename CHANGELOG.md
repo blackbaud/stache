@@ -1,6 +1,5 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
 ## [13.0.2](https://github.com/blackbaud/stache/compare/13.0.1...13.0.2) (2025-10-20)
 
@@ -8,6 +7,8 @@ All notable changes to this project will be documented in this file. See [commit
 ### Bug Fixes
 
 * use trusted publishing ([#152](https://github.com/blackbaud/stache/issues/152)) ([f1e03e4](https://github.com/blackbaud/stache/commit/f1e03e44abee85b96761ba1011bb0f54853b836c))
+
+
 
 ## [13.0.1](https://github.com/blackbaud/stache/compare/13.0.0...13.0.1) (2025-09-25)
 
