@@ -1,6 +1,15 @@
 # Changelog
 
 
+## [13.0.3](https://github.com/blackbaud/stache/compare/13.0.2...13.0.3) (2025-10-21)
+
+
+### Bug Fixes
+
+* **stache:** table of contents do not affix when not at extra large screen sizes ([#157](https://github.com/blackbaud/stache/issues/157)) ([4a75e23](https://github.com/blackbaud/stache/commit/4a75e2392a5050ebbca78f0158c4ed24afd06cbb))
+
+
+
 ## [13.0.2](https://github.com/blackbaud/stache/compare/13.0.1...13.0.2) (2025-10-20)
 
 
