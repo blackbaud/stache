@@ -25,8 +25,10 @@
     max-height: 100%;
 
     .stache-affix-top {
+      // Table of contents should not affix except for at extra large screen sizes.
       @media (max-width: vars.$stache-screen-lg-min) {
         position: relative !important;
+        top: 0 !important;
       }
       overflow-y: auto;
     }
