@@ -15,7 +15,7 @@ import { StacheRouteService } from '../router/route.service';
 import { StacheNavService } from './nav.service';
 
 @Directive({
-  selector: '[stacheRouterLink]',
+  selector: 'a[stacheRouterLink], [stacheRouterLink]',
   standalone: false,
 })
 export class StacheRouterLinkDirective implements OnChanges, AfterViewInit {
