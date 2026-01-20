@@ -25,9 +25,13 @@
     "test": {
       "executor": "@angular-devkit/build-angular:karma",
       "options": {
-        "main": "libs/media/src/test.ts",
         "tsConfig": "libs/media/tsconfig.spec.json",
         "karmaConfig": "libs/media/karma.conf.js",
+        "polyfills": [
+          "zone.js",
+          "zone.js/testing",
+          "@skyux/packages/polyfills"
+        ],
         "codeCoverage": true,
         "codeCoverageExclude": ["**/fixtures/**"],
         "styles": [

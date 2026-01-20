@@ -18,11 +18,11 @@
     "directory": "libs/code-block"
   },
   "peerDependencies": {
-    "@angular/common": "^20.3.0",
-    "@angular/core": "^20.3.0",
-    "@angular/platform-browser": "^20.3.0",
+    "@angular/common": "^21.1.0",
+    "@angular/core": "^21.1.0",
+    "@angular/platform-browser": "^21.1.0",
     "@blackbaud/skyux-lib-clipboard": "0.0.0-PLACEHOLDER",
-    "@skyux/i18n": "^13.0.0"
+    "@skyux/i18n": "^14.0.0-alpha.0"
   },
   "dependencies": {
     "prismjs": "1.30.0",
