@@ -1,6 +1,17 @@
 # Changelog
 
 
+## [14.0.0-alpha.0](https://github.com/blackbaud/stache/compare/13.0.3...14.0.0-alpha.0) (2026-01-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* add support for Angular 21 (#159)
+
+### Features
+
+* add support for Angular 21 ([#159](https://github.com/blackbaud/stache/issues/159)) ([4352211](https://github.com/blackbaud/stache/commit/4352211572be16efc26991962f25e8064ed003f5))
+
 ## [13.0.3](https://github.com/blackbaud/stache/compare/13.0.2...13.0.3) (2025-10-21)
 
 
