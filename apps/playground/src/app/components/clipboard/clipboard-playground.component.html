@@ -12,13 +12,11 @@
 
   <h3>Icon-borderless button:</h3>
 
-  <p #copyTargetIcon>
-    Copy this text using the icon button.
-    <sky-copy-to-clipboard
-      [copyTarget]="copyTargetIcon"
-      buttonType="icon-borderless"
-      class="sky-theme-margin-left-xs"
-      ariaLabel="Copy to clipboard"
-    />
-  </p>
+  <span #copyTargetIcon> Copy this text using the icon button. </span>
+  <sky-copy-to-clipboard
+    [copyTarget]="copyTargetIcon"
+    buttonType="icon-borderless"
+    class="sky-theme-margin-left-xs"
+    ariaLabel="Copy to clipboard"
+  />
 </stache>
