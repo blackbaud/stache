@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, input } from '@angular/core';
 import { SkyAppWindowRef } from '@skyux/core';
 
 import { SkyCopyToClipboardService } from './clipboard.service';
@@ -6,7 +6,7 @@ import { SkyCopyToClipboardService } from './clipboard.service';
 @Component({
   selector: 'sky-copy-to-clipboard',
   templateUrl: './clipboard.component.html',
-  standalone: false,
+  standalone: false
 })
 export class SkyCopyToClipboardComponent {
   /**
@@ -48,6 +48,12 @@ export class SkyCopyToClipboardComponent {
    */
   @Input()
   public title: string | undefined;
+
+  /**
+   * Specifies the type of button to display. Valid values are `"default"` and `"icon-borderless"`.
+   * @default "default"
+   */
+  public buttonType = input<'default' | 'icon-borderless'>('default');
 
   public buttonActive = false;
 

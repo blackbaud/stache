@@ -1,6 +1,6 @@
 <button
   type="button"
-  class="sky-btn sky-btn-default"
+  [class]="'sky-btn sky-btn-' + buttonType()"
   [attr.title]="
     title ? title : ('sky_copy_to_clipboard_button_title' | skyLibResources)
   "
@@ -20,14 +20,16 @@
   @if (buttonActive) {
     <sky-icon iconName="checkmark" />
   }
-  @if (!buttonActive || (buttonActive && !buttonClickedText)) {
-    <span>
-      {{ buttonText }}
-    </span>
-  }
-  @if (buttonActive && buttonClickedText) {
-    <span>
-      {{ buttonClickedText }}
-    </span>
+  @if (buttonType() !== 'icon-borderless') {
+    @if (!buttonActive || (buttonActive && !buttonClickedText)) {
+      <span>
+        {{ buttonText }}
+      </span>
+    }
+    @if (buttonActive && buttonClickedText) {
+      <span>
+        {{ buttonClickedText }}
+      </span>
+    }
   }
 </button>

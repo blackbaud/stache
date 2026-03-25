@@ -14,6 +14,11 @@ export class ComponentsPlaygroundComponent {
       path: 'components/code-block/code-block',
     },
     {
+      icon: 'clipboard-multiple',
+      name: 'Copy to clipboard',
+      path: 'components/clipboard/clipboard',
+    },
+    {
       icon: 'window-header-horizontal',
       name: 'Hero',
       path: 'components/media/hero',
