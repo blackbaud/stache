@@ -156,6 +156,32 @@ describe('SkyCopyToClipboardComponent', () => {
     expect(button.getAttribute('title')).toEqual('TEST-TITLE');
   });
 
+  it('should apply sky-btn-default class when buttonType is default', () => {
+    const button = getCopyToClipboardButton(fixture);
+    expect(button.classList).toContain('sky-btn-default');
+    expect(button.classList).not.toContain('sky-btn-icon-borderless');
+  });
+
+  it('should apply sky-btn-icon-borderless class when buttonType is icon-borderless', () => {
+    component.buttonType = 'icon-borderless';
+    fixture.detectChanges();
+    const button = getCopyToClipboardButton(fixture);
+    expect(button.classList).toContain('sky-btn-icon-borderless');
+    expect(button.classList).not.toContain('sky-btn-default');
+  });
+
+  it('should render button text when buttonType is default', () => {
+    const button = getCopyToClipboardButton(fixture);
+    expect(button.querySelector('span')).not.toBeNull();
+  });
+
+  it('should not render button text when buttonType is icon-borderless', () => {
+    component.buttonType = 'icon-borderless';
+    fixture.detectChanges();
+    const button = getCopyToClipboardButton(fixture);
+    expect(button.querySelector('span')).toBeNull();
+  });
+
   it('should pass accessibility', async () => {
     await expectAsync(element).toBeAccessible();
   });

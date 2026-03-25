@@ -12,6 +12,8 @@ export class SkyClipboardTestComponent {
 
   public ariaLabelledBy: string | undefined;
 
+  public buttonType: 'default' | 'icon-borderless' = 'default';
+
   @ViewChild(SkyCopyToClipboardComponent)
   public copyToClipboardComponent!: SkyCopyToClipboardComponent;
 

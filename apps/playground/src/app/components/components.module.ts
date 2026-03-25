@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { SkyClipboardModule } from '@blackbaud/skyux-lib-clipboard';
 import {
   SkyCodeBlockModule,
   SkyCodeModule,
@@ -13,6 +14,7 @@ import {
 import { StacheModule, StacheRouterModule } from '@blackbaud/skyux-lib-stache';
 import { SkyAlertModule } from '@skyux/indicators';
 
+import { ClipboardPlaygroundComponent } from './clipboard/clipboard-playground.component';
 import { CodeBlockPlaygroundComponent } from './code-block/code-block-playground.component';
 import { ComponentsPlaygroundComponent } from './components.component';
 import { HeroPlaygroundComponent } from './media/hero-playground.component';
@@ -30,6 +32,15 @@ import { StachePlaygroundComponent } from './stache/stache-playground.component'
         data: {
           stache: {
             name: 'Components',
+          },
+        },
+      },
+      {
+        path: 'clipboard/clipboard',
+        component: ClipboardPlaygroundComponent,
+        data: {
+          stache: {
+            name: 'Clipboard',
           },
         },
       },
@@ -97,6 +108,7 @@ class ComponentsPlaygroundRoutingModule {}
     ComponentsPlaygroundRoutingModule,
     CommonModule,
     SkyAlertModule,
+    SkyClipboardModule,
     SkyCodeBlockModule,
     SkyCodeModule,
     SkyHeroModule,
@@ -106,6 +118,7 @@ class ComponentsPlaygroundRoutingModule {}
     StacheRouterModule.forChild('components'),
   ],
   declarations: [
+    ClipboardPlaygroundComponent,
     CodeBlockPlaygroundComponent,
     ComponentsPlaygroundComponent,
     HeroPlaygroundComponent,

@@ -1,0 +1,22 @@
+<stache>
+  <h1>Clipboard</h1>
+
+  <h3>Default button:</h3>
+
+  <p #copyTargetDefault>Copy this text to the clipboard.</p>
+  <sky-copy-to-clipboard
+    [copyTarget]="copyTargetDefault"
+    buttonText="Copy"
+    buttonClickedText="Copied!"
+  />
+
+  <h3>Icon-borderless button:</h3>
+
+  <span #copyTargetIcon>Copy this text using the icon button.</span>
+  <sky-copy-to-clipboard
+    [copyTarget]="copyTargetIcon"
+    buttonType="icon-borderless"
+    class="sky-theme-margin-left-xs"
+    ariaLabel="Copy to clipboard"
+  />
+</stache>
