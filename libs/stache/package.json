@@ -31,7 +31,7 @@
     }
   },
   "peerDependencies": {
-    "@angular/cli": "^21.2.5",
+    "@angular/cli": "^21.2.3",
     "@angular/common": "^21.2.5",
     "@angular/core": "^21.2.5",
     "@angular/platform-browser": "^21.2.5",
