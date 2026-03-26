@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [14.0.0-alpha.1](https://github.com/blackbaud/stache/compare/14.0.0-alpha.0...14.0.0-alpha.1) (2026-03-26)
+
+
+### Features
+
+* add buttonType input to clipboard ([#161](https://github.com/blackbaud/stache/issues/161)) ([f15c8aa](https://github.com/blackbaud/stache/commit/f15c8aa8cd52730bbb96b8e1af7ec837eba3ff52))
+
 ## [14.0.0-alpha.0](https://github.com/blackbaud/stache/compare/13.0.3...14.0.0-alpha.0) (2026-01-21)
 
 
