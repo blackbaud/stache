@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [14.0.0](https://github.com/blackbaud/stache/compare/14.0.0-alpha.1...14.0.0) (2026-04-01)
+
+
+### Features
+
+* release 14.0.0 ([#163](https://github.com/blackbaud/stache/issues/163)) ([100a9be](https://github.com/blackbaud/stache/commit/100a9bea71063e2727c3ec0072252f259976cacb))
+
 ## [14.0.0-alpha.1](https://github.com/blackbaud/stache/compare/14.0.0-alpha.0...14.0.0-alpha.1) (2026-03-26)
 
 
