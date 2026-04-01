@@ -18,10 +18,10 @@
     "directory": "libs/media"
   },
   "peerDependencies": {
-    "@angular/common": "^21.2.5",
-    "@angular/core": "^21.2.5",
-    "@angular/platform-browser": "^21.2.5",
-    "@skyux/i18n": "^14.0.0-alpha.14"
+    "@angular/common": "^21.2.7",
+    "@angular/core": "^21.2.7",
+    "@angular/platform-browser": "^21.2.7",
+    "@skyux/i18n": "^14.0.0"
   },
   "dependencies": {
     "tslib": "^2.8.1"

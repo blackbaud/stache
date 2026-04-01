@@ -18,11 +18,11 @@
     "directory": "libs/clipboard"
   },
   "peerDependencies": {
-    "@angular/common": "^21.2.5",
-    "@angular/core": "^21.2.5",
-    "@skyux/core": "^14.0.0-alpha.14",
-    "@skyux/i18n": "^14.0.0-alpha.14",
-    "@skyux/icon": "^14.0.0-alpha.14"
+    "@angular/common": "^21.2.7",
+    "@angular/core": "^21.2.7",
+    "@skyux/core": "^14.0.0",
+    "@skyux/i18n": "^14.0.0",
+    "@skyux/icon": "^14.0.0"
   },
   "dependencies": {
     "tslib": "^2.8.1"

@@ -67,7 +67,7 @@ export default function ngAdd(): Rule {
     context.addTask(new NodePackageInstallTask());
 
     return chain([
-      installEssentialSkyUxPackages('^14.0.0-alpha.14'),
+      installEssentialSkyUxPackages('^14.0.0'),
       tryConfigureCsp(),
     ]);
   };
