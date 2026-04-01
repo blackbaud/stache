@@ -15,13 +15,12 @@
     "dev:pristine": "skyux-dev pristine-commit",
     "ng": "nx",
     "postbuild": "nx run-many --target=postbuild --all --parallel",
-    "postinstall": "node ./decorate-angular-cli.js",
     "posttest": "nx run-many --target=posttest --all --parallel --maxParallel=5",
     "test": "nx run-many --target=test --all --browsers=ChromeHeadless --parallel",
     "test:affected": "nx affected:test --browsers=ChromeHeadless --parallel"
   },
   "engines": {
-    "node": "^20.19 || ^22.0.0",
+    "node": "^22.22.1",
     "npm": "^10.8.2"
   },
   "config": {
