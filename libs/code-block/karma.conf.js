@@ -2,6 +2,7 @@
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
 const { join } = require('path');
+// eslint-disable-next-line @nx/enforce-module-boundaries
 const getBaseKarmaConfig = require('../../karma.conf');
 
 module.exports = function (config) {
