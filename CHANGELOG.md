@@ -4,9 +4,14 @@
 ## [14.0.0](https://github.com/blackbaud/stache/compare/14.0.0-alpha.1...14.0.0) (2026-04-01)
 
 
+### ⚠ BREAKING CHANGES
+
+* add support for Angular 21 (#159)
+
 ### Features
 
-* release 14.0.0 ([#163](https://github.com/blackbaud/stache/issues/163)) ([100a9be](https://github.com/blackbaud/stache/commit/100a9bea71063e2727c3ec0072252f259976cacb))
+* add support for Angular 21 ([#159](https://github.com/blackbaud/stache/issues/159)) ([4352211](https://github.com/blackbaud/stache/commit/4352211572be16efc26991962f25e8064ed003f5))
+* add buttonType input to clipboard ([#161](https://github.com/blackbaud/stache/issues/161)) ([f15c8aa](https://github.com/blackbaud/stache/commit/f15c8aa8cd52730bbb96b8e1af7ec837eba3ff52))
 
 ## [14.0.0-alpha.1](https://github.com/blackbaud/stache/compare/14.0.0-alpha.0...14.0.0-alpha.1) (2026-03-26)
 
