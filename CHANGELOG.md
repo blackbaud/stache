@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [14.0.1](https://github.com/blackbaud/stache/compare/14.0.0...14.0.1) (2026-04-03)
+
+
+### Bug Fixes
+
+* use commonjs for package type ([#168](https://github.com/blackbaud/stache/issues/168)) ([7fd0a2d](https://github.com/blackbaud/stache/commit/7fd0a2d552523e2ed3934fe9774926bd9879afcb))
+
 ## [14.0.0](https://github.com/blackbaud/stache/compare/14.0.0-alpha.1...14.0.0) (2026-04-01)
 
 
