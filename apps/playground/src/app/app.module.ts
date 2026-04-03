@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StacheModule } from '@blackbaud/skyux-lib-stache';
 import { SkyAppConfig } from '@skyux/config';
 import { SkyThemeService } from '@skyux/theme';
@@ -15,7 +14,6 @@ import { SkyThemeSelectorComponent } from './shared/theme-selector/theme-selecto
   declarations: [AppComponent, HomeComponent, NotFoundComponent],
   imports: [
     AppRoutingModule,
-    BrowserAnimationsModule,
     DesignPlaygroundModule,
     SkyThemeSelectorComponent,
     StacheModule,
