@@ -1,11 +1,20 @@
 import { Rule, chain } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import {
-  NodeDependencyType,
-  addPackageJsonDependency,
-} from '@schematics/angular/utility/dependencies';
+import { NodeDependencyType, addPackageJsonDependency } from '@schematics/angular/utility/dependencies';
+
+
 
 import { JSONFile } from '../utility/json-file';
+
+
+
+
+
+
+
+
+
+
 
 const GOOGLE_ANALYTICS_URL = 'www.google-analytics.com';
 
@@ -66,6 +75,9 @@ export default function ngAdd(): Rule {
   return (_tree, context) => {
     context.addTask(new NodePackageInstallTask());
 
-    return chain([installEssentialSkyUxPackages('^14.0.0'), tryConfigureCsp()]);
+    return chain([
+      installEssentialSkyUxPackages('^14.3.12'),
+      tryConfigureCsp(),
+    ]);
   };
 }

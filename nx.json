@@ -148,6 +148,6 @@
     ]
   },
   "useInferencePlugins": false,
-  "defaultBase": "main",
+  "defaultBase": "14.x.x",
   "analytics": false
 }
