@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  input,
+} from '@angular/core';
 import { SkyAppWindowRef } from '@skyux/core';
 
 import { SkyCopyToClipboardService } from './clipboard.service';
