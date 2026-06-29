@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SkyAppConfig } from '@skyux/config';
 
 import lodashGet from 'lodash.get';
@@ -14,6 +14,7 @@ const ADO_FILE_PATH_ROOT = '?path=%2Fsrc%2Fapp';
   templateUrl: './edit-button.component.html',
   styleUrls: ['./edit-button.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class StacheEditButtonComponent implements OnInit {
   public editButtonText: string | undefined;

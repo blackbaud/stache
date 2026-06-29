@@ -104,7 +104,7 @@ describe('Image component', () => {
 
     const imageRef = el.querySelector('.sky-image') as HTMLImageElement;
     expect(imageRef.classList.contains('sky-image-border')).toBe(false);
-    cmp.showBorder = true;
+    fixture.componentRef.setInput('showBorder', true);
     fixture.detectChanges();
     expect(imageRef.classList.contains('sky-image-border')).toBe(true);
   });

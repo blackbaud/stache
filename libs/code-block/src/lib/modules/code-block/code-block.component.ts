@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -22,6 +23,7 @@ const DEFAULT_LANGUAGE = 'markup';
   templateUrl: './code-block.component.html',
   styleUrls: ['./code-block.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class SkyCodeBlockComponent implements AfterViewInit, OnChanges {
   @Input()

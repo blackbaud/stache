@@ -1,4 +1,4 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, Input } from '@angular/core';
 
 import { numberConverter } from '../shared/input-converter';
 import { StacheWindowRef } from '../shared/window-ref';
@@ -10,6 +10,7 @@ const DEFAULT_OFFSET = 200;
   templateUrl: './back-to-top.component.html',
   styleUrls: ['./back-to-top.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class StacheBackToTopComponent {
   @Input()

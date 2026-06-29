@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 const DEFAULT_IDENTIFIER = 'blank';
 
@@ -7,6 +7,7 @@ const DEFAULT_IDENTIFIER = 'blank';
   templateUrl: './layout-blank.component.html',
   styleUrls: ['./layout-blank.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class StacheLayoutBlankComponent implements OnInit {
   @Input()

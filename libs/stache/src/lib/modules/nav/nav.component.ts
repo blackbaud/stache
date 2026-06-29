@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -14,6 +14,7 @@ import { StacheNavLink } from './nav-link';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class StacheNavComponent implements OnDestroy, OnInit, StacheNav {
   @Input()

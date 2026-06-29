@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 import { StacheNav } from '../nav/nav';
 import { StacheNavLink } from '../nav/nav-link';
@@ -12,6 +12,7 @@ let uniqueId = 0;
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class StacheSidebarComponent implements StacheNav, OnInit {
   @Input()

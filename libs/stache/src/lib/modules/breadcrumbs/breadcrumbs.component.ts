@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 import { StacheNav } from '../nav/nav';
 import { StacheNavLink } from '../nav/nav-link';
@@ -9,6 +9,7 @@ import { StacheRouteService } from '../router/route.service';
   templateUrl: './breadcrumbs.component.html',
   styleUrls: ['./breadcrumbs.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class StacheBreadcrumbsComponent implements StacheNav, OnInit {
   @Input()

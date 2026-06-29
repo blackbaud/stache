@@ -2,6 +2,7 @@ import {
   AfterContentInit,
   AfterViewChecked,
   AfterViewInit,
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -23,6 +24,7 @@ import { StachePageAnchorService } from './page-anchor.service';
   templateUrl: './page-anchor.component.html',
   styleUrls: ['./page-anchor.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class StachePageAnchorComponent
   implements

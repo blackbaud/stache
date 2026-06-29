@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SkyAppConfig } from '@skyux/config';
 import { SkyLibResourcesService } from '@skyux/i18n';
 
@@ -12,6 +12,7 @@ import { StacheNavLink } from '../nav/nav-link';
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class StacheFooterComponent implements OnInit {
   public copyrightDate: Date | undefined;

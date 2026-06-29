@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, input } from '@angular/core';
 
 import { SkyCopyToClipboardComponent } from '../clipboard.component';
 
@@ -8,14 +8,14 @@ import { SkyCopyToClipboardComponent } from '../clipboard.component';
   standalone: false,
 })
 export class SkyClipboardTestComponent {
-  public ariaLabel: string | undefined;
+  public ariaLabel = input<string | undefined>(undefined);
 
-  public ariaLabelledBy: string | undefined;
+  public ariaLabelledBy = input<string | undefined>(undefined);
 
-  public buttonType: 'default' | 'icon-borderless' = 'default';
+  public buttonType = input<'default' | 'icon-borderless'>('default');
 
   @ViewChild(SkyCopyToClipboardComponent)
   public copyToClipboardComponent!: SkyCopyToClipboardComponent;
 
-  public title: string | undefined;
+  public title = input<string | undefined>(undefined);
 }

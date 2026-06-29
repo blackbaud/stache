@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'stache-test-page-anchor',
@@ -6,9 +6,7 @@ import { Component, Input } from '@angular/core';
   standalone: false,
 })
 export class StachePageAnchorTestComponent {
-  @Input()
-  public anchorContent: string;
+  public anchorContent = input<string>('');
 
-  @Input()
-  public anchorId: string;
+  public anchorId = input<string>('');
 }

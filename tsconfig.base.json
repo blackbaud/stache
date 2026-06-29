@@ -18,6 +18,7 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
       "@blackbaud/skyux-lib-clipboard": ["libs/clipboard/src/index.ts"],

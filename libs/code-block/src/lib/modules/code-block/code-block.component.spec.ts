@@ -17,7 +17,6 @@ class MockClipboardService {
 }
 
 describe('SkyCodeBlockComponent', () => {
-  let component: SkyCodeBlockTestComponent;
   let fixture: ComponentFixture<SkyCodeBlockTestComponent>;
   let element: HTMLElement;
   let mockClipboardService: MockClipboardService;
@@ -34,34 +33,33 @@ describe('SkyCodeBlockComponent', () => {
     });
 
     fixture = TestBed.createComponent(SkyCodeBlockTestComponent);
-    component = fixture.componentInstance;
     element = fixture.nativeElement;
   });
 
   it('should accept a string of code in the [code] attribute', () => {
     const code = '<p>asdf</p>';
-    component.code = code;
+    fixture.componentRef.setInput('code', code);
     fixture.detectChanges();
     expect(element.querySelector('.sky-code-output')).toHaveText(code);
   });
 
   it('should not honor angular bindings in the [code] attribute', () => {
     const code = '<p>{{asdf}}</p>';
-    component.code = code;
+    fixture.componentRef.setInput('code', code);
     fixture.detectChanges();
     expect(element.querySelector('.sky-code-output')).toHaveText(code);
   });
 
   it('should handle dynamically changing input via the code input property', fakeAsync(() => {
     const code = '{ "foo": "bar" }';
-    component.code = code;
+    fixture.componentRef.setInput('code', code);
     fixture.detectChanges();
     expect(element.querySelector('.sky-code-output')?.textContent).toContain(
       code,
     );
 
     const newCode = '{ "foo": "baz" }';
-    component.code = newCode;
+    fixture.componentRef.setInput('code', newCode);
     fixture.detectChanges();
     expect(element.querySelector('.sky-code-output')?.textContent).toContain(
       newCode,
@@ -70,7 +68,7 @@ describe('SkyCodeBlockComponent', () => {
 
   it('should convert inner HTML to a string', () => {
     const code = '<p>Hello, {{name}}!</p>';
-    component.codeAsInnerContent = code;
+    fixture.componentRef.setInput('codeAsInnerContent', code);
     fixture.detectChanges();
     expect(element.querySelector('.sky-code-output')?.textContent).toContain(
       code,
@@ -79,7 +77,7 @@ describe('SkyCodeBlockComponent', () => {
 
   it('should not honor angular bindings in the inner HTML', () => {
     const code = '<p>Hello, {{name}}!</p>';
-    component.codeAsInnerContent = code;
+    fixture.componentRef.setInput('codeAsInnerContent', code);
     fixture.detectChanges();
     expect(element.querySelector('.sky-code-output')?.textContent).toContain(
       code,
@@ -88,93 +86,93 @@ describe('SkyCodeBlockComponent', () => {
 
   it('should handle invalid language types', () => {
     const code = '<p></p>';
-    component.code = code;
+    fixture.componentRef.setInput('code', code);
     fixture.detectChanges();
     expect(element.querySelector('code.language-markup')).toExist();
 
-    component.languageType = 'invalidType';
+    fixture.componentRef.setInput('languageType', 'invalidType');
     fixture.detectChanges();
     expect(element.querySelector('code.language-markup')).toExist();
 
-    component.languageType = 'javascript';
+    fixture.componentRef.setInput('languageType', 'javascript');
     fixture.detectChanges();
     expect(element.querySelector('code.language-javascript')).toExist();
 
-    component.languageType = undefined;
+    fixture.componentRef.setInput('languageType', undefined);
     fixture.detectChanges();
     expect(element.querySelector('code.language-markup')).toExist();
   });
 
   it('should show copy to clipboard button', () => {
     const code = '<p></p>';
-    component.code = code;
+    fixture.componentRef.setInput('code', code);
     fixture.detectChanges();
     expect(element.querySelector('sky-copy-to-clipboard')).toExist();
   });
 
   it('should hide copy to clipboard button', () => {
     const code = '<p></p>';
-    component.code = code;
-    component.hideCopyToClipboard = true;
+    fixture.componentRef.setInput('code', code);
+    fixture.componentRef.setInput('hideCopyToClipboard', true);
     fixture.detectChanges();
     expect(element.querySelector('sky-copy-to-clipboard')).not.toExist();
   });
 
   it('should show the header if languageType is defined', () => {
     const code = '<p></p>';
-    component.code = code;
-    component.languageType = 'csharp';
+    fixture.componentRef.setInput('code', code);
+    fixture.componentRef.setInput('languageType', 'csharp');
     fixture.detectChanges();
     expect(element.querySelector('.sky-code-block-header')).toExist();
   });
 
   it('should show the header if copyToClipboard is shown', () => {
     const code = '<p></p>';
-    component.code = code;
-    component.hideCopyToClipboard = false;
+    fixture.componentRef.setInput('code', code);
+    fixture.componentRef.setInput('hideCopyToClipboard', false);
     fixture.detectChanges();
     expect(element.querySelector('.sky-code-block-header')).toExist();
   });
 
   it('should hide the header if hideHeader is true', () => {
     const code = '<p></p>';
-    component.code = code;
-    component.hideHeader = true;
+    fixture.componentRef.setInput('code', code);
+    fixture.componentRef.setInput('hideHeader', true);
     fixture.detectChanges();
     expect(element.querySelector('.sky-code-block-header')).not.toExist();
   });
 
   it('should hide the header if copyToClipboard is false, and languageType and fileName are undefined', () => {
     const code = '<p></p>';
-    component.code = code;
-    component.hideCopyToClipboard = true;
-    component.languageType = undefined;
-    component.fileName = undefined;
+    fixture.componentRef.setInput('code', code);
+    fixture.componentRef.setInput('hideCopyToClipboard', true);
+    fixture.componentRef.setInput('languageType', undefined);
+    fixture.componentRef.setInput('fileName', undefined);
     fixture.detectChanges();
     expect(element.querySelector('.sky-code-block-header')).not.toExist();
   });
 
   it('should update header visibility when inputs change', () => {
-    component.code = '<p></p>';
-    component.hideHeader = true;
+    fixture.componentRef.setInput('code', '<p></p>');
+    fixture.componentRef.setInput('hideHeader', true);
     fixture.detectChanges();
     expect(element.querySelector('.sky-code-block-header')).not.toExist();
-    component.hideHeader = false;
-    component.fileName = 'foo.txt';
+    fixture.componentRef.setInput('hideHeader', false);
+    fixture.componentRef.setInput('fileName', 'foo.txt');
     fixture.detectChanges();
     expect(element.querySelector('.sky-code-block-header')).toExist();
   });
 
   it('should handle undefined code', () => {
-    component.code = undefined;
-    component.codeAsInnerContent = undefined;
+    fixture.componentRef.setInput('code', undefined);
+    fixture.componentRef.setInput('codeAsInnerContent', undefined);
     fixture.detectChanges();
     expect(element.querySelector('.sky-code-output')?.textContent).toEqual('');
   });
 
   it('should pass accessibility', async () => {
     const code = '<p></p>';
-    component.code = code;
+    fixture.componentRef.setInput('code', code);
     fixture.detectChanges();
     await expectAsync(element).toBeAccessible();
   });
