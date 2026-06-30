@@ -15,7 +15,6 @@ import { StachePageAnchorModule } from './page-anchor.module';
 import { StachePageAnchorService } from './page-anchor.service';
 
 describe('StachePageAnchorComponent', () => {
-  let fixtureComponent: StachePageAnchorTestComponent;
   let fixture: ComponentFixture<StachePageAnchorTestComponent>;
   let anchorComponent: StachePageAnchorComponent;
   let mockWindowService: any;
@@ -74,7 +73,6 @@ describe('StachePageAnchorComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(StachePageAnchorTestComponent);
-    fixtureComponent = fixture.componentInstance;
     anchorComponent = fixture.debugElement.query(
       By.directive(StachePageAnchorComponent),
     ).componentInstance;
