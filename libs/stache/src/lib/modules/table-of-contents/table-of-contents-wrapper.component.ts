@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   Input,
   OnDestroy,
@@ -16,6 +17,7 @@ const HAS_TOC_CLASS_NAME = 'stache-table-of-contents-enabled';
   templateUrl: './table-of-contents-wrapper.component.html',
   styleUrls: ['./table-of-contents-wrapper.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class StacheTableOfContentsWrapperComponent
   implements AfterViewInit, OnDestroy

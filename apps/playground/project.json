@@ -7,12 +7,13 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath.base}"],
       "options": {
-        "outputPath": "dist/apps/playground",
+        "outputPath": {
+          "base": "dist/apps/playground"
+        },
         "index": "apps/playground/src/index.html",
-        "main": "apps/playground/src/main.ts",
         "polyfills": [
           "apps/playground/src/polyfills.ts",
           "@skyux/packages/polyfills"
@@ -28,7 +29,8 @@
           "node_modules/@skyux/theme/css/themes/modern/styles.css",
           "apps/playground/src/styles.scss"
         ],
-        "scripts": []
+        "scripts": [],
+        "browser": "apps/playground/src/main.ts"
       },
       "configurations": {
         "production": {
@@ -64,7 +66,7 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
       "configurations": {
         "production": {
           "buildTarget": "playground:build:production"
@@ -77,7 +79,7 @@
       "continuous": true
     },
     "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "executor": "@angular/build:extract-i18n",
       "options": {
         "buildTarget": "playground:build"
       }

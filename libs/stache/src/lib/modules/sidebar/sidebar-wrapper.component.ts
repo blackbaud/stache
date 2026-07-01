@@ -1,5 +1,7 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   OnDestroy,
@@ -20,6 +22,7 @@ let nextUniqueId = 0;
   templateUrl: './sidebar-wrapper.component.html',
   styleUrls: ['./sidebar-wrapper.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class StacheSidebarWrapperComponent implements OnDestroy, AfterViewInit {
   @Input()
@@ -33,19 +36,23 @@ export class StacheSidebarWrapperComponent implements OnDestroy, AfterViewInit {
 
   #mediaQuerySubscription: Subscription;
 
+  #changeDetectorRef: ChangeDetectorRef;
   #renderer: Renderer2;
   #windowRef: StacheWindowRef;
 
   constructor(
+    changeDetectorRef: ChangeDetectorRef,
     renderer: Renderer2,
     windowRef: StacheWindowRef,
     mediaQuerySvc: SkyMediaQueryService,
   ) {
+    this.#changeDetectorRef = changeDetectorRef;
     this.#renderer = renderer;
     this.#windowRef = windowRef;
     this.#mediaQuerySubscription = mediaQuerySvc.subscribe((args) => {
       this.sidebarOpen = args <= SkyMediaBreakpoints.sm;
       this.toggleSidebar();
+      this.#changeDetectorRef.markForCheck();
     });
   }
 

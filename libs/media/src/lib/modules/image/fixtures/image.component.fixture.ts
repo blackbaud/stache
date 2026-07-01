@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'sky-test-image-cmp',
@@ -14,7 +14,7 @@ export class SkyImageTestComponent {
 
   public imageSource: string | undefined;
 
-  public showBorder: boolean | undefined;
+  public showBorder = input<boolean | undefined>(undefined);
 
   public showCaptionPrefix: boolean | undefined;
 }

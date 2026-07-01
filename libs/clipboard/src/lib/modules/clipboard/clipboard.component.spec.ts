@@ -116,7 +116,7 @@ describe('SkyCopyToClipboardComponent', () => {
   });
 
   it('should specify an aria-label when one is given', () => {
-    component.ariaLabel = 'TEST-LABEL';
+    fixture.componentRef.setInput('ariaLabel', 'TEST-LABEL');
     fixture.detectChanges();
     const button = getCopyToClipboardButton(fixture);
     expect(button.getAttribute('aria-label')).toEqual('TEST-LABEL');
@@ -124,7 +124,7 @@ describe('SkyCopyToClipboardComponent', () => {
   });
 
   it('should specify an aria-labelledby attribute when one is given', () => {
-    component.ariaLabelledBy = 'test-aria-labelledby';
+    fixture.componentRef.setInput('ariaLabelledBy', 'test-aria-labelledby');
     fixture.detectChanges();
     const button = getCopyToClipboardButton(fixture);
     expect(button.getAttribute('aria-label')).toBeNull();
@@ -134,8 +134,8 @@ describe('SkyCopyToClipboardComponent', () => {
   });
 
   it('should specify an aria-labelledby attribute when one is given and an aria-label is given', () => {
-    component.ariaLabel = 'TEST-LABEL';
-    component.ariaLabelledBy = 'test-aria-labelledby';
+    fixture.componentRef.setInput('ariaLabel', 'TEST-LABEL');
+    fixture.componentRef.setInput('ariaLabelledBy', 'test-aria-labelledby');
     fixture.detectChanges();
     const button = getCopyToClipboardButton(fixture);
     expect(button.getAttribute('aria-label')).toBeNull();
@@ -150,7 +150,7 @@ describe('SkyCopyToClipboardComponent', () => {
   });
 
   it('should specify a title when one is given', () => {
-    component.title = 'TEST-TITLE';
+    fixture.componentRef.setInput('title', 'TEST-TITLE');
     fixture.detectChanges();
     const button = getCopyToClipboardButton(fixture);
     expect(button.getAttribute('title')).toEqual('TEST-TITLE');
@@ -163,7 +163,7 @@ describe('SkyCopyToClipboardComponent', () => {
   });
 
   it('should apply sky-btn-icon-borderless class when buttonType is icon-borderless', () => {
-    component.buttonType = 'icon-borderless';
+    fixture.componentRef.setInput('buttonType', 'icon-borderless');
     fixture.detectChanges();
     const button = getCopyToClipboardButton(fixture);
     expect(button.classList).toContain('sky-btn-icon-borderless');
@@ -176,7 +176,7 @@ describe('SkyCopyToClipboardComponent', () => {
   });
 
   it('should not render button text when buttonType is icon-borderless', () => {
-    component.buttonType = 'icon-borderless';
+    fixture.componentRef.setInput('buttonType', 'icon-borderless');
     fixture.detectChanges();
     const button = getCopyToClipboardButton(fixture);
     expect(button.querySelector('span')).toBeNull();

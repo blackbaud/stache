@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, Input, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  input,
+} from '@angular/core';
 import { SkyAppWindowRef } from '@skyux/core';
 
 import { SkyCopyToClipboardService } from './clipboard.service';
@@ -7,6 +13,7 @@ import { SkyCopyToClipboardService } from './clipboard.service';
   selector: 'sky-copy-to-clipboard',
   templateUrl: './clipboard.component.html',
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class SkyCopyToClipboardComponent {
   /**

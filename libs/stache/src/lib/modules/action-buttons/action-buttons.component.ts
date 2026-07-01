@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { StacheNavLink } from '../nav/nav-link';
 import { booleanConverter } from '../shared/input-converter';
@@ -13,6 +13,7 @@ const SEARCH_KEYS: (keyof StacheNavLink)[] = ['name', 'summary'];
   templateUrl: './action-buttons.component.html',
   styleUrls: ['./action-buttons.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class StacheActionButtonsComponent {
   @Input()

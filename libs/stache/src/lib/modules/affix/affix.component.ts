@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -18,6 +19,7 @@ import { StacheAffixTopDirective } from './affix-top.directive';
   templateUrl: './affix.component.html',
   styleUrls: ['./affix.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class StacheAffixComponent implements AfterViewInit, OnDestroy {
   @ViewChild('stacheAffixWrapper', {

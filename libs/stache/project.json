@@ -29,7 +29,7 @@
       }
     },
     "test": {
-      "executor": "@angular-devkit/build-angular:karma",
+      "executor": "@angular/build:karma",
       "options": {
         "tsConfig": "libs/stache/tsconfig.spec.json",
         "karmaConfig": "libs/stache/karma.conf.js",

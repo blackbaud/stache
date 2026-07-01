@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { booleanConverter } from '../shared/input-converter';
 
@@ -7,6 +7,7 @@ import { booleanConverter } from '../shared/input-converter';
   templateUrl: './tutorial-step.component.html',
   styleUrls: ['./tutorial-step.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class StacheTutorialStepComponent {
   @Input()

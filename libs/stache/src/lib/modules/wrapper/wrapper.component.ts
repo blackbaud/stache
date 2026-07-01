@@ -1,6 +1,7 @@
 /* tslint:disable:component-selector */
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Input,
@@ -33,6 +34,7 @@ import { StacheTitleService } from './title.service';
   templateUrl: './wrapper.component.html',
   styleUrls: ['./wrapper.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class StacheWrapperComponent
   implements OnInit, AfterViewInit, OnDestroy

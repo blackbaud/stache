@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'sky-test-component',
@@ -6,15 +6,15 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class SkyCodeBlockTestComponent {
-  public code: string | undefined;
+  public code = input<string | undefined>(undefined);
 
-  public codeAsInnerContent: string | undefined;
+  public codeAsInnerContent = input<string | undefined>(undefined);
 
-  public fileName: string | undefined;
+  public fileName = input<string | undefined>(undefined);
 
-  public hideCopyToClipboard: boolean | undefined;
+  public hideCopyToClipboard = input<boolean | undefined>(undefined);
 
-  public hideHeader: boolean | undefined;
+  public hideHeader = input<boolean | undefined>(undefined);
 
-  public languageType: string | undefined;
+  public languageType = input<string | undefined>(undefined);
 }

@@ -15,7 +15,6 @@ import { StachePageAnchorModule } from './page-anchor.module';
 import { StachePageAnchorService } from './page-anchor.service';
 
 describe('StachePageAnchorComponent', () => {
-  let fixtureComponent: StachePageAnchorTestComponent;
   let fixture: ComponentFixture<StachePageAnchorTestComponent>;
   let anchorComponent: StachePageAnchorComponent;
   let mockWindowService: any;
@@ -74,7 +73,6 @@ describe('StachePageAnchorComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(StachePageAnchorTestComponent);
-    fixtureComponent = fixture.componentInstance;
     anchorComponent = fixture.debugElement.query(
       By.directive(StachePageAnchorComponent),
     ).componentInstance;
@@ -83,7 +81,7 @@ describe('StachePageAnchorComponent', () => {
   it('should scroll to anchor', () => {
     const scrollSpy = spyOn(mockAnchorService, 'scrollToAnchor');
 
-    fixtureComponent.anchorContent = 'foo';
+    fixture.componentRef.setInput('anchorContent', 'foo');
     fixture.detectChanges();
 
     anchorComponent.scrollToAnchor();
@@ -92,19 +90,19 @@ describe('StachePageAnchorComponent', () => {
   });
 
   it('should populate data after view init', () => {
-    fixtureComponent.anchorContent = 'foo';
+    fixture.componentRef.setInput('anchorContent', 'foo');
     fixture.detectChanges();
     expect(anchorComponent.name).toEqual('foo');
   });
 
   it('should populate data after view init', () => {
-    fixtureComponent.anchorContent = 'foo';
+    fixture.componentRef.setInput('anchorContent', 'foo');
     fixture.detectChanges();
     expect(anchorComponent.name).toEqual('foo');
   });
 
   it('should set the anchors id/fragment from the anchor content', () => {
-    fixtureComponent.anchorContent = 'foo';
+    fixture.componentRef.setInput('anchorContent', 'foo');
     fixture.detectChanges();
     const el = fixture.debugElement.nativeElement.querySelector(
       '.stache-page-anchor',
@@ -114,8 +112,8 @@ describe('StachePageAnchorComponent', () => {
   });
 
   it('should set the anchors id/fragment to anchorId over anchor content', () => {
-    fixtureComponent.anchorId = 'bar';
-    fixtureComponent.anchorContent = 'foo';
+    fixture.componentRef.setInput('anchorId', 'bar');
+    fixture.componentRef.setInput('anchorContent', 'foo');
     fixture.detectChanges();
     const el = fixture.debugElement.nativeElement.querySelector(
       '.stache-page-anchor',
@@ -133,11 +131,11 @@ describe('StachePageAnchorComponent', () => {
   });
 
   it('should update the name value if the textContent changes ', () => {
-    fixtureComponent.anchorContent = 'foo';
+    fixture.componentRef.setInput('anchorContent', 'foo');
     fixture.detectChanges();
     expect(anchorComponent.name).toEqual('foo');
 
-    fixtureComponent.anchorContent = 'bar';
+    fixture.componentRef.setInput('anchorContent', 'bar');
     fixture.detectChanges();
     expect(anchorComponent.name).toEqual('bar');
   });

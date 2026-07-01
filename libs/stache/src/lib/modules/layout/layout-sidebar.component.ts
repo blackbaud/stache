@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { StacheNavLink } from '../nav/nav-link';
 import { booleanConverter } from '../shared/input-converter';
@@ -9,6 +9,7 @@ import { StacheLayout } from './layout';
   selector: 'stache-layout-sidebar',
   templateUrl: './layout-sidebar.component.html',
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class StacheLayoutSidebarComponent implements StacheLayout {
   @Input()

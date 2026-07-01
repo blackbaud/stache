@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   Input,
@@ -22,6 +23,7 @@ const DEFAULT_LAYOUT = 'sidebar';
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class StacheLayoutComponent implements OnInit, OnChanges, StacheLayout {
   @Input()

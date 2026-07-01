@@ -11,6 +11,12 @@ module.exports = [
     },
   },
   {
+    files: ['libs/**/*.ts'],
+    rules: {
+      '@angular-eslint/prefer-on-push-component-change-detection': 'warn',
+    },
+  },
+  {
     files: ['**/*.spec.ts', '**/fixtures/**/*.ts'],
     rules: {
       '@nx/enforce-module-boundaries': 'warn',
