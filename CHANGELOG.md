@@ -1,6 +1,17 @@
 # Changelog
 
 
+## [15.0.0-beta.0](https://github.com/blackbaud/stache/compare/14.0.1...15.0.0-beta.0) (2026-07-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* add support for Angular 22 (#170)
+
+### Features
+
+* add support for Angular 22 ([#170](https://github.com/blackbaud/stache/issues/170)) ([d8882e9](https://github.com/blackbaud/stache/commit/d8882e9e38d98a24a7cad57a07c0208e9ad761da))
+
 ## [14.0.1](https://github.com/blackbaud/stache/compare/14.0.0...14.0.1) (2026-04-03)
 
 
