@@ -1,7 +1,7 @@
 # Changelog
 
 
-## [15.0.0-beta.0](https://github.com/blackbaud/stache/compare/14.0.1...15.0.0-beta.0) (2026-07-02)
+## [15.0.0-beta.0](https://github.com/blackbaud/stache/compare/14.0.1...15.0.0-beta.0) (2026-07-03)
 
 
 ### ⚠ BREAKING CHANGES
