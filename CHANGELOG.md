@@ -1,6 +1,11 @@
 # Changelog
 
 
+## [14.0.2](https://github.com/blackbaud/stache/compare/14.0.1...14.0.2) (2026-09-03)
+
+### Bug Fixes
+
+* code component uses correct dark mode tokens and navigation links maintain historical underline behavior ([#174](https://github.com/blackbaud/stache/issues/174)) ([34a1f6c](https://github.com/blackbaud/stache/commit/34a1f6c3a5e140df9769c3c66f481ff4d9b8ed48))
 ## [15.0.0-beta.0](https://github.com/blackbaud/stache/compare/14.0.1...15.0.0-beta.0) (2026-07-08)
 
 
