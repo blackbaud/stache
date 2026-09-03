@@ -11,6 +11,22 @@
   border-left: var(--sky-border-width-selected-m, 4px) solid transparent;
 
   .stache-sidebar-heading-link {
+    --sky-comp-override-inline-link-text-decoration-line: var(
+      --sky-font-text_decoration-standalone_link-base
+    );
+    --sky-comp-override-inline-link-text-decoration-line-hover: var(
+      --sky-font-text_decoration-standalone_link-hover
+    );
+    --sky-comp-override-inline-link-text-decoration-line-active: var(
+      --sky-font-text_decoration-standalone_link-active
+    );
+    --sky-comp-override-inline-link-text-decoration-line-focus: var(
+      --sky-font-text_decoration-standalone_link-focus
+    );
+    --sky-comp-override-inline-link-text-decoration-line-disabled: var(
+      --sky-font-text_decoration-standalone_link-disabled
+    );
+
     display: block;
     margin: 1em 0 0.85em;
     color: var(--sky-color-text-default, vars.$stache-text-color-default);
@@ -27,7 +43,7 @@
   }
 
   &:hover {
-    text-decoration: underline;
+    text-decoration-line: underline;
   }
 
   &:active,
@@ -66,6 +82,7 @@
     &:hover {
       > .stache-nav-anchor {
         color: var(--sky-color-text-default, vars.$stache-text-color-default);
+        text-decoration-line: underline;
       }
     }
   }
