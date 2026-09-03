@@ -17,7 +17,7 @@
   );
   padding: 0 4px;
   background-color: var(
-    --sky-color-container-dimmed,
+    --sky-color-background-container-base,
     vars.$sky-background-color-selected
   );
 
@@ -27,13 +27,20 @@
         --sky-color-text-danger,
         vars.$sky-background-color-danger-dark
       );
-      text-decoration: underline;
+      text-decoration-line: underline;
+
+      &:hover {
+        color: var(
+          --sky-color-text-danger,
+          vars.$sky-background-color-danger-dark
+        );
+      }
     }
   }
 }
 
 ::ng-deep {
   a .sky-code {
-    text-decoration: underline;
+    text-decoration-line: underline;
   }
 }
