@@ -21,7 +21,11 @@ const DEFAULT_LANGUAGE = 'markup';
 @Component({
   selector: 'sky-code-block',
   templateUrl: './code-block.component.html',
-  styleUrls: ['./code-block.component.scss'],
+  styleUrls: [
+    './code-block.component.scss',
+    './themes/vscode-modern-light.scss',
+    './themes/vscode-modern-dark.scss',
+  ],
   standalone: false,
   changeDetection: ChangeDetectionStrategy.Eager,
 })
