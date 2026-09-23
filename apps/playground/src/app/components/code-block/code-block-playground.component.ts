@@ -25,11 +25,9 @@ export class GreetingComponent {
 }`;
 
   protected readonly htmlSample = `<!-- A simple SKY UX button -->
-<sky-code-block fileName="my-file.ts" languageType="typescript">
-  <button class="sky-btn sky-btn-primary" type="button" [disabled]="busy">
-    Save &amp; close
-  </button>
-</sky-code-block>`;
+<button class="sky-btn sky-btn-primary" type="button" [disabled]="busy">
+  Save &amp; close
+</button>`;
 
   protected readonly cssSample = `/* Card container */
 .sky-card {
