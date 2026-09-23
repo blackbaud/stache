@@ -1,0 +1,70 @@
+/**
+ * VS Code Modern Light palette applied to prism.js token classes.
+ * Mirrors the code snippet theme in @skyux/docs-tools. Used for every theme
+ * and mode; the dark palette in vscode-modern-dark.scss overrides it.
+ */
+sky-code-block code[class*='language-'] {
+  .token.comment,
+  .token.prolog,
+  .token.doctype,
+  .token.cdata {
+    color: #008000;
+  }
+
+  .token.keyword,
+  .token.atrule,
+  .token.boolean,
+  .token.important {
+    color: #0000ff;
+  }
+
+  .token.class-name,
+  .token.builtin,
+  .namespace {
+    color: #267f99;
+  }
+
+  .token.function {
+    color: #795e26;
+  }
+
+  .token.property,
+  .token.constant,
+  .token.symbol {
+    color: #0070c1;
+  }
+
+  .token.variable {
+    color: #001080;
+  }
+
+  .token.string,
+  .token.char,
+  .token.regex,
+  .token.deleted {
+    color: #a31515;
+  }
+
+  .token.number,
+  .token.inserted {
+    color: #098658;
+  }
+
+  .token.tag {
+    color: #800000;
+  }
+
+  .token.attr-name,
+  .language-css .token.property {
+    color: #e50000;
+  }
+
+  .token.attr-value {
+    color: #0000ff;
+  }
+
+  &::selection,
+  & ::selection {
+    background: #add6ff;
+  }
+}
