@@ -3,6 +3,10 @@
 
 ## [15.0.0-beta.1](https://github.com/blackbaud/stache/compare/15.0.0-beta.0...15.0.0-beta.1) (2026-09-23)
 
+### Features
+
+* **code-block:** add dark mode support to code block ([#178](https://github.com/blackbaud/stache/issues/178)) ([ef79f39](https://github.com/blackbaud/stache/commit/ef79f3944718df4865b2715fd37f9a356913b801))
+
 ## [14.0.2](https://github.com/blackbaud/stache/compare/14.0.1...14.0.2) (2026-09-03)
 
 ### Bug Fixes
