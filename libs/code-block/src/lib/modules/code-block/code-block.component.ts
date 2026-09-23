@@ -8,6 +8,7 @@ import {
   OnChanges,
   SimpleChanges,
   ViewChild,
+  ViewEncapsulation,
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
@@ -28,6 +29,10 @@ const DEFAULT_LANGUAGE = 'markup';
   ],
   standalone: false,
   changeDetection: ChangeDetectionStrategy.Eager,
+  // Highlighted tokens are injected via innerHTML and never receive Angular's
+  // emulated-encapsulation attribute, so styles are scoped by element selector
+  // instead (see code-block.component.scss and ./themes).
+  encapsulation: ViewEncapsulation.None,
 })
 export class SkyCodeBlockComponent implements AfterViewInit, OnChanges {
   @Input()

@@ -3,7 +3,7 @@
  * Mirrors the code snippet theme in @skyux/docs-tools and only applies when
  * the SKY UX modern theme is in dark mode.
  */
-::ng-deep .sky-theme-modern.sky-theme-mode-dark code[class*='language-'] {
+.sky-theme-modern.sky-theme-mode-dark sky-code-block code[class*='language-'] {
   .token.comment,
   .token.prolog,
   .token.doctype,

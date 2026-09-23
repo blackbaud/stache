@@ -38,7 +38,7 @@
  * Structural prism.js rules, based on the default prism theme. Token colors
  * live in the theme files under ./themes.
  */
-::ng-deep code[class*='language-'] {
+sky-code-block code[class*='language-'] {
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   text-align: left;
   white-space: pre;
