@@ -1,0 +1,70 @@
+/**
+ * VS Code Modern Dark palette applied to prism.js token classes.
+ * Mirrors the code snippet theme in @skyux/docs-tools and only applies when
+ * the SKY UX modern theme is in dark mode.
+ */
+.sky-theme-modern.sky-theme-mode-dark sky-code-block code[class*='language-'] {
+  .token.comment,
+  .token.prolog,
+  .token.doctype,
+  .token.cdata {
+    color: #6a9955;
+  }
+
+  .token.keyword,
+  .token.atrule,
+  .token.boolean,
+  .token.important {
+    color: #569cd6;
+  }
+
+  .token.class-name,
+  .token.builtin,
+  .namespace {
+    color: #4ec9b0;
+  }
+
+  .token.function {
+    color: #dcdcaa;
+  }
+
+  .token.property,
+  .token.constant,
+  .token.symbol {
+    color: #4fc1ff;
+  }
+
+  .token.variable {
+    color: #9cdcfe;
+  }
+
+  .token.string,
+  .token.char,
+  .token.regex,
+  .token.deleted {
+    color: #ce9178;
+  }
+
+  .token.number,
+  .token.inserted {
+    color: #b5cea8;
+  }
+
+  .token.tag {
+    color: #569cd6;
+  }
+
+  .token.attr-name,
+  .language-css .token.property {
+    color: #9cdcfe;
+  }
+
+  .token.attr-value {
+    color: #ce9178;
+  }
+
+  &::selection,
+  & ::selection {
+    background: #264f78;
+  }
+}
