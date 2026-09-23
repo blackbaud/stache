@@ -1,6 +1,5 @@
 @use '@skyux/theme/scss/mixins' as mixins;
 @use '@skyux/theme/scss/variables' as vars;
-@use './prism-a11y.scss';
 
 .sky-code-input {
   display: none;
@@ -33,4 +32,40 @@
   align-items: center;
   padding: vars.$sky-space-xs;
   padding-left: vars.$sky-space-xl;
+}
+
+/**
+ * Structural prism.js rules, based on the default prism theme. Token colors
+ * live in the theme files under ./themes.
+ */
+sky-code-block code[class*='language-'] {
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+
+  .token.important,
+  .token.bold {
+    font-weight: bold;
+  }
+
+  .token.italic {
+    font-style: italic;
+  }
+
+  .token.entity {
+    cursor: help;
+  }
 }
