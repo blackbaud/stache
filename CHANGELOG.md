@@ -1,15 +1,11 @@
 # Changelog
 
 
-## [15.0.0-beta.1](https://github.com/blackbaud/stache/compare/15.0.0-beta.0...15.0.0-beta.1) (2026-09-24)
+## [14.1.0](https://github.com/blackbaud/stache/compare/14.0.2...14.1.0) (2026-09-24)
 
 ### Features
 
-* **code-block:** add dark mode support to code block ([#178](https://github.com/blackbaud/stache/issues/178)) ([ef79f39](https://github.com/blackbaud/stache/commit/ef79f3944718df4865b2715fd37f9a356913b801))
-
-### Bug Fixes
-
-* code component uses correct dark mode tokens and navigation links maintain historical underline behavior ([#174](https://github.com/blackbaud/stache/issues/174)) ([#180](https://github.com/blackbaud/stache/issues/180)) ([61ee98e](https://github.com/blackbaud/stache/commit/61ee98e82b6e534b0c1f24266a634c66a1767bdd))
+* **code-block:** add dark mode support to code block ([#178](https://github.com/blackbaud/stache/issues/178)) 🍒 ([#179](https://github.com/blackbaud/stache/issues/179)) ([1bd9984](https://github.com/blackbaud/stache/commit/1bd99846a6b5fcfc08278726fdb49fc7afe60944))
 
 ## [14.0.2](https://github.com/blackbaud/stache/compare/14.0.1...14.0.2) (2026-09-03)
 
@@ -17,6 +13,7 @@
 
 * code component uses correct dark mode tokens and navigation links maintain historical underline behavior ([#174](https://github.com/blackbaud/stache/issues/174)) ([34a1f6c](https://github.com/blackbaud/stache/commit/34a1f6c3a5e140df9769c3c66f481ff4d9b8ed48))
 ## [15.0.0-beta.0](https://github.com/blackbaud/stache/compare/14.0.1...15.0.0-beta.0) (2026-07-08)
+
 
 
 ### ⚠ BREAKING CHANGES
