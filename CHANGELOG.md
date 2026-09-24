@@ -7,6 +7,10 @@
 
 * **code-block:** add dark mode support to code block ([#178](https://github.com/blackbaud/stache/issues/178)) ([ef79f39](https://github.com/blackbaud/stache/commit/ef79f3944718df4865b2715fd37f9a356913b801))
 
+### Bug Fixes
+
+* code component uses correct dark mode tokens and navigation links maintain historical underline behavior ([#174](https://github.com/blackbaud/stache/issues/174)) ([#180](https://github.com/blackbaud/stache/issues/180)) ([61ee98e](https://github.com/blackbaud/stache/commit/61ee98e82b6e534b0c1f24266a634c66a1767bdd))
+
 ## [14.0.2](https://github.com/blackbaud/stache/compare/14.0.1...14.0.2) (2026-09-03)
 
 ### Bug Fixes
