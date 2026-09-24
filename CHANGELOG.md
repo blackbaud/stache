@@ -1,6 +1,8 @@
 # Changelog
 
 
+## [15.0.0-beta.1](https://github.com/blackbaud/stache/compare/15.0.0-beta.0...15.0.0-beta.1) (2026-09-24)
+
 ## [14.1.0](https://github.com/blackbaud/stache/compare/14.0.2...14.1.0) (2026-09-24)
 
 ### Features
