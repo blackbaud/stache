@@ -23,7 +23,7 @@ jobs:
       tag_name: ${{ steps.release.outputs.tag_name || '' }}
       dry_run: ${{ steps.next-release.outputs.dry_run || 'false' }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           token: '${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}'
@@ -64,11 +64,18 @@ jobs:
             const releaseExists = await github.rest.repos.getReleaseByTag({ ...context.repo, tag: nextVersion }).then(() => true).catch(() => false);
             if (!releaseExists) {
               const releaseNotes = (await exec.getExecOutput('npx', ['skyux-dev', 'release-notes', `--releaseName=${nextVersion}`])).stdout;
-              await github.rest.repos.createRelease({ ...context.repo, name: `v${nextVersion}`, tag_name: nextVersion, body: releaseNotes, prerelease: nextVersion.includes('-') });
+              await github.rest.repos.createRelease({
+                ...context.repo,
+                name: `v${nextVersion}`,
+                tag_name: nextVersion,
+                target_commitish: context.ref,
+                body: releaseNotes,
+                prerelease: nextVersion.includes('-')
+              });
             }
       - name: Notify Slack (failure)
         if: ${{ failure() }}
-        uses: rtCamp/action-slack-notify@07cbdbfd6c6190970778d8f98f11d073b2932aae # v2.3.3
+        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # https://github.com/rtCamp/action-slack-notify/releases/tag/v2.3.3
         env:
           SLACK_COLOR: ${{ job.status }}
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
@@ -85,7 +92,7 @@ jobs:
     if: ${{ needs.next-release.outputs.release_created || needs.next-release.outputs.dry_run == 'true' }}
     environment: 'npm'
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           token: '${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}'
@@ -111,14 +118,14 @@ jobs:
         run: npx skyux-dev publish-packages-dist --skip-registry-config --dry-run=${{ needs.next-release.outputs.dry_run }}
       - name: Capture logs
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: npm-logs
           path: /home/runner/.npm/_logs
           retention-days: 3
       - name: Notify Slack (success)
         if: ${{ success() }}
-        uses: rtCamp/action-slack-notify@07cbdbfd6c6190970778d8f98f11d073b2932aae # v2.3.3
+        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # https://github.com/rtCamp/action-slack-notify/releases/tag/v2.3.3
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_MESSAGE: "Successfully published ${{ github.repository }} ${{ needs.next-release.outputs.tag_name || steps.dry-run.outputs.tag_name }} to NPM${{ needs.next-release.outputs.dry_run == 'true' && ' (DRY RUN)' || '' }}. http://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/CHANGELOG.md"
@@ -128,7 +135,7 @@ jobs:
           SLACK_CHANNEL: ${{ needs.next-release.outputs.dry_run == 'true' && 'C01GY7ZP4HM' || 'C7CJ0QS75' }}
       - name: Notify Slack (failure)
         if: ${{ failure() }}
-        uses: rtCamp/action-slack-notify@07cbdbfd6c6190970778d8f98f11d073b2932aae # v2.3.3
+        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # https://github.com/rtCamp/action-slack-notify/releases/tag/v2.3.3
         env:
           SLACK_COLOR: ${{ job.status }}
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
