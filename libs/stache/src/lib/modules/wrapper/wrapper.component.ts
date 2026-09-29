@@ -29,7 +29,7 @@ import { StacheTitleService } from './title.service';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
-  // eslint-disable-next-line @angular-eslint/component-selector
+
   selector: 'stache',
   templateUrl: './wrapper.component.html',
   styleUrls: ['./wrapper.component.scss'],
