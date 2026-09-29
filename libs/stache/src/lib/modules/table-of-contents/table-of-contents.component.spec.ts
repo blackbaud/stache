@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Route } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SkyAppTestUtility, expect, expectAsync } from '@skyux-sdk/testing';
+import { expect, expectAsync } from '@skyux-sdk/testing';
 import { SkyAppConfig } from '@skyux/config';
+import { SkyAppTestUtility } from '@skyux/core/testing';
 
 import { StacheNavLink } from '../nav/nav-link';
 import { StacheWindowRef } from '../shared/window-ref';

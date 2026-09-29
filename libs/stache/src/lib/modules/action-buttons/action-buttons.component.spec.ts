@@ -48,8 +48,12 @@ describe('StacheActionButtonsComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [StacheActionButtonsModule, RouterTestingModule],
-      providers: [{ provide: StacheRouteService, useValue: mockRouteService }],
+      providers: [
+        MockRouteService,
+        { provide: StacheRouteService, useExisting: MockRouteService },
+      ],
     });
+    mockRouteService = TestBed.inject(MockRouteService);
 
     fixture = TestBed.createComponent(StacheActionButtonsComponent);
     component = fixture.componentInstance;

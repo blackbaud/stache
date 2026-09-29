@@ -28,7 +28,7 @@ export class StacheJsonDataService {
     }
 
     if (!this.#jsonData[name]) {
-      return;
+      return undefined;
     }
 
     return this.#jsonData[name];
@@ -39,8 +39,7 @@ export class StacheJsonDataService {
 
     for (let i = 0; i < keys.length; i++) {
       if (baseData[keys[i]] === undefined) {
-        baseData = undefined;
-        return;
+        return undefined;
       }
 
       baseData = baseData[keys[i]];

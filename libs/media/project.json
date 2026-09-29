@@ -9,6 +9,7 @@
     "build": {
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "defaultConfiguration": "production",
       "options": {
         "project": "libs/media/ng-package.json"
       },
@@ -19,19 +20,14 @@
         "development": {
           "tsConfig": "libs/media/tsconfig.lib.json"
         }
-      },
-      "defaultConfiguration": "production"
+      }
     },
     "test": {
       "executor": "@angular/build:karma",
       "options": {
         "tsConfig": "libs/media/tsconfig.spec.json",
         "karmaConfig": "libs/media/karma.conf.js",
-        "polyfills": [
-          "zone.js",
-          "zone.js/testing",
-          "@skyux/packages/polyfills"
-        ],
+        "polyfills": ["zone.js", "zone.js/testing"],
         "codeCoverage": true,
         "codeCoverageExclude": ["**/fixtures/**"],
         "styles": [
