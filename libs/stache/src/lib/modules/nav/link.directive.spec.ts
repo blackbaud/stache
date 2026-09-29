@@ -7,11 +7,11 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Routes } from '@angular/router';
+import { expect } from '@skyux-sdk/testing';
 import {
   SkyAppTestUtility,
   SkyAppTestUtilityDomEventOptions,
-  expect,
-} from '@skyux-sdk/testing';
+} from '@skyux/core/testing';
 
 import { StacheRouteService } from '../router/route.service';
 

@@ -14,10 +14,6 @@
           "base": "dist/apps/playground"
         },
         "index": "apps/playground/src/index.html",
-        "polyfills": [
-          "apps/playground/src/polyfills.ts",
-          "@skyux/packages/polyfills"
-        ],
         "tsConfig": "apps/playground/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [

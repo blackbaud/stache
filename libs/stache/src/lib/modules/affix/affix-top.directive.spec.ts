@@ -8,7 +8,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { expect } from '@skyux-sdk/testing';
-import { SkyAppTestUtility } from '@skyux-sdk/testing';
+import { SkyAppTestUtility } from '@skyux/core/testing';
 
 import { StacheViewportAdapterService } from '../shared/viewport-adapter.service';
 

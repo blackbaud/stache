@@ -4,10 +4,48 @@ import { Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { expect, expectAsync } from '@skyux-sdk/testing';
 
+
+
 import { StacheRouteService } from '../router/route.service';
+
+
 
 import { StacheActionButtonsComponent } from './action-buttons.component';
 import { StacheActionButtonsModule } from './action-buttons.module';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 describe('StacheActionButtonsComponent', () => {
   const mockActiveUrl = '';
@@ -48,8 +86,12 @@ describe('StacheActionButtonsComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [StacheActionButtonsModule, RouterTestingModule],
-      providers: [{ provide: StacheRouteService, useValue: mockRouteService }],
+      providers: [
+        MockRouteService,
+        { provide: StacheRouteService, useExisting: MockRouteService },
+      ],
     });
+    mockRouteService = TestBed.inject(MockRouteService);
 
     fixture = TestBed.createComponent(StacheActionButtonsComponent);
     component = fixture.componentInstance;

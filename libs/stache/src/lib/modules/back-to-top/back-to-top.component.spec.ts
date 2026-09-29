@@ -7,7 +7,7 @@ import {
   tick,
 } from '@angular/core/testing';
 import { expect, expectAsync } from '@skyux-sdk/testing';
-import { SkyAppTestUtility } from '@skyux-sdk/testing';
+import { SkyAppTestUtility } from '@skyux/core/testing';
 
 import { StacheWindowRef } from '../shared/window-ref';
 
