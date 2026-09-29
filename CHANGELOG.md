@@ -1,7 +1,7 @@
 # Changelog
 
 
-## [15.0.0-beta.2](https://github.com/blackbaud/stache/compare/14.0.1...15.0.0-beta.2) (2026-09-29)
+## [15.0.0](https://github.com/blackbaud/stache/compare/14.0.1...15.0.0) (2026-09-29)
 
 ### ⚠ BREAKING CHANGES
 
@@ -11,6 +11,7 @@
 
 * add support for Angular 22 ([#170](https://github.com/blackbaud/stache/issues/170)) ([d8882e9](https://github.com/blackbaud/stache/commit/d8882e9e38d98a24a7cad57a07c0208e9ad761da))
 * **code-block:** add dark mode support to code block ([#178](https://github.com/blackbaud/stache/issues/178)) ([ef79f39](https://github.com/blackbaud/stache/commit/ef79f3944718df4865b2715fd37f9a356913b801))
+* release 15.0.0 ([#188](https://github.com/blackbaud/stache/issues/188)) ([dfea3ec](https://github.com/blackbaud/stache/commit/dfea3ec0a236f4cb1cc59300a7ba86d4cce4ccbf))
 
 ### Bug Fixes
 
