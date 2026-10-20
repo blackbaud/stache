@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SkyAppConfig } from '@skyux/config';
 import { SkyLibResourcesService } from '@skyux/i18n';
 
-import lodashGet from 'lodash.get';
 import { first } from 'rxjs/operators';
 
 import { StacheNavLink } from '../nav/nav-link';
@@ -34,11 +33,8 @@ export class StacheFooterComponent implements OnInit {
   }
 
   #setFooterData(): void {
-    const navItems = lodashGet(
-      this.#configSvc,
-      'skyux.appSettings.stache.footer.nav.items',
-      [],
-    ) as { title: string; route: string }[];
+    const navItems: { title: string; route: string }[] =
+      this.#configSvc.skyux?.appSettings?.stache?.footer?.nav?.items ?? [];
 
     this.footerLinks = navItems.map((link) => {
       return {
@@ -51,13 +47,11 @@ export class StacheFooterComponent implements OnInit {
       .getString('stache_copyright_label')
       .pipe(first())
       .subscribe((value) => {
-        this.copyrightLabel = lodashGet(
-          this.#configSvc,
-          'skyux.appSettings.stache.footer.copyrightLabel',
-          value,
-        );
+        this.copyrightLabel =
+          this.#configSvc.skyux?.appSettings?.stache?.footer?.copyrightLabel ??
+          value;
       });
 
-    this.siteName = lodashGet(this.#configSvc, 'skyux.app.title');
+    this.siteName = this.#configSvc.skyux?.app?.title;
   }
 }

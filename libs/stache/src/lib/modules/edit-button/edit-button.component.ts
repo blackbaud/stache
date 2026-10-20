@@ -1,8 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SkyAppConfig } from '@skyux/config';
 
-import lodashGet from 'lodash.get';
-
 import { StacheRouteService } from '../router/route.service';
 
 const GITHUB_FILE_PATH_ROOT = '/tree/master/src/app';
@@ -30,18 +28,13 @@ export class StacheEditButtonComponent implements OnInit {
 
   public ngOnInit(): void {
     this.url = this.#getUrl();
-    this.editButtonText = lodashGet(
-      this.#config,
-      'skyux.appSettings.stache.editButton.text',
-      'Edit',
-    );
+    this.editButtonText =
+      this.#config.skyux?.appSettings?.stache?.editButton?.text ?? 'Edit';
   }
 
   #getUrl(): string {
-    const base = lodashGet(
-      this.#config,
-      'skyux.appSettings.stache.editButton.url',
-    );
+    const base: string | undefined =
+      this.#config.skyux?.appSettings?.stache?.editButton?.url;
     if (!base) {
       return '';
     }
