@@ -1,6 +1,12 @@
 # Changelog
 
 
+## [15.0.1](https://github.com/blackbaud/stache/compare/15.0.0...15.0.1) (2026-10-21)
+
+### Bug Fixes
+
+* **stache:** remove `lodash.get` dependency in favor of optional chaining ([#191](https://github.com/blackbaud/stache/issues/191)) ([d4f7601](https://github.com/blackbaud/stache/commit/d4f7601744f77a0a85a6566f663c168ca2789f6e))
+
 ## [15.0.0](https://github.com/blackbaud/stache/compare/14.0.1...15.0.0) (2026-09-29)
 
 ### ⚠ BREAKING CHANGES
