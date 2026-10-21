@@ -12,7 +12,6 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { SkyAppConfig } from '@skyux/config';
 
-import lodashGet from 'lodash.get';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
@@ -145,18 +144,12 @@ export class StacheWrapperComponent
   }
 
   private checkEditButtonUrl(): boolean {
-    const url = lodashGet(
-      this.config,
-      'skyux.appSettings.stache.editButton.url',
-    );
+    const url = this.config.skyux?.appSettings?.stache?.editButton?.url;
     return url !== undefined;
   }
 
   private checkFooterData(): boolean {
-    const footerData = lodashGet(
-      this.config,
-      'skyux.appSettings.stache.footer',
-    );
+    const footerData = this.config.skyux?.appSettings?.stache?.footer;
     return footerData !== undefined;
   }
 
